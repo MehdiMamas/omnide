@@ -1,0 +1,340 @@
+[
+  {
+    "id": "Q01",
+    "area": "product",
+    "question": "What is OmnIDE technically, and what does it cost the user?",
+    "answer": "A Code-OSS fork (microsoft/vscode at a release tag, rebased per upstream release; own gulp packaging, signing and notarization), heavily inspired by Cursor in features and flows, with its own brand. Its agent runs on VS Code's built-in Agent Host. It is free: every Cursor plan/upgrade lock is removed and there is no OmnIDE account. Claude use is paid for by the user's own Claude subscription (or optional API key).",
+    "source": "https://github.com/MehdiMamas/omnide/issues/10 (last comment sections 1; v4 comment)"
+  },
+  {
+    "id": "Q02",
+    "area": "product",
+    "question": "Which login does OmnIDE use for Claude, and what is OmnIDE forbidden to do with credentials?",
+    "answer": "The user signs in with Anthropic's own flow (`claude /login`) on their installed `claude` CLI; OmnIDE never sees or stores a Claude login. Forbidden: offering its own claude.ai login or passing on login tokens (developers may not collect, store or intermediate Claude.ai credentials).",
+    "source": "https://github.com/MehdiMamas/omnide/issues/10 (last comment); https://code.claude.com/docs/en/legal-and-compliance"
+  },
+  {
+    "id": "Q03",
+    "area": "product",
+    "question": "What do the app's brand elements look like?",
+    "answer": "Logo: purple ring (an O) with a code caret inside. Accent #7C3AED, buttons #6D28D9 (white text contrast 7.1:1), links on dark backgrounds #B69CFF. Fonts: Geist and Geist Mono (OFL). Icons: stock codicons. Purple-tinted neutrals.",
+    "source": "https://github.com/MehdiMamas/omnide/issues/10 (comments 2, 3, 4)"
+  },
+  {
+    "id": "Q04",
+    "area": "product",
+    "question": "How is OmnIDE distributed and how do updates reach users (domain, signing)?",
+    "answer": "No domain. Downloads come from GitHub Releases; `latest.json` is served from GitHub Pages. macOS builds are signed and notarised through the owner's Apple Developer Program.",
+    "source": "https://github.com/MehdiMamas/omnide/issues/10 (comment 1, Q2 and Q3)"
+  },
+  {
+    "id": "Q05",
+    "area": "product",
+    "question": "A user asks: is the 'OmnIDE' name cleared as a trademark?",
+    "answer": "Not verified. A web search found no OmnIDE/Omnide mark, but the USPTO search did not load, so it must be rechecked before any public release.",
+    "source": "https://github.com/MehdiMamas/omnide/issues/10 (comment 1, Q1)"
+  },
+  {
+    "id": "Q06",
+    "area": "not-in-v0.1",
+    "question": "What happens in v0.1 if the user clicks an agent other than Claude, cloud agents, tab completion or voice?",
+    "answer": "They are shown at 60% opacity with a 'Roadmap v0.2' pill and no padlock. They are aria-disabled, take no click, and show a tooltip. v0.1 is Claude-only; Cursor-only screens are listed on the 'Not in OmnIDE v0.1' board.",
+    "source": "decision, omnide#10"
+  },
+  {
+    "id": "Q07",
+    "area": "not-in-v0.1",
+    "question": "Which model names from Cursor are removed from OmnIDE's model picker?",
+    "answer": "Grok, GPT, Gemini and Composer (and Auto) are removed. Only Claude models appear, supplied through Claude Code.",
+    "source": "https://github.com/MehdiMamas/omnide/issues/10 (comment 2, plan item 2)"
+  },
+  {
+    "id": "Q08",
+    "area": "not-in-v0.1",
+    "question": "Which Cursor settings screens are replaced, and by what?",
+    "answer": "Account and Plan & Usage (plus the Free plan usage limit and 'Cursor default' agents dropdown) are replaced by one Settings > Claude page: subscription or API key, model, Claude Code version, sign-out; with signed-out, not-installed and error states.",
+    "source": "https://github.com/MehdiMamas/omnide/issues/10 (comments 2, 3, 1)"
+  },
+  {
+    "id": "Q09",
+    "area": "architecture",
+    "question": "Describe the agent link end to end: which processes talk to which, over what.",
+    "answer": "The workbench window talks the Agent Host Protocol (AHP, JSON-RPC over channels like ahp-session:/<uuid>) over a MessagePort to the Agent Host, a utility process spawned by electron-main (UtilityProcess, entry vs/platform/agentHost/node/agentHostMain; connect() gives the port). In it, ClaudeAgent (registered as a provider next to Copilot and Codex) drives @anthropic-ai/claude-agent-sdk, which spawns the `claude` subprocess (executable = process.execPath with ELECTRON_RUN_AS_NODE=1). In OmnIDE the SDK is fetched on demand into sdk-cache and pointed at the user's own installed `claude` (an OmnIDE patch; not in upstream).",
+    "source": "microsoft/vscode@1.148.0 src/vs/platform/agentHost/electron-main/electronAgentHostStarter.ts:213-228,251-252; node/agentHostMain.ts:259; node/claude/claudeSdkOptions.ts:177,386-401; node/claude/claudeAgentSdkService.ts:278-316; decision, omnide#10"
+  },
+  {
+    "id": "Q10",
+    "area": "architecture",
+    "question": "Where does OmnIDE's own code live in the fork?",
+    "answer": "A built-in extension, plus core patches only where an extension cannot reach (for example the Agent Host Claude harness: SDK sourcing and the user's own claude). The base is a direct fork of microsoft/vscode (Code-OSS) at a release tag (1.148), rebased onto each upstream release (the Cursor and Windsurf path). It is NOT VSCodium. The agent link is VS Code's built-in Agent Host, not an ACP adapter.",
+    "source": "https://github.com/MehdiMamas/omnide/issues/10 (base-change comment, 2026-11-26)"
+  },
+  {
+    "id": "Q11",
+    "area": "architecture",
+    "question": "Which upstream does OmnIDE build from, why not VSCodium, and which VSCodium parts are reused?",
+    "answer": "microsoft/vscode (Code-OSS) directly. VSCodium was rejected: its latest release is 1.143 (28 Oct) while VS Code is at 1.148 (25 Nov), only 2 commits in the last month, mostly one maintainer, so OmnIDE would trail about 5 versions. Only two MIT VSCodium patches are copied in: telemetry off and the Open VSX marketplace in product.json (Microsoft's Marketplace terms forbid other products).",
+    "source": "https://github.com/MehdiMamas/omnide/issues/10 (base-change comment); https://github.com/VSCodium/vscodium/blob/master/docs/extensions.md"
+  },
+  {
+    "id": "Q12",
+    "area": "architecture",
+    "question": "How is OmnIDE packaged and signed per OS?",
+    "answer": "With Code-OSS's own gulp tasks (`vscode-darwin-arm64-min`, plus the win32 and linux equivalents), then OmnIDE's own signing and notarization (macOS via the owner's Apple Developer Program). Releases go to GitHub Releases; latest.json is on GitHub Pages. No VSCodium build scripts.",
+    "source": "https://github.com/MehdiMamas/omnide/issues/10 (base-change comment; comment 1 Q2/Q3)"
+  },
+  {
+    "id": "Q13",
+    "area": "architecture",
+    "question": "In the Agent Host Protocol, how is a Claude session created, when does it become real, and what happens if the user is not authenticated?",
+    "answer": "The client sends the createSession command (working directory, config such as permissionMode). ClaudeAgent binds a provisional session and only materializes it on the first send. If credentials are missing the agent throws error AHP_AUTH_REQUIRED (-32007, carrying AuthRequiredErrorData) and the client answers with the `authenticate` command, then retries.",
+    "source": "microsoft/vscode@1.148.0 src/vs/platform/agentHost/common/state/protocol/channels-session/commands.ts:14-96; node/claude/claudeAgent.ts:775-794,1243-1273,1544-1558; common/state/sessionProtocol.ts:112; common/state/protocol/common/errors.ts:64,117-120; common/state/protocol/common/commands.ts:1494-1511"
+  },
+  {
+    "id": "Q14",
+    "area": "architecture",
+    "question": "How can a turn end in the Agent Host Protocol (TurnState and the actions behind it)?",
+    "answer": "TurnState is complete, cancelled or error. They come from the actions ChatTurnComplete (queue drained after the SDK result), ChatTurnCancelled (user cancel) and ChatError (SDK result with an error, or the stream ended without a result).",
+    "source": "microsoft/vscode@1.148.0 src/vs/platform/agentHost/common/state/protocol/channels-chat/state.ts:731-735; common/state/protocol/channels-chat/actions.ts (ChatTurnComplete/Cancelled/ChatError); node/claude/claudeSdkPipeline.ts:729-746,761; node/claude/claudeMapSessionEvents.ts:473-576"
+  },
+  {
+    "id": "Q15",
+    "area": "architecture",
+    "question": "How is a running Claude turn cancelled in the Agent Host and what happens to a pending permission request?",
+    "answer": "The client dispatches ChatTurnCancelled. AgentSideEffects handles it, then calls agent.chats.abort. The pipeline interrupts the query, aborts the controller and fails all pending work; the session denies pending permission requests and cancels pending inputs. Queued messages are not drained.",
+    "source": "microsoft/vscode@1.148.0 src/vs/platform/agentHost/node/agentSideEffects.ts:1958-1986; node/claude/claudeSdkPipeline.ts:494-537; node/claude/claudeAgentSession.ts:1174-1181; node/claude/claudeCanUseTool.ts:102-113"
+  },
+  {
+    "id": "Q16",
+    "area": "architecture",
+    "question": "What options does an Agent Host permission request offer, and who remembers 'allow for session' choices?",
+    "answer": "Options are ConfirmationOptions of kind approve or deny: allow-once, allow-session and a skip option (plus rule-based grant options). The host's SessionPermissionManager owns remembered grants (session scope; host scope writes the root permissions config); the Claude agent itself remembers nothing. ExitPlanMode Approve/Deny is never remembered.",
+    "source": "microsoft/vscode@1.148.0 src/vs/platform/agentHost/common/state/protocol/channels-chat/state.ts:1353-1380; node/sessionPermissions.ts:75-92,210-213,640-657; common/permissionRules.ts:16-24; node/claude/claudeInteractiveTools.ts:25-47"
+  },
+  {
+    "id": "Q17",
+    "area": "architecture",
+    "question": "Which tool-call kinds does the Agent Host mark (used to pick card icons)?",
+    "answer": "ToolKind: terminal, subagent, fusionPhase, search, read. Claude tool names map to them in a table (Bash to terminal, Read to read, Grep/Glob to search, Task/Agent to subagent); other tools get no special kind.",
+    "source": "microsoft/vscode@1.148.0 src/vs/platform/agentHost/common/meta/vscode/agentToolCallMeta.ts:164; node/claude/claudeToolDisplay.ts:78-117"
+  },
+  {
+    "id": "Q18",
+    "area": "architecture",
+    "question": "How do Claude's todo lists and plans reach the UI through the Agent Host?",
+    "answer": "There is no separate plan-update channel. TodoWrite and the Task* tools (TaskCreate etc.) are ordinary tool calls shaped by claudeToolDisplay for display. Plan mode ends with the interactive tool ExitPlanMode, shown as an Approve/Deny confirmation; Approve writes permissionMode=acceptEdits to the chat config.",
+    "source": "microsoft/vscode@1.148.0 src/vs/platform/agentHost/node/claude/claudeToolDisplay.ts:98,113-116,160,393-394,431-436; node/claude/claudeInteractiveTools.ts:25-47; node/claude/claudeCanUseTool.ts:134-135,236-266"
+  },
+  {
+    "id": "Q19",
+    "area": "architecture",
+    "question": "Which slash-style commands does the Agent Host handle itself instead of sending to the model, and does the Claude harness add any?",
+    "answer": "Two generic local commands are intercepted for every agent: `/rename [title]` (becomes SessionTitleChanged, only offered once a session has history) and `!command` (runs the text as a terminal command shown as a terminal tool call). The Claude harness adds no Claude-specific slash handling; parseLeadingSlashCommand is used only by the Copilot and Codex agents.",
+    "source": "microsoft/vscode@1.148.0 src/vs/platform/agentHost/node/localCommands/localChatCommands.contribution.ts:11-12; node/localCommands/renameLocalCommand.ts:22-30; node/localCommands/bangLocalCommand.ts:27-43; node/agentHostRenameCommand.ts:19-27; common/agentHostSlashCommand.ts:14"
+  },
+  {
+    "id": "Q20",
+    "area": "architecture",
+    "question": "How do API keys and tokens reach the claude subprocess, and what must not leak into it?",
+    "answer": "In native mode (the user's own credentials) the subprocess env is the full process.env plus ELECTRON_RUN_AS_NODE=1, with NODE_OPTIONS cleared, so ANTHROPIC_API_KEY or CLAUDE_CODE_OAUTH_TOKEN (from `claude setup-token`) pass through. In proxy mode (Copilot) the env is sparse (HOME, USERPROFILE), ANTHROPIC_API_KEY is unset so the user's key never reaches the proxy, and ANTHROPIC_BASE_URL/ANTHROPIC_AUTH_TOKEN carry a nonce.sessionId bearer. In both modes VSCODE_* and ELECTRON_* variables are stripped. OmnIDE turns the Copilot proxy off.",
+    "source": "microsoft/vscode@1.148.0 src/vs/platform/agentHost/node/claude/claudeSdkOptions.ts:134-139,386-411; node/claude/claudeTransportMode.ts:13,59-97; node/claude/claudeProxyAuth.ts:38-58"
+  },
+  {
+    "id": "Q21",
+    "area": "agent-modes",
+    "question": "Which permission modes does the OmnIDE v0.1 agent pane offer and what do they map to?",
+    "answer": "Five modes mapped to Claude Code's own: Manual = default, Accept edits = acceptEdits, Plan = plan, Auto = auto, Bypass permissions = bypassPermissions. Cursor's Debug mode is not in the v0.1 list.",
+    "source": "decision, omnide#10; microsoft/vscode@1.148.0 src/vs/platform/agentHost/common/claudeSessionConfigKeys.ts:30; node/claude/claudeAgent.ts:2291"
+  },
+  {
+    "id": "Q22",
+    "area": "agent-modes",
+    "question": "What cycles permission modes and what does the CLI status show?",
+    "answer": "Shift+Tab cycles default -> acceptEdits -> plan (then bypassPermissions/auto where available); from auto the first press goes to default. Windows fallback Alt+M. Status text examples: '⏸ manual mode on', '⏵⏵ accept edits on', '⏸ plan mode on', '⏵⏵ auto mode on', '⏵⏵ bypass permissions on'. Cursor also lists Shift+Tab to rotate agent modes.",
+    "source": "https://code.claude.com/docs/en/permission-modes ; https://code.claude.com/docs/en/interactive-mode ; /Users/mehdi/Projects/cursor-asis/docs/how-it-works/data/keybindings.csv"
+  },
+  {
+    "id": "Q23",
+    "area": "permissions",
+    "question": "In default mode the agent wants to edit a file or run a shell command. What does the user see and which choices exist?",
+    "answer": "A permission card (tool call with title/kind/content) with Allow once / Allow always / Reject once / Reject always style options (ACP kinds). Esc on a Claude Code permission prompt declines. Reads inside the working directories need no approval; edits and shell commands do in Manual mode.",
+    "source": "https://agentclientprotocol.com/protocol/tool-calls ; https://code.claude.com/docs/en/permission-modes ; https://code.claude.com/docs/en/interactive-mode"
+  },
+  {
+    "id": "Q24",
+    "area": "permissions",
+    "question": "Which actions are never auto-approved, even in bypassPermissions?",
+    "answer": "Tools matched by an explicit ask rule, tools requiring user interaction (AskUserQuestion), recognized critical-path `rm`/`rmdir` removals, and reads/writes outside the working directories when blockReads/WritesOutsideWorkingDirectories are on. Deny rules block in every mode; allow rules have no effect in bypassPermissions.",
+    "source": "https://code.claude.com/docs/en/permission-modes"
+  },
+  {
+    "id": "Q25",
+    "area": "plan-mode",
+    "question": "What happens in Plan mode when Claude finishes planning?",
+    "answer": "Claude researches read-only (delegating exploration to the Plan subagent), then presents the plan via ExitPlanMode for approval; accepting replaces the session title with one based on the plan, and OmnIDE shows a plan document with a Build action. A resumed session that ended in plan mode comes back in plan mode.",
+    "source": "https://code.claude.com/docs/en/permission-modes ; https://code.claude.com/docs/en/sessions ; /Users/mehdi/Projects/cursor-asis/docs/how-it-works/../features.json (Plan mode with a plan document and Build)"
+  },
+  {
+    "id": "Q26",
+    "area": "rewind",
+    "question": "How does rewind work and what are the menu actions?",
+    "answer": "/rewind (alias /undo) or Esc twice on an empty prompt. Every prompt that starts a turn is a checkpoint (file snapshots kept for the 100 most recent). Actions: Restore code and conversation, Restore conversation, Restore code, Summarize from here, Summarize up to here, Never mind. Code options appear only if tracked edits exist after that point.",
+    "source": "https://code.claude.com/docs/en/checkpointing"
+  },
+  {
+    "id": "Q27",
+    "area": "rewind",
+    "question": "Name three kinds of changes rewind does NOT undo, and the warning when links are skipped.",
+    "answer": "Bash-only file changes (files never edited by Claude's edit tools), edits by most subagents and external/other-session edits; symlinked and hard-linked files are skipped with the warning 'Restored the code, but skipped N files'. Snapshots are swept about 30 days after the last save (cleanupPeriodDays); then rewind can fail with 'No files were restored'. Use git for permanent history.",
+    "source": "https://code.claude.com/docs/en/checkpointing"
+  },
+  {
+    "id": "Q28",
+    "area": "rewind",
+    "question": "Where does Cursor store its per-request checkpoints, and what does OmnIDE use instead?",
+    "answer": "Cursor: User/globalStorage/anysphere.cursor-commits/checkpoints/<request-id>/. OmnIDE uses Claude Code's own checkpointing via the user's CLI (the ACP session), not a Cursor-style store, since the agent runs inside claude.",
+    "source": "/Users/mehdi/Projects/cursor-asis/docs/how-it-works/data/files-on-disk.csv ; https://code.claude.com/docs/en/checkpointing ; https://github.com/MehdiMamas/omnide/issues/10"
+  },
+  {
+    "id": "Q29",
+    "area": "sessions",
+    "question": "Where are Claude Code sessions stored and what is the file format and retention?",
+    "answer": "`~/.claude/projects/<project>/<session-id>.jsonl` where <project> is the working directory path with non-alphanumerics replaced by `-` (truncated to 200 chars plus a hash if longer). One JSON object per line; internal format. Retention 30 days by default (cleanupPeriodDays); %USERPROFILE%\\.claude on Windows; CLAUDE_CONFIG_DIR moves it.",
+    "source": "https://code.claude.com/docs/en/sessions ; https://code.claude.com/docs/en/settings"
+  },
+  {
+    "id": "Q30",
+    "area": "fork",
+    "question": "How does a session fork work in Claude Code and in the ACP adapter?",
+    "answer": "Claude Code: `/branch [name]` or `claude --continue/--resume --fork-session` copies the conversation so far into a new session (new ID, separate picker row), original intact; unnamed branches take the first prompt as name. ACP v2: `session/fork` with a `cursorId` copies history before that user message; any other cursorId fails with -32602.",
+    "source": "https://code.claude.com/docs/en/sessions ; https://github.com/agentclientprotocol/claude-agent-acp"
+  },
+  {
+    "id": "Q31",
+    "area": "sessions",
+    "question": "How are sessions named and resumed by name?",
+    "answer": "`claude --resume <name>` resumes directly if exactly one session matches, else opens the picker pre-filled. `/resume <name>` with a non-unique name errors. The default display name (e.g. my-app-3f) is not a resume handle. /clear saves the old session (resume via /resume).",
+    "source": "https://code.claude.com/docs/en/sessions"
+  },
+  {
+    "id": "Q32",
+    "area": "subagents",
+    "question": "What are Claude Code's built-in subagents and where do custom ones live?",
+    "answer": "Built-in: Explore (read-only search; quick/medium/very thorough), Plan (research during plan mode), and the general-purpose `claude` agent. Explore and Plan start without CLAUDE.md and git status. Custom: `.claude/agents/` (project, walks up to repo root) and `~/.claude/agents/` (user), markdown with frontmatter. Descriptions over 15,000 tokens trigger a startup warning.",
+    "source": "https://code.claude.com/docs/en/sub-agents"
+  },
+  {
+    "id": "Q33",
+    "area": "subagents",
+    "question": "How does the ACP adapter present subagent work to the client?",
+    "answer": "As nested subagent transcripts (listed adapter feature); on ACP v2 subagents are served as sessions per docs/subagent-sessions.md in the adapter repo. Edits made by subagents are not captured in checkpoints.",
+    "source": "https://github.com/agentclientprotocol/claude-agent-acp ; https://code.claude.com/docs/en/checkpointing"
+  },
+  {
+    "id": "Q34",
+    "area": "todos",
+    "question": "How do the task checklist and the background-task view differ, and what are their shortcuts?",
+    "answer": "Ctrl+T toggles Claude's to-do checklist (items pending / in progress / complete). `/tasks` shows running shells and subagents. Ctrl+B backgrounds a running Bash command or agent (press twice in tmux); background tasks are cleaned up when Claude Code exits; CLAUDE_CODE_DISABLE_BACKGROUND_TASKS=1 turns them off (and Ctrl+B).",
+    "source": "https://code.claude.com/docs/en/interactive-mode"
+  },
+  {
+    "id": "Q35",
+    "area": "context",
+    "question": "What do /context, /compact and /clear do, and what is re-read after compaction?",
+    "answer": "/context shows what fills the window; /compact [instructions] replaces history with a summary; /clear starts a new empty conversation (old one saved). After compaction up to five most recently touched files are re-read; files over 5,000 tokens come back as a path reference ('Referenced file'). /autocompact sets the auto-compact window.",
+    "source": "https://code.claude.com/docs/en/commands ; https://code.claude.com/docs/en/context-window"
+  },
+  {
+    "id": "Q36",
+    "area": "model",
+    "question": "Which models and effort levels does the OmnIDE model picker offer (v5 plan)?",
+    "answer": "Opus 5.5, Sonnet 5.5, Haiku 5.5, Fable 5.2 in Cursor's popover style; below the list: effort, a Fast mode toggle and a 1M context toggle. The picker button shows the current model (e.g. 'Sonnet 5.5'). The effort levels come from Claude Code (low, medium, high, xhigh, max). Claude Code shortcuts: Option+P / Alt+P switch model, Option+O / Alt+O fast mode.",
+    "source": "https://github.com/MehdiMamas/omnide/issues/10 (last comment sec 2); https://code.claude.com/docs/en/model-config ; https://code.claude.com/docs/en/interactive-mode"
+  },
+  {
+    "id": "Q37",
+    "area": "settings",
+    "question": "What does the v5 Settings > Models page contain, and what is removed?",
+    "answer": "One row per Claude model with an on/off switch, then default model, default effort, Fast mode and 1M context. Removed: duplicate Sonnet 5.5 row, 'Opus Plan' and 'Custom model ID' as models, 'Show 35 more', API Keys, 'Explore Subagent Model', 'Coordinator effort' (that dropdown becomes default effort). Sign-in lives in Settings > Claude.",
+    "source": "https://github.com/MehdiMamas/omnide/issues/10 (last comment sec 2 table)"
+  },
+  {
+    "id": "Q38",
+    "area": "settings",
+    "question": "Where are Claude Code settings files, and which wins on conflict?",
+    "answer": "User ~/.claude/settings.json; project .claude/settings.json (shared) and .claude/settings.local.json (local, overrides it); managed settings highest. Global app state is ~/.claude.json. Files are strict JSON (comments or trailing commas cause a Settings Error at next start). Windows: %USERPROFILE%\\.claude.",
+    "source": "https://code.claude.com/docs/en/settings"
+  },
+  {
+    "id": "Q39",
+    "area": "auth",
+    "question": "Where does Claude Code keep credentials on each OS (relevant to OmnIDE never storing them)?",
+    "answer": "macOS: encrypted Keychain (falls back to ~/.claude/.credentials.json mode 0600 if Keychain write is rejected); Linux: ~/.claude/.credentials.json mode 0600; Windows: %USERPROFILE%\\.claude\\.credentials.json. ANTHROPIC_API_KEY env var is an alternative once the user approves it.",
+    "source": "https://code.claude.com/docs/en/authentication"
+  },
+  {
+    "id": "Q40",
+    "area": "auth",
+    "question": "Claude CLI missing, signed out, or erroring: what must Settings > Claude show?",
+    "answer": "Three states are designed: signed-out (button 'Connect Claude', sign-in happens through the user's own `claude /login`), not-installed (CLI missing), and error. The status bar shows 'Claude Code · Sonnet 5.5' when connected; the title-bar 'Connect Claude'/'Claude connected' labels are removed on all but first-run and signed-out screens (ide-01, ob-01, light-21, omni-claude-missing, st-01). Exact wording of the not-installed/error messages is not in the decision sources.",
+    "source": "https://github.com/MehdiMamas/omnide/issues/10 (last comment sec 2 table, comment 2)",
+    "unsourced": true
+  },
+  {
+    "id": "Q41",
+    "area": "auth",
+    "question": "Which 'command not found' fixes does Claude Code point to when the CLI is not on PATH?",
+    "answer": "Run /doctor in a session or `claude doctor` from the shell for diagnosis; installation and PATH issues (command not found, EACCES, TLS) are covered by the 'Troubleshoot installation and login' page. Bundled ripgrep issues: install system ripgrep (brew / apt / winget BurntSushi.ripgrep.MSVC) and check `claude doctor` Search line.",
+    "source": "https://code.claude.com/docs/en/troubleshooting"
+  },
+  {
+    "id": "Q42",
+    "area": "keyboard",
+    "question": "What keyboard shortcuts does the Cursor capture list for the agent pane that OmnIDE copies?",
+    "answer": "Open agent: Ctrl+Shift+L (Win/Linux; mac Cmd+I/L/K); Toggle layout Cmd+E; Mode menu Cmd+.; Shift+Tab rotate modes; Queue message Enter; Force send/steer Cmd+Return; Cancel Cmd+Shift+Backspace; Add selection to chat Cmd+Shift+L; New chat Cmd+N/Cmd+R; New tab Cmd+T; Prev/next chat Cmd+[ / ]; Close Cmd+W; Maximize chat Ctrl+Alt+E; @ mentions with @, slash commands with /. Cursor settings Cmd+Shift+J has no OmnIDE equivalent named in the decisions.",
+    "source": "/Users/mehdi/Projects/cursor-asis/docs/how-it-works/data/keybindings.csv"
+  },
+  {
+    "id": "Q43",
+    "area": "agent-turn",
+    "question": "What does the Cursor agent run do when a message is sent while a turn is running (queue vs steer), and what stops it?",
+    "answer": "Enter queues the message to run after the turn; Cmd+Return (steer) injects it at the next tool call. Stop (Cmd+Shift+Backspace / Ctrl+Shift+Backspace) aborts: state Cancelled -> Idle. A transport error triggers auto-retry in Cursor; the agent holds a wake-lock while running. Claude Code analogues: Esc interrupts keeping work done; Ctrl+Enter sends queued messages now.",
+    "source": "/Users/mehdi/Projects/cursor-asis/docs/how-it-works/state-agent-run.puml ; /Users/mehdi/Projects/cursor-asis/docs/how-it-works/behaviour-catalogue.md ; https://code.claude.com/docs/en/interactive-mode"
+  },
+  {
+    "id": "Q44",
+    "area": "mcp",
+    "question": "How do MCP servers get configured and authorised?",
+    "answer": "Config files mcp.json (user-level and project-level in Cursor: ~/.cursor/mcp.json, .cursor/mcp.json; OmnIDE v0.1 runs MCP through Claude). stdio servers are spawned as processes; remote streamable-HTTP servers returning 401 trigger OAuth with PKCE (pending attempts stored as globalStorage/mcp-oauth-attempts/<uuid>.json in Cursor). MCP tools need approval by default. Over ACP the client's MCP servers are passed in session/new `mcpServers`; command must be an absolute path on ACP v2 or -32602.",
+    "source": "/Users/mehdi/Projects/cursor-asis/docs/how-it-works/seq-mcp.puml ; /Users/mehdi/Projects/cursor-asis/docs/how-it-works/behaviour-catalogue.md ; https://github.com/agentclientprotocol/claude-agent-acp"
+  },
+  {
+    "id": "Q45",
+    "area": "rules-skills",
+    "question": "Which instruction/skill files does the agent read, and in what order of precedence in Cursor?",
+    "answer": "Cursor gathers .cursor/rules/*.mdc (types always / glob / agent-requested / manual), AGENTS.md, commands and plans on each submit; precedence Team > Project > User. Skills are discovered at startup (.cursor/skills, .agents/skills, ~/.cursor/skills, .claude/skills, .codex/skills), name+description loaded, body on demand or via /skill-name. OmnIDE v0.1 uses Claude's equivalents: CLAUDE.md, .claude/skills, hooks and rules, all live.",
+    "source": "/Users/mehdi/Projects/cursor-asis/docs/how-it-works/seq-rules-skills.puml ; /Users/mehdi/Projects/cursor-asis/docs/how-it-works/behaviour-catalogue.md ; https://github.com/MehdiMamas/omnide/issues/10 (comment 2)"
+  },
+  {
+    "id": "Q46",
+    "area": "os-differences",
+    "question": "List the OS-specific differences that affect OmnIDE's Claude integration.",
+    "answer": "Credentials: macOS Keychain vs ~/.claude/.credentials.json (Linux, Windows %USERPROFILE%). Paste image: Ctrl+V / Cmd+V (iTerm2) / Alt+V on Windows and WSL. Model switch Option+P (macOS) vs Alt+P. Mode cycle fallback Alt+M on Windows. Ctrl+Z suspend is Unix only. Cursor shortcuts differ: Ctrl+Shift+L (Win/Linux) vs Cmd+I/L/K (mac). Builds: macOS signed and notarised; Windows and Linux builds use the same Code-OSS gulp tasks (win32, linux).",
+    "source": "https://code.claude.com/docs/en/interactive-mode ; https://code.claude.com/docs/en/authentication ; /Users/mehdi/Projects/cursor-asis/docs/how-it-works/data/keybindings.csv ; https://github.com/MehdiMamas/omnide/issues/10"
+  },
+  {
+    "id": "Q47",
+    "area": "data-files",
+    "question": "Where does a Code-OSS/Cursor-style app keep user settings, global state and workspace state?",
+    "answer": "User/settings.json; User/globalStorage/state.vscdb (ItemTable etc.), User/globalStorage/storage.json; User/workspaceStorage/<hash>/state.vscdb + workspace.json; User/History/ for local file history; logs/<timestamp>/ per launch; extensions-dir/extensions.json. Workspace config lives under a dotfolder (.cursor/ in Cursor; Claude equivalents are .claude/).",
+    "source": "/Users/mehdi/Projects/cursor-asis/docs/how-it-works/data/files-on-disk.csv"
+  },
+  {
+    "id": "Q48",
+    "area": "timings",
+    "question": "Which timing values are specified for the agent pane and CLI that a rebuild must match?",
+    "answer": "Cursor agent: no first token within 2 s logs a warning and retries. Claude Code: Ctrl+D exit needs a second press within 800 ms; Ctrl+X Ctrl+K needs a second press within 3 seconds; snapshots kept for 100 checkpoints and about 30 days; file snapshot retention via cleanupPeriodDays. v0.1 update check interval is not specified in the sources.",
+    "source": "/Users/mehdi/Projects/cursor-asis/docs/how-it-works/behaviour-catalogue.md ; https://code.claude.com/docs/en/interactive-mode ; https://code.claude.com/docs/en/checkpointing",
+    "unsourced": true
+  }
+]
