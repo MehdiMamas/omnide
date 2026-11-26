@@ -1,0 +1,95 @@
+Subject: Agent SDK download is refused unless its sha256 matches product.agentSdks.<id>.sha256
+Original to OmnIDE.
+
+diff --git a/src/vs/base/common/product.ts b/src/vs/base/common/product.ts
+index 37cbeefd..a8b8db66 100644
+--- a/src/vs/base/common/product.ts
++++ b/src/vs/base/common/product.ts
+@@ -81,6 +81,8 @@ export type ExtensionVirtualWorkspaceSupport = {
+ export interface IAgentSdkProductConfig {
+ 	readonly version: string;
+ 	readonly urlTemplate: string;
++	/** Hex sha256 of the tarball per sdkTarget. When set, a download that does not match is refused. */
++	readonly sha256?: { readonly [sdkTarget: string]: string };
+ }
+ 
+ /**
+diff --git a/src/vs/platform/agentHost/node/agentSdkDownloader.ts b/src/vs/platform/agentHost/node/agentSdkDownloader.ts
+index a58a90da..9eaee7e3 100644
+--- a/src/vs/platform/agentHost/node/agentSdkDownloader.ts
++++ b/src/vs/platform/agentHost/node/agentSdkDownloader.ts
+@@ -26,6 +26,7 @@ import { ITelemetryService } from '../../telemetry/common/telemetry.js';
+ import { IRequestContext } from '../../../base/parts/request/common/request.js';
+ import { IAgentHostStorageService } from './agentHostStorageService.js';
+ import { AGENT_SDK_CACHE_SENTINEL, removeUnusedAgentSdkVersions } from './agentSdkCache.js';
++import { checkSdkSha256, sha256OfFile } from './agentSdkIntegrity.js';
+ import { reportAgentSdkDownload } from './agentSdkDownloadTelemetry.js';
+ 
+ // #region Per-package strategy
+@@ -448,7 +449,7 @@ export class AgentSdkDownloader extends Disposable implements IAgentSdkDownloade
+ 		// as the dedup key without an extra string allocation.
+ 		let pending = this._pendingDownloads.get(cacheDir);
+ 		if (!pending) {
+-			pending = this._download(pkg, url, cacheDir, sentinel, token).finally(() => {
++			pending = this._download(pkg, url, cacheDir, sentinel, token, config.sha256, sdkTarget).finally(() => {
+ 				this._pendingDownloads.delete(cacheDir);
+ 			});
+ 			this._pendingDownloads.set(cacheDir, pending);
+@@ -493,6 +494,8 @@ export class AgentSdkDownloader extends Disposable implements IAgentSdkDownloade
+ 		cacheDir: string,
+ 		sentinel: URI,
+ 		token: CancellationToken,
++		pinnedSha256: { readonly [sdkTarget: string]: string } | undefined,
++		sdkTarget: string,
+ 	): Promise<string> {
+ 		this._logService.info(`[AgentSdkDownloader] ${pkg.id}: downloading from ${url}`);
+ 		const start = Date.now();
+@@ -524,6 +527,10 @@ export class AgentSdkDownloader extends Disposable implements IAgentSdkDownloade
+ 				lastTotal = totalBytes;
+ 				this._fireProgress(pkg, downloadId, start, 'progress', receivedBytes, totalBytes);
+ 			});
++			const integrityError = checkSdkSha256(pinnedSha256, sdkTarget, await sha256OfFile(tarballPath));
++			if (integrityError) {
++				throw new Error(`integrity check failed, the download was refused: ${integrityError}`);
++			}
+ 			await this._extractTarGz(tarballPath, tmpDir);
+ 			await this._fileService.del(URI.file(tarballPath));
+ 
+diff --git a/src/vs/platform/agentHost/node/agentSdkIntegrity.ts b/src/vs/platform/agentHost/node/agentSdkIntegrity.ts
+new file mode 100644
+index 00000000..795d2f82
+--- /dev/null
++++ b/src/vs/platform/agentHost/node/agentSdkIntegrity.ts
+@@ -0,0 +1,32 @@
++/*---------------------------------------------------------------------------------------------
++ *  Copyright (c) Microsoft Corporation. All rights reserved.
++ *  Licensed under the MIT License. See License.txt in the project root for license information.
++ *--------------------------------------------------------------------------------------------*/
++
++import { createHash } from 'crypto';
++import { createReadStream } from 'fs';
++
++/** Hex sha256 of a file, streamed so a 130 MB tarball is never held in memory. */
++export async function sha256OfFile(file: string): Promise<string> {
++	const hash = createHash('sha256');
++	for await (const chunk of createReadStream(file)) {
++		hash.update(chunk as Buffer);
++	}
++	return hash.digest('hex');
++}
++
++/**
++ * Checks a downloaded SDK's sha256 against `product.agentSdks.<id>.sha256`, which maps sdkTarget to a hex digest.
++ * Returns an error message, or `undefined` when the download may be used. No `sha256` map means no pinning; a map
++ * without an entry for the target is refused so a missing pin cannot skip the check.
++ */
++export function checkSdkSha256(pinned: { readonly [sdkTarget: string]: string } | undefined, sdkTarget: string, actual: string): string | undefined {
++	if (!pinned) {
++		return undefined;
++	}
++	const expected = pinned[sdkTarget]?.toLowerCase();
++	if (!expected) {
++		return `no sha256 is pinned for ${sdkTarget}`;
++	}
++	return expected === actual.toLowerCase() ? undefined : `sha256 mismatch for ${sdkTarget}: expected ${expected}, got ${actual}`;
++}

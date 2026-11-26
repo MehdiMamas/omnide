@@ -1,0 +1,23 @@
+Subject: Copilot status bar entry is not registered (OmnIDE has no Copilot entitlement or quota to show)
+Original to OmnIDE.
+
+diff --git a/src/vs/workbench/contrib/chat/browser/chat.shared.contribution.ts b/src/vs/workbench/contrib/chat/browser/chat.shared.contribution.ts
+index c0f8577..bd32817 100644
+--- a/src/vs/workbench/contrib/chat/browser/chat.shared.contribution.ts
++++ b/src/vs/workbench/contrib/chat/browser/chat.shared.contribution.ts
+@@ -253,7 +253,6 @@ import { ChatSessionOptionSlashCommandsContribution, ChatSlashCommandsContributi
+ import { BtwSlashCommandContribution } from './btwSlashCommand.js';
+ import { EditorSideChatProviderContribution } from './chatSideChatProvider.js';
+ import { AskSelectionInSideChatAction, EditorResponseSelectionSideChatContribution } from './responseSelectionSideChatController.js';
+-import { ChatStatusBarEntry } from './chatStatus/chatStatusEntry.js';
+ import { CodexStatusBarEntry } from './chatStatus/codexStatusEntry.js';
+ import { ChatTipService, IChatTipService } from './chatTipService.js';
+ import { ChatWindowNotifier } from './chatWindowNotifier.js';
+@@ -3418,7 +3417,6 @@ registerWorkbenchContribution2(ChatPromoNotificationContribution.ID, ChatPromoNo
+ registerWorkbenchContribution2(ChatExpNotificationContribution.ID, ChatExpNotificationContribution, WorkbenchPhase.AfterRestored);
+ registerWorkbenchContribution2(HasByokModelsContribution.ID, HasByokModelsContribution, WorkbenchPhase.BlockRestore);
+ registerWorkbenchContribution2(ChatTeardownContribution.ID, ChatTeardownContribution, WorkbenchPhase.AfterRestored);
+-registerWorkbenchContribution2(ChatStatusBarEntry.ID, ChatStatusBarEntry, WorkbenchPhase.BlockRestore);
+ registerWorkbenchContribution2(CodexStatusBarEntry.ID, CodexStatusBarEntry, WorkbenchPhase.BlockRestore);
+ registerWorkbenchContribution2(BuiltinToolsContribution.ID, BuiltinToolsContribution, WorkbenchPhase.Eventually);
+ registerWorkbenchContribution2(ClientToolSetsContribution.ID, ClientToolSetsContribution, WorkbenchPhase.Eventually);
