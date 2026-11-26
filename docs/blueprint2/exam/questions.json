@@ -157,7 +157,7 @@
     "id": "Q23",
     "area": "permissions",
     "question": "In default mode the agent wants to edit a file or run a shell command. What does the user see and which choices exist?",
-    "answer": "A permission card (tool call with title/kind/content) with Allow once / Allow always / Reject once / Reject always style options (ACP kinds). Esc on a Claude Code permission prompt declines. Reads inside the working directories need no approval; edits and shell commands do in Manual mode.",
+    "answer": "A permission card (tool call with title, kind and content) with the Agent Host permission options (see Q16: allow once, allow for this session, deny/skip). Esc on a Claude Code permission prompt declines. Reads inside the working directories need no approval; edits and shell commands do in Manual mode.",
     "source": "https://agentclientprotocol.com/protocol/tool-calls ; https://code.claude.com/docs/en/permission-modes ; https://code.claude.com/docs/en/interactive-mode"
   },
   {
@@ -192,7 +192,7 @@
     "id": "Q28",
     "area": "rewind",
     "question": "Where does Cursor store its per-request checkpoints, and what does OmnIDE use instead?",
-    "answer": "Cursor: User/globalStorage/anysphere.cursor-commits/checkpoints/<request-id>/. OmnIDE uses Claude Code's own checkpointing via the user's CLI (the ACP session), not a Cursor-style store, since the agent runs inside claude.",
+    "answer": "Cursor: User/globalStorage/anysphere.cursor-commits/checkpoints/<request-id>/. OmnIDE uses Claude Code's own checkpointing via the user's CLI (through the Agent Host Claude harness), not a Cursor-style store, since the agent runs inside claude.",
     "source": "/Users/mehdi/Projects/cursor-asis/docs/how-it-works/data/files-on-disk.csv ; https://code.claude.com/docs/en/checkpointing ; https://github.com/MehdiMamas/omnide/issues/10"
   },
   {
@@ -205,8 +205,8 @@
   {
     "id": "Q30",
     "area": "fork",
-    "question": "How does a session fork work in Claude Code and in the ACP adapter?",
-    "answer": "Claude Code: `/branch [name]` or `claude --continue/--resume --fork-session` copies the conversation so far into a new session (new ID, separate picker row), original intact; unnamed branches take the first prompt as name. ACP v2: `session/fork` with a `cursorId` copies history before that user message; any other cursorId fails with -32602.",
+    "question": "How does a session fork work in Claude Code?",
+    "answer": "Claude Code: `/branch [name]` or `claude --continue/--resume --fork-session` copies the conversation so far into a new session (new ID, separate picker row), original intact; unnamed branches take the first prompt as name.",
     "source": "https://code.claude.com/docs/en/sessions ; https://github.com/agentclientprotocol/claude-agent-acp"
   },
   {
@@ -226,8 +226,8 @@
   {
     "id": "Q33",
     "area": "subagents",
-    "question": "How does the ACP adapter present subagent work to the client?",
-    "answer": "As nested subagent transcripts (listed adapter feature); on ACP v2 subagents are served as sessions per docs/subagent-sessions.md in the adapter repo. Edits made by subagents are not captured in checkpoints.",
+    "question": "How does subagent work reach the OmnIDE UI?",
+    "answer": "As subagent tool calls (Agent Host tool kind `subagent`, see Q17) with their nested steps. Edits made by subagents are not captured in Claude Code checkpoints.",
     "source": "https://github.com/agentclientprotocol/claude-agent-acp ; https://code.claude.com/docs/en/checkpointing"
   },
   {
@@ -305,7 +305,7 @@
     "id": "Q44",
     "area": "mcp",
     "question": "How do MCP servers get configured and authorised?",
-    "answer": "Config files mcp.json (user-level and project-level in Cursor: ~/.cursor/mcp.json, .cursor/mcp.json; OmnIDE v0.1 runs MCP through Claude). stdio servers are spawned as processes; remote streamable-HTTP servers returning 401 trigger OAuth with PKCE (pending attempts stored as globalStorage/mcp-oauth-attempts/<uuid>.json in Cursor). MCP tools need approval by default. Over ACP the client's MCP servers are passed in session/new `mcpServers`; command must be an absolute path on ACP v2 or -32602.",
+    "answer": "Config files mcp.json (user-level and project-level in Cursor: ~/.cursor/mcp.json, .cursor/mcp.json; OmnIDE v0.1 runs MCP through Claude). stdio servers are spawned as processes; remote streamable-HTTP servers returning 401 trigger OAuth with PKCE (pending attempts stored as globalStorage/mcp-oauth-attempts/<uuid>.json in Cursor). MCP tools need approval by default.",
     "source": "/Users/mehdi/Projects/cursor-asis/docs/how-it-works/seq-mcp.puml ; /Users/mehdi/Projects/cursor-asis/docs/how-it-works/behaviour-catalogue.md ; https://github.com/agentclientprotocol/claude-agent-acp"
   },
   {
