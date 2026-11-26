@@ -6,7 +6,8 @@
  },
  "title": "OmnIDE blueprint",
  "launch": {
-  "view": "canvas"
+  "view": "canvas",
+  "page": "v2"
  },
  "pages": [
   {
