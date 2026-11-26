@@ -21,3 +21,63 @@ index 5141d0d7..b2d81638 100644
  registerWorkbenchContribution2(AgentHostContribution.ID, AgentHostContribution, WorkbenchPhase.AfterRestored);
  registerWorkbenchContribution2(AgentHostExistingSessionHarnessPickerEnablement.ID, AgentHostExistingSessionHarnessPickerEnablement, WorkbenchPhase.BlockRestore);
  registerWorkbenchContribution2(CopilotConfigSlashSubmitHandlerContribution.ID, CopilotConfigSlashSubmitHandlerContribution, WorkbenchPhase.AfterRestored);
+diff --git a/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostRunEverythingDialog.ts b/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostRunEverythingDialog.ts
+new file mode 100644
+index 00000000..a3d444bb
+--- /dev/null
++++ b/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostRunEverythingDialog.ts
+@@ -0,0 +1,54 @@
++/*---------------------------------------------------------------------------------------------
++ *  Copyright (c) OmnIDE contributors. Licensed under the MIT License.
++ *--------------------------------------------------------------------------------------------*/
++
++import { Disposable } from '../../../../../../base/common/lifecycle.js';
++import Severity from '../../../../../../base/common/severity.js';
++import { localize } from '../../../../../../nls.js';
++import { RunPolicySettingId } from '../../../../../../platform/agentHost/common/claudeRunPolicyConfig.js';
++import { IConfigurationService } from '../../../../../../platform/configuration/common/configuration.js';
++import { IDialogService } from '../../../../../../platform/dialogs/common/dialogs.js';
++import { IWorkbenchContribution } from '../../../../../common/contributions.js';
++
++/** Asks once before Run Mode is set to Run Everything; Cancel puts Run Mode back to Auto-review. */
++export class AgentHostRunEverythingDialogContribution extends Disposable implements IWorkbenchContribution {
++	static readonly ID = 'workbench.contrib.omnideRunEverythingDialog';
++
++	private _asking = false;
++
++	constructor(
++		@IConfigurationService private readonly _config: IConfigurationService,
++		@IDialogService private readonly _dialogs: IDialogService,
++	) {
++		super();
++		this._register(this._config.onDidChangeConfiguration(e => {
++			if (e.affectsConfiguration(RunPolicySettingId.RunMode)) {
++				void this._check();
++			}
++		}));
++		void this._check();
++	}
++
++	private async _check(): Promise<void> {
++		if (this._asking || this._config.getValue(RunPolicySettingId.RunMode) !== 'runEverything' || this._config.getValue(RunPolicySettingId.RunEverythingAccepted) === true) {
++			return;
++		}
++		this._asking = true;
++		try {
++			const { confirmed } = await this._dialogs.confirm({
++				type: Severity.Warning,
++				message: localize('omnide.runEverything.title', "Run Everything?"),
++				detail: localize('omnide.runEverything.detail', "Claude will run every command and edit every file without asking, including deleting files and reaching outside this folder. Only turn this on for work you could safely lose."),
++				primaryButton: localize('omnide.runEverything.accept', "Run Everything"),
++				cancelButton: localize('omnide.runEverything.cancel', "Cancel"),
++			});
++			if (confirmed) {
++				await this._config.updateValue(RunPolicySettingId.RunEverythingAccepted, true);
++			} else {
++				await this._config.updateValue(RunPolicySettingId.RunMode, 'autoReview');
++			}
++		} finally {
++			this._asking = false;
++		}
++	}
++}
