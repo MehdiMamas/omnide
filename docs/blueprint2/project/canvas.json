@@ -5205,6 +5205,15 @@
       "page": "v5",
       "title": "Timings",
       "is_interactive": false
+    },
+    "v5-omni-permission-command.dc.html": {
+      "x": 6000,
+      "y": 38051,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "Command permission ask",
+      "is_interactive": true
     }
   },
   "order": [
@@ -5441,6 +5450,7 @@
     "v5-omni-claude-not-installed.dc.html",
     "v5-omni-claude-signed-out.dc.html",
     "v5-omni-permission-ask.dc.html",
+    "v5-omni-permission-command.dc.html",
     "v5-omni-permission-denied.dc.html",
     "v5-omni-update-failed.dc.html",
     "v5-omni-update-ready.dc.html",
