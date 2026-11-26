@@ -146,7 +146,7 @@
       "x": 29560,
       "y": 0,
       "w": 1240,
-      "h": 1070,
+      "h": 1140,
       "page": "v5",
       "title": "History"
     },
@@ -332,7 +332,7 @@
       "x": 1520,
       "y": 0,
       "w": 1240,
-      "h": 1720,
+      "h": 1840,
       "page": "v5",
       "title": "Progress"
     },
@@ -5084,7 +5084,7 @@
       "x": 10400,
       "y": 52400,
       "w": 1240,
-      "h": 560,
+      "h": 720,
       "page": "v5",
       "title": "Never auto-approved",
       "is_interactive": false
@@ -5273,7 +5273,7 @@
       "x": 3900,
       "y": 55400,
       "w": 1240,
-      "h": 1020,
+      "h": 1220,
       "page": "v5",
       "title": "Anthropic auth policy",
       "is_interactive": false
@@ -5285,6 +5285,15 @@
       "h": 900,
       "page": "v5",
       "title": "First-run network capture",
+      "is_interactive": false
+    },
+    "v5-ref-Scope.dc.html": {
+      "x": 6500,
+      "y": 55400,
+      "w": 1240,
+      "h": 1180,
+      "page": "v5",
+      "title": "Scope",
       "is_interactive": false
     }
   },
@@ -5879,6 +5888,7 @@
     "v5-ref-LintRules.dc.html",
     "v5-ref-Resume.dc.html",
     "v5-ref-Roadmap.dc.html",
+    "v5-ref-Scope.dc.html",
     "v5-ref-AuthPolicy.dc.html",
     "v5-ref-NetworkCapture.dc.html"
   ],

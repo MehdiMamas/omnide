@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Scope</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+a{color:#B69CFF}a:hover{color:#F4F2FB}
+table{border-collapse:collapse}
+th{text-align:left;font-weight:600;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:rgba(244, 242, 251, 0.74);padding:8px 10px;border-bottom:1px solid rgba(244, 242, 251, 0.08)}
+td{padding:8px 10px;border-bottom:1px solid rgba(244, 242, 251, 0.08);vertical-align:top}
+</style>
+<style data-omnide-v4>@font-face{font-family:'Geist';src:url(./fonts/Geist-Variable.woff2) format('woff2');font-weight:100 900;font-display:swap}@font-face{font-family:'Geist Mono';src:url(./fonts/GeistMono-Variable.woff2) format('woff2');font-weight:100 900;font-display:swap}</style></helmet>
+<div data-page="v5" data-created="2026-11-26" data-updated="2026-11-26" data-status="current" data-section="architecture" style="position:relative;width:1240px;min-height:1180px;box-sizing:border-box;padding:40px 48px;background:#14121B;color:#F4F2FB;font-family:'Geist','Segoe UI',system-ui,sans-serif;font-size:14px;line-height:1.5">
+<div style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:rgba(244, 242, 251, 0.74)">Architecture · reference · scope · v5 · 2026-11-26 · updated 2026-11-26</div><h1 style="margin:6px 0 8px;font-size:30px;font-weight:600">Scope: what this canvas owns</h1><p style="margin:0 0 14px;max-width:1080px;color:rgba(244, 242, 251, 0.74)">This canvas states what OmnIDE is and does. For what it depends on, it points at the source and does not copy it.</p><h2 style="margin:18px 0 6px;font-size:18px;font-weight:600">Owned here</h2><table style="width:100%;font-size:13px"><thead><tr><th>Part</th><th>What it is</th></tr></thead><tbody><tr><td>Patches</td><td>patches/*.patch on the pinned Code OSS tag, one concern per patch; the Patch series board has them.</td></tr><tr><td>Scripts</td><td>scripts/ (prepare_vscode.sh, patches.sh, assets.sh, build.sh, save_patch.sh) and upstream.json, which pins the tag.</td></tr><tr><td>CI</td><td>.github/workflows (build, lint) and Renovate on upstream.json; the Build and CI board has them.</td></tr><tr><td>Brand</td><td>src/omnide/brand, theme and fonts, and the colours and logo on the Brand values board.</td></tr><tr><td>The omnide.agent extension</td><td>extensions/omnide-agent (planned, see Plan): the client of the Agent Host, its panel and Settings &gt; Claude.</td></tr><tr><td>Every decision made in the issues</td><td>The issues of MehdiMamas/omnide hold the reasons; the Decisions board and this canvas carry the outcome.</td></tr></tbody></table><h2 style="margin:22px 0 6px;font-size:18px;font-weight:600">Depended on, by pointer only</h2><table style="width:100%;font-size:13px"><thead><tr><th>Dependency</th><th>Where to read it</th></tr></thead><tbody><tr><td>VS Code Agent Host, at the Code OSS 1.148.0 tag</td><td>src/vs/platform/agentHost, and node/claude for the Claude agent: <a href="https://github.com/microsoft/vscode/tree/1.148.0/src/vs/platform/agentHost">https://github.com/microsoft/vscode/tree/1.148.0/src/vs/platform/agentHost</a> (the tag in upstream.json).</td></tr><tr><td>The Claude Code docs</td><td>Permission modes, checkpointing, legal and compliance: <a href="https://code.claude.com/docs/en">https://code.claude.com/docs/en</a>.</td></tr></tbody></table><div style="height:14px"></div><div style="background:#1A1823;border:1px solid rgba(244, 242, 251, 0.08);border-radius:8px;padding:12px 16px;margin:0 0 10px"><b>How a rebuilder uses this</b><br><span style="color:rgba(244, 242, 251, 0.74)">Read the Agent Host internals at the 1.148.0 tag. This canvas states an upstream behaviour only where a screen shows it or a decision rests on it: for example the plan card (Ready to code?, Approve and Deny), the rewind menu actions, and the rule that bypass cannot be entered mid-session.</span></div><div style="background:#1A1823;border:1px solid rgba(244, 242, 251, 0.08);border-radius:8px;padding:12px 16px;margin:0 0 10px"><b>Out of scope on purpose</b><br><span style="color:rgba(244, 242, 251, 0.74)">No boards on Agent Host internals (chat truncation, setting sources, protected paths, the multi-chat lifecycle). They change with each tag, so they are read at the tag, not copied here.</span></div><p style="margin:14px 0 0;font-size:11px;color:rgba(244, 242, 251, 0.74)">Source: upstream.json (tag 1.148.0); <a href="https://github.com/MehdiMamas/omnide/issues">https://github.com/MehdiMamas/omnide/issues</a>; the repo tree of MehdiMamas/omnide, checked 2026-11-26</p>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1240,"height":1180}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>
