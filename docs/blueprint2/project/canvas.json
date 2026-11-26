@@ -146,7 +146,7 @@
       "x": 29560,
       "y": 0,
       "w": 1240,
-      "h": 1699,
+      "h": 1794,
       "page": "v5",
       "title": "History"
     },
@@ -154,7 +154,7 @@
       "x": 0,
       "y": 0,
       "w": 1440,
-      "h": 2580,
+      "h": 3222,
       "page": "v5",
       "title": "Start here"
     },
@@ -5012,7 +5012,7 @@
       "x": 0,
       "y": 52400,
       "w": 1240,
-      "h": 779,
+      "h": 1263,
       "page": "v5",
       "title": "Brand values",
       "is_interactive": false
@@ -5030,7 +5030,7 @@
       "x": 2600,
       "y": 52400,
       "w": 1240,
-      "h": 1030,
+      "h": 986,
       "page": "v5",
       "title": "Why not VSCodium",
       "is_interactive": false
@@ -5093,7 +5093,7 @@
       "x": 11700,
       "y": 52400,
       "w": 1240,
-      "h": 1220,
+      "h": 1320,
       "page": "v5",
       "title": "Rewind limits and warnings",
       "is_interactive": false
@@ -5165,7 +5165,7 @@
       "x": 7800,
       "y": 53900,
       "w": 1240,
-      "h": 2883,
+      "h": 3386,
       "page": "v5",
       "title": "Full keyboard map",
       "is_interactive": false
@@ -5228,7 +5228,7 @@
       "x": 1300,
       "y": 55400,
       "w": 1240,
-      "h": 2814,
+      "h": 2871,
       "page": "v5",
       "title": "Patch series",
       "is_interactive": false
