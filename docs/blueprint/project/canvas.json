@@ -128,7 +128,7 @@
    "w": 1240,
    "h": 820,
    "page": "v3",
-   "title": "Agent turn states (v2)"
+   "title": "Agent turn states"
   },
   "v3-FlowMain.dc.html": {
    "x": 2840,
@@ -266,7 +266,7 @@
    "w": 1240,
    "h": 456,
    "page": "v3",
-   "title": "Free usage limit reached",
+   "title": "Claude usage limit reached",
    "is_interactive": true
   },
   "v3-PlayPermission.dc.html": {
@@ -731,7 +731,7 @@
    "w": 1440,
    "h": 931,
    "page": "v3",
-   "title": "v2-btn-general-account · Account Open (opens the web dashboard outside the IDE)",
+   "title": "v2-btn-general-account · Claude Open (opens the Claude settings)",
    "is_interactive": true
   },
   "v3-btn-general-reset.dc.html": {
@@ -830,7 +830,7 @@
    "w": 1440,
    "h": 931,
    "page": "v3",
-   "title": "v2-chat-model-menu · model menu open, Free plan locked",
+   "title": "v2-chat-model-menu · model menu open, Claude models",
    "is_interactive": true
   },
   "v3-chat-more-actions.dc.html": {
