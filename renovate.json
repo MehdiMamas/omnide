@@ -15,6 +15,7 @@
   "packageRules": [
     {
       "matchDepNames": ["microsoft/vscode"],
+      "versioning": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)$",
       "labels": ["upstream"],
       "automerge": false
     },
