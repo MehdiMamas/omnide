@@ -1,0 +1,21 @@
+@startuml
+!include skin.iuml
+
+actor Developer as u
+participant "Composer\n(React UI in renderer)" as c
+participant "Agent host\n(cursor-agent-host)" as h
+participant "Cursor cloud\n(api2.cursor.sh)" as api
+participant "Agent exec\n(cursor-agent-exec)" as x
+participant "Shell pty / files" as t
+u -> c : prompt, Enter
+c -> h : start turn (mode, model, context)
+h -> api : stream turn
+api --> c : thinking, tool calls
+api -> x : run tool (terminal, edit)
+x -> t : command / write file
+t --> x : output, exit code
+x --> api : result
+api --> c : answer; turn done
+c --> u : Undo / Keep / Review bar
+note over h, x : TO VERIFY: process routing is read from extension\nmanifests (activation events, descriptions), not traced at runtime.
+@enduml
