@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Deny an edit</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+a{color:#B69CFF}a:hover{color:#F4F2FB}
+table{border-collapse:collapse}
+th{text-align:left;font-weight:600;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:rgba(244, 242, 251, 0.74);padding:8px 10px;border-bottom:1px solid rgba(244, 242, 251, 0.08)}
+td{padding:8px 10px;border-bottom:1px solid rgba(244, 242, 251, 0.08);vertical-align:top}
+</style>
+<style data-omnide-v4>@font-face{font-family:'Geist';src:url(./fonts/Geist-Variable.woff2) format('woff2');font-weight:100 900;font-display:swap}@font-face{font-family:'Geist Mono';src:url(./fonts/GeistMono-Variable.woff2) format('woff2');font-weight:100 900;font-display:swap}</style></helmet>
+<div data-page="v5" data-created="2026-11-26" data-updated="2026-11-26" data-status="current" data-section="play" data-scenario="PlayPermission" data-kind="edge" data-story="As a developer who wants control, I want to deny an edit that Claude Code asks for, so that nothing changes without my yes." style="position:relative;width:1240px;min-height:560px;box-sizing:border-box;padding:40px 48px;background:#14121B;color:#F4F2FB;font-family:'Geist','Segoe UI',system-ui,sans-serif;font-size:14px;line-height:1.5">
+<div style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:rgba(244, 242, 251, 0.74)">Play · edge · v4 · 2026-11-26 · updated 2026-11-26</div><h1 style="margin:6px 0 8px;font-size:30px;font-weight:600">Deny an edit</h1><p style="margin:0 0 20px;max-width:1000px;color:rgba(244, 242, 251, 0.74)">As a developer who wants control, I want to deny an edit that Claude Code asks for, so that nothing changes without my yes. Click a step to open its screen; each screen links on through its real buttons. <a href="v5-FlowMain.dc.html">See the flow</a>.</p><ol style="margin:0;padding-left:22px;max-width:1000px"><li style="margin:0 0 8px"><a href="v5-omni-permission-ask.dc.html" data-flow="v5-FlowMain:denied" data-endpoint="RPC /session/request_permission">Permission ask</a><br><span style="color:rgba(244, 242, 251, 0.74)">Claude Code asks before editing a file; the choices are Allow once, Allow always, Reject once and Reject always.</span></li><li style="margin:0 0 8px"><a href="v5-omni-permission-denied.dc.html" data-flow="v5-FlowMain:denied" data-endpoint="RPC /fs/write_text_file">Permission denied</a><br><span style="color:rgba(244, 242, 251, 0.74)">The file is untouched and the agent waits for the next message.</span></li></ol>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1240,"height":560}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

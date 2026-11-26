@@ -1,0 +1,736 @@
+{
+ "ArchData": [],
+ "ArchLayers": [],
+ "ArchSequence": [],
+ "Architecture": [],
+ "Decisions": [],
+ "Deploy": [],
+ "DesignSpec": [],
+ "DesignTokens": [],
+ "EdgeAccount": [],
+ "EdgeCases": [],
+ "EdgeFailures": [],
+ "Features": [],
+ "FlowChat": [],
+ "FlowMain": [],
+ "FlowStates": [],
+ "History": [],
+ "Main": [],
+ "Plan": [],
+ "PlayAgent": [],
+ "PlayChat": [],
+ "PlayChatError": [],
+ "PlayClaudeError": [],
+ "PlayClaudeSession": [],
+ "PlayClaudeSetupEdge": [],
+ "PlayCode": [],
+ "PlayCustomize": [],
+ "PlayInline": [],
+ "PlayLight": [],
+ "PlayPermission": [],
+ "PlayRestore": [],
+ "PlaySettings": [],
+ "PlaySettings2": [],
+ "PlaySettingsEdge": [],
+ "PlaySetup": [],
+ "PlaySteer": [],
+ "PlayUpdate": [],
+ "Progress": [],
+ "Questions": [],
+ "SettingsInventory": [],
+ "agent-Component": [
+  "row"
+ ],
+ "agent-Mapping": [
+  "row"
+ ],
+ "agent-Registry": [
+  "row"
+ ],
+ "agent-Sequence": [],
+ "agent-States": [],
+ "ai-01-agent-mode-picker": [
+  "chip"
+ ],
+ "ai-02-model-popover": [
+  "chip",
+  "row"
+ ],
+ "ai-08-composer-at-mention-menu": [
+  "chip"
+ ],
+ "ai-09-composer-at-mention-filtered": [
+  "chip"
+ ],
+ "ai-10-composer-slash-menu": [
+  "chip"
+ ],
+ "ai-11-agent-pane-overflow-menu": [
+  "chip"
+ ],
+ "ai-12-composer-typed-prompt": [
+  "chip"
+ ],
+ "ai-13-agent-turn-starting": [
+  "chip"
+ ],
+ "ai-14-agent-turn-streaming": [
+  "chip"
+ ],
+ "ai-15-agent-turn-tools": [
+  "chip"
+ ],
+ "ai-16-agent-turn-done-inline-diff": [
+  "chip"
+ ],
+ "ai-17-changed-files-expanded": [
+  "chip"
+ ],
+ "ai-18-agent-changes-accepted": [
+  "chip"
+ ],
+ "ai-19-review-editor": [
+  "chip"
+ ],
+ "ai-20-plan-mode-composer": [
+  "chip"
+ ],
+ "ai-21-plan-mode-streaming": [
+  "chip"
+ ],
+ "ai-22-plan-artifact-editor": [
+  "chip"
+ ],
+ "ai-23-plan-build-dropdown": [
+  "chip"
+ ],
+ "ai-24-ask-mode-streaming": [
+  "chip"
+ ],
+ "ai-25-ask-mode-answer": [
+  "chip"
+ ],
+ "ai-26-editor-selection-toolbar": [
+  "chip"
+ ],
+ "ai-40-tool-card-read-search": [
+  "chip"
+ ],
+ "ai-41-tool-card-collapsed-expanded": [
+  "chip"
+ ],
+ "ai-43-checkpoint-restore": [
+  "chip"
+ ],
+ "ai-44-chat-history-list": [
+  "chip"
+ ],
+ "ai-48-stop-generation": [
+  "chip"
+ ],
+ "btn-agents-allowlist-options": [
+  "chip"
+ ],
+ "btn-general-account": [
+  "chip"
+ ],
+ "btn-general-reset": [
+  "chip"
+ ],
+ "chat-agents-sidebar": [
+  "chip"
+ ],
+ "chat-approval-1": [
+  "chip"
+ ],
+ "chat-approval-2": [
+  "chip"
+ ],
+ "chat-at-menu": [
+  "chip"
+ ],
+ "chat-at-terminals": [
+  "chip"
+ ],
+ "chat-files-expanded": [
+  "chip"
+ ],
+ "chat-history": [
+  "chip"
+ ],
+ "chat-kept": [
+  "chip"
+ ],
+ "chat-mode-menu": [
+  "chip"
+ ],
+ "chat-model-menu": [
+  "chip",
+  "row"
+ ],
+ "chat-more-actions": [
+  "chip"
+ ],
+ "chat-new-agent": [
+  "chip"
+ ],
+ "chat-plan-mode": [
+  "chip"
+ ],
+ "chat-restore-cancelled": [
+  "chip"
+ ],
+ "chat-restore-confirm": [
+  "chip"
+ ],
+ "chat-review": [
+  "chip"
+ ],
+ "chat-run1-1": [
+  "chip"
+ ],
+ "chat-run1-2": [
+  "chip"
+ ],
+ "chat-run1-3": [
+  "chip"
+ ],
+ "chat-run1-4": [
+  "chip"
+ ],
+ "chat-run1-5": [
+  "chip"
+ ],
+ "chat-run1-6": [
+  "chip"
+ ],
+ "chat-run2-1": [
+  "chip"
+ ],
+ "chat-run2-2": [
+  "chip"
+ ],
+ "chat-run2-3": [
+  "chip"
+ ],
+ "chat-run2-4": [
+  "chip"
+ ],
+ "chat-run2-5": [
+  "chip"
+ ],
+ "chat-run2-6": [
+  "chip"
+ ],
+ "chat-run2-7": [
+  "chip"
+ ],
+ "chat-run2-followup-typed": [
+  "chip"
+ ],
+ "chat-run2-steer-1": [
+  "chip"
+ ],
+ "chat-run2-steer-2": [
+  "chip"
+ ],
+ "chat-slash-menu": [
+  "chip"
+ ],
+ "chat-typed": [
+  "chip"
+ ],
+ "chat-worked-expanded": [
+  "chip"
+ ],
+ "customize-commands": [
+  "chip"
+ ],
+ "customize-hooks": [
+  "chip"
+ ],
+ "customize-marketplace": [
+  "chip"
+ ],
+ "customize-mcps": [
+  "chip"
+ ],
+ "customize-plugins-1": [
+  "chip"
+ ],
+ "customize-rules": [
+  "chip"
+ ],
+ "customize-skills": [
+  "chip"
+ ],
+ "customize-subagents": [
+  "chip"
+ ],
+ "dd-agents-auto-review": [
+  "chip"
+ ],
+ "dd-agents-cursor-default": [
+  "chip"
+ ],
+ "dd-agents-default": [
+  "chip"
+ ],
+ "dd-agents-manually-sent-messages-from-queue": [
+  "chip"
+ ],
+ "dd-agents-new-messages": [
+  "chip"
+ ],
+ "dd-agents-system": [
+  "chip"
+ ],
+ "dd-general-conversation-density": [
+  "chip"
+ ],
+ "dd-general-review-control-location": [
+  "chip"
+ ],
+ "dd-general-window-layout": [
+  "chip"
+ ],
+ "dd-general-window-restoration": [
+  "chip"
+ ],
+ "dd-models-coordinator-effort": [
+  "chip",
+  "row"
+ ],
+ "dd-models-default": [
+  "chip",
+  "row"
+ ],
+ "dd-source-control-default-approach": [
+  "chip"
+ ],
+ "dd-source-control-pr-link-destination": [
+  "chip"
+ ],
+ "ide-01-onboarding-login": [],
+ "ide-03-ide-default-layout": [
+  "chip"
+ ],
+ "ide-04-explorer-sidebar": [
+  "chip"
+ ],
+ "ide-05-quick-open": [
+  "chip"
+ ],
+ "ide-06-editor-file-open": [
+  "chip"
+ ],
+ "ide-07-command-palette": [
+  "chip"
+ ],
+ "ide-08-search-view": [
+  "chip"
+ ],
+ "ide-09-scm-changes": [
+  "chip"
+ ],
+ "ide-10-scm-diff-editor": [
+  "chip"
+ ],
+ "ide-11-terminal-panel": [
+  "chip"
+ ],
+ "ide-12-problems-panel": [
+  "chip"
+ ],
+ "ide-13-run-debug-view": [
+  "chip"
+ ],
+ "ide-14-extensions-view": [
+  "chip"
+ ],
+ "ide-15-menu-file": [
+  "chip"
+ ],
+ "ide-16-menu-edit": [
+  "chip"
+ ],
+ "ide-17-menu-view": [
+  "chip"
+ ],
+ "ide-18-editor-context-menu": [
+  "chip"
+ ],
+ "ide-19-explorer-context-menu": [
+  "chip"
+ ],
+ "ide-20-editor-find-widget": [
+  "chip"
+ ],
+ "ide-21-editor-find-replace": [
+  "chip"
+ ],
+ "ide-22-editor-suggest-widget": [
+  "chip"
+ ],
+ "ide-23-editor-hover": [
+  "chip"
+ ],
+ "ide-24-go-to-symbol": [
+  "chip"
+ ],
+ "ide-25-peek-references": [
+  "chip"
+ ],
+ "ide-26-rename-input": [
+  "chip"
+ ],
+ "ide-27-split-editor": [
+  "chip"
+ ],
+ "ide-28-settings-narrow-layout-section": [
+  "chip"
+ ],
+ "ide-29-settings-general": [
+  "chip"
+ ],
+ "ide-30-vscode-settings-editor": [
+  "chip"
+ ],
+ "ide-32-settings-agents": [
+  "chip"
+ ],
+ "ide-34-settings-models": [
+  "chip",
+  "row"
+ ],
+ "ide-35-settings-git-prs": [
+  "chip"
+ ],
+ "ide-36-customize-page": [
+  "chip"
+ ],
+ "ide-41-default-keybindings-json": [
+  "chip"
+ ],
+ "ide-42-notifications-center-empty": [
+  "chip"
+ ],
+ "ide-43-keyboard-shortcuts-editor": [
+  "chip"
+ ],
+ "ide-44-editor-tab-context-menu": [
+  "chip"
+ ],
+ "ide-45-branch-picker": [
+  "chip"
+ ],
+ "ide-47-layout-chat-hidden-panel-open": [
+  "chip"
+ ],
+ "ide-48-color-theme-picker": [
+  "chip"
+ ],
+ "ide-49-menu-selection": [
+  "chip"
+ ],
+ "ide-50-menu-go": [
+  "chip"
+ ],
+ "ide-51-menu-run": [
+  "chip"
+ ],
+ "ide-52-menu-terminal": [
+  "chip"
+ ],
+ "ide-53-menu-help": [
+  "chip"
+ ],
+ "ide-56-scm-more-menu": [
+  "chip"
+ ],
+ "ide-57-terminal-dropdown": [
+  "chip"
+ ],
+ "ide-58-panel-tab-context-menu": [
+  "chip"
+ ],
+ "ide-59-activitybar-context-menu": [
+  "chip"
+ ],
+ "ide-60-scm-commit-typed": [
+  "chip"
+ ],
+ "ide-61-scm-commit-dropdown": [
+  "chip"
+ ],
+ "ide-62-scm-graph": [
+  "chip"
+ ],
+ "ide-64-scm-merge-conflict": [
+  "chip"
+ ],
+ "ide-65-terminal-split": [
+  "chip"
+ ],
+ "ide-66-terminal-find": [
+  "chip"
+ ],
+ "ide-67-terminal-tabs-list": [
+  "chip"
+ ],
+ "ide-68-extension-detail": [
+  "chip"
+ ],
+ "ide-69-extension-search-results": [
+  "chip"
+ ],
+ "ide-70-extension-context-menu": [
+  "chip"
+ ],
+ "ide-72-explorer-new-file-input": [
+  "chip"
+ ],
+ "ide-73-explorer-rename": [
+  "chip"
+ ],
+ "ide-76-outline-timeline": [
+  "chip"
+ ],
+ "light-01-ide-editor": [
+  "chip"
+ ],
+ "light-02-command-palette": [
+  "chip"
+ ],
+ "light-03-scm-changes": [
+  "chip"
+ ],
+ "light-04-diff-editor": [
+  "chip"
+ ],
+ "light-05-terminal-panel": [
+  "chip"
+ ],
+ "light-06-explorer-context-menu": [
+  "chip"
+ ],
+ "light-07-settings-general": [
+  "chip"
+ ],
+ "light-08-agent-mode-picker": [
+  "chip"
+ ],
+ "light-09-model-picker": [
+  "chip",
+  "row"
+ ],
+ "light-10-ide-03": [
+  "chip"
+ ],
+ "light-11-ide-04": [
+  "chip"
+ ],
+ "light-12-ide-05": [
+  "chip"
+ ],
+ "light-13-ide-08": [
+  "chip"
+ ],
+ "light-14-ide-11": [
+  "chip"
+ ],
+ "light-15-ide-14": [
+  "chip"
+ ],
+ "light-16-ide-15": [
+  "chip"
+ ],
+ "light-17-ide-20": [
+  "chip"
+ ],
+ "light-18-ide-22": [
+  "chip"
+ ],
+ "light-19-ide-29": [
+  "chip"
+ ],
+ "light-20-ide-43": [
+  "chip"
+ ],
+ "light-21-ob-01": [],
+ "light-24-ai-08": [
+  "chip"
+ ],
+ "light-25-ai-15": [
+  "chip"
+ ],
+ "light-31-set-02": [
+  "chip"
+ ],
+ "ob-01-welcome": [],
+ "omni-ArchOmnide": [],
+ "omni-Brand": [],
+ "omni-CaseCursor": [],
+ "omni-CaseLessons": [],
+ "omni-CaseVSCodium": [],
+ "omni-CaseVoid": [],
+ "omni-CaseZed": [],
+ "omni-Changes": [],
+ "omni-Endpoints": [],
+ "omni-UpdatesFlow": [],
+ "omni-agent-picker": [
+  "chip"
+ ],
+ "omni-claude-error": [
+  "chip"
+ ],
+ "omni-claude-missing": [],
+ "omni-claude-not-installed": [
+  "chip"
+ ],
+ "omni-claude-signed-out": [
+  "chip",
+  "row"
+ ],
+ "omni-permission-ask": [
+  "chip"
+ ],
+ "omni-permission-denied": [
+  "chip"
+ ],
+ "omni-update-failed": [
+  "chip"
+ ],
+ "omni-update-ready": [
+  "chip"
+ ],
+ "review-commit-1": [
+  "chip"
+ ],
+ "review-commit-2": [
+  "chip"
+ ],
+ "review-findissues-menu": [
+  "chip"
+ ],
+ "review-more-menu": [
+  "chip"
+ ],
+ "set-01-rules-memories": [
+  "chip"
+ ],
+ "set-02-mcp-tools": [
+  "chip"
+ ],
+ "set-03-mcp-add-server": [
+  "chip"
+ ],
+ "set-04-hooks": [
+  "chip"
+ ],
+ "set-09-notifications": [
+  "chip"
+ ],
+ "set-10-search-settings": [
+  "chip"
+ ],
+ "set-agents-1": [
+  "chip"
+ ],
+ "set-agents-2": [
+  "chip"
+ ],
+ "set-agents-3": [
+  "chip"
+ ],
+ "set-agents-4": [
+  "chip"
+ ],
+ "set-agents-5": [
+  "chip"
+ ],
+ "set-general-1": [
+  "chip"
+ ],
+ "set-general-2": [
+  "chip"
+ ],
+ "set-general-3": [
+  "chip"
+ ],
+ "set-general-4": [
+  "chip"
+ ],
+ "set-models-1": [
+  "chip",
+  "row"
+ ],
+ "set-models-2": [
+  "chip",
+  "row"
+ ],
+ "set-claude-1": [
+  "chip",
+  "row"
+ ],
+ "set-source-control-1": [
+  "chip"
+ ],
+ "set-source-control-2": [
+  "chip"
+ ],
+ "set-source-control-3": [
+  "chip"
+ ],
+ "st-01-signed-out-composer": [],
+ "st-05-file-too-large": [
+  "chip"
+ ],
+ "terminal-panel": [
+  "chip"
+ ],
+ "NotInOmnide": [],
+ "omni-model-picker": [
+  "chip"
+ ],
+ "omni-context-meter": [
+  "chip"
+ ],
+ "omni-compacting": [
+  "chip"
+ ],
+ "omni-compacted": [
+  "chip"
+ ],
+ "omni-plan-approval": [
+  "chip"
+ ],
+ "omni-subagent": [
+  "chip"
+ ],
+ "omni-todos": [
+  "chip"
+ ],
+ "omni-rewind": [
+  "chip"
+ ],
+ "omni-rewind-confirm": [
+  "chip"
+ ],
+ "omni-fork": [
+  "chip"
+ ],
+ "omni-sessions": [
+  "chip"
+ ],
+ "omni-bg-tasks": [
+  "chip"
+ ],
+ "omni-about": [
+  "chip"
+ ],
+ "PlayOmni": [],
+ "omni-rate-limit": [
+  "chip"
+ ]
+}

@@ -7,15 +7,2517 @@
   "title": "OmnIDE blueprint",
   "launch": {
     "view": "canvas",
-    "page": "v4"
+    "page": "v5"
   },
   "pages": [
     {
+      "id": "v5",
+      "name": "v5 · 2026-11-26"
+    },
+    {
       "id": "v4",
-      "name":"v4 · 2026-11-26"
+      "name": "v4 · 2026-11-26 · superseded"
     }
   ],
   "boards": {
+    "v5-ArchData.dc.html": {
+      "x": 21640,
+      "y": 0,
+      "w": 1240,
+      "h": 620,
+      "page": "v5",
+      "title": "Data (er)"
+    },
+    "v5-ArchLayers.dc.html": {
+      "x": 44280,
+      "y": 0,
+      "w": 1240,
+      "h": 760,
+      "page": "v5",
+      "title": "Code OSS layers"
+    },
+    "v5-ArchSequence.dc.html": {
+      "x": 22960,
+      "y": 0,
+      "w": 1240,
+      "h": 640,
+      "page": "v5",
+      "title": "Agent turn (sequence)"
+    },
+    "v5-Architecture.dc.html": {
+      "x": 20320,
+      "y": 0,
+      "w": 1240,
+      "h": 800,
+      "page": "v5",
+      "title": "Architecture"
+    },
+    "v5-Decisions.dc.html": {
+      "x": 24280,
+      "y": 0,
+      "w": 1240,
+      "h": 1500,
+      "page": "v5",
+      "title": "Decisions"
+    },
+    "v5-Deploy.dc.html": {
+      "x": 26920,
+      "y": 0,
+      "w": 1240,
+      "h": 720,
+      "page": "v5",
+      "title": "Deploy"
+    },
+    "v5-DesignSpec.dc.html": {
+      "x": 19000,
+      "y": 0,
+      "w": 1240,
+      "h": 1700,
+      "page": "v5",
+      "title": "Design direction"
+    },
+    "v5-DesignTokens.dc.html": {
+      "x": 17680,
+      "y": 0,
+      "w": 1240,
+      "h": 1200,
+      "page": "v5",
+      "title": "Design tokens"
+    },
+    "v5-EdgeAccount.dc.html": {
+      "x": 13520,
+      "y": 0,
+      "w": 1240,
+      "h": 550,
+      "page": "v5",
+      "title": "Edge: Claude not connected or signed out",
+      "is_interactive": true
+    },
+    "v5-EdgeCases.dc.html": {
+      "x": 5600,
+      "y": 0,
+      "w": 1240,
+      "h": 900,
+      "page": "v5",
+      "title": "Edge cases"
+    },
+    "v5-EdgeFailures.dc.html": {
+      "x": 14840,
+      "y": 0,
+      "w": 1240,
+      "h": 446,
+      "page": "v5",
+      "title": "Error: the agent or a file fails",
+      "is_interactive": true
+    },
+    "v5-Features.dc.html": {
+      "x": 16160,
+      "y": 0,
+      "w": 1440,
+      "h": 1700,
+      "page": "v5",
+      "title": "Feature inventory"
+    },
+    "v5-FlowChat.dc.html": {
+      "x": 41440,
+      "y": 0,
+      "w": 1240,
+      "h": 820,
+      "page": "v5",
+      "title": "Agent turn states"
+    },
+    "v5-FlowMain.dc.html": {
+      "x": 2840,
+      "y": 0,
+      "w": 1360,
+      "h": 800,
+      "page": "v5",
+      "title": "Main flow"
+    },
+    "v5-FlowStates.dc.html": {
+      "x": 4280,
+      "y": 0,
+      "w": 1240,
+      "h": 620,
+      "page": "v5",
+      "title": "Agent turn states"
+    },
+    "v5-History.dc.html": {
+      "x": 29560,
+      "y": 0,
+      "w": 1240,
+      "h": 640,
+      "page": "v5",
+      "title": "History"
+    },
+    "v5-Main.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 2300,
+      "page": "v5",
+      "title": "Start here"
+    },
+    "v5-Plan.dc.html": {
+      "x": 25600,
+      "y": 0,
+      "w": 1240,
+      "h": 2100,
+      "page": "v5",
+      "title": "Plan"
+    },
+    "v5-PlayAgent.dc.html": {
+      "x": 8240,
+      "y": 0,
+      "w": 1240,
+      "h": 890,
+      "page": "v5",
+      "title": "Ask the agent and keep its change",
+      "is_interactive": true
+    },
+    "v5-PlayChat.dc.html": {
+      "x": 30880,
+      "y": 0,
+      "w": 1240,
+      "h": 1204,
+      "page": "v5",
+      "title": "Ask the agent, review, keep and commit",
+      "is_interactive": true
+    },
+    "v5-PlayChatError.dc.html": {
+      "x": 33520,
+      "y": 0,
+      "w": 1240,
+      "h": 664,
+      "page": "v5",
+      "title": "A command fails and the agent retries",
+      "is_interactive": true
+    },
+    "v5-PlayClaudeError.dc.html": {
+      "x": 0,
+      "y": 42651,
+      "w": 1240,
+      "h": 560,
+      "title": "Play: Claude errors",
+      "page": "v5",
+      "is_interactive": true
+    },
+    "v5-PlayClaudeSession.dc.html": {
+      "x": 1340,
+      "y": 42651,
+      "w": 1240,
+      "h": 760,
+      "title": "Play: Claude session",
+      "page": "v5",
+      "is_interactive": true
+    },
+    "v5-PlayClaudeSetupEdge.dc.html": {
+      "x": 2680,
+      "y": 42651,
+      "w": 1240,
+      "h": 560,
+      "title": "Play: Claude setup edge cases",
+      "page": "v5",
+      "is_interactive": true
+    },
+    "v5-PlayCode.dc.html": {
+      "x": 6920,
+      "y": 0,
+      "w": 1240,
+      "h": 954,
+      "page": "v5",
+      "title": "Read and change code by hand",
+      "is_interactive": true
+    },
+    "v5-PlayCustomize.dc.html": {
+      "x": 37480,
+      "y": 0,
+      "w": 1240,
+      "h": 768,
+      "page": "v5",
+      "title": "Customize the agent",
+      "is_interactive": true
+    },
+    "v5-PlayInline.dc.html": {
+      "x": 9560,
+      "y": 0,
+      "w": 1240,
+      "h": 416,
+      "page": "v5",
+      "title": "Work from the editor: selection, Tab, inline diff",
+      "is_interactive": true
+    },
+    "v5-PlayLight.dc.html": {
+      "x": 12200,
+      "y": 0,
+      "w": 1240,
+      "h": 764,
+      "page": "v5",
+      "title": "The same loop in the light theme",
+      "is_interactive": true
+    },
+    "v5-PlayPermission.dc.html": {
+      "x": 0,
+      "y": 41711,
+      "w": 1240,
+      "h": 560,
+      "page": "v5",
+      "title": "Deny an edit",
+      "is_interactive": true
+    },
+    "v5-PlayRestore.dc.html": {
+      "x": 36160,
+      "y": 0,
+      "w": 1240,
+      "h": 456,
+      "page": "v5",
+      "title": "Restore a checkpoint, then cancel",
+      "is_interactive": true
+    },
+    "v5-PlaySettings.dc.html": {
+      "x": 10880,
+      "y": 0,
+      "w": 1240,
+      "h": 660,
+      "page": "v5",
+      "title": "Tune OmnIDE in Settings",
+      "is_interactive": true
+    },
+    "v5-PlaySettings2.dc.html": {
+      "x": 38800,
+      "y": 0,
+      "w": 1240,
+      "h": 1210,
+      "page": "v5",
+      "title": "Every OmnIDE Settings page",
+      "is_interactive": true
+    },
+    "v5-PlaySettingsEdge.dc.html": {
+      "x": 40120,
+      "y": 0,
+      "w": 1240,
+      "h": 456,
+      "page": "v5",
+      "title": "Settings that lead out or fail",
+      "is_interactive": true
+    },
+    "v5-PlaySetup.dc.html": {
+      "x": 3900,
+      "y": 40731,
+      "w": 1240,
+      "h": 560,
+      "page": "v5",
+      "title": "First run: set up Claude Code",
+      "is_interactive": true
+    },
+    "v5-PlaySteer.dc.html": {
+      "x": 32200,
+      "y": 0,
+      "w": 1240,
+      "h": 508,
+      "page": "v5",
+      "title": "Steer an agent while it runs",
+      "is_interactive": true
+    },
+    "v5-PlayUpdate.dc.html": {
+      "x": 1300,
+      "y": 41711,
+      "w": 1240,
+      "h": 560,
+      "page": "v5",
+      "title": "A bad update is refused",
+      "is_interactive": true
+    },
+    "v5-Progress.dc.html": {
+      "x": 1520,
+      "y": 0,
+      "w": 1240,
+      "h": 1000,
+      "page": "v5",
+      "title": "Progress"
+    },
+    "v5-Questions.dc.html": {
+      "x": 28240,
+      "y": 0,
+      "w": 1240,
+      "h": 760,
+      "page": "v5",
+      "title": "Questions"
+    },
+    "v5-SettingsInventory.dc.html": {
+      "x": 42760,
+      "y": 0,
+      "w": 1440,
+      "h": 5454,
+      "page": "v5",
+      "title": "Settings inventory"
+    },
+    "v5-agent-Component.dc.html": {
+      "x": 4020,
+      "y": 42651,
+      "w": 1240,
+      "h": 760,
+      "title": "agent-Component",
+      "page": "v5",
+      "is_interactive": false
+    },
+    "v5-agent-Mapping.dc.html": {
+      "x": 5360,
+      "y": 42651,
+      "w": 1240,
+      "h": 1250,
+      "title": "agent-Mapping",
+      "page": "v5",
+      "is_interactive": false
+    },
+    "v5-agent-Registry.dc.html": {
+      "x": 6700,
+      "y": 42651,
+      "w": 1240,
+      "h": 900,
+      "title": "agent-Registry",
+      "page": "v5",
+      "is_interactive": false
+    },
+    "v5-agent-Sequence.dc.html": {
+      "x": 0,
+      "y": 44351,
+      "w": 1240,
+      "h": 1260,
+      "title": "agent-Sequence",
+      "page": "v5",
+      "is_interactive": false
+    },
+    "v5-agent-States.dc.html": {
+      "x": 1340,
+      "y": 44351,
+      "w": 1240,
+      "h": 760,
+      "title": "agent-States",
+      "page": "v5",
+      "is_interactive": false
+    },
+    "v5-ai-01-agent-mode-picker.dc.html": {
+      "x": 0,
+      "y": 2400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ai-01-agent-mode-picker · agent mode picker",
+      "is_interactive": true
+    },
+    "v5-ai-02-model-popover.dc.html": {
+      "x": 0,
+      "y": 3400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ai-02-model-popover · model popover",
+      "is_interactive": true
+    },
+    "v5-ai-08-composer-at-mention-menu.dc.html": {
+      "x": 1520,
+      "y": 2400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ai-08-composer-at-mention-menu · composer at mention menu",
+      "is_interactive": true
+    },
+    "v5-ai-09-composer-at-mention-filtered.dc.html": {
+      "x": 3040,
+      "y": 2400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ai-09-composer-at-mention-filtered · composer at mention filtered",
+      "is_interactive": true
+    },
+    "v5-ai-10-composer-slash-menu.dc.html": {
+      "x": 4560,
+      "y": 2400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ai-10-composer-slash-menu · composer slash menu",
+      "is_interactive": true
+    },
+    "v5-ai-11-agent-pane-overflow-menu.dc.html": {
+      "x": 6080,
+      "y": 2400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ai-11-agent-pane-overflow-menu · agent pane overflow menu",
+      "is_interactive": true
+    },
+    "v5-ai-12-composer-typed-prompt.dc.html": {
+      "x": 7600,
+      "y": 2400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ai-12-composer-typed-prompt · composer typed prompt",
+      "is_interactive": true
+    },
+    "v5-ai-13-agent-turn-starting.dc.html": {
+      "x": 0,
+      "y": 4400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ai-13-agent-turn-starting · agent turn starting",
+      "is_interactive": true
+    },
+    "v5-ai-14-agent-turn-streaming.dc.html": {
+      "x": 1520,
+      "y": 4400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ai-14-agent-turn-streaming · agent turn streaming",
+      "is_interactive": true
+    },
+    "v5-ai-15-agent-turn-tools.dc.html": {
+      "x": 3040,
+      "y": 4400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ai-15-agent-turn-tools · agent turn tools",
+      "is_interactive": true
+    },
+    "v5-ai-16-agent-turn-done-inline-diff.dc.html": {
+      "x": 0,
+      "y": 5400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ai-16-agent-turn-done-inline-diff · agent turn done inline diff",
+      "is_interactive": true
+    },
+    "v5-ai-17-changed-files-expanded.dc.html": {
+      "x": 4560,
+      "y": 4400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ai-17-changed-files-expanded · changed files expanded",
+      "is_interactive": true
+    },
+    "v5-ai-18-agent-changes-accepted.dc.html": {
+      "x": 6080,
+      "y": 4400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ai-18-agent-changes-accepted · agent changes accepted",
+      "is_interactive": true
+    },
+    "v5-ai-19-review-editor.dc.html": {
+      "x": 7600,
+      "y": 4400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ai-19-review-editor · review editor",
+      "is_interactive": true
+    },
+    "v5-ai-20-plan-mode-composer.dc.html": {
+      "x": 0,
+      "y": 6400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ai-20-plan-mode-composer · plan mode composer",
+      "is_interactive": true
+    },
+    "v5-ai-21-plan-mode-streaming.dc.html": {
+      "x": 1520,
+      "y": 6400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ai-21-plan-mode-streaming · plan mode streaming",
+      "is_interactive": true
+    },
+    "v5-ai-22-plan-artifact-editor.dc.html": {
+      "x": 3040,
+      "y": 6400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ai-22-plan-artifact-editor · plan artifact editor",
+      "is_interactive": true
+    },
+    "v5-ai-23-plan-build-dropdown.dc.html": {
+      "x": 4560,
+      "y": 6400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ai-23-plan-build-dropdown · plan build dropdown",
+      "is_interactive": true
+    },
+    "v5-ai-24-ask-mode-streaming.dc.html": {
+      "x": 0,
+      "y": 7400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ai-24-ask-mode-streaming · ask mode streaming",
+      "is_interactive": true
+    },
+    "v5-ai-25-ask-mode-answer.dc.html": {
+      "x": 1520,
+      "y": 7400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ai-25-ask-mode-answer · ask mode answer",
+      "is_interactive": true
+    },
+    "v5-ai-26-editor-selection-toolbar.dc.html": {
+      "x": 1520,
+      "y": 5400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ai-26-editor-selection-toolbar · editor selection toolbar",
+      "is_interactive": true
+    },
+    "v5-ai-40-tool-card-read-search.dc.html": {
+      "x": 9120,
+      "y": 4400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ai-40-tool-card-read-search · tool card read search",
+      "is_interactive": true
+    },
+    "v5-ai-41-tool-card-collapsed-expanded.dc.html": {
+      "x": 10640,
+      "y": 4400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ai-41-tool-card-collapsed-expanded · tool card collapsed expanded",
+      "is_interactive": true
+    },
+    "v5-ai-43-checkpoint-restore.dc.html": {
+      "x": 12160,
+      "y": 4400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ai-43-checkpoint-restore · checkpoint restore",
+      "is_interactive": true
+    },
+    "v5-ai-44-chat-history-list.dc.html": {
+      "x": 13680,
+      "y": 4400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ai-44-chat-history-list · chat history list",
+      "is_interactive": true
+    },
+    "v5-ai-48-stop-generation.dc.html": {
+      "x": 15200,
+      "y": 4400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ai-48-stop-generation · stop generation",
+      "is_interactive": true
+    },
+    "v5-btn-agents-allowlist-options.dc.html": {
+      "x": 0,
+      "y": 22400,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "btn-agents-allowlist-options · Allowlist Options expanded",
+      "is_interactive": true
+    },
+    "v5-btn-general-account.dc.html": {
+      "x": 0,
+      "y": 25520,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "btn-general-account · Claude Open (opens the Claude settings)",
+      "is_interactive": true
+    },
+    "v5-btn-general-reset.dc.html": {
+      "x": 1520,
+      "y": 25520,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "btn-general-reset · hidden dialogs list shown",
+      "is_interactive": true
+    },
+    "v5-chat-agents-sidebar.dc.html": {
+      "x": 0,
+      "y": 26560,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "chat-agents-sidebar · New Agent, Search, Automations, Customize",
+      "is_interactive": true
+    },
+    "v5-chat-approval-1.dc.html": {
+      "x": 1520,
+      "y": 26560,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "chat-approval-1 · command waiting for approval",
+      "is_interactive": true
+    },
+    "v5-chat-approval-2.dc.html": {
+      "x": 3040,
+      "y": 26560,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "chat-approval-2 · command approval, Settings open",
+      "is_interactive": true
+    },
+    "v5-chat-at-menu.dc.html": {
+      "x": 4560,
+      "y": 26560,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "chat-at-menu · @ menu open",
+      "is_interactive": true
+    },
+    "v5-chat-at-terminals.dc.html": {
+      "x": 6080,
+      "y": 26560,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "chat-at-terminals · @ Terminals submenu",
+      "is_interactive": true
+    },
+    "v5-chat-files-expanded.dc.html": {
+      "x": 7600,
+      "y": 26560,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "chat-files-expanded · changed files expanded",
+      "is_interactive": true
+    },
+    "v5-chat-history.dc.html": {
+      "x": 9120,
+      "y": 26560,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "chat-history · Search agents, Today, Archived",
+      "is_interactive": true
+    },
+    "v5-chat-kept.dc.html": {
+      "x": 10640,
+      "y": 26560,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "chat-kept · changes kept",
+      "is_interactive": true
+    },
+    "v5-chat-mode-menu.dc.html": {
+      "x": 12160,
+      "y": 26560,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "chat-mode-menu · mode menu open (Agent, Plan, Debug, Multitask, Ask)",
+      "is_interactive": true
+    },
+    "v5-chat-model-menu.dc.html": {
+      "x": 13680,
+      "y": 26560,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "chat-model-menu · model menu open, Claude models",
+      "is_interactive": true
+    },
+    "v5-chat-more-actions.dc.html": {
+      "x": 15200,
+      "y": 26560,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "chat-more-actions · More Actions menu open",
+      "is_interactive": true
+    },
+    "v5-chat-new-agent.dc.html": {
+      "x": 16720,
+      "y": 26560,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "chat-new-agent · new agent, second chat tab",
+      "is_interactive": true
+    },
+    "v5-chat-plan-mode.dc.html": {
+      "x": 18240,
+      "y": 26560,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "chat-plan-mode · Plan mode selected",
+      "is_interactive": true
+    },
+    "v5-chat-restore-cancelled.dc.html": {
+      "x": 19760,
+      "y": 26560,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "chat-restore-cancelled · restore cancelled",
+      "is_interactive": true
+    },
+    "v5-chat-restore-confirm.dc.html": {
+      "x": 21280,
+      "y": 26560,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "chat-restore-confirm · restore checkpoint dialog",
+      "is_interactive": true
+    },
+    "v5-chat-review.dc.html": {
+      "x": 22800,
+      "y": 26560,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "chat-review · All Changes, 1 pending",
+      "is_interactive": true
+    },
+    "v5-chat-run1-1.dc.html": {
+      "x": 0,
+      "y": 27600,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "chat-run1-1 · run 1: sent",
+      "is_interactive": true
+    },
+    "v5-chat-run1-2.dc.html": {
+      "x": 1520,
+      "y": 27600,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "chat-run1-2 · run 1: thinking",
+      "is_interactive": true
+    },
+    "v5-chat-run1-3.dc.html": {
+      "x": 3040,
+      "y": 27600,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "chat-run1-3 · run 1: terminal card running",
+      "is_interactive": true
+    },
+    "v5-chat-run1-4.dc.html": {
+      "x": 4560,
+      "y": 27600,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "chat-run1-4 · run 1: terminal output 42",
+      "is_interactive": true
+    },
+    "v5-chat-run1-5.dc.html": {
+      "x": 6080,
+      "y": 27600,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "chat-run1-5 · run 1: file edit card",
+      "is_interactive": true
+    },
+    "v5-chat-run1-6.dc.html": {
+      "x": 7600,
+      "y": 27600,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "chat-run1-6 · run 1: done, Undo / Keep / Review bar",
+      "is_interactive": true
+    },
+    "v5-chat-run2-1.dc.html": {
+      "x": 9120,
+      "y": 27600,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "chat-run2-1 · run 2: sent",
+      "is_interactive": true
+    },
+    "v5-chat-run2-2.dc.html": {
+      "x": 10640,
+      "y": 27600,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "chat-run2-2 · run 2: thinking",
+      "is_interactive": true
+    },
+    "v5-chat-run2-3.dc.html": {
+      "x": 12160,
+      "y": 27600,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "chat-run2-3 · command failed",
+      "is_interactive": true
+    },
+    "v5-chat-run2-4.dc.html": {
+      "x": 13680,
+      "y": 27600,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "chat-run2-4 · run 2: planning next moves",
+      "is_interactive": true
+    },
+    "v5-chat-run2-5.dc.html": {
+      "x": 15200,
+      "y": 27600,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "chat-run2-5 · run 2: retry running",
+      "is_interactive": true
+    },
+    "v5-chat-run2-6.dc.html": {
+      "x": 16720,
+      "y": 27600,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "chat-run2-6 · run 2: retry output",
+      "is_interactive": true
+    },
+    "v5-chat-run2-7.dc.html": {
+      "x": 18240,
+      "y": 27600,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "chat-run2-7 · run 2: answer",
+      "is_interactive": true
+    },
+    "v5-chat-run2-followup-typed.dc.html": {
+      "x": 19760,
+      "y": 27600,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "chat-run2-followup-typed · follow-up typed while running",
+      "is_interactive": true
+    },
+    "v5-chat-run2-steer-1.dc.html": {
+      "x": 21280,
+      "y": 27600,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "chat-run2-steer-1 · steer sent, 1 background terminal",
+      "is_interactive": true
+    },
+    "v5-chat-run2-steer-2.dc.html": {
+      "x": 22800,
+      "y": 27600,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "chat-run2-steer-2 · steer answered, exit codes",
+      "is_interactive": true
+    },
+    "v5-chat-slash-menu.dc.html": {
+      "x": 0,
+      "y": 28640,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "chat-slash-menu · / menu open (skills)",
+      "is_interactive": true
+    },
+    "v5-chat-typed.dc.html": {
+      "x": 1520,
+      "y": 28640,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "chat-typed · prompt typed",
+      "is_interactive": true
+    },
+    "v5-chat-worked-expanded.dc.html": {
+      "x": 3040,
+      "y": 28640,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "chat-worked-expanded · finished turn in the Agent window layout",
+      "is_interactive": true
+    },
+    "v5-customize-commands.dc.html": {
+      "x": 0,
+      "y": 29680,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "customize-commands · Commands tab",
+      "is_interactive": true
+    },
+    "v5-customize-hooks.dc.html": {
+      "x": 1520,
+      "y": 29680,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "customize-hooks · Hooks tab",
+      "is_interactive": true
+    },
+    "v5-customize-marketplace.dc.html": {
+      "x": 3040,
+      "y": 29680,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "customize-marketplace · Marketplace tab",
+      "is_interactive": true
+    },
+    "v5-customize-mcps.dc.html": {
+      "x": 4560,
+      "y": 29680,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "customize-mcps · Mcps tab",
+      "is_interactive": true
+    },
+    "v5-customize-plugins-1.dc.html": {
+      "x": 6080,
+      "y": 29680,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "customize-plugins-1 · Plugins tab",
+      "is_interactive": true
+    },
+    "v5-customize-rules.dc.html": {
+      "x": 7600,
+      "y": 29680,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "customize-rules · Rules tab",
+      "is_interactive": true
+    },
+    "v5-customize-skills.dc.html": {
+      "x": 9120,
+      "y": 29680,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "customize-skills · Skills tab",
+      "is_interactive": true
+    },
+    "v5-customize-subagents.dc.html": {
+      "x": 10640,
+      "y": 29680,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "customize-subagents · Subagents tab",
+      "is_interactive": true
+    },
+    "v5-dd-agents-auto-review.dc.html": {
+      "x": 1520,
+      "y": 22400,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "dd-agents-auto-review · Auto-Review dropdown open",
+      "is_interactive": true
+    },
+    "v5-dd-agents-cursor-default.dc.html": {
+      "x": 3040,
+      "y": 22400,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "dd-agents-omnide-default · OmnIDE Default dropdown open",
+      "is_interactive": true
+    },
+    "v5-dd-agents-default.dc.html": {
+      "x": 4560,
+      "y": 22400,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "dd-agents-default · Default dropdown open",
+      "is_interactive": true
+    },
+    "v5-dd-agents-manually-sent-messages-from-queue.dc.html": {
+      "x": 6080,
+      "y": 22400,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "dd-agents-manually-sent-messages-from-queue · Manually Sent Messages from Queue dropdown open",
+      "is_interactive": true
+    },
+    "v5-dd-agents-new-messages.dc.html": {
+      "x": 7600,
+      "y": 22400,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "dd-agents-new-messages · New Messages dropdown open",
+      "is_interactive": true
+    },
+    "v5-dd-agents-system.dc.html": {
+      "x": 9120,
+      "y": 22400,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "dd-agents-system · System dropdown open",
+      "is_interactive": true
+    },
+    "v5-dd-general-conversation-density.dc.html": {
+      "x": 3040,
+      "y": 25520,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "dd-general-conversation-density · Conversation Density dropdown open",
+      "is_interactive": true
+    },
+    "v5-dd-general-review-control-location.dc.html": {
+      "x": 6080,
+      "y": 25520,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "dd-general-review-control-location · Review Control Location dropdown open",
+      "is_interactive": true
+    },
+    "v5-dd-general-window-layout.dc.html": {
+      "x": 7600,
+      "y": 25520,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "dd-general-window-layout · Window Layout dropdown open",
+      "is_interactive": true
+    },
+    "v5-dd-general-window-restoration.dc.html": {
+      "x": 9120,
+      "y": 25520,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "dd-general-window-restoration · Window Restoration dropdown open",
+      "is_interactive": true
+    },
+    "v5-dd-models-coordinator-effort.dc.html": {
+      "x": 0,
+      "y": 31760,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "dd-models-coordinator-effort · Coordinator effort dropdown open",
+      "is_interactive": true
+    },
+    "v5-dd-models-default.dc.html": {
+      "x": 1520,
+      "y": 31760,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "dd-models-default · Default dropdown open",
+      "is_interactive": true
+    },
+    "v5-dd-source-control-default-approach.dc.html": {
+      "x": 0,
+      "y": 32800,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "dd-source-control-default-approach · Default Approach dropdown open",
+      "is_interactive": true
+    },
+    "v5-dd-source-control-pr-link-destination.dc.html": {
+      "x": 1520,
+      "y": 32800,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "dd-source-control-pr-link-destination · PR Link Destination dropdown open",
+      "is_interactive": true
+    },
+    "v5-ide-01-onboarding-login.dc.html": {
+      "x": 0,
+      "y": 9400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-01-onboarding-login · onboarding login",
+      "is_interactive": true
+    },
+    "v5-ide-03-ide-default-layout.dc.html": {
+      "x": 0,
+      "y": 10400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-03-ide-default-layout · ide default layout",
+      "is_interactive": true
+    },
+    "v5-ide-04-explorer-sidebar.dc.html": {
+      "x": 0,
+      "y": 11400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-04-explorer-sidebar · explorer sidebar",
+      "is_interactive": true
+    },
+    "v5-ide-05-quick-open.dc.html": {
+      "x": 1520,
+      "y": 11400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-05-quick-open · quick open",
+      "is_interactive": true
+    },
+    "v5-ide-06-editor-file-open.dc.html": {
+      "x": 1520,
+      "y": 10400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-06-editor-file-open · editor file open",
+      "is_interactive": true
+    },
+    "v5-ide-07-command-palette.dc.html": {
+      "x": 0,
+      "y": 12400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-07-command-palette · command palette",
+      "is_interactive": true
+    },
+    "v5-ide-08-search-view.dc.html": {
+      "x": 3040,
+      "y": 10400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-08-search-view · search view",
+      "is_interactive": true
+    },
+    "v5-ide-09-scm-changes.dc.html": {
+      "x": 0,
+      "y": 13400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-09-scm-changes · scm changes",
+      "is_interactive": true
+    },
+    "v5-ide-10-scm-diff-editor.dc.html": {
+      "x": 1520,
+      "y": 13400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-10-scm-diff-editor · scm diff editor",
+      "is_interactive": true
+    },
+    "v5-ide-11-terminal-panel.dc.html": {
+      "x": 0,
+      "y": 14400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-11-terminal-panel · terminal panel",
+      "is_interactive": true
+    },
+    "v5-ide-12-problems-panel.dc.html": {
+      "x": 4560,
+      "y": 10400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-12-problems-panel · problems panel",
+      "is_interactive": true
+    },
+    "v5-ide-13-run-debug-view.dc.html": {
+      "x": 6080,
+      "y": 10400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-13-run-debug-view · run debug view",
+      "is_interactive": true
+    },
+    "v5-ide-14-extensions-view.dc.html": {
+      "x": 0,
+      "y": 15400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-14-extensions-view · extensions view",
+      "is_interactive": true
+    },
+    "v5-ide-15-menu-file.dc.html": {
+      "x": 0,
+      "y": 16400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-15-menu-file · menu file",
+      "is_interactive": true
+    },
+    "v5-ide-16-menu-edit.dc.html": {
+      "x": 1520,
+      "y": 16400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-16-menu-edit · menu edit",
+      "is_interactive": true
+    },
+    "v5-ide-17-menu-view.dc.html": {
+      "x": 3040,
+      "y": 16400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-17-menu-view · menu view",
+      "is_interactive": true
+    },
+    "v5-ide-18-editor-context-menu.dc.html": {
+      "x": 4560,
+      "y": 16400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-18-editor-context-menu · editor context menu",
+      "is_interactive": true
+    },
+    "v5-ide-19-explorer-context-menu.dc.html": {
+      "x": 6080,
+      "y": 16400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-19-explorer-context-menu · explorer context menu",
+      "is_interactive": true
+    },
+    "v5-ide-20-editor-find-widget.dc.html": {
+      "x": 7600,
+      "y": 10400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-20-editor-find-widget · editor find widget",
+      "is_interactive": true
+    },
+    "v5-ide-21-editor-find-replace.dc.html": {
+      "x": 9120,
+      "y": 10400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-21-editor-find-replace · editor find replace",
+      "is_interactive": true
+    },
+    "v5-ide-22-editor-suggest-widget.dc.html": {
+      "x": 10640,
+      "y": 10400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-22-editor-suggest-widget · editor suggest widget",
+      "is_interactive": true
+    },
+    "v5-ide-23-editor-hover.dc.html": {
+      "x": 12160,
+      "y": 10400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-23-editor-hover · editor hover",
+      "is_interactive": true
+    },
+    "v5-ide-24-go-to-symbol.dc.html": {
+      "x": 13680,
+      "y": 10400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-24-go-to-symbol · go to symbol",
+      "is_interactive": true
+    },
+    "v5-ide-25-peek-references.dc.html": {
+      "x": 15200,
+      "y": 10400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-25-peek-references · peek references",
+      "is_interactive": true
+    },
+    "v5-ide-26-rename-input.dc.html": {
+      "x": 16720,
+      "y": 10400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-26-rename-input · rename input",
+      "is_interactive": true
+    },
+    "v5-ide-27-split-editor.dc.html": {
+      "x": 18240,
+      "y": 10400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-27-split-editor · split editor",
+      "is_interactive": true
+    },
+    "v5-ide-28-settings-narrow-layout-section.dc.html": {
+      "x": 0,
+      "y": 17400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-28-settings-narrow-layout-section · narrow layout section",
+      "is_interactive": true
+    },
+    "v5-ide-29-settings-general.dc.html": {
+      "x": 1520,
+      "y": 17400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-29-settings-general · settings general",
+      "is_interactive": true
+    },
+    "v5-ide-30-vscode-settings-editor.dc.html": {
+      "x": 3040,
+      "y": 17400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-30-vscode-settings-editor · vscode settings editor",
+      "is_interactive": true
+    },
+    "v5-ide-32-settings-agents.dc.html": {
+      "x": 6080,
+      "y": 17400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-32-settings-agents · settings agents",
+      "is_interactive": true
+    },
+    "v5-ide-34-settings-models.dc.html": {
+      "x": 9120,
+      "y": 17400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-34-settings-models · settings models",
+      "is_interactive": true
+    },
+    "v5-ide-35-settings-git-prs.dc.html": {
+      "x": 10640,
+      "y": 17400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-35-settings-git-prs · settings git prs",
+      "is_interactive": true
+    },
+    "v5-ide-36-customize-page.dc.html": {
+      "x": 12160,
+      "y": 17400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-36-customize-page · customize page",
+      "is_interactive": true
+    },
+    "v5-ide-41-default-keybindings-json.dc.html": {
+      "x": 18240,
+      "y": 17400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-41-default-keybindings-json · default keybindings json",
+      "is_interactive": true
+    },
+    "v5-ide-42-notifications-center-empty.dc.html": {
+      "x": 1520,
+      "y": 12400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-42-notifications-center-empty · notifications center empty",
+      "is_interactive": true
+    },
+    "v5-ide-43-keyboard-shortcuts-editor.dc.html": {
+      "x": 19760,
+      "y": 17400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-43-keyboard-shortcuts-editor · keyboard shortcuts editor",
+      "is_interactive": true
+    },
+    "v5-ide-44-editor-tab-context-menu.dc.html": {
+      "x": 7600,
+      "y": 16400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-44-editor-tab-context-menu · editor tab context menu",
+      "is_interactive": true
+    },
+    "v5-ide-45-branch-picker.dc.html": {
+      "x": 3040,
+      "y": 13400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-45-branch-picker · branch picker",
+      "is_interactive": true
+    },
+    "v5-ide-47-layout-chat-hidden-panel-open.dc.html": {
+      "x": 19760,
+      "y": 10400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-47-layout-chat-hidden-panel-open · layout chat hidden panel open",
+      "is_interactive": true
+    },
+    "v5-ide-48-color-theme-picker.dc.html": {
+      "x": 3040,
+      "y": 12400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-48-color-theme-picker · color theme picker",
+      "is_interactive": true
+    },
+    "v5-ide-49-menu-selection.dc.html": {
+      "x": 9120,
+      "y": 16400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-49-menu-selection · Selection menu",
+      "is_interactive": true
+    },
+    "v5-ide-50-menu-go.dc.html": {
+      "x": 10640,
+      "y": 16400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-50-menu-go · Go menu",
+      "is_interactive": true
+    },
+    "v5-ide-51-menu-run.dc.html": {
+      "x": 12160,
+      "y": 16400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-51-menu-run · Run menu",
+      "is_interactive": true
+    },
+    "v5-ide-52-menu-terminal.dc.html": {
+      "x": 13680,
+      "y": 16400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-52-menu-terminal · Terminal menu",
+      "is_interactive": true
+    },
+    "v5-ide-53-menu-help.dc.html": {
+      "x": 15200,
+      "y": 16400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-53-menu-help · Help menu",
+      "is_interactive": true
+    },
+    "v5-ide-56-scm-more-menu.dc.html": {
+      "x": 16720,
+      "y": 16400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-56-scm-more-menu · SCM ... menu",
+      "is_interactive": true
+    },
+    "v5-ide-57-terminal-dropdown.dc.html": {
+      "x": 18240,
+      "y": 16400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-57-terminal-dropdown · terminal + dropdown",
+      "is_interactive": true
+    },
+    "v5-ide-58-panel-tab-context-menu.dc.html": {
+      "x": 19760,
+      "y": 16400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-58-panel-tab-context-menu · right-click panel tab",
+      "is_interactive": true
+    },
+    "v5-ide-59-activitybar-context-menu.dc.html": {
+      "x": 21280,
+      "y": 16400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-59-activitybar-context-menu · right-click activity bar",
+      "is_interactive": true
+    },
+    "v5-ide-60-scm-commit-typed.dc.html": {
+      "x": 4560,
+      "y": 13400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-60-scm-commit-typed · message typed",
+      "is_interactive": true
+    },
+    "v5-ide-61-scm-commit-dropdown.dc.html": {
+      "x": 6080,
+      "y": 13400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-61-scm-commit-dropdown · commit button arrow",
+      "is_interactive": true
+    },
+    "v5-ide-62-scm-graph.dc.html": {
+      "x": 7600,
+      "y": 13400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-62-scm-graph · graph section",
+      "is_interactive": true
+    },
+    "v5-ide-64-scm-merge-conflict.dc.html": {
+      "x": 9120,
+      "y": 13400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-64-scm-merge-conflict · sandbox conflict file",
+      "is_interactive": true
+    },
+    "v5-ide-65-terminal-split.dc.html": {
+      "x": 1520,
+      "y": 14400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-65-terminal-split · split",
+      "is_interactive": true
+    },
+    "v5-ide-66-terminal-find.dc.html": {
+      "x": 3040,
+      "y": 14400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-66-terminal-find · Ctrl+F in terminal",
+      "is_interactive": true
+    },
+    "v5-ide-67-terminal-tabs-list.dc.html": {
+      "x": 4560,
+      "y": 14400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-67-terminal-tabs-list · 2 terminals",
+      "is_interactive": true
+    },
+    "v5-ide-68-extension-detail.dc.html": {
+      "x": 1520,
+      "y": 15400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-68-extension-detail · open an installed extension",
+      "is_interactive": true
+    },
+    "v5-ide-69-extension-search-results.dc.html": {
+      "x": 3040,
+      "y": 15400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-69-extension-search-results · search marketplace",
+      "is_interactive": true
+    },
+    "v5-ide-70-extension-context-menu.dc.html": {
+      "x": 4560,
+      "y": 15400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-70-extension-context-menu · right-click extension",
+      "is_interactive": true
+    },
+    "v5-ide-72-explorer-new-file-input.dc.html": {
+      "x": 3040,
+      "y": 11400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-72-explorer-new-file-input · New File",
+      "is_interactive": true
+    },
+    "v5-ide-73-explorer-rename.dc.html": {
+      "x": 4560,
+      "y": 11400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-73-explorer-rename · F2 on a file",
+      "is_interactive": true
+    },
+    "v5-ide-76-outline-timeline.dc.html": {
+      "x": 6080,
+      "y": 11400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ide-76-outline-timeline · Outline and Timeline open",
+      "is_interactive": true
+    },
+    "v5-light-01-ide-editor.dc.html": {
+      "x": 0,
+      "y": 18400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "light-01-ide-editor · ide editor",
+      "is_interactive": true
+    },
+    "v5-light-02-command-palette.dc.html": {
+      "x": 1520,
+      "y": 18400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "light-02-command-palette · command palette",
+      "is_interactive": true
+    },
+    "v5-light-03-scm-changes.dc.html": {
+      "x": 3040,
+      "y": 18400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "light-03-scm-changes · scm changes",
+      "is_interactive": true
+    },
+    "v5-light-04-diff-editor.dc.html": {
+      "x": 4560,
+      "y": 18400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "light-04-diff-editor · diff editor",
+      "is_interactive": true
+    },
+    "v5-light-05-terminal-panel.dc.html": {
+      "x": 6080,
+      "y": 18400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "light-05-terminal-panel · terminal panel",
+      "is_interactive": true
+    },
+    "v5-light-06-explorer-context-menu.dc.html": {
+      "x": 7600,
+      "y": 18400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "light-06-explorer-context-menu · explorer context menu",
+      "is_interactive": true
+    },
+    "v5-light-07-settings-general.dc.html": {
+      "x": 9120,
+      "y": 18400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "light-07-settings-general · settings general",
+      "is_interactive": true
+    },
+    "v5-light-08-agent-mode-picker.dc.html": {
+      "x": 10640,
+      "y": 18400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "light-08-agent-mode-picker · agent mode picker",
+      "is_interactive": true
+    },
+    "v5-light-09-model-picker.dc.html": {
+      "x": 12160,
+      "y": 18400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "light-09-model-picker · model picker",
+      "is_interactive": true
+    },
+    "v5-light-10-ide-03.dc.html": {
+      "x": 13680,
+      "y": 18400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "light-10-ide-03 · Light theme, same as ide-03",
+      "is_interactive": true
+    },
+    "v5-light-11-ide-04.dc.html": {
+      "x": 15200,
+      "y": 18400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "light-11-ide-04 · Light theme, same as ide-04",
+      "is_interactive": true
+    },
+    "v5-light-12-ide-05.dc.html": {
+      "x": 16720,
+      "y": 18400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "light-12-ide-05 · Light theme, same as ide-05",
+      "is_interactive": true
+    },
+    "v5-light-13-ide-08.dc.html": {
+      "x": 18240,
+      "y": 18400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "light-13-ide-08 · Light theme, same as ide-08",
+      "is_interactive": true
+    },
+    "v5-light-14-ide-11.dc.html": {
+      "x": 19760,
+      "y": 18400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "light-14-ide-11 · Light theme, same as ide-11",
+      "is_interactive": true
+    },
+    "v5-light-15-ide-14.dc.html": {
+      "x": 21280,
+      "y": 18400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "light-15-ide-14 · Light theme, same as ide-14",
+      "is_interactive": true
+    },
+    "v5-light-16-ide-15.dc.html": {
+      "x": 22800,
+      "y": 18400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "light-16-ide-15 · Light theme, same as ide-15",
+      "is_interactive": true
+    },
+    "v5-light-17-ide-20.dc.html": {
+      "x": 24320,
+      "y": 18400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "light-17-ide-20 · Light theme, same as ide-20",
+      "is_interactive": true
+    },
+    "v5-light-18-ide-22.dc.html": {
+      "x": 25840,
+      "y": 18400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "light-18-ide-22 · Light theme, same as ide-22",
+      "is_interactive": true
+    },
+    "v5-light-19-ide-29.dc.html": {
+      "x": 27360,
+      "y": 18400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "light-19-ide-29 · Light theme, same as ide-29",
+      "is_interactive": true
+    },
+    "v5-light-20-ide-43.dc.html": {
+      "x": 28880,
+      "y": 18400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "light-20-ide-43 · Light theme, same as ide-43",
+      "is_interactive": true
+    },
+    "v5-light-21-ob-01.dc.html": {
+      "x": 30400,
+      "y": 18400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "light-21-ob-01 · Light theme, same as ob-01",
+      "is_interactive": true
+    },
+    "v5-light-24-ai-08.dc.html": {
+      "x": 31920,
+      "y": 18400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "light-24-ai-08 · ai 08",
+      "is_interactive": true
+    },
+    "v5-light-25-ai-15.dc.html": {
+      "x": 33440,
+      "y": 18400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "light-25-ai-15 · ai 15",
+      "is_interactive": true
+    },
+    "v5-light-31-set-02.dc.html": {
+      "x": 34960,
+      "y": 18400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "light-31-set-02 · set 02",
+      "is_interactive": true
+    },
+    "v5-ob-01-welcome.dc.html": {
+      "x": 1520,
+      "y": 9400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "ob-01-welcome · fresh profile first launch",
+      "is_interactive": true
+    },
+    "v5-omni-ArchOmnide.dc.html": {
+      "x": 2600,
+      "y": 41711,
+      "w": 1240,
+      "h": 640,
+      "page": "v5",
+      "title": "OmnIDE components"
+    },
+    "v5-omni-Brand.dc.html": {
+      "x": 4300,
+      "y": 39031,
+      "w": 1240,
+      "h": 1500,
+      "page": "v5",
+      "title": "Brand"
+    },
+    "v5-omni-CaseCursor.dc.html": {
+      "x": 0,
+      "y": 40011,
+      "w": 1240,
+      "h": 640,
+      "page": "v5",
+      "title": "Case study: Cursor"
+    },
+    "v5-omni-CaseLessons.dc.html": {
+      "x": 0,
+      "y": 40731,
+      "w": 1240,
+      "h": 520,
+      "page": "v5",
+      "title": "Case study: lessons"
+    },
+    "v5-omni-CaseVSCodium.dc.html": {
+      "x": 3900,
+      "y": 41400,
+      "w": 1240,
+      "h": 640,
+      "page": "v5",
+      "title": "Case study: VSCodium"
+    },
+    "v5-omni-CaseVoid.dc.html": {
+      "x": 2600,
+      "y": 40011,
+      "w": 1240,
+      "h": 640,
+      "page": "v5",
+      "title": "Case study: Void"
+    },
+    "v5-omni-CaseZed.dc.html": {
+      "x": 1300,
+      "y": 40011,
+      "w": 1240,
+      "h": 640,
+      "page": "v5",
+      "title": "Case study: Zed"
+    },
+    "v5-omni-Changes.dc.html": {
+      "x": 3000,
+      "y": 39031,
+      "w": 1240,
+      "h": 900,
+      "page": "v5",
+      "title": "Changes from Cursor"
+    },
+    "v5-omni-Endpoints.dc.html": {
+      "x": 2600,
+      "y": 40731,
+      "w": 1240,
+      "h": 900,
+      "page": "v5",
+      "title": "Endpoints"
+    },
+    "v5-omni-UpdatesFlow.dc.html": {
+      "x": 1300,
+      "y": 40731,
+      "w": 1240,
+      "h": 640,
+      "page": "v5",
+      "title": "Update flow"
+    },
+    "v5-omni-agent-picker.dc.html": {
+      "x": 0,
+      "y": 38051,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "Agent picker",
+      "is_interactive": true
+    },
+    "v5-omni-claude-error.dc.html": {
+      "x": 2680,
+      "y": 44351,
+      "w": 1440,
+      "h": 900,
+      "title": "omni-claude-error",
+      "page": "v5",
+      "is_interactive": true
+    },
+    "v5-omni-claude-missing.dc.html": {
+      "x": 1500,
+      "y": 38051,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "Claude Code missing",
+      "is_interactive": true
+    },
+    "v5-omni-claude-not-installed.dc.html": {
+      "x": 4220,
+      "y": 44351,
+      "w": 1440,
+      "h": 900,
+      "title": "omni-claude-not-installed",
+      "page": "v5",
+      "is_interactive": true
+    },
+    "v5-omni-claude-signed-out.dc.html": {
+      "x": 5760,
+      "y": 44351,
+      "w": 1440,
+      "h": 900,
+      "title": "omni-claude-signed-out",
+      "page": "v5",
+      "is_interactive": true
+    },
+    "v5-omni-permission-ask.dc.html": {
+      "x": 3000,
+      "y": 38051,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "Edit permission ask",
+      "is_interactive": true
+    },
+    "v5-omni-permission-denied.dc.html": {
+      "x": 4500,
+      "y": 38051,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "Edit permission denied",
+      "is_interactive": true
+    },
+    "v5-omni-update-failed.dc.html": {
+      "x": 1500,
+      "y": 39031,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "Update failed",
+      "is_interactive": true
+    },
+    "v5-omni-update-ready.dc.html": {
+      "x": 0,
+      "y": 39031,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "Update ready",
+      "is_interactive": true
+    },
+    "v5-review-commit-1.dc.html": {
+      "x": 0,
+      "y": 34880,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "review-commit-1 · commit message generated",
+      "is_interactive": true
+    },
+    "v5-review-commit-2.dc.html": {
+      "x": 1520,
+      "y": 34880,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "review-commit-2 · commit ready, file checkboxes",
+      "is_interactive": true
+    },
+    "v5-review-findissues-menu.dc.html": {
+      "x": 3040,
+      "y": 34880,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "review-findissues-menu · Find Issues options open",
+      "is_interactive": true
+    },
+    "v5-review-more-menu.dc.html": {
+      "x": 4560,
+      "y": 34880,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "review-more-menu · More menu open",
+      "is_interactive": true
+    },
+    "v5-set-01-rules-memories.dc.html": {
+      "x": 21280,
+      "y": 17400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "set-01-rules-memories · rules memories",
+      "is_interactive": true
+    },
+    "v5-set-02-mcp-tools.dc.html": {
+      "x": 22800,
+      "y": 17400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "set-02-mcp-tools · mcp tools",
+      "is_interactive": true
+    },
+    "v5-set-03-mcp-add-server.dc.html": {
+      "x": 24320,
+      "y": 17400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "set-03-mcp-add-server · mcp add server",
+      "is_interactive": true
+    },
+    "v5-set-04-hooks.dc.html": {
+      "x": 25840,
+      "y": 17400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "set-04-hooks · hooks",
+      "is_interactive": true
+    },
+    "v5-set-09-notifications.dc.html": {
+      "x": 27360,
+      "y": 17400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "set-09-notifications · notifications",
+      "is_interactive": true
+    },
+    "v5-set-10-search-settings.dc.html": {
+      "x": 28880,
+      "y": 17400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "set-10-search-settings · search settings",
+      "is_interactive": true
+    },
+    "v5-set-agents-1.dc.html": {
+      "x": 10640,
+      "y": 22400,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "set-agents-1 · scroll 1",
+      "is_interactive": true
+    },
+    "v5-set-agents-2.dc.html": {
+      "x": 12160,
+      "y": 22400,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "set-agents-2 · scroll 2",
+      "is_interactive": true
+    },
+    "v5-set-agents-3.dc.html": {
+      "x": 13680,
+      "y": 22400,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "set-agents-3 · scroll 3",
+      "is_interactive": true
+    },
+    "v5-set-agents-4.dc.html": {
+      "x": 15200,
+      "y": 22400,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "set-agents-4 · scroll 4",
+      "is_interactive": true
+    },
+    "v5-set-agents-5.dc.html": {
+      "x": 16720,
+      "y": 22400,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "set-agents-5 · scroll 5",
+      "is_interactive": true
+    },
+    "v5-set-general-1.dc.html": {
+      "x": 10640,
+      "y": 25520,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "set-general-1 · scroll 1",
+      "is_interactive": true
+    },
+    "v5-set-general-2.dc.html": {
+      "x": 12160,
+      "y": 25520,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "set-general-2 · scroll 2",
+      "is_interactive": true
+    },
+    "v5-set-general-3.dc.html": {
+      "x": 13680,
+      "y": 25520,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "set-general-3 · scroll 3",
+      "is_interactive": true
+    },
+    "v5-set-general-4.dc.html": {
+      "x": 15200,
+      "y": 25520,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "set-general-4 · scroll 4",
+      "is_interactive": true
+    },
+    "v5-set-models-1.dc.html": {
+      "x": 3040,
+      "y": 31760,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "set-models-1 · scroll 1",
+      "is_interactive": true
+    },
+    "v5-set-models-2.dc.html": {
+      "x": 4560,
+      "y": 31760,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "set-models-2 · scroll 2",
+      "is_interactive": true
+    },
+    "v5-set-claude-1.dc.html": {
+      "x": 0,
+      "y": 36960,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "set-claude-usage-1 · scroll 1",
+      "is_interactive": true
+    },
+    "v5-set-source-control-1.dc.html": {
+      "x": 4560,
+      "y": 32800,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "set-source-control-1 · scroll 1",
+      "is_interactive": true
+    },
+    "v5-set-source-control-2.dc.html": {
+      "x": 6080,
+      "y": 32800,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "set-source-control-2 · scroll 2",
+      "is_interactive": true
+    },
+    "v5-set-source-control-3.dc.html": {
+      "x": 7600,
+      "y": 32800,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "set-source-control-3 · scroll 3",
+      "is_interactive": true
+    },
+    "v5-st-01-signed-out-composer.dc.html": {
+      "x": 0,
+      "y": 20400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "st-01-signed-out-composer · composer while signed out",
+      "is_interactive": true
+    },
+    "v5-st-05-file-too-large.dc.html": {
+      "x": 1520,
+      "y": 20400,
+      "w": 1440,
+      "h": 900,
+      "page": "v5",
+      "title": "st-05-file-too-large · open a large binary",
+      "is_interactive": true
+    },
+    "v5-terminal-panel.dc.html": {
+      "x": 4560,
+      "y": 28640,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "terminal-panel · PowerShell terminal",
+      "is_interactive": true
+    },
+    "v5-NotInOmnide.dc.html": {
+      "x": 0,
+      "y": 51171,
+      "w": 1240,
+      "h": 760,
+      "page": "v5",
+      "title": "Not in OmnIDE"
+    },
+    "v5-omni-model-picker.dc.html": {
+      "x": 0,
+      "y": 46000,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "Model picker",
+      "is_interactive": true
+    },
+    "v5-omni-context-meter.dc.html": {
+      "x": 1520,
+      "y": 46000,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "Context meter",
+      "is_interactive": true
+    },
+    "v5-omni-compacting.dc.html": {
+      "x": 3040,
+      "y": 46000,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "Compacting",
+      "is_interactive": true
+    },
+    "v5-omni-compacted.dc.html": {
+      "x": 0,
+      "y": 47010,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "Compacted",
+      "is_interactive": true
+    },
+    "v5-omni-plan-approval.dc.html": {
+      "x": 1520,
+      "y": 47010,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "Plan approval",
+      "is_interactive": true
+    },
+    "v5-omni-subagent.dc.html": {
+      "x": 3040,
+      "y": 47010,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "Subagent transcript",
+      "is_interactive": true
+    },
+    "v5-omni-todos.dc.html": {
+      "x": 0,
+      "y": 48020,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "Todos panel",
+      "is_interactive": true
+    },
+    "v5-omni-rewind.dc.html": {
+      "x": 1520,
+      "y": 48020,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "Rewind menu",
+      "is_interactive": true
+    },
+    "v5-omni-rewind-confirm.dc.html": {
+      "x": 3040,
+      "y": 48020,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "Rewind confirm",
+      "is_interactive": true
+    },
+    "v5-omni-fork.dc.html": {
+      "x": 0,
+      "y": 49030,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "Fork conversation",
+      "is_interactive": true
+    },
+    "v5-omni-sessions.dc.html": {
+      "x": 1520,
+      "y": 49030,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "Sessions",
+      "is_interactive": true
+    },
+    "v5-omni-bg-tasks.dc.html": {
+      "x": 3040,
+      "y": 49030,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "Background tasks",
+      "is_interactive": true
+    },
+    "v5-omni-about.dc.html": {
+      "x": 0,
+      "y": 50040,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "About OmnIDE",
+      "is_interactive": true
+    },
+    "v5-PlayOmni.dc.html": {
+      "x": 1520,
+      "y": 51171,
+      "w": 1240,
+      "h": 900,
+      "page": "v5",
+      "title": "Play: Every Claude Code feature",
+      "is_interactive": true
+    },
+    "v5-omni-rate-limit.dc.html": {
+      "x": 3040,
+      "y": 51171,
+      "w": 1440,
+      "h": 931,
+      "page": "v5",
+      "title": "Usage limit reached",
+      "is_interactive": true
+    },
+    "v5-ArchFork.dc.html": {
+      "x": 20320,
+      "y": 1000,
+      "w": 1360,
+      "h": 1300,
+      "page": "v5",
+      "title": "Fork, upstream and telemetry"
+    },
     "v4-ArchData.dc.html": {
       "x": 21640,
       "y": 0,
@@ -2508,7 +5010,287 @@
     }
   },
   "order": [
-    "v4-Main.dc.html",
+    "v5-ArchData.dc.html",
+    "v5-ArchLayers.dc.html",
+    "v5-ArchSequence.dc.html",
+    "v5-Architecture.dc.html",
+    "v5-Decisions.dc.html",
+    "v5-Deploy.dc.html",
+    "v5-DesignSpec.dc.html",
+    "v5-DesignTokens.dc.html",
+    "v5-EdgeAccount.dc.html",
+    "v5-EdgeCases.dc.html",
+    "v5-EdgeFailures.dc.html",
+    "v5-Features.dc.html",
+    "v5-FlowChat.dc.html",
+    "v5-FlowMain.dc.html",
+    "v5-FlowStates.dc.html",
+    "v5-History.dc.html",
+    "v5-Main.dc.html",
+    "v5-Plan.dc.html",
+    "v5-PlayAgent.dc.html",
+    "v5-PlayChat.dc.html",
+    "v5-PlayChatError.dc.html",
+    "v5-PlayClaudeError.dc.html",
+    "v5-PlayClaudeSession.dc.html",
+    "v5-PlayClaudeSetupEdge.dc.html",
+    "v5-PlayCode.dc.html",
+    "v5-PlayCustomize.dc.html",
+    "v5-PlayInline.dc.html",
+    "v5-PlayLight.dc.html",
+    "v5-PlayPermission.dc.html",
+    "v5-PlayRestore.dc.html",
+    "v5-PlaySettings.dc.html",
+    "v5-PlaySettings2.dc.html",
+    "v5-PlaySettingsEdge.dc.html",
+    "v5-PlaySetup.dc.html",
+    "v5-PlaySteer.dc.html",
+    "v5-PlayUpdate.dc.html",
+    "v5-Progress.dc.html",
+    "v5-Questions.dc.html",
+    "v5-SettingsInventory.dc.html",
+    "v5-agent-Component.dc.html",
+    "v5-agent-Mapping.dc.html",
+    "v5-agent-Registry.dc.html",
+    "v5-agent-Sequence.dc.html",
+    "v5-agent-States.dc.html",
+    "v5-ai-01-agent-mode-picker.dc.html",
+    "v5-ai-02-model-popover.dc.html",
+    "v5-ai-08-composer-at-mention-menu.dc.html",
+    "v5-ai-09-composer-at-mention-filtered.dc.html",
+    "v5-ai-10-composer-slash-menu.dc.html",
+    "v5-ai-11-agent-pane-overflow-menu.dc.html",
+    "v5-ai-12-composer-typed-prompt.dc.html",
+    "v5-ai-13-agent-turn-starting.dc.html",
+    "v5-ai-14-agent-turn-streaming.dc.html",
+    "v5-ai-15-agent-turn-tools.dc.html",
+    "v5-ai-16-agent-turn-done-inline-diff.dc.html",
+    "v5-ai-17-changed-files-expanded.dc.html",
+    "v5-ai-18-agent-changes-accepted.dc.html",
+    "v5-ai-19-review-editor.dc.html",
+    "v5-ai-20-plan-mode-composer.dc.html",
+    "v5-ai-21-plan-mode-streaming.dc.html",
+    "v5-ai-22-plan-artifact-editor.dc.html",
+    "v5-ai-23-plan-build-dropdown.dc.html",
+    "v5-ai-24-ask-mode-streaming.dc.html",
+    "v5-ai-25-ask-mode-answer.dc.html",
+    "v5-ai-26-editor-selection-toolbar.dc.html",
+    "v5-ai-40-tool-card-read-search.dc.html",
+    "v5-ai-41-tool-card-collapsed-expanded.dc.html",
+    "v5-ai-43-checkpoint-restore.dc.html",
+    "v5-ai-44-chat-history-list.dc.html",
+    "v5-ai-48-stop-generation.dc.html",
+    "v5-btn-agents-allowlist-options.dc.html",
+    "v5-btn-general-account.dc.html",
+    "v5-btn-general-reset.dc.html",
+    "v5-chat-agents-sidebar.dc.html",
+    "v5-chat-approval-1.dc.html",
+    "v5-chat-approval-2.dc.html",
+    "v5-chat-at-menu.dc.html",
+    "v5-chat-at-terminals.dc.html",
+    "v5-chat-files-expanded.dc.html",
+    "v5-chat-history.dc.html",
+    "v5-chat-kept.dc.html",
+    "v5-chat-mode-menu.dc.html",
+    "v5-chat-model-menu.dc.html",
+    "v5-chat-more-actions.dc.html",
+    "v5-chat-new-agent.dc.html",
+    "v5-chat-plan-mode.dc.html",
+    "v5-chat-restore-cancelled.dc.html",
+    "v5-chat-restore-confirm.dc.html",
+    "v5-chat-review.dc.html",
+    "v5-chat-run1-1.dc.html",
+    "v5-chat-run1-2.dc.html",
+    "v5-chat-run1-3.dc.html",
+    "v5-chat-run1-4.dc.html",
+    "v5-chat-run1-5.dc.html",
+    "v5-chat-run1-6.dc.html",
+    "v5-chat-run2-1.dc.html",
+    "v5-chat-run2-2.dc.html",
+    "v5-chat-run2-3.dc.html",
+    "v5-chat-run2-4.dc.html",
+    "v5-chat-run2-5.dc.html",
+    "v5-chat-run2-6.dc.html",
+    "v5-chat-run2-7.dc.html",
+    "v5-chat-run2-followup-typed.dc.html",
+    "v5-chat-run2-steer-1.dc.html",
+    "v5-chat-run2-steer-2.dc.html",
+    "v5-chat-slash-menu.dc.html",
+    "v5-chat-typed.dc.html",
+    "v5-chat-worked-expanded.dc.html",
+    "v5-customize-commands.dc.html",
+    "v5-customize-hooks.dc.html",
+    "v5-customize-marketplace.dc.html",
+    "v5-customize-mcps.dc.html",
+    "v5-customize-plugins-1.dc.html",
+    "v5-customize-rules.dc.html",
+    "v5-customize-skills.dc.html",
+    "v5-customize-subagents.dc.html",
+    "v5-dd-agents-auto-review.dc.html",
+    "v5-dd-agents-cursor-default.dc.html",
+    "v5-dd-agents-default.dc.html",
+    "v5-dd-agents-manually-sent-messages-from-queue.dc.html",
+    "v5-dd-agents-new-messages.dc.html",
+    "v5-dd-agents-system.dc.html",
+    "v5-dd-general-conversation-density.dc.html",
+    "v5-dd-general-review-control-location.dc.html",
+    "v5-dd-general-window-layout.dc.html",
+    "v5-dd-general-window-restoration.dc.html",
+    "v5-dd-models-coordinator-effort.dc.html",
+    "v5-dd-models-default.dc.html",
+    "v5-dd-source-control-default-approach.dc.html",
+    "v5-dd-source-control-pr-link-destination.dc.html",
+    "v5-ide-01-onboarding-login.dc.html",
+    "v5-ide-03-ide-default-layout.dc.html",
+    "v5-ide-04-explorer-sidebar.dc.html",
+    "v5-ide-05-quick-open.dc.html",
+    "v5-ide-06-editor-file-open.dc.html",
+    "v5-ide-07-command-palette.dc.html",
+    "v5-ide-08-search-view.dc.html",
+    "v5-ide-09-scm-changes.dc.html",
+    "v5-ide-10-scm-diff-editor.dc.html",
+    "v5-ide-11-terminal-panel.dc.html",
+    "v5-ide-12-problems-panel.dc.html",
+    "v5-ide-13-run-debug-view.dc.html",
+    "v5-ide-14-extensions-view.dc.html",
+    "v5-ide-15-menu-file.dc.html",
+    "v5-ide-16-menu-edit.dc.html",
+    "v5-ide-17-menu-view.dc.html",
+    "v5-ide-18-editor-context-menu.dc.html",
+    "v5-ide-19-explorer-context-menu.dc.html",
+    "v5-ide-20-editor-find-widget.dc.html",
+    "v5-ide-21-editor-find-replace.dc.html",
+    "v5-ide-22-editor-suggest-widget.dc.html",
+    "v5-ide-23-editor-hover.dc.html",
+    "v5-ide-24-go-to-symbol.dc.html",
+    "v5-ide-25-peek-references.dc.html",
+    "v5-ide-26-rename-input.dc.html",
+    "v5-ide-27-split-editor.dc.html",
+    "v5-ide-28-settings-narrow-layout-section.dc.html",
+    "v5-ide-29-settings-general.dc.html",
+    "v5-ide-30-vscode-settings-editor.dc.html",
+    "v5-ide-32-settings-agents.dc.html",
+    "v5-ide-34-settings-models.dc.html",
+    "v5-ide-35-settings-git-prs.dc.html",
+    "v5-ide-36-customize-page.dc.html",
+    "v5-ide-41-default-keybindings-json.dc.html",
+    "v5-ide-42-notifications-center-empty.dc.html",
+    "v5-ide-43-keyboard-shortcuts-editor.dc.html",
+    "v5-ide-44-editor-tab-context-menu.dc.html",
+    "v5-ide-45-branch-picker.dc.html",
+    "v5-ide-47-layout-chat-hidden-panel-open.dc.html",
+    "v5-ide-48-color-theme-picker.dc.html",
+    "v5-ide-49-menu-selection.dc.html",
+    "v5-ide-50-menu-go.dc.html",
+    "v5-ide-51-menu-run.dc.html",
+    "v5-ide-52-menu-terminal.dc.html",
+    "v5-ide-53-menu-help.dc.html",
+    "v5-ide-56-scm-more-menu.dc.html",
+    "v5-ide-57-terminal-dropdown.dc.html",
+    "v5-ide-58-panel-tab-context-menu.dc.html",
+    "v5-ide-59-activitybar-context-menu.dc.html",
+    "v5-ide-60-scm-commit-typed.dc.html",
+    "v5-ide-61-scm-commit-dropdown.dc.html",
+    "v5-ide-62-scm-graph.dc.html",
+    "v5-ide-64-scm-merge-conflict.dc.html",
+    "v5-ide-65-terminal-split.dc.html",
+    "v5-ide-66-terminal-find.dc.html",
+    "v5-ide-67-terminal-tabs-list.dc.html",
+    "v5-ide-68-extension-detail.dc.html",
+    "v5-ide-69-extension-search-results.dc.html",
+    "v5-ide-70-extension-context-menu.dc.html",
+    "v5-ide-72-explorer-new-file-input.dc.html",
+    "v5-ide-73-explorer-rename.dc.html",
+    "v5-ide-76-outline-timeline.dc.html",
+    "v5-light-01-ide-editor.dc.html",
+    "v5-light-02-command-palette.dc.html",
+    "v5-light-03-scm-changes.dc.html",
+    "v5-light-04-diff-editor.dc.html",
+    "v5-light-05-terminal-panel.dc.html",
+    "v5-light-06-explorer-context-menu.dc.html",
+    "v5-light-07-settings-general.dc.html",
+    "v5-light-08-agent-mode-picker.dc.html",
+    "v5-light-09-model-picker.dc.html",
+    "v5-light-10-ide-03.dc.html",
+    "v5-light-11-ide-04.dc.html",
+    "v5-light-12-ide-05.dc.html",
+    "v5-light-13-ide-08.dc.html",
+    "v5-light-14-ide-11.dc.html",
+    "v5-light-15-ide-14.dc.html",
+    "v5-light-16-ide-15.dc.html",
+    "v5-light-17-ide-20.dc.html",
+    "v5-light-18-ide-22.dc.html",
+    "v5-light-19-ide-29.dc.html",
+    "v5-light-20-ide-43.dc.html",
+    "v5-light-21-ob-01.dc.html",
+    "v5-light-24-ai-08.dc.html",
+    "v5-light-25-ai-15.dc.html",
+    "v5-light-31-set-02.dc.html",
+    "v5-ob-01-welcome.dc.html",
+    "v5-omni-ArchOmnide.dc.html",
+    "v5-omni-Brand.dc.html",
+    "v5-omni-CaseCursor.dc.html",
+    "v5-omni-CaseLessons.dc.html",
+    "v5-omni-CaseVSCodium.dc.html",
+    "v5-omni-CaseVoid.dc.html",
+    "v5-omni-CaseZed.dc.html",
+    "v5-omni-Changes.dc.html",
+    "v5-omni-Endpoints.dc.html",
+    "v5-omni-UpdatesFlow.dc.html",
+    "v5-omni-agent-picker.dc.html",
+    "v5-omni-claude-error.dc.html",
+    "v5-omni-claude-missing.dc.html",
+    "v5-omni-claude-not-installed.dc.html",
+    "v5-omni-claude-signed-out.dc.html",
+    "v5-omni-permission-ask.dc.html",
+    "v5-omni-permission-denied.dc.html",
+    "v5-omni-update-failed.dc.html",
+    "v5-omni-update-ready.dc.html",
+    "v5-review-commit-1.dc.html",
+    "v5-review-commit-2.dc.html",
+    "v5-review-findissues-menu.dc.html",
+    "v5-review-more-menu.dc.html",
+    "v5-set-01-rules-memories.dc.html",
+    "v5-set-02-mcp-tools.dc.html",
+    "v5-set-03-mcp-add-server.dc.html",
+    "v5-set-04-hooks.dc.html",
+    "v5-set-09-notifications.dc.html",
+    "v5-set-10-search-settings.dc.html",
+    "v5-set-agents-1.dc.html",
+    "v5-set-agents-2.dc.html",
+    "v5-set-agents-3.dc.html",
+    "v5-set-agents-4.dc.html",
+    "v5-set-agents-5.dc.html",
+    "v5-set-general-1.dc.html",
+    "v5-set-general-2.dc.html",
+    "v5-set-general-3.dc.html",
+    "v5-set-general-4.dc.html",
+    "v5-set-models-1.dc.html",
+    "v5-set-models-2.dc.html",
+    "v5-set-claude-1.dc.html",
+    "v5-set-source-control-1.dc.html",
+    "v5-set-source-control-2.dc.html",
+    "v5-set-source-control-3.dc.html",
+    "v5-st-01-signed-out-composer.dc.html",
+    "v5-st-05-file-too-large.dc.html",
+    "v5-terminal-panel.dc.html",
+    "v5-NotInOmnide.dc.html",
+    "v5-omni-model-picker.dc.html",
+    "v5-omni-context-meter.dc.html",
+    "v5-omni-compacting.dc.html",
+    "v5-omni-compacted.dc.html",
+    "v5-omni-plan-approval.dc.html",
+    "v5-omni-subagent.dc.html",
+    "v5-omni-todos.dc.html",
+    "v5-omni-rewind.dc.html",
+    "v5-omni-rewind-confirm.dc.html",
+    "v5-omni-fork.dc.html",
+    "v5-omni-sessions.dc.html",
+    "v5-omni-bg-tasks.dc.html",
+    "v5-omni-about.dc.html",
+    "v5-PlayOmni.dc.html",
+    "v5-omni-rate-limit.dc.html",
+    "v5-ArchFork.dc.html",
     "v4-ArchData.dc.html",
     "v4-ArchLayers.dc.html",
     "v4-ArchSequence.dc.html",
@@ -2525,6 +5307,7 @@
     "v4-FlowMain.dc.html",
     "v4-FlowStates.dc.html",
     "v4-History.dc.html",
+    "v4-Main.dc.html",
     "v4-Plan.dc.html",
     "v4-PlayAgent.dc.html",
     "v4-PlayChat.dc.html",
