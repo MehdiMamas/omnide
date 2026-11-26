@@ -57,7 +57,7 @@ index a58a90da..9eaee7e3 100644
  
 diff --git a/src/vs/platform/agentHost/node/agentSdkIntegrity.ts b/src/vs/platform/agentHost/node/agentSdkIntegrity.ts
 new file mode 100644
-index 00000000..795d2f82
+index 00000000..061e8463
 --- /dev/null
 +++ b/src/vs/platform/agentHost/node/agentSdkIntegrity.ts
 @@ -0,0 +1,32 @@
@@ -80,14 +80,14 @@ index 00000000..795d2f82
 +
 +/**
 + * Checks a downloaded SDK's sha256 against `product.agentSdks.<id>.sha256`, which maps sdkTarget to a hex digest.
-+ * Returns an error message, or `undefined` when the download may be used. No `sha256` map means no pinning; a map
-+ * without an entry for the target is refused so a missing pin cannot skip the check.
++ * Returns an error message, or `undefined` when the download may be used. A missing map, or a map without a
++ * (non-empty) entry for the target, is refused so a missing pin cannot skip the check.
 + */
 +export function checkSdkSha256(pinned: { readonly [sdkTarget: string]: string } | undefined, sdkTarget: string, actual: string): string | undefined {
 +	if (!pinned) {
-+		return undefined;
++		return `no sha256 map is pinned for the SDK, refusing ${sdkTarget}`;
 +	}
-+	const expected = pinned[sdkTarget]?.toLowerCase();
++	const expected = Object.hasOwn(pinned, sdkTarget) ? pinned[sdkTarget].toLowerCase() : undefined;
 +	if (!expected) {
 +		return `no sha256 is pinned for ${sdkTarget}`;
 +	}

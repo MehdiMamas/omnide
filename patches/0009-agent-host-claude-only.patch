@@ -30,3 +30,24 @@ index 6e9e9234..cc53271c 100644
  		// Claude and Codex providers are gated on two things:
  		//  1. The user-facing enable toggle (`chat.agentHost.<x>Agent.enabled`,
  		//     forwarded as an env var by the starters). Claude defaults to on.
+diff --git a/src/vs/platform/agentHost/node/agentHostServerMain.ts b/src/vs/platform/agentHost/node/agentHostServerMain.ts
+index db5acd8f..d0c7cda0 100644
+--- a/src/vs/platform/agentHost/node/agentHostServerMain.ts
++++ b/src/vs/platform/agentHost/node/agentHostServerMain.ts
+@@ -40,7 +40,6 @@ import { IAgentHostCompletions } from './agentHostCompletions.js';
+ import { IAgentHostCustomizationEnablementService } from './agentHostCustomizationEnablementService.js';
+ import { IAgentHostStateManager } from './agentHostStateManager.js';
+ import { BANG_COMMAND_PREFIX } from './agentHostBangCommand.js';
+-import { CopilotAgent } from './copilot/copilotAgent.js';
+ import { ClaudeAgent } from './claude/claudeAgent.js';
+ import { ClaudeSdkPackage } from './claude/claudeAgentSdkService.js';
+ import { CodexAgent } from './codex/codexAgent.js';
+@@ -248,8 +247,6 @@ async function main(): Promise<void> {
+ 	let sdkDownloadProgress: Event<IAgentSdkDownloadProgress> | undefined;
+ 	if (!options.quiet) {
+ 		sdkDownloadProgress = runtime.sdkDownloadProgress;
+-		providerService.registerProvider(instantiationService.createInstance(CopilotAgent));
+-		log('CopilotAgent registered');
+ 		// Claude and Codex providers are gated on two things:
+ 		//  1. The user-facing enable toggle (`chat.agentHost.<x>Agent.enabled`,
+ 		//     forwarded as an env var by the renderer-side starters; the remote
