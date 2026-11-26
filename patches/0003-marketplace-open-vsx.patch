@@ -1,26 +1,6 @@
 Subject: Extensions gallery is Open VSX; Microsoft marketplace removed
-Adapted from VSCodium (MIT), patches/00-settings-gallery.patch, Copyright (c) VSCodium contributors, MIT. product.json values follow VSCodium's prepare_vscode.sh. Signature verification default off is adapted from VSCodium patches/00-extension-disable-signature-verification.patch (MIT): Open VSX publishes no signatures.
+Adapted from VSCodium (MIT), patches/00-settings-gallery.patch, Copyright (c) VSCodium contributors, MIT.
 
-diff --git a/product.json b/product.json
-index 030c1de1..935998c1 100644
---- a/product.json
-+++ b/product.json
-@@ -245,5 +245,14 @@
- 	],
- 	"sessionsWindowAllowedExtensions": [],
- 	"updateUrl": "https://mehdimamas.github.io/omnide/latest.json",
--	"downloadUrl": "https://github.com/MehdiMamas/omnide/releases"
-+	"downloadUrl": "https://github.com/MehdiMamas/omnide/releases",
-+	"extensionsGallery": {
-+		"serviceUrl": "https://open-vsx.org/vscode/gallery",
-+		"itemUrl": "https://open-vsx.org/vscode/item",
-+		"latestUrlTemplate": "https://open-vsx.org/vscode/gallery/{publisher}/{name}/latest",
-+		"controlUrl": "https://raw.githubusercontent.com/EclipseFdn/publish-extensions/refs/heads/master/extension-control/extensions.json"
-+	},
-+	"linkProtectionTrustedDomains": [
-+		"https://open-vsx.org"
-+	]
- }
 diff --git a/src/vs/base/common/product.ts b/src/vs/base/common/product.ts
 index 37cbeefd..14967a45 100644
 --- a/src/vs/base/common/product.ts
@@ -79,29 +59,3 @@ index 7f9a5a73..a5dc633f 100644
  	// Running out of sources
  	if (env['VSCODE_DEV']) {
  		Object.assign(product, {
-diff --git a/src/vs/platform/extensionManagement/node/extensionManagementService.ts b/src/vs/platform/extensionManagement/node/extensionManagementService.ts
-index 6eefd716..8df5a46a 100644
---- a/src/vs/platform/extensionManagement/node/extensionManagementService.ts
-+++ b/src/vs/platform/extensionManagement/node/extensionManagementService.ts
-@@ -340,7 +340,7 @@ export class ExtensionManagementService extends AbstractExtensionManagementServi
- 	private async downloadExtension(extension: IGalleryExtension, operation: InstallOperation, verifySignature: boolean, clientTargetPlatform?: TargetPlatform): Promise<{ readonly location: URI; readonly verificationStatus: ExtensionSignatureVerificationCode | undefined }> {
- 		if (verifySignature) {
- 			const value = this.configurationService.getValue(VerifyExtensionSignatureConfigKey);
--			verifySignature = isBoolean(value) ? value : true;
-+			verifySignature = isBoolean(value) ? value : false;
- 		}
- 		const { location, verificationStatus } = await this.extensionsDownloader.download(extension, operation, verifySignature, clientTargetPlatform);
- 		const shouldRequireSignature = shouldRequireRepositorySignatureFor(extension.private, await this.extensionGalleryManifestService.getExtensionGalleryManifest());
-diff --git a/src/vs/workbench/contrib/extensions/browser/extensions.contribution.ts b/src/vs/workbench/contrib/extensions/browser/extensions.contribution.ts
-index 65d2986b..6c1c6fb0 100644
---- a/src/vs/workbench/contrib/extensions/browser/extensions.contribution.ts
-+++ b/src/vs/workbench/contrib/extensions/browser/extensions.contribution.ts
-@@ -312,7 +312,7 @@ Registry.as<IConfigurationRegistry>(ConfigurationExtensions.Configuration)
- 			[VerifyExtensionSignatureConfigKey]: {
- 				type: 'boolean',
- 				description: localize('extensions.verifySignature', "When enabled, extensions are verified to be signed before getting installed."),
--				default: true,
-+				default: false,
- 				scope: ConfigurationScope.APPLICATION,
- 				included: isNative
- 			},

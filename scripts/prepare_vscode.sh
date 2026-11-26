@@ -13,3 +13,6 @@ fi
 git -C "$dest" fetch --depth 1 origin "refs/tags/$tag:refs/tags/$tag"
 git -C "$dest" checkout -q -f "$tag"
 git -C "$dest" clean -fdq
+commit="$(node -p "require('./upstream.json').commit")"
+head="$(git -C "$dest" rev-parse HEAD)"
+[ "$head" = "$commit" ] || { echo "upstream tag $tag is $head, upstream.json pins $commit" >&2; exit 1; }

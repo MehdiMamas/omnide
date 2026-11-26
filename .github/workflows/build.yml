@@ -23,29 +23,53 @@ jobs:
         include:
           - os: windows-2025
             target: win32-x64
+            cli: VSCode-win32-x64/bin/omnide.cmd
+            archive: omnide-win32-x64.zip
           - os: macos-15
             target: darwin-arm64
+            cli: VSCode-darwin-arm64/OmnIDE.app/Contents/Resources/app/bin/omnide
+            archive: omnide-darwin-arm64.zip
           - os: ubuntu-24.04
             target: linux-x64
+            cli: VSCode-linux-x64/bin/omnide
+            archive: omnide-linux-x64.tar.gz
     defaults:
       run:
         shell: bash
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
       - run: scripts/prepare_vscode.sh
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version-file: vscode/.nvmrc
       - run: npm install -g "pnpm@$(node -p "require('./vscode/package.json').packageManager.split('@')[1]")"
       - if: runner.os == 'Linux'
         run: sudo apt-get update && sudo apt-get install -y libkrb5-dev libx11-dev libxkbfile-dev libsecret-1-dev
+      # the upstream win32 build runs signtool.exe to strip signatures, and the runner image does not put it on PATH
       - if: runner.os == 'Windows'
         run: echo "$(dirname "$(ls /c/Program\ Files\ \(x86\)/Windows\ Kits/10/bin/*/x64/signtool.exe | sort -V | tail -1)")" >> "$GITHUB_PATH"
-      - run: scripts/build.sh ${{ matrix.target }}
+      - run: scripts/patches.sh && scripts/assets.sh
+      - run: pnpm install --frozen-lockfile
+        working-directory: vscode
         env:
           GITHUB_TOKEN: ${{ github.token }}
-      - uses: actions/upload-artifact@v4
+      - run: pnpm run gulp vscode-${{ matrix.target }}-min
+        working-directory: vscode
+      - name: smoke, the built CLI reports the upstream version
+        run: |
+          out="$(${{ matrix.cli }} --version)"
+          echo "$out"
+          [ "$(echo "$out" | head -n1 | tr -d '\r')" = "$(node -p "require('./upstream.json').tag")" ]
+      - name: archive, keeping permissions and symlinks
+        run: |
+          case "${{ runner.os }}" in
+            macOS) ditto -c -k --keepParent VSCode-${{ matrix.target }} ${{ matrix.archive }} ;;
+            Linux) tar -czf ${{ matrix.archive }} VSCode-${{ matrix.target }} ;;
+            Windows) 7z a -tzip ${{ matrix.archive }} VSCode-${{ matrix.target }} ;;
+          esac
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: omnide-${{ matrix.target }}
-          path: VSCode-${{ matrix.target }}
+          path: ${{ matrix.archive }}
           if-no-files-found: error
+          retention-days: 7

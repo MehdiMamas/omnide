@@ -1,0 +1,58 @@
+Subject: Brand: Windows publisher, company name and copyright read OmnIDE
+Original to OmnIDE.
+
+diff --git a/build/gulpfile.reh.ts b/build/gulpfile.reh.ts
+index ec8a7102..b43c9266 100644
+--- a/build/gulpfile.reh.ts
++++ b/build/gulpfile.reh.ts
+@@ -500,11 +500,11 @@ function patchWin32DependenciesTask(destinationFolderName: string) {
+ 			await rcedit(fullPath, {
+ 				'file-version': baseVersion,
+ 				'version-string': {
+-					'CompanyName': 'Microsoft Corporation',
++					'CompanyName': 'OmnIDE',
+ 					'FileDescription': productContents.nameLong,
+ 					'FileVersion': packageJsonContents.version,
+ 					'InternalName': basename,
+-					'LegalCopyright': 'Copyright (C) 2026 Microsoft. All rights reserved',
++					'LegalCopyright': 'Copyright (C) 2026 OmnIDE contributors',
+ 					'OriginalFilename': basename,
+ 					'ProductName': productContents.nameLong,
+ 					'ProductVersion': packageJsonContents.version,
+diff --git a/build/gulpfile.vscode.ts b/build/gulpfile.vscode.ts
+index 0392e86d..7dc51598 100644
+--- a/build/gulpfile.vscode.ts
++++ b/build/gulpfile.vscode.ts
+@@ -538,11 +538,11 @@ function patchWin32DependenciesTask(destinationFolderName: string) {
+ 			await rcedit(fullPath, {
+ 				'file-version': baseVersion,
+ 				'version-string': {
+-					'CompanyName': 'Microsoft Corporation',
++					'CompanyName': 'OmnIDE',
+ 					'FileDescription': product.nameLong,
+ 					'FileVersion': packageJson.version,
+ 					'InternalName': basename,
+-					'LegalCopyright': 'Copyright (C) 2026 Microsoft. All rights reserved',
++					'LegalCopyright': 'Copyright (C) 2026 OmnIDE contributors',
+ 					'OriginalFilename': basename,
+ 					'ProductName': product.nameLong,
+ 					'ProductVersion': packageJson.version,
+diff --git a/build/win32/code.iss b/build/win32/code.iss
+index a5e3597b..690f8f9b 100644
+--- a/build/win32/code.iss
++++ b/build/win32/code.iss
+@@ -8,10 +8,10 @@
+ AppId={#AppId}
+ AppName={#NameLong}
+ AppVerName={#NameVersion}
+-AppPublisher=Microsoft Corporation
+-AppPublisherURL=https://code.visualstudio.com/
+-AppSupportURL=https://code.visualstudio.com/
+-AppUpdatesURL=https://code.visualstudio.com/
++AppPublisher=OmnIDE
++AppPublisherURL=https://github.com/MehdiMamas/omnide
++AppSupportURL=https://github.com/MehdiMamas/omnide
++AppUpdatesURL=https://github.com/MehdiMamas/omnide
+ DefaultGroupName={#NameLong}
+ AllowNoIcons=yes
+ OutputDir={#OutputDir}

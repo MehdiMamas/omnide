@@ -1,5 +1,5 @@
 Subject: Built-in Copilot chat disabled (chat.disableAIFeatures defaults to true)
-Idea from VSCodium patches/00-copilot-fix-action-condition.patch (MIT); this patch is the single default and is original.
+Original to OmnIDE.
 
 diff --git a/src/vs/workbench/contrib/chat/browser/chat.shared.contribution.ts b/src/vs/workbench/contrib/chat/browser/chat.shared.contribution.ts
 index c0f85771..01e77a7f 100644

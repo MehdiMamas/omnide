@@ -1,0 +1,72 @@
+Subject: Brand: Geist and Geist Mono as the workbench font (OFL, files in src/omnide/fonts)
+Original to OmnIDE.
+
+diff --git a/build/next/bundle.ts b/build/next/bundle.ts
+index 8e9f0efb..93a683a1 100644
+--- a/build/next/bundle.ts
++++ b/build/next/bundle.ts
+@@ -8,7 +8,7 @@ import * as path from 'path';
+ import { SourceMapConsumer } from 'source-map';
+ 
+ export const desktopWorkbenchEntryPoint = 'vs/workbench/workbench.desktop.main';
+-export const bundleAssetLoaders = { '.ttf': 'file', '.svg': 'file', '.png': 'file', '.sh': 'file' } satisfies Record<string, esbuild.Loader>;
++export const bundleAssetLoaders = { '.ttf': 'file', '.woff2': 'file', '.svg': 'file', '.png': 'file', '.sh': 'file' } satisfies Record<string, esbuild.Loader>;
+ 
+ const fileHeader = `/*!--------------------------------------------------------
+  * Copyright (C) Microsoft Corporation. All rights reserved.
+diff --git a/src/vs/workbench/browser/media/style.css b/src/vs/workbench/browser/media/style.css
+index 91f16a11..025f2d86 100644
+--- a/src/vs/workbench/browser/media/style.css
++++ b/src/vs/workbench/browser/media/style.css
+@@ -9,28 +9,31 @@
+ 
+ /* Font Families (with CJK support) */
+ 
+-.monaco-workbench.mac { font-family: -apple-system, BlinkMacSystemFont, sans-serif; }
+-.monaco-workbench.mac:lang(zh-Hans) { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", sans-serif; }
+-.monaco-workbench.mac:lang(zh-Hant) { font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", sans-serif; }
+-.monaco-workbench.mac:lang(ja) { font-family: -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic Pro", sans-serif; }
+-.monaco-workbench.mac:lang(ko) { font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Nanum Gothic", "AppleGothic", sans-serif; }
+-
+-.monaco-workbench.windows { font-family: "Segoe WPC", "Segoe UI", sans-serif; }
+-.monaco-workbench.windows:lang(zh-Hans) { font-family: "Segoe WPC", "Segoe UI", "Microsoft YaHei", sans-serif; }
+-.monaco-workbench.windows:lang(zh-Hant) { font-family: "Segoe WPC", "Segoe UI", "Microsoft Jhenghei", sans-serif; }
+-.monaco-workbench.windows:lang(ja) { font-family: "Segoe WPC", "Segoe UI", "Yu Gothic UI", "Meiryo UI", sans-serif; }
+-.monaco-workbench.windows:lang(ko) { font-family: "Segoe WPC", "Segoe UI", "Malgun Gothic", "Dotom", sans-serif; }
++@font-face { font-family: "Geist"; src: url("./fonts/Geist-Variable.woff2") format("woff2"); font-weight: 100 900; font-display: swap; }
++@font-face { font-family: "Geist Mono"; src: url("./fonts/GeistMono-Variable.woff2") format("woff2"); font-weight: 100 900; font-display: swap; }
++
++.monaco-workbench.mac { font-family: "Geist", -apple-system, BlinkMacSystemFont, sans-serif; }
++.monaco-workbench.mac:lang(zh-Hans) { font-family: "Geist", -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", sans-serif; }
++.monaco-workbench.mac:lang(zh-Hant) { font-family: "Geist", -apple-system, BlinkMacSystemFont, "PingFang TC", sans-serif; }
++.monaco-workbench.mac:lang(ja) { font-family: "Geist", -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic Pro", sans-serif; }
++.monaco-workbench.mac:lang(ko) { font-family: "Geist", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Nanum Gothic", "AppleGothic", sans-serif; }
++
++.monaco-workbench.windows { font-family: "Geist", "Segoe WPC", "Segoe UI", sans-serif; }
++.monaco-workbench.windows:lang(zh-Hans) { font-family: "Geist", "Segoe WPC", "Segoe UI", "Microsoft YaHei", sans-serif; }
++.monaco-workbench.windows:lang(zh-Hant) { font-family: "Geist", "Segoe WPC", "Segoe UI", "Microsoft Jhenghei", sans-serif; }
++.monaco-workbench.windows:lang(ja) { font-family: "Geist", "Segoe WPC", "Segoe UI", "Yu Gothic UI", "Meiryo UI", sans-serif; }
++.monaco-workbench.windows:lang(ko) { font-family: "Geist", "Segoe WPC", "Segoe UI", "Malgun Gothic", "Dotom", sans-serif; }
+ 
+ /* Linux: add `system-ui` as first font and not `Ubuntu` to allow other distribution pick their standard OS font */
+-.monaco-workbench.linux { font-family: system-ui, "Ubuntu", "Droid Sans", sans-serif; }
+-.monaco-workbench.linux:lang(zh-Hans) { font-family: system-ui, "Ubuntu", "Droid Sans", "Source Han Sans SC", "Source Han Sans CN", "Source Han Sans", sans-serif; }
+-.monaco-workbench.linux:lang(zh-Hant) { font-family: system-ui, "Ubuntu", "Droid Sans", "Source Han Sans TC", "Source Han Sans TW", "Source Han Sans", sans-serif; }
+-.monaco-workbench.linux:lang(ja) { font-family: system-ui, "Ubuntu", "Droid Sans", "Source Han Sans J", "Source Han Sans JP", "Source Han Sans", sans-serif; }
+-.monaco-workbench.linux:lang(ko) { font-family: system-ui, "Ubuntu", "Droid Sans", "Source Han Sans K", "Source Han Sans JR", "Source Han Sans", "UnDotum", "FBaekmuk Gulim", sans-serif; }
+-
+-.monaco-workbench.mac { --monaco-monospace-font: "SF Mono", Monaco, Menlo, Courier, monospace; }
+-.monaco-workbench.windows { --monaco-monospace-font: Consolas, "Courier New", monospace; }
+-.monaco-workbench.linux { --monaco-monospace-font: "Ubuntu Mono", "Liberation Mono", "DejaVu Sans Mono", "Courier New", monospace; }
++.monaco-workbench.linux { font-family: "Geist", system-ui, "Ubuntu", "Droid Sans", sans-serif; }
++.monaco-workbench.linux:lang(zh-Hans) { font-family: "Geist", system-ui, "Ubuntu", "Droid Sans", "Source Han Sans SC", "Source Han Sans CN", "Source Han Sans", sans-serif; }
++.monaco-workbench.linux:lang(zh-Hant) { font-family: "Geist", system-ui, "Ubuntu", "Droid Sans", "Source Han Sans TC", "Source Han Sans TW", "Source Han Sans", sans-serif; }
++.monaco-workbench.linux:lang(ja) { font-family: "Geist", system-ui, "Ubuntu", "Droid Sans", "Source Han Sans J", "Source Han Sans JP", "Source Han Sans", sans-serif; }
++.monaco-workbench.linux:lang(ko) { font-family: "Geist", system-ui, "Ubuntu", "Droid Sans", "Source Han Sans K", "Source Han Sans JR", "Source Han Sans", "UnDotum", "FBaekmuk Gulim", sans-serif; }
++
++.monaco-workbench.mac { --monaco-monospace-font: "Geist Mono", "SF Mono", Monaco, Menlo, Courier, monospace; }
++.monaco-workbench.windows { --monaco-monospace-font: "Geist Mono", Consolas, "Courier New", monospace; }
++.monaco-workbench.linux { --monaco-monospace-font: "Geist Mono", "Ubuntu Mono", "Liberation Mono", "DejaVu Sans Mono", "Courier New", monospace; }
+ 
+ /* Global Styles */
+ 
