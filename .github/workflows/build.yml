@@ -39,6 +39,8 @@ jobs:
       - run: npm install -g "pnpm@$(node -p "require('./vscode/package.json').packageManager.split('@')[1]")"
       - if: runner.os == 'Linux'
         run: sudo apt-get update && sudo apt-get install -y libkrb5-dev libx11-dev libxkbfile-dev libsecret-1-dev
+      - if: runner.os == 'Windows'
+        run: echo "$(dirname "$(ls /c/Program\ Files\ \(x86\)/Windows\ Kits/10/bin/*/x64/signtool.exe | sort -V | tail -1)")" >> "$GITHUB_PATH"
       - run: scripts/build.sh ${{ matrix.target }}
       - uses: actions/upload-artifact@v4
         with:
