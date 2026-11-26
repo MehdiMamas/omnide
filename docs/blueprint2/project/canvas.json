@@ -332,7 +332,7 @@
       "x": 1520,
       "y": 0,
       "w": 1240,
-      "h": 1550,
+      "h": 1720,
       "page": "v5",
       "title": "Progress"
     },
@@ -5030,7 +5030,7 @@
       "x": 2600,
       "y": 52400,
       "w": 1240,
-      "h": 620,
+      "h": 1000,
       "page": "v5",
       "title": "Why not VSCodium",
       "is_interactive": false
@@ -5093,7 +5093,7 @@
       "x": 11700,
       "y": 52400,
       "w": 1240,
-      "h": 860,
+      "h": 960,
       "page": "v5",
       "title": "Rewind limits and warnings",
       "is_interactive": false
@@ -5138,7 +5138,7 @@
       "x": 3900,
       "y": 53900,
       "w": 1240,
-      "h": 810,
+      "h": 900,
       "page": "v5",
       "title": "Effort levels and model picker",
       "is_interactive": false
@@ -5165,7 +5165,7 @@
       "x": 7800,
       "y": 53900,
       "w": 1240,
-      "h": 2100,
+      "h": 2420,
       "page": "v5",
       "title": "Full keyboard map",
       "is_interactive": false
@@ -5219,7 +5219,7 @@
       "x": 0,
       "y": 55400,
       "w": 1240,
-      "h": 1060,
+      "h": 1280,
       "page": "v5",
       "title": "Build and CI",
       "is_interactive": false
@@ -5267,6 +5267,24 @@
       "h": 700,
       "page": "v5",
       "title": "Roadmap order",
+      "is_interactive": false
+    },
+    "v5-ref-AuthPolicy.dc.html": {
+      "x": 3900,
+      "y": 55400,
+      "w": 1240,
+      "h": 1020,
+      "page": "v5",
+      "title": "Anthropic auth policy",
+      "is_interactive": false
+    },
+    "v5-ref-NetworkCapture.dc.html": {
+      "x": 5200,
+      "y": 55400,
+      "w": 1240,
+      "h": 900,
+      "page": "v5",
+      "title": "First-run network capture",
       "is_interactive": false
     }
   },
@@ -5860,7 +5878,9 @@
     "v5-ref-PatchSeries.dc.html",
     "v5-ref-LintRules.dc.html",
     "v5-ref-Resume.dc.html",
-    "v5-ref-Roadmap.dc.html"
+    "v5-ref-Roadmap.dc.html",
+    "v5-ref-AuthPolicy.dc.html",
+    "v5-ref-NetworkCapture.dc.html"
   ],
   "notes": [],
   "designSystems": []
