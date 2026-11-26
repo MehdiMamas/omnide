@@ -102,7 +102,7 @@ function rowAround(s, text, needle) { // smallest div holding the label and the 
   const c = elements(s).filter((x) => x.name === 'div' && x.s < a && x.e > b).sort((x, y) => (x.e - x.s) - (y.e - y.s))[0];
   return c;
 }
-function settings(state, { run = 'Auto-review', desc, popover = false, extraRows = true, optionPatch } = {}) {
+function settings(state, { run = 'Auto-review', desc, popover = false, extraRows = true, optionPatch, extOld = false } = {}) {
   let s = mk(SET, 'OmnIDE Settings · Agents', state);
   // drop popover portal when closed
   const pi = s.indexOf('>Run Everything<');
@@ -111,20 +111,24 @@ function settings(state, { run = 'Auto-review', desc, popover = false, extraRows
   s = s.replace(/>Auto-Review</g, `>${run}<`).replace('>Auto-review<', `>${run}<`);
   if (popover) { s = s.replace(/>Auto-Review</, '>Auto-review<'); }
   s = s.replace("A classifier will run for each action and decide whether it's safe to execute this command. Allowlists are still respected.", desc || "A classifier reviews each action. A blocked action is skipped with a notice; the card only appears if Auto-review pauses.");
-  s = s.replace('Prevent Agent from creating or modifying files outside of the workspace automatically', 'Refuses writes outside the workspace (it does not ask). Best effort.');
+  s = s.replace('Prevent Agent from creating or modifying files outside of the workspace automatically', extOld ? 'Needs Claude Code 2.1.314+' : 'Refuses writes outside the workspace (it does not ask). Best effort. Needs Claude Code 2.1.314+.');
   s = s.replace('Prevent Agent from deleting files automatically', 'Asks before rm, rmdir and git rm. Best effort: find -delete or git clean can get around it.');
   s = s.replace('You can configure Bash, MCP, Fetch and Read allow rules for Auto mode. Auto works well without them.', 'Commands that run without asking. Always Run adds to this list, saved in this workspace\'s .claude/settings.local.json.');
   { // File deletion is on by default, like External files: copy the switch that is on
     const sw = (txt) => { const r = rowAround(s, txt, 'settings-row-control'); return elements(s).find((x) => x.name === 'span' && x.s > r.s && x.e < r.e && x.open.includes('role="switch"')); };
-    const del = sw('File-Deletion Protection'), ext = sw('External-File Protection');
+    const del = sw('>File-Deletion Protection<'), ext = sw('>External-File Protection<');
     const attr = (h, a) => h.match(new RegExp(a + '="([^"]*)"'))[1];
     let on = s.slice(ext.s, ext.e);
     for (const a of ['id', 'aria-labelledby', 'aria-describedby']) on = on.replace(new RegExp('(\\s' + a + ')="[^"]*"'), `$1="${attr(s.slice(del.s, del.e), a)}"`);
     s = s.slice(0, del.s) + on + s.slice(del.e);
   }
+  if (extOld) {
+    const e2 = elements(s).find((x) => x.name === 'span' && x.s > rowAround(s, '>External-File Protection<', 'settings-row-control').s && x.open.includes('role="switch"'));
+    s = s.slice(0, e2.s) + e2.open.replace('role="switch"', 'role="switch" aria-disabled="true" style="opacity:.4"').replace(/ data-checked=""/, ' data-unchecked=""').replace(' aria-checked="true"', ' aria-checked="false"') + s.slice(e2.s + e2.open.length);
+  }
   if (extraRows) {
     const ra = rowAround(s, 'Read Access', 'settings-row-control');
-    let dflt = s.slice(ra.s, ra.e).replace('Read Access', 'Default mode for new chats').replace('Control whether agents can read files outside the workspace without approval', 'New chats start in Agent with this Run Mode. Changing it applies to new chats only').replace('>System<', '>Agent · Auto-review<');
+    let dflt = s.slice(ra.s, ra.e).replace('Read Access', 'Default mode for new chats').replace('Control whether agents can read files outside the workspace without approval', 'A new chat starts in this mode (Agent unless changed). Run Mode is a separate setting.').replace('>System<', '>Agent<');
     const ra2 = rowAround(s, 'Read Access', 'settings-row-control');
     s = s.slice(0, ra2.s) + dflt + s.slice(ra2.s);
   }
