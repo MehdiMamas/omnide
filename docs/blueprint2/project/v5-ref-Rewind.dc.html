@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Rewind limits and warnings</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+a{color:#B69CFF}a:hover{color:#F4F2FB}
+table{border-collapse:collapse}
+th{text-align:left;font-weight:600;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:rgba(244, 242, 251, 0.74);padding:8px 10px;border-bottom:1px solid rgba(244, 242, 251, 0.08)}
+td{padding:8px 10px;border-bottom:1px solid rgba(244, 242, 251, 0.08);vertical-align:top}
+</style>
+<style data-omnide-v4>@font-face{font-family:'Geist';src:url(./fonts/Geist-Variable.woff2) format('woff2');font-weight:100 900;font-display:swap}@font-face{font-family:'Geist Mono';src:url(./fonts/GeistMono-Variable.woff2) format('woff2');font-weight:100 900;font-display:swap}</style></helmet>
+<div data-page="v5" data-created="2026-11-26" data-updated="2026-11-26" data-status="current" data-section="architecture" style="position:relative;width:1240px;min-height:640px;box-sizing:border-box;padding:40px 48px;background:#14121B;color:#F4F2FB;font-family:'Geist','Segoe UI',system-ui,sans-serif;font-size:14px;line-height:1.5">
+<div style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:rgba(244, 242, 251, 0.74)">Architecture · reference · checkpoints · v5 · 2026-11-26 · updated 2026-11-26</div><h1 style="margin:6px 0 8px;font-size:30px;font-weight:600">Rewind limits and warnings</h1><p style="margin:0 0 14px;max-width:1080px;color:rgba(244, 242, 251, 0.74)">What a checkpoint restore can and cannot bring back.</p><table style="width:100%;font-size:13px"><thead><tr><th>Case</th><th>What happens</th></tr></thead><tbody><tr><td>Files changed only by Bash</td><td>Not captured; the files were never edited by Claude's edit tools</td></tr><tr><td>Edits by most subagents, or by another session or outside tool</td><td>Not captured</td></tr><tr><td>Symlinked and hard-linked files</td><td>Skipped, with the warning "Restored the code, but skipped N files"</td></tr><tr><td>About 30 days after the last save</td><td>Snapshots are swept (cleanupPeriodDays); rewind can fail with "No files were restored"</td></tr><tr><td>Permanent history</td><td>Use git</td></tr></tbody></table><div style="height:12px"></div><div style="background:#1A1823;border:1px solid rgba(244, 242, 251, 0.08);border-radius:8px;padding:12px 16px;margin:0 0 10px"><b>Cursor comparison</b><br><span style="color:rgba(244, 242, 251, 0.74)">Cursor keeps checkpoints in User/globalStorage/anysphere.cursor-commits/checkpoints/&lt;request-id&gt;/. OmnIDE uses Claude Code's own checkpointing through the user's CLI (the Agent Host Claude harness), not a Cursor-style store.</span></div><p style="margin:14px 0 0;font-size:11px;color:rgba(244, 242, 251, 0.74)">Source: <a href="https://code.claude.com/docs/en/checkpointing">https://code.claude.com/docs/en/checkpointing</a>; cursor-asis docs/how-it-works/data/files-on-disk.csv</p>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1240,"height":640}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Claude Code files and paths per OS</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+a{color:#B69CFF}a:hover{color:#F4F2FB}
+table{border-collapse:collapse}
+th{text-align:left;font-weight:600;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:rgba(244, 242, 251, 0.74);padding:8px 10px;border-bottom:1px solid rgba(244, 242, 251, 0.08)}
+td{padding:8px 10px;border-bottom:1px solid rgba(244, 242, 251, 0.08);vertical-align:top}
+</style>
+<style data-omnide-v4>@font-face{font-family:'Geist';src:url(./fonts/Geist-Variable.woff2) format('woff2');font-weight:100 900;font-display:swap}@font-face{font-family:'Geist Mono';src:url(./fonts/GeistMono-Variable.woff2) format('woff2');font-weight:100 900;font-display:swap}</style></helmet>
+<div data-page="v5" data-created="2026-11-26" data-updated="2026-11-26" data-status="current" data-section="architecture" style="position:relative;width:1240px;min-height:1100px;box-sizing:border-box;padding:40px 48px;background:#14121B;color:#F4F2FB;font-family:'Geist','Segoe UI',system-ui,sans-serif;font-size:14px;line-height:1.5">
+<div style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:rgba(244, 242, 251, 0.74)">Architecture · reference · claude files · v5 · 2026-11-26 · updated 2026-11-26</div><h1 style="margin:6px 0 8px;font-size:30px;font-weight:600">Claude Code files and paths per OS</h1><p style="margin:0 0 14px;max-width:1080px;color:rgba(244, 242, 251, 0.74)">Where Claude Code and the OmnIDE editor keep their files. CLAUDE_CONFIG_DIR moves the Claude folder.</p><table style="width:100%;font-size:13px"><thead><tr><th>What</th><th>macOS</th><th>Linux</th><th>Windows</th></tr></thead><tbody><tr><td>Sessions</td><td>~/.claude/projects/&lt;project&gt;/&lt;session-id&gt;.jsonl</td><td>same</td><td>%USERPROFILE%\.claude\projects\...</td></tr><tr><td>User settings</td><td>~/.claude/settings.json</td><td>same</td><td>%USERPROFILE%\.claude\settings.json</td></tr><tr><td>Project settings</td><td>.claude/settings.json (shared), .claude/settings.local.json (local, overrides it)</td><td>same</td><td>same</td></tr><tr><td>Managed settings</td><td>Highest priority</td><td>same</td><td>same</td></tr><tr><td>Global app state</td><td>~/.claude.json</td><td>same</td><td>%USERPROFILE%\.claude.json</td></tr><tr><td>Credentials</td><td>Encrypted Keychain; falls back to ~/.claude/.credentials.json (0600) if the write is rejected</td><td>~/.claude/.credentials.json (0600)</td><td>%USERPROFILE%\.claude\.credentials.json</td></tr><tr><td>API key</td><td>ANTHROPIC_API_KEY once approved</td><td>same</td><td>same</td></tr></tbody></table><div style="height:12px"></div><table style="width:100%;font-size:13px"><thead><tr><th>Editor file</th><th>Path</th></tr></thead><tbody><tr><td>Settings</td><td>User/settings.json</td></tr><tr><td>Global state</td><td>User/globalStorage/state.vscdb (ItemTable), User/globalStorage/storage.json</td></tr><tr><td>Workspace state</td><td>User/workspaceStorage/&lt;hash&gt;/state.vscdb and workspace.json</td></tr><tr><td>Local history</td><td>User/History/</td></tr><tr><td>Logs</td><td>logs/&lt;timestamp&gt;/ per launch</td></tr><tr><td>Extensions</td><td>extensions-dir/extensions.json</td></tr><tr><td>Workspace config</td><td>.claude/ dotfolder (.cursor/ in Cursor)</td></tr></tbody></table><p style="margin:10px 0 0;color:rgba(244, 242, 251, 0.74)">Session folder name: the working directory path with non-alphanumerics replaced by -, cut to 200 characters plus a hash if longer. One JSON object per line, an internal format. Kept 30 days by default (cleanupPeriodDays). Settings files are strict JSON: comments or trailing commas cause a Settings Error at the next start.</p><p style="margin:14px 0 0;font-size:11px;color:rgba(244, 242, 251, 0.74)">Source: <a href="https://code.claude.com/docs/en/sessions">https://code.claude.com/docs/en/sessions</a>; <a href="https://code.claude.com/docs/en/settings">https://code.claude.com/docs/en/settings</a>; <a href="https://code.claude.com/docs/en/authentication">https://code.claude.com/docs/en/authentication</a>; cursor-asis docs/how-it-works/data/files-on-disk.csv</p>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1240,"height":1100}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

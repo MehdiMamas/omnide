@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Agent Host session, turn and cancel</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+a{color:#B69CFF}a:hover{color:#F4F2FB}
+table{border-collapse:collapse}
+th{text-align:left;font-weight:600;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:rgba(244, 242, 251, 0.74);padding:8px 10px;border-bottom:1px solid rgba(244, 242, 251, 0.08)}
+td{padding:8px 10px;border-bottom:1px solid rgba(244, 242, 251, 0.08);vertical-align:top}
+</style>
+<style data-omnide-v4>@font-face{font-family:'Geist';src:url(./fonts/Geist-Variable.woff2) format('woff2');font-weight:100 900;font-display:swap}@font-face{font-family:'Geist Mono';src:url(./fonts/GeistMono-Variable.woff2) format('woff2');font-weight:100 900;font-display:swap}</style></helmet>
+<div data-page="v5" data-created="2026-11-26" data-updated="2026-11-26" data-status="current" data-section="architecture" style="position:relative;width:1240px;min-height:700px;box-sizing:border-box;padding:40px 48px;background:#14121B;color:#F4F2FB;font-family:'Geist','Segoe UI',system-ui,sans-serif;font-size:14px;line-height:1.5">
+<div style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:rgba(244, 242, 251, 0.74)">Architecture · reference · agent link · v5 · 2026-11-26 · updated 2026-11-26</div><h1 style="margin:6px 0 8px;font-size:30px;font-weight:600">Agent Host session, turn and cancel</h1><p style="margin:0 0 14px;max-width:1080px;color:rgba(244, 242, 251, 0.74)">The commands and actions of one chat, with the error that sends the user to sign in.</p><table style="width:100%;font-size:13px"><thead><tr><th>Step</th><th>Message</th><th>What happens</th></tr></thead><tbody><tr><td>Create</td><td>createSession (working directory, config such as permissionMode)</td><td>ClaudeAgent binds a provisional session; it materialises on the first send</td></tr><tr><td>No credentials</td><td>Error AHP_AUTH_REQUIRED (-32007, AuthRequiredErrorData)</td><td>Client answers the authenticate command, then retries</td></tr><tr><td>Turn ends well</td><td>ChatTurnComplete</td><td>TurnState complete; queue drained after the SDK result</td></tr><tr><td>User cancels</td><td>ChatTurnCancelled</td><td>TurnState cancelled</td></tr><tr><td>Turn fails</td><td>ChatError</td><td>TurnState error: SDK result with an error, or the stream ended without a result</td></tr><tr><td>Cancel path</td><td>Client dispatches ChatTurnCancelled; AgentSideEffects calls agent.chats.abort</td><td>Pipeline interrupts the query, aborts the controller, fails pending work; pending permission asks are denied, pending inputs cancelled; queued messages are not drained</td></tr></tbody></table><p style="margin:14px 0 0;font-size:11px;color:rgba(244, 242, 251, 0.74)">Source: microsoft/vscode@1.148.0 agentHost: common/state/protocol/channels-session/commands.ts:14-96; node/claude/claudeAgent.ts:775-794,1243-1273,1544-1558; common/state/protocol/common/errors.ts:64,117-120; channels-chat/state.ts:731-735; node/claude/claudeSdkPipeline.ts:494-537,729-761; node/agentSideEffects.ts:1958-1986; claudeCanUseTool.ts:102-113</p>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1240,"height":700}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

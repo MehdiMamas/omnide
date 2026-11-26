@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Sessions, resume and fork</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+a{color:#B69CFF}a:hover{color:#F4F2FB}
+table{border-collapse:collapse}
+th{text-align:left;font-weight:600;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:rgba(244, 242, 251, 0.74);padding:8px 10px;border-bottom:1px solid rgba(244, 242, 251, 0.08)}
+td{padding:8px 10px;border-bottom:1px solid rgba(244, 242, 251, 0.08);vertical-align:top}
+</style>
+<style data-omnide-v4>@font-face{font-family:'Geist';src:url(./fonts/Geist-Variable.woff2) format('woff2');font-weight:100 900;font-display:swap}@font-face{font-family:'Geist Mono';src:url(./fonts/GeistMono-Variable.woff2) format('woff2');font-weight:100 900;font-display:swap}</style></helmet>
+<div data-page="v5" data-created="2026-11-26" data-updated="2026-11-26" data-status="current" data-section="architecture" style="position:relative;width:1240px;min-height:560px;box-sizing:border-box;padding:40px 48px;background:#14121B;color:#F4F2FB;font-family:'Geist','Segoe UI',system-ui,sans-serif;font-size:14px;line-height:1.5">
+<div style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:rgba(244, 242, 251, 0.74)">Architecture · reference · sessions · v5 · 2026-11-26 · updated 2026-11-26</div><h1 style="margin:6px 0 8px;font-size:30px;font-weight:600">Sessions, resume and fork</h1><p style="margin:0 0 14px;max-width:1080px;color:rgba(244, 242, 251, 0.74)">How a chat is continued, branched and named.</p><table style="width:100%;font-size:13px"><thead><tr><th>Action</th><th>Command</th><th>Result</th></tr></thead><tbody><tr><td>Fork</td><td>/branch [name], or claude --continue/--resume --fork-session</td><td>Copies the conversation so far into a new session (new ID, own picker row); original intact; an unnamed branch takes the first prompt as its name</td></tr><tr><td>Resume by name</td><td>claude --resume &lt;name&gt;</td><td>Resumes directly if exactly one session matches, else opens the picker pre-filled</td></tr><tr><td>Resume in a session</td><td>/resume &lt;name&gt;</td><td>Errors if the name is not unique</td></tr><tr><td>Default name</td><td>e.g. my-app-3f</td><td>Not a resume handle</td></tr><tr><td>Clear</td><td>/clear</td><td>Starts a new empty chat; the old one is saved and reopened with /resume</td></tr></tbody></table><p style="margin:14px 0 0;font-size:11px;color:rgba(244, 242, 251, 0.74)">Source: <a href="https://code.claude.com/docs/en/sessions">https://code.claude.com/docs/en/sessions</a></p>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1240,"height":560}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>
