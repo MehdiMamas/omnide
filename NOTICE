@@ -1,14 +1,14 @@
 OmnIDE is built from Code - OSS (https://github.com/microsoft/vscode),
 Copyright (c) Microsoft Corporation, MIT License.
 
-patches/0002-telemetry-removed.patch and patches/0003-marketplace-open-vsx.patch
-are adapted from VSCodium (https://github.com/VSCodium/vscodium),
+patches/0002-telemetry-removed.patch, patches/0003-marketplace-open-vsx.patch and
+patches/0004-extension-signature-verification-off.patch are adapted from VSCodium (https://github.com/VSCodium/vscodium),
 patches/00-telemetry-disable.patch and patches/00-settings-gallery.patch and
 patches/00-extension-disable-signature-verification.patch,
 Copyright (c) 2018 VSCodium contributors, MIT License.
-product.json gallery values follow VSCodium's prepare_vscode.sh.
+product.overrides.json gallery values follow VSCodium's prepare_vscode.sh.
 
-patches/0004-copilot-chat-disabled.patch follows the approach of
+patches/0005-copilot-chat-disabled.patch follows the approach of
 VSCodium patches/00-copilot-fix-action-condition.patch (MIT).
 
 Geist and Geist Mono (src/omnide/fonts), Copyright (c) 2023 Vercel, in
