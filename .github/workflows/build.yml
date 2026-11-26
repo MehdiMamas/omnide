@@ -45,7 +45,7 @@ jobs:
       - run: npm install -g "pnpm@$(node -p "require('./vscode/package.json').packageManager.split('@')[1]")"
       - if: runner.os == 'Linux'
         run: sudo apt-get update && sudo apt-get install -y libkrb5-dev libx11-dev libxkbfile-dev libsecret-1-dev
-      # the upstream win32 build runs signtool.exe to strip signatures, and the runner image does not put it on PATH
+      # signtool.exe is needed by the upstream win32 build and is not on the runner PATH
       - if: runner.os == 'Windows'
         run: echo "$(dirname "$(ls /c/Program\ Files\ \(x86\)/Windows\ Kits/10/bin/*/x64/signtool.exe | sort -V | tail -1)")" >> "$GITHUB_PATH"
       - run: scripts/patches.sh && scripts/assets.sh

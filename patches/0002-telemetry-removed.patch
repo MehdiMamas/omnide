@@ -1,5 +1,5 @@
-Subject: Telemetry removed: off by default, Microsoft endpoints dropped from product.json
-Adapted from VSCodium (MIT), patches/00-telemetry-disable.patch, Copyright (c) VSCodium contributors, MIT. product.json part is original.
+Subject: Telemetry removed: off by default in the telemetry service and settings
+Adapted from VSCodium (MIT), patches/00-telemetry-disable.patch, Copyright (c) VSCodium contributors, MIT.
 
 diff --git a/src/vs/platform/telemetry/common/telemetryService.ts b/src/vs/platform/telemetry/common/telemetryService.ts
 index cd678a28..ab1fafb5 100644
