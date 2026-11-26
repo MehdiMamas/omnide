@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Milestone 1 evidence</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+a{color:#B69CFF}a:hover{color:#F4F2FB}
+table{border-collapse:collapse}
+th{text-align:left;font-weight:600;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:rgba(244, 242, 251, 0.74);padding:8px 10px;border-bottom:1px solid rgba(244, 242, 251, 0.08)}
+td{padding:8px 10px;border-bottom:1px solid rgba(244, 242, 251, 0.08);vertical-align:top}
+</style>
+<style data-omnide-v4>@font-face{font-family:'Geist';src:url(./fonts/Geist-Variable.woff2) format('woff2');font-weight:100 900;font-display:swap}@font-face{font-family:'Geist Mono';src:url(./fonts/GeistMono-Variable.woff2) format('woff2');font-weight:100 900;font-display:swap}</style></helmet>
+<div data-page="v5" data-created="2026-11-26" data-updated="2026-11-26" data-status="current" data-section="architecture" style="position:relative;width:1240px;min-height:1500px;box-sizing:border-box;padding:40px 48px;background:#14121B;color:#F4F2FB;font-family:'Geist','Segoe UI',system-ui,sans-serif;font-size:14px;line-height:1.5"><div style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:rgba(244, 242, 251, 0.74)">Architecture · reference · evidence · v5 · 2026-11-26 · updated 2026-11-26</div><h1 style="margin:6px 0 8px;font-size:30px;font-weight:600">Milestone 1 evidence</h1><p style="margin:0 0 14px;max-width:1080px;color:rgba(244, 242, 251, 0.74)">What the first built OmnIDE (macOS arm64, Code OSS 1.148.0) showed in a real run, from the evidence section of PR #17. Files are in docs/evidence of the repo.</p><table style="width:100%;font-size:13px"><thead><tr><th>Check</th><th>Result</th></tr></thead><tbody><tr><td>Built CLI</td><td><code>ls OmnIDE.app/Contents/Resources/app/bin</code> shows only <code>omnide</code>. <code>bin/omnide --version</code> prints <code>1.148.0 / 661626d0e72f97806550790a98fb87116c9db825 / arm64</code>.</td></tr><tr><td>Info.plist</td><td>CFBundleName OmnIDE, CFBundleDisplayName OmnIDE, CFBundleIdentifier dev.omnide.app, CFBundleIconFile OmnIDE.icns (the purple ring and caret icon, see the dock shot).</td></tr><tr><td>Built product.json</td><td>applicationName omnide, nameLong OmnIDE, configurationDefaults {"workbench.colorTheme":"OmnIDE Dark"}.</td></tr><tr><td>First run</td><td>A fresh user-data-dir opens with the OmnIDE Dark theme.</td></tr><tr><td>macOS window title</td><td>macOS omits the app name from window titles (title "hello.js — ws"). The name shows in the menu bar and in the process name OmnIDE (dev.omnide.app, System Events).</td></tr><tr><td>Not verified</td><td>Windows and Linux first runs: those builds run only in CI. m1-menubar.png is in docs/evidence but is not shown here (it is a near-blank strip).</td></tr></tbody></table><div style="height:14px"></div><div data-evidence style="margin:0 0 14px"><img src="evidence/m1-window.png" alt="OmnIDE window with the OmnIDE Dark theme, folder ws and hello.js open" style="width:560px;max-width:100%;border:1px solid rgba(244, 242, 251, 0.08);border-radius:6px"><div style="font-size:12px;color:rgba(244, 242, 251, 0.74)">m1-window.png: first run, OmnIDE Dark, title bar shows the folder name only.</div></div><div data-evidence style="margin:0 0 14px"><img src="evidence/m1-geist.png" alt="OmnIDE window showing Geist for the interface and Geist Mono in the editor" style="width:560px;max-width:100%;border:1px solid rgba(244, 242, 251, 0.08);border-radius:6px"><div style="font-size:12px;color:rgba(244, 242, 251, 0.74)">m1-geist.png: Geist in the workbench, Geist Mono in the editor.</div></div><div data-evidence style="margin:0 0 14px"><img src="evidence/m1-dock.png" alt="OmnIDE dock icon, a white ring and caret on a purple rounded square" style="width:560px;max-width:100%;border:1px solid rgba(244, 242, 251, 0.08);border-radius:6px"><div style="font-size:12px;color:rgba(244, 242, 251, 0.74)">m1-dock.png: the dock icon.</div></div><p style="margin:14px 0 0;font-size:11px;color:rgba(244, 242, 251, 0.74)">Source: <a href="https://github.com/MehdiMamas/omnide/pull/17">https://github.com/MehdiMamas/omnide/pull/17</a> (Evidence); docs/evidence/m1-window.png, m1-geist.png, m1-dock.png at e9d901b. Related: <a href="v5-ref-NetworkCapture.dc.html">First-run network capture</a>.</p>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1240,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>
