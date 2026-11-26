@@ -56,7 +56,7 @@
       "x": 24280,
       "y": 0,
       "w": 1240,
-      "h": 1500,
+      "h": 1950,
       "page": "v5",
       "title": "Decisions"
     },
@@ -146,7 +146,7 @@
       "x": 29560,
       "y": 0,
       "w": 1240,
-      "h": 1000,
+      "h": 1070,
       "page": "v5",
       "title": "History"
     },
@@ -154,7 +154,7 @@
       "x": 0,
       "y": 0,
       "w": 1440,
-      "h": 2300,
+      "h": 2580,
       "page": "v5",
       "title": "Start here"
     },
@@ -332,7 +332,7 @@
       "x": 1520,
       "y": 0,
       "w": 1240,
-      "h": 1480,
+      "h": 1550,
       "page": "v5",
       "title": "Progress"
     },
@@ -348,7 +348,7 @@
       "x": 42760,
       "y": 0,
       "w": 1440,
-      "h": 5454,
+      "h": 6540,
       "page": "v5",
       "title": "Settings inventory"
     },
@@ -383,7 +383,7 @@
       "x": 0,
       "y": 44351,
       "w": 1240,
-      "h": 1260,
+      "h": 1350,
       "title": "agent-Sequence",
       "page": "v5",
       "is_interactive": false
@@ -2065,7 +2065,7 @@
       "x": 4220,
       "y": 44351,
       "w": 1440,
-      "h": 900,
+      "h": 950,
       "title": "omni-claude-not-installed",
       "page": "v5",
       "is_interactive": true
@@ -2074,7 +2074,7 @@
       "x": 5760,
       "y": 44351,
       "w": 1440,
-      "h": 900,
+      "h": 950,
       "title": "omni-claude-signed-out",
       "page": "v5",
       "is_interactive": true
@@ -2496,7 +2496,7 @@
       "x": 1520,
       "y": 51171,
       "w": 1240,
-      "h": 900,
+      "h": 980,
       "page": "v5",
       "title": "Play: Every Claude Code feature",
       "is_interactive": true
@@ -5021,7 +5021,7 @@
       "x": 1300,
       "y": 52400,
       "w": 1240,
-      "h": 700,
+      "h": 760,
       "page": "v5",
       "title": "Distribution and signing",
       "is_interactive": false
@@ -5048,7 +5048,7 @@
       "x": 5200,
       "y": 52400,
       "w": 1240,
-      "h": 760,
+      "h": 1000,
       "page": "v5",
       "title": "Agent Host link and environment",
       "is_interactive": false
@@ -5057,7 +5057,7 @@
       "x": 6500,
       "y": 52400,
       "w": 1240,
-      "h": 700,
+      "h": 900,
       "page": "v5",
       "title": "Agent Host session, turn and cancel",
       "is_interactive": false
@@ -5066,7 +5066,7 @@
       "x": 7800,
       "y": 52400,
       "w": 1240,
-      "h": 800,
+      "h": 880,
       "page": "v5",
       "title": "Permissions, tool kinds, plans and commands",
       "is_interactive": false
@@ -5093,7 +5093,7 @@
       "x": 11700,
       "y": 52400,
       "w": 1240,
-      "h": 820,
+      "h": 860,
       "page": "v5",
       "title": "Rewind limits and warnings",
       "is_interactive": false
@@ -5138,7 +5138,7 @@
       "x": 3900,
       "y": 53900,
       "w": 1240,
-      "h": 720,
+      "h": 810,
       "page": "v5",
       "title": "Effort levels and model picker",
       "is_interactive": false
@@ -5219,7 +5219,7 @@
       "x": 0,
       "y": 55400,
       "w": 1240,
-      "h": 1040,
+      "h": 1060,
       "page": "v5",
       "title": "Build and CI",
       "is_interactive": false
@@ -5228,7 +5228,7 @@
       "x": 1300,
       "y": 55400,
       "w": 1240,
-      "h": 840,
+      "h": 880,
       "page": "v5",
       "title": "Patch series",
       "is_interactive": false
@@ -5240,6 +5240,33 @@
       "h": 1000,
       "page": "v5",
       "title": "Lint and code rules",
+      "is_interactive": false
+    },
+    "v5-omni-claude-api-key.dc.html": {
+      "x": 7300,
+      "y": 44351,
+      "w": 1440,
+      "h": 950,
+      "title": "omni-claude-api-key",
+      "page": "v5",
+      "is_interactive": true
+    },
+    "v5-ref-Resume.dc.html": {
+      "x": 3900,
+      "y": 55400,
+      "w": 1240,
+      "h": 660,
+      "page": "v5",
+      "title": "Resume and sessions",
+      "is_interactive": false
+    },
+    "v5-ref-Roadmap.dc.html": {
+      "x": 5200,
+      "y": 55400,
+      "w": 1240,
+      "h": 700,
+      "page": "v5",
+      "title": "Roadmap order",
       "is_interactive": false
     }
   },
@@ -5476,6 +5503,7 @@
     "v5-omni-claude-missing.dc.html",
     "v5-omni-claude-not-installed.dc.html",
     "v5-omni-claude-signed-out.dc.html",
+    "v5-omni-claude-api-key.dc.html",
     "v5-omni-permission-ask.dc.html",
     "v5-omni-permission-command.dc.html",
     "v5-omni-permission-denied.dc.html",
@@ -5830,7 +5858,9 @@
     "v5-ref-Timings.dc.html",
     "v5-ref-BuildCI.dc.html",
     "v5-ref-PatchSeries.dc.html",
-    "v5-ref-LintRules.dc.html"
+    "v5-ref-LintRules.dc.html",
+    "v5-ref-Resume.dc.html",
+    "v5-ref-Roadmap.dc.html"
   ],
   "notes": [],
   "designSystems": []

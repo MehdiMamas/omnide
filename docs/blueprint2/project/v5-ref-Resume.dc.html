@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Resume and sessions</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+a{color:#B69CFF}a:hover{color:#F4F2FB}
+table{border-collapse:collapse}
+th{text-align:left;font-weight:600;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:rgba(244, 242, 251, 0.74);padding:8px 10px;border-bottom:1px solid rgba(244, 242, 251, 0.08)}
+td{padding:8px 10px;border-bottom:1px solid rgba(244, 242, 251, 0.08);vertical-align:top}
+</style>
+<style data-omnide-v4>@font-face{font-family:'Geist';src:url(./fonts/Geist-Variable.woff2) format('woff2');font-weight:100 900;font-display:swap}@font-face{font-family:'Geist Mono';src:url(./fonts/GeistMono-Variable.woff2) format('woff2');font-weight:100 900;font-display:swap}</style></helmet>
+<div data-page="v5" data-created="2026-11-26" data-updated="2026-11-26" data-status="current" data-section="architecture" style="position:relative;width:1240px;min-height:640px;box-sizing:border-box;padding:40px 48px;background:#14121B;color:#F4F2FB;font-family:'Geist','Segoe UI',system-ui,sans-serif;font-size:14px;line-height:1.5">
+<div style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:rgba(244, 242, 251, 0.74)">Architecture · reference · resume · v5 · 2026-11-26 · updated 2026-11-26</div><h1 style="margin:6px 0 8px;font-size:30px;font-weight:600">Resume and sessions</h1><p style="margin:0 0 14px;max-width:1080px;color:rgba(244, 242, 251, 0.74)">What happens when a chat is reopened, by id or from history, and which errors it can show.</p><table style="width:100%;font-size:13px"><thead><tr><th>Case</th><th>What the user does</th><th>Result</th></tr></thead><tbody><tr><td>Resume by an id that does not exist</td><td>claude --resume &lt;session-id&gt;</td><td>Claude Code prints: No conversation found with session ID: &lt;session-id&gt;. It resolves an id only when exactly one project holds a transcript with messages for it, so a hand-copied duplicate also reports not-found</td></tr><tr><td>Session ended in Bypass</td><td>Resume it later</td><td>Bypass is not restored. The resumed session starts in the mode a new session would start in; to bypass again the user enables it at launch or in settings (permissions.defaultMode)</td></tr><tr><td>Session ended in Plan</td><td>Resume it later</td><td>Terminal resume returns to Plan mode; with fork-session it starts in the mode a new session would start in</td></tr><tr><td>Open a saved chat in the Agent Host</td><td>Pick a chat from History</td><td>The saved-chat reader loads its transcript through the SDK, then the next send resumes the session</td></tr><tr><td>History reader missing</td><td>Open a saved chat while the SDK is not installed</td><td>The chat shows: The local Claude history reader is not available.</td></tr><tr><td>Backing missing</td><td>Open a saved chat whose session file is gone</td><td>The chat shows: The saved Claude chat backing is missing or invalid.</td></tr><tr><td>Restore Checkpoint</td><td>Rewind to a turn</td><td>Same session id, turns 0..N kept; see <a href="v5-ref-AgentHostSession.dc.html">session, turn and cancel</a></td></tr><tr><td>Name, fork and clear</td><td>/resume, /branch, /clear</td><td>See <a href="v5-ref-Sessions.dc.html">Sessions, resume and fork</a></td></tr></tbody></table><p style="margin:14px 0 0;font-size:11px;color:rgba(244, 242, 251, 0.74)">Source: <a href="https://code.claude.com/docs/en/sessions">https://code.claude.com/docs/en/sessions</a>; vscode/src/vs/platform/agentHost/node/claude/claudeSavedChatReader.ts:47,97</p>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1240,"height":640}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>
