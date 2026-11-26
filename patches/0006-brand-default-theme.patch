@@ -1,0 +1,17 @@
+Subject: Brand: OmnIDE Dark is the default colour theme
+Original to OmnIDE.
+
+diff --git a/product.json b/product.json
+index 935998c1..9ea6de9c 100644
+--- a/product.json
++++ b/product.json
+@@ -254,5 +254,8 @@
+ 	},
+ 	"linkProtectionTrustedDomains": [
+ 		"https://open-vsx.org"
+-	]
++	],
++	"configurationDefaults": {
++		"workbench.colorTheme": "OmnIDE Dark"
++	}
+ }

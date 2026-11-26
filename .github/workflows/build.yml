@@ -1,0 +1,47 @@
+name: build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: build ${{ matrix.target }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-2025
+            target: win32-x64
+          - os: macos-14
+            target: darwin-arm64
+          - os: ubuntu-24.04
+            target: linux-x64
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+      - run: scripts/prepare_vscode.sh
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: vscode/.nvmrc
+      - run: npm install -g "pnpm@$(node -p "require('./vscode/package.json').packageManager.split('@')[1]")"
+      - if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y libkrb5-dev libx11-dev libxkbfile-dev libsecret-1-dev
+      - run: scripts/build.sh ${{ matrix.target }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: omnide-${{ matrix.target }}
+          path: VSCode-${{ matrix.target }}
+          if-no-files-found: error
