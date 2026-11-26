@@ -7,16 +7,20 @@
   "title": "OmnIDE blueprint",
   "launch": {
     "view": "canvas",
-    "page": "v5"
+    "page": "v6"
   },
   "pages": [
     {
+      "id": "v6",
+      "name": "v6 · 2026-11-26 · To-be · permissions"
+    },
+    {
       "id": "v5",
-      "name": "v5 \u00b7 2026-11-26"
+      "name": "v5 · 2026-11-26"
     },
     {
       "id": "v4",
-      "name": "v4 \u00b7 2026-11-26 \u00b7 superseded"
+      "name": "v4 · 2026-11-26 · superseded"
     }
   ],
   "boards": {
@@ -146,7 +150,7 @@
       "x": 29560,
       "y": 0,
       "w": 1240,
-      "h": 2121,
+      "h": 2310,
       "page": "v5",
       "title": "History"
     },
@@ -403,7 +407,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ai-01-agent-mode-picker \u00b7 agent mode picker",
+      "title": "ai-01-agent-mode-picker · agent mode picker",
       "is_interactive": true
     },
     "v5-ai-02-model-popover.dc.html": {
@@ -412,7 +416,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ai-02-model-popover \u00b7 model popover",
+      "title": "ai-02-model-popover · model popover",
       "is_interactive": true
     },
     "v5-ai-08-composer-at-mention-menu.dc.html": {
@@ -421,7 +425,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ai-08-composer-at-mention-menu \u00b7 composer at mention menu",
+      "title": "ai-08-composer-at-mention-menu · composer at mention menu",
       "is_interactive": true
     },
     "v5-ai-09-composer-at-mention-filtered.dc.html": {
@@ -430,7 +434,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ai-09-composer-at-mention-filtered \u00b7 composer at mention filtered",
+      "title": "ai-09-composer-at-mention-filtered · composer at mention filtered",
       "is_interactive": true
     },
     "v5-ai-10-composer-slash-menu.dc.html": {
@@ -439,7 +443,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ai-10-composer-slash-menu \u00b7 composer slash menu",
+      "title": "ai-10-composer-slash-menu · composer slash menu",
       "is_interactive": true
     },
     "v5-ai-11-agent-pane-overflow-menu.dc.html": {
@@ -448,7 +452,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ai-11-agent-pane-overflow-menu \u00b7 agent pane overflow menu",
+      "title": "ai-11-agent-pane-overflow-menu · agent pane overflow menu",
       "is_interactive": true
     },
     "v5-ai-12-composer-typed-prompt.dc.html": {
@@ -457,7 +461,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ai-12-composer-typed-prompt \u00b7 composer typed prompt",
+      "title": "ai-12-composer-typed-prompt · composer typed prompt",
       "is_interactive": true
     },
     "v5-ai-13-agent-turn-starting.dc.html": {
@@ -466,7 +470,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ai-13-agent-turn-starting \u00b7 agent turn starting",
+      "title": "ai-13-agent-turn-starting · agent turn starting",
       "is_interactive": true
     },
     "v5-ai-14-agent-turn-streaming.dc.html": {
@@ -475,7 +479,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ai-14-agent-turn-streaming \u00b7 agent turn streaming",
+      "title": "ai-14-agent-turn-streaming · agent turn streaming",
       "is_interactive": true
     },
     "v5-ai-15-agent-turn-tools.dc.html": {
@@ -484,7 +488,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ai-15-agent-turn-tools \u00b7 agent turn tools",
+      "title": "ai-15-agent-turn-tools · agent turn tools",
       "is_interactive": true
     },
     "v5-ai-16-agent-turn-done-inline-diff.dc.html": {
@@ -493,7 +497,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ai-16-agent-turn-done-inline-diff \u00b7 agent turn done inline diff",
+      "title": "ai-16-agent-turn-done-inline-diff · agent turn done inline diff",
       "is_interactive": true
     },
     "v5-ai-17-changed-files-expanded.dc.html": {
@@ -502,7 +506,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ai-17-changed-files-expanded \u00b7 changed files expanded",
+      "title": "ai-17-changed-files-expanded · changed files expanded",
       "is_interactive": true
     },
     "v5-ai-18-agent-changes-accepted.dc.html": {
@@ -511,7 +515,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ai-18-agent-changes-accepted \u00b7 agent changes accepted",
+      "title": "ai-18-agent-changes-accepted · agent changes accepted",
       "is_interactive": true
     },
     "v5-ai-19-review-editor.dc.html": {
@@ -520,7 +524,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ai-19-review-editor \u00b7 review editor",
+      "title": "ai-19-review-editor · review editor",
       "is_interactive": true
     },
     "v5-ai-20-plan-mode-composer.dc.html": {
@@ -529,7 +533,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ai-20-plan-mode-composer \u00b7 plan mode composer",
+      "title": "ai-20-plan-mode-composer · plan mode composer",
       "is_interactive": true
     },
     "v5-ai-21-plan-mode-streaming.dc.html": {
@@ -538,7 +542,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ai-21-plan-mode-streaming \u00b7 plan mode streaming",
+      "title": "ai-21-plan-mode-streaming · plan mode streaming",
       "is_interactive": true
     },
     "v5-ai-22-plan-artifact-editor.dc.html": {
@@ -547,7 +551,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ai-22-plan-artifact-editor \u00b7 plan artifact editor",
+      "title": "ai-22-plan-artifact-editor · plan artifact editor",
       "is_interactive": true
     },
     "v5-ai-23-plan-build-dropdown.dc.html": {
@@ -556,7 +560,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ai-23-plan-build-dropdown \u00b7 plan build dropdown",
+      "title": "ai-23-plan-build-dropdown · plan build dropdown",
       "is_interactive": true
     },
     "v5-ai-24-ask-mode-streaming.dc.html": {
@@ -565,7 +569,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ai-24-ask-mode-streaming \u00b7 question answered as a plan, streaming",
+      "title": "ai-24-ask-mode-streaming · question answered as a plan, streaming",
       "is_interactive": true
     },
     "v5-ai-25-ask-mode-answer.dc.html": {
@@ -574,7 +578,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ai-25-ask-mode-answer \u00b7 question answered in text, no edits",
+      "title": "ai-25-ask-mode-answer · question answered in text, no edits",
       "is_interactive": true
     },
     "v5-ai-26-editor-selection-toolbar.dc.html": {
@@ -583,7 +587,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ai-26-editor-selection-toolbar \u00b7 editor selection toolbar",
+      "title": "ai-26-editor-selection-toolbar · editor selection toolbar",
       "is_interactive": true
     },
     "v5-ai-40-tool-card-read-search.dc.html": {
@@ -592,7 +596,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ai-40-tool-card-read-search \u00b7 tool card read search",
+      "title": "ai-40-tool-card-read-search · tool card read search",
       "is_interactive": true
     },
     "v5-ai-41-tool-card-collapsed-expanded.dc.html": {
@@ -601,7 +605,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ai-41-tool-card-collapsed-expanded \u00b7 tool card collapsed expanded",
+      "title": "ai-41-tool-card-collapsed-expanded · tool card collapsed expanded",
       "is_interactive": true
     },
     "v5-ai-43-checkpoint-restore.dc.html": {
@@ -610,7 +614,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ai-43-checkpoint-restore \u00b7 checkpoint restore",
+      "title": "ai-43-checkpoint-restore · checkpoint restore",
       "is_interactive": true
     },
     "v5-ai-44-chat-history-list.dc.html": {
@@ -619,7 +623,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ai-44-chat-history-list \u00b7 chat history list",
+      "title": "ai-44-chat-history-list · chat history list",
       "is_interactive": true
     },
     "v5-ai-48-stop-generation.dc.html": {
@@ -628,7 +632,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ai-48-stop-generation \u00b7 stop generation",
+      "title": "ai-48-stop-generation · stop generation",
       "is_interactive": true
     },
     "v5-btn-agents-allowlist-options.dc.html": {
@@ -637,7 +641,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "btn-agents-allowlist-options \u00b7 Allowlist Options expanded",
+      "title": "btn-agents-allowlist-options · Allowlist Options expanded",
       "is_interactive": true
     },
     "v5-btn-general-account.dc.html": {
@@ -646,7 +650,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "btn-general-account \u00b7 Claude Open (opens the Claude settings)",
+      "title": "btn-general-account · Claude Open (opens the Claude settings)",
       "is_interactive": true
     },
     "v5-btn-general-reset.dc.html": {
@@ -655,7 +659,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "btn-general-reset \u00b7 hidden dialogs list shown",
+      "title": "btn-general-reset · hidden dialogs list shown",
       "is_interactive": true
     },
     "v5-chat-agents-sidebar.dc.html": {
@@ -664,7 +668,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "chat-agents-sidebar \u00b7 New Agent, Search, Automations, Customize",
+      "title": "chat-agents-sidebar · New Agent, Search, Automations, Customize",
       "is_interactive": true
     },
     "v5-chat-approval-1.dc.html": {
@@ -673,7 +677,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "chat-approval-1 \u00b7 command waiting for approval",
+      "title": "chat-approval-1 · command waiting for approval",
       "is_interactive": true
     },
     "v5-chat-approval-2.dc.html": {
@@ -682,7 +686,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "chat-approval-2 \u00b7 command approval, Settings open",
+      "title": "chat-approval-2 · command approval, Settings open",
       "is_interactive": true
     },
     "v5-chat-at-menu.dc.html": {
@@ -691,7 +695,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "chat-at-menu \u00b7 @ menu open",
+      "title": "chat-at-menu · @ menu open",
       "is_interactive": true
     },
     "v5-chat-at-terminals.dc.html": {
@@ -700,7 +704,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "chat-at-terminals \u00b7 @ Terminals submenu",
+      "title": "chat-at-terminals · @ Terminals submenu",
       "is_interactive": true
     },
     "v5-chat-files-expanded.dc.html": {
@@ -709,7 +713,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "chat-files-expanded \u00b7 changed files expanded",
+      "title": "chat-files-expanded · changed files expanded",
       "is_interactive": true
     },
     "v5-chat-history.dc.html": {
@@ -718,7 +722,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "chat-history \u00b7 Search agents, Today, Archived",
+      "title": "chat-history · Search agents, Today, Archived",
       "is_interactive": true
     },
     "v5-chat-kept.dc.html": {
@@ -727,7 +731,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "chat-kept \u00b7 changes kept",
+      "title": "chat-kept · changes kept",
       "is_interactive": true
     },
     "v5-chat-mode-menu.dc.html": {
@@ -736,7 +740,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "chat-mode-menu \u00b7 mode menu open (Manual, Accept edits, Plan, Auto, Bypass permissions)",
+      "title": "chat-mode-menu · mode menu open (Manual, Accept edits, Plan, Auto, Bypass permissions)",
       "is_interactive": true
     },
     "v5-chat-model-menu.dc.html": {
@@ -745,7 +749,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "chat-model-menu \u00b7 model menu open, Claude models",
+      "title": "chat-model-menu · model menu open, Claude models",
       "is_interactive": true
     },
     "v5-chat-more-actions.dc.html": {
@@ -754,7 +758,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "chat-more-actions \u00b7 More Actions menu open",
+      "title": "chat-more-actions · More Actions menu open",
       "is_interactive": true
     },
     "v5-chat-new-agent.dc.html": {
@@ -763,7 +767,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "chat-new-agent \u00b7 new agent, second chat tab",
+      "title": "chat-new-agent · new agent, second chat tab",
       "is_interactive": true
     },
     "v5-chat-plan-mode.dc.html": {
@@ -772,7 +776,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "chat-plan-mode \u00b7 Plan mode selected",
+      "title": "chat-plan-mode · Plan mode selected",
       "is_interactive": true
     },
     "v5-chat-restore-cancelled.dc.html": {
@@ -781,7 +785,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "chat-restore-cancelled \u00b7 restore cancelled",
+      "title": "chat-restore-cancelled · restore cancelled",
       "is_interactive": true
     },
     "v5-chat-restore-confirm.dc.html": {
@@ -790,7 +794,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "chat-restore-confirm \u00b7 restore checkpoint dialog",
+      "title": "chat-restore-confirm · restore checkpoint dialog",
       "is_interactive": true
     },
     "v5-chat-review.dc.html": {
@@ -799,7 +803,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "chat-review \u00b7 All Changes, 1 pending",
+      "title": "chat-review · All Changes, 1 pending",
       "is_interactive": true
     },
     "v5-chat-run1-1.dc.html": {
@@ -808,7 +812,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "chat-run1-1 \u00b7 run 1: sent",
+      "title": "chat-run1-1 · run 1: sent",
       "is_interactive": true
     },
     "v5-chat-run1-2.dc.html": {
@@ -817,7 +821,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "chat-run1-2 \u00b7 run 1: thinking",
+      "title": "chat-run1-2 · run 1: thinking",
       "is_interactive": true
     },
     "v5-chat-run1-3.dc.html": {
@@ -826,7 +830,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "chat-run1-3 \u00b7 run 1: terminal card running",
+      "title": "chat-run1-3 · run 1: terminal card running",
       "is_interactive": true
     },
     "v5-chat-run1-4.dc.html": {
@@ -835,7 +839,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "chat-run1-4 \u00b7 run 1: terminal output 42",
+      "title": "chat-run1-4 · run 1: terminal output 42",
       "is_interactive": true
     },
     "v5-chat-run1-5.dc.html": {
@@ -844,7 +848,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "chat-run1-5 \u00b7 run 1: file edit card",
+      "title": "chat-run1-5 · run 1: file edit card",
       "is_interactive": true
     },
     "v5-chat-run1-6.dc.html": {
@@ -853,7 +857,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "chat-run1-6 \u00b7 run 1: done, Undo / Keep / Review bar",
+      "title": "chat-run1-6 · run 1: done, Undo / Keep / Review bar",
       "is_interactive": true
     },
     "v5-chat-run2-1.dc.html": {
@@ -862,7 +866,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "chat-run2-1 \u00b7 run 2: sent",
+      "title": "chat-run2-1 · run 2: sent",
       "is_interactive": true
     },
     "v5-chat-run2-2.dc.html": {
@@ -871,7 +875,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "chat-run2-2 \u00b7 run 2: thinking",
+      "title": "chat-run2-2 · run 2: thinking",
       "is_interactive": true
     },
     "v5-chat-run2-3.dc.html": {
@@ -880,7 +884,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "chat-run2-3 \u00b7 command failed",
+      "title": "chat-run2-3 · command failed",
       "is_interactive": true
     },
     "v5-chat-run2-4.dc.html": {
@@ -889,7 +893,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "chat-run2-4 \u00b7 run 2: planning next moves",
+      "title": "chat-run2-4 · run 2: planning next moves",
       "is_interactive": true
     },
     "v5-chat-run2-5.dc.html": {
@@ -898,7 +902,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "chat-run2-5 \u00b7 run 2: retry running",
+      "title": "chat-run2-5 · run 2: retry running",
       "is_interactive": true
     },
     "v5-chat-run2-6.dc.html": {
@@ -907,7 +911,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "chat-run2-6 \u00b7 run 2: retry output",
+      "title": "chat-run2-6 · run 2: retry output",
       "is_interactive": true
     },
     "v5-chat-run2-7.dc.html": {
@@ -916,7 +920,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "chat-run2-7 \u00b7 run 2: answer",
+      "title": "chat-run2-7 · run 2: answer",
       "is_interactive": true
     },
     "v5-chat-run2-followup-typed.dc.html": {
@@ -925,7 +929,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "chat-run2-followup-typed \u00b7 follow-up typed while running",
+      "title": "chat-run2-followup-typed · follow-up typed while running",
       "is_interactive": true
     },
     "v5-chat-run2-steer-1.dc.html": {
@@ -934,7 +938,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "chat-run2-steer-1 \u00b7 steer sent, 1 background terminal",
+      "title": "chat-run2-steer-1 · steer sent, 1 background terminal",
       "is_interactive": true
     },
     "v5-chat-run2-steer-2.dc.html": {
@@ -943,7 +947,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "chat-run2-steer-2 \u00b7 steer answered, exit codes",
+      "title": "chat-run2-steer-2 · steer answered, exit codes",
       "is_interactive": true
     },
     "v5-chat-slash-menu.dc.html": {
@@ -952,7 +956,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "chat-slash-menu \u00b7 / menu open (skills)",
+      "title": "chat-slash-menu · / menu open (skills)",
       "is_interactive": true
     },
     "v5-chat-typed.dc.html": {
@@ -961,7 +965,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "chat-typed \u00b7 prompt typed",
+      "title": "chat-typed · prompt typed",
       "is_interactive": true
     },
     "v5-chat-worked-expanded.dc.html": {
@@ -970,7 +974,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "chat-worked-expanded \u00b7 finished turn in the Agent window layout",
+      "title": "chat-worked-expanded · finished turn in the Agent window layout",
       "is_interactive": true
     },
     "v5-customize-commands.dc.html": {
@@ -979,7 +983,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "customize-commands \u00b7 Commands tab",
+      "title": "customize-commands · Commands tab",
       "is_interactive": true
     },
     "v5-customize-hooks.dc.html": {
@@ -988,7 +992,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "customize-hooks \u00b7 Hooks tab",
+      "title": "customize-hooks · Hooks tab",
       "is_interactive": true
     },
     "v5-customize-marketplace.dc.html": {
@@ -997,7 +1001,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "customize-marketplace \u00b7 Marketplace tab",
+      "title": "customize-marketplace · Marketplace tab",
       "is_interactive": true
     },
     "v5-customize-mcps.dc.html": {
@@ -1006,7 +1010,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "customize-mcps \u00b7 Mcps tab",
+      "title": "customize-mcps · Mcps tab",
       "is_interactive": true
     },
     "v5-customize-plugins-1.dc.html": {
@@ -1015,7 +1019,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "customize-plugins-1 \u00b7 Plugins tab",
+      "title": "customize-plugins-1 · Plugins tab",
       "is_interactive": true
     },
     "v5-customize-rules.dc.html": {
@@ -1024,7 +1028,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "customize-rules \u00b7 Rules tab",
+      "title": "customize-rules · Rules tab",
       "is_interactive": true
     },
     "v5-customize-skills.dc.html": {
@@ -1033,7 +1037,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "customize-skills \u00b7 Skills tab",
+      "title": "customize-skills · Skills tab",
       "is_interactive": true
     },
     "v5-customize-subagents.dc.html": {
@@ -1042,7 +1046,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "customize-subagents \u00b7 Subagents tab",
+      "title": "customize-subagents · Subagents tab",
       "is_interactive": true
     },
     "v5-dd-agents-auto-review.dc.html": {
@@ -1051,7 +1055,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "dd-agents-auto-review \u00b7 Auto-Review dropdown open",
+      "title": "dd-agents-auto-review · Auto-Review dropdown open",
       "is_interactive": true
     },
     "v5-dd-agents-cursor-default.dc.html": {
@@ -1060,7 +1064,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "dd-agents-omnide-default \u00b7 OmnIDE Default dropdown open",
+      "title": "dd-agents-omnide-default · OmnIDE Default dropdown open",
       "is_interactive": true
     },
     "v5-dd-agents-default.dc.html": {
@@ -1069,7 +1073,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "dd-agents-default \u00b7 Default dropdown open",
+      "title": "dd-agents-default · Default dropdown open",
       "is_interactive": true
     },
     "v5-dd-agents-manually-sent-messages-from-queue.dc.html": {
@@ -1078,7 +1082,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "dd-agents-manually-sent-messages-from-queue \u00b7 Manually Sent Messages from Queue dropdown open",
+      "title": "dd-agents-manually-sent-messages-from-queue · Manually Sent Messages from Queue dropdown open",
       "is_interactive": true
     },
     "v5-dd-agents-new-messages.dc.html": {
@@ -1087,7 +1091,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "dd-agents-new-messages \u00b7 New Messages dropdown open",
+      "title": "dd-agents-new-messages · New Messages dropdown open",
       "is_interactive": true
     },
     "v5-dd-agents-system.dc.html": {
@@ -1096,7 +1100,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "dd-agents-system \u00b7 System dropdown open",
+      "title": "dd-agents-system · System dropdown open",
       "is_interactive": true
     },
     "v5-dd-general-conversation-density.dc.html": {
@@ -1105,7 +1109,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "dd-general-conversation-density \u00b7 Conversation Density dropdown open",
+      "title": "dd-general-conversation-density · Conversation Density dropdown open",
       "is_interactive": true
     },
     "v5-dd-general-review-control-location.dc.html": {
@@ -1114,7 +1118,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "dd-general-review-control-location \u00b7 Review Control Location dropdown open",
+      "title": "dd-general-review-control-location · Review Control Location dropdown open",
       "is_interactive": true
     },
     "v5-dd-general-window-layout.dc.html": {
@@ -1123,7 +1127,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "dd-general-window-layout \u00b7 Window Layout dropdown open",
+      "title": "dd-general-window-layout · Window Layout dropdown open",
       "is_interactive": true
     },
     "v5-dd-general-window-restoration.dc.html": {
@@ -1132,7 +1136,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "dd-general-window-restoration \u00b7 Window Restoration dropdown open",
+      "title": "dd-general-window-restoration · Window Restoration dropdown open",
       "is_interactive": true
     },
     "v5-dd-models-coordinator-effort.dc.html": {
@@ -1141,7 +1145,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "dd-models-coordinator-effort \u00b7 Coordinator effort dropdown open",
+      "title": "dd-models-coordinator-effort · Coordinator effort dropdown open",
       "is_interactive": true
     },
     "v5-dd-models-default.dc.html": {
@@ -1150,7 +1154,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "dd-models-default \u00b7 Default dropdown open",
+      "title": "dd-models-default · Default dropdown open",
       "is_interactive": true
     },
     "v5-dd-source-control-default-approach.dc.html": {
@@ -1159,7 +1163,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "dd-source-control-default-approach \u00b7 Default Approach dropdown open",
+      "title": "dd-source-control-default-approach · Default Approach dropdown open",
       "is_interactive": true
     },
     "v5-dd-source-control-pr-link-destination.dc.html": {
@@ -1168,7 +1172,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "dd-source-control-pr-link-destination \u00b7 PR Link Destination dropdown open",
+      "title": "dd-source-control-pr-link-destination · PR Link Destination dropdown open",
       "is_interactive": true
     },
     "v5-ide-01-onboarding-login.dc.html": {
@@ -1177,7 +1181,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-01-onboarding-login \u00b7 onboarding login",
+      "title": "ide-01-onboarding-login · onboarding login",
       "is_interactive": true
     },
     "v5-ide-03-ide-default-layout.dc.html": {
@@ -1186,7 +1190,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-03-ide-default-layout \u00b7 ide default layout",
+      "title": "ide-03-ide-default-layout · ide default layout",
       "is_interactive": true
     },
     "v5-ide-04-explorer-sidebar.dc.html": {
@@ -1195,7 +1199,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-04-explorer-sidebar \u00b7 explorer sidebar",
+      "title": "ide-04-explorer-sidebar · explorer sidebar",
       "is_interactive": true
     },
     "v5-ide-05-quick-open.dc.html": {
@@ -1204,7 +1208,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-05-quick-open \u00b7 quick open",
+      "title": "ide-05-quick-open · quick open",
       "is_interactive": true
     },
     "v5-ide-06-editor-file-open.dc.html": {
@@ -1213,7 +1217,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-06-editor-file-open \u00b7 editor file open",
+      "title": "ide-06-editor-file-open · editor file open",
       "is_interactive": true
     },
     "v5-ide-07-command-palette.dc.html": {
@@ -1222,7 +1226,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-07-command-palette \u00b7 command palette",
+      "title": "ide-07-command-palette · command palette",
       "is_interactive": true
     },
     "v5-ide-08-search-view.dc.html": {
@@ -1231,7 +1235,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-08-search-view \u00b7 search view",
+      "title": "ide-08-search-view · search view",
       "is_interactive": true
     },
     "v5-ide-09-scm-changes.dc.html": {
@@ -1240,7 +1244,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-09-scm-changes \u00b7 scm changes",
+      "title": "ide-09-scm-changes · scm changes",
       "is_interactive": true
     },
     "v5-ide-10-scm-diff-editor.dc.html": {
@@ -1249,7 +1253,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-10-scm-diff-editor \u00b7 scm diff editor",
+      "title": "ide-10-scm-diff-editor · scm diff editor",
       "is_interactive": true
     },
     "v5-ide-11-terminal-panel.dc.html": {
@@ -1258,7 +1262,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-11-terminal-panel \u00b7 terminal panel",
+      "title": "ide-11-terminal-panel · terminal panel",
       "is_interactive": true
     },
     "v5-ide-12-problems-panel.dc.html": {
@@ -1267,7 +1271,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-12-problems-panel \u00b7 problems panel",
+      "title": "ide-12-problems-panel · problems panel",
       "is_interactive": true
     },
     "v5-ide-13-run-debug-view.dc.html": {
@@ -1276,7 +1280,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-13-run-debug-view \u00b7 run debug view",
+      "title": "ide-13-run-debug-view · run debug view",
       "is_interactive": true
     },
     "v5-ide-14-extensions-view.dc.html": {
@@ -1285,7 +1289,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-14-extensions-view \u00b7 extensions view",
+      "title": "ide-14-extensions-view · extensions view",
       "is_interactive": true
     },
     "v5-ide-15-menu-file.dc.html": {
@@ -1294,7 +1298,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-15-menu-file \u00b7 menu file",
+      "title": "ide-15-menu-file · menu file",
       "is_interactive": true
     },
     "v5-ide-16-menu-edit.dc.html": {
@@ -1303,7 +1307,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-16-menu-edit \u00b7 menu edit",
+      "title": "ide-16-menu-edit · menu edit",
       "is_interactive": true
     },
     "v5-ide-17-menu-view.dc.html": {
@@ -1312,7 +1316,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-17-menu-view \u00b7 menu view",
+      "title": "ide-17-menu-view · menu view",
       "is_interactive": true
     },
     "v5-ide-18-editor-context-menu.dc.html": {
@@ -1321,7 +1325,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-18-editor-context-menu \u00b7 editor context menu",
+      "title": "ide-18-editor-context-menu · editor context menu",
       "is_interactive": true
     },
     "v5-ide-19-explorer-context-menu.dc.html": {
@@ -1330,7 +1334,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-19-explorer-context-menu \u00b7 explorer context menu",
+      "title": "ide-19-explorer-context-menu · explorer context menu",
       "is_interactive": true
     },
     "v5-ide-20-editor-find-widget.dc.html": {
@@ -1339,7 +1343,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-20-editor-find-widget \u00b7 editor find widget",
+      "title": "ide-20-editor-find-widget · editor find widget",
       "is_interactive": true
     },
     "v5-ide-21-editor-find-replace.dc.html": {
@@ -1348,7 +1352,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-21-editor-find-replace \u00b7 editor find replace",
+      "title": "ide-21-editor-find-replace · editor find replace",
       "is_interactive": true
     },
     "v5-ide-22-editor-suggest-widget.dc.html": {
@@ -1357,7 +1361,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-22-editor-suggest-widget \u00b7 editor suggest widget",
+      "title": "ide-22-editor-suggest-widget · editor suggest widget",
       "is_interactive": true
     },
     "v5-ide-23-editor-hover.dc.html": {
@@ -1366,7 +1370,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-23-editor-hover \u00b7 editor hover",
+      "title": "ide-23-editor-hover · editor hover",
       "is_interactive": true
     },
     "v5-ide-24-go-to-symbol.dc.html": {
@@ -1375,7 +1379,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-24-go-to-symbol \u00b7 go to symbol",
+      "title": "ide-24-go-to-symbol · go to symbol",
       "is_interactive": true
     },
     "v5-ide-25-peek-references.dc.html": {
@@ -1384,7 +1388,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-25-peek-references \u00b7 peek references",
+      "title": "ide-25-peek-references · peek references",
       "is_interactive": true
     },
     "v5-ide-26-rename-input.dc.html": {
@@ -1393,7 +1397,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-26-rename-input \u00b7 rename input",
+      "title": "ide-26-rename-input · rename input",
       "is_interactive": true
     },
     "v5-ide-27-split-editor.dc.html": {
@@ -1402,7 +1406,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-27-split-editor \u00b7 split editor",
+      "title": "ide-27-split-editor · split editor",
       "is_interactive": true
     },
     "v5-ide-28-settings-narrow-layout-section.dc.html": {
@@ -1411,7 +1415,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-28-settings-narrow-layout-section \u00b7 narrow layout section",
+      "title": "ide-28-settings-narrow-layout-section · narrow layout section",
       "is_interactive": true
     },
     "v5-ide-29-settings-general.dc.html": {
@@ -1420,7 +1424,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-29-settings-general \u00b7 settings general",
+      "title": "ide-29-settings-general · settings general",
       "is_interactive": true
     },
     "v5-ide-30-vscode-settings-editor.dc.html": {
@@ -1429,7 +1433,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-30-vscode-settings-editor \u00b7 vscode settings editor",
+      "title": "ide-30-vscode-settings-editor · vscode settings editor",
       "is_interactive": true
     },
     "v5-ide-32-settings-agents.dc.html": {
@@ -1438,7 +1442,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-32-settings-agents \u00b7 settings agents",
+      "title": "ide-32-settings-agents · settings agents",
       "is_interactive": true
     },
     "v5-ide-34-settings-models.dc.html": {
@@ -1447,7 +1451,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-34-settings-models \u00b7 settings models",
+      "title": "ide-34-settings-models · settings models",
       "is_interactive": true
     },
     "v5-ide-35-settings-git-prs.dc.html": {
@@ -1456,7 +1460,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-35-settings-git-prs \u00b7 settings git prs",
+      "title": "ide-35-settings-git-prs · settings git prs",
       "is_interactive": true
     },
     "v5-ide-36-customize-page.dc.html": {
@@ -1465,7 +1469,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-36-customize-page \u00b7 customize page",
+      "title": "ide-36-customize-page · customize page",
       "is_interactive": true
     },
     "v5-ide-41-default-keybindings-json.dc.html": {
@@ -1474,7 +1478,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-41-default-keybindings-json \u00b7 default keybindings json",
+      "title": "ide-41-default-keybindings-json · default keybindings json",
       "is_interactive": true
     },
     "v5-ide-42-notifications-center-empty.dc.html": {
@@ -1483,7 +1487,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-42-notifications-center-empty \u00b7 notifications center empty",
+      "title": "ide-42-notifications-center-empty · notifications center empty",
       "is_interactive": true
     },
     "v5-ide-43-keyboard-shortcuts-editor.dc.html": {
@@ -1492,7 +1496,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-43-keyboard-shortcuts-editor \u00b7 keyboard shortcuts editor",
+      "title": "ide-43-keyboard-shortcuts-editor · keyboard shortcuts editor",
       "is_interactive": true
     },
     "v5-ide-44-editor-tab-context-menu.dc.html": {
@@ -1501,7 +1505,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-44-editor-tab-context-menu \u00b7 editor tab context menu",
+      "title": "ide-44-editor-tab-context-menu · editor tab context menu",
       "is_interactive": true
     },
     "v5-ide-45-branch-picker.dc.html": {
@@ -1510,7 +1514,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-45-branch-picker \u00b7 branch picker",
+      "title": "ide-45-branch-picker · branch picker",
       "is_interactive": true
     },
     "v5-ide-47-layout-chat-hidden-panel-open.dc.html": {
@@ -1519,7 +1523,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-47-layout-chat-hidden-panel-open \u00b7 layout chat hidden panel open",
+      "title": "ide-47-layout-chat-hidden-panel-open · layout chat hidden panel open",
       "is_interactive": true
     },
     "v5-ide-48-color-theme-picker.dc.html": {
@@ -1528,7 +1532,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-48-color-theme-picker \u00b7 color theme picker",
+      "title": "ide-48-color-theme-picker · color theme picker",
       "is_interactive": true
     },
     "v5-ide-49-menu-selection.dc.html": {
@@ -1537,7 +1541,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-49-menu-selection \u00b7 Selection menu",
+      "title": "ide-49-menu-selection · Selection menu",
       "is_interactive": true
     },
     "v5-ide-50-menu-go.dc.html": {
@@ -1546,7 +1550,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-50-menu-go \u00b7 Go menu",
+      "title": "ide-50-menu-go · Go menu",
       "is_interactive": true
     },
     "v5-ide-51-menu-run.dc.html": {
@@ -1555,7 +1559,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-51-menu-run \u00b7 Run menu",
+      "title": "ide-51-menu-run · Run menu",
       "is_interactive": true
     },
     "v5-ide-52-menu-terminal.dc.html": {
@@ -1564,7 +1568,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-52-menu-terminal \u00b7 Terminal menu",
+      "title": "ide-52-menu-terminal · Terminal menu",
       "is_interactive": true
     },
     "v5-ide-53-menu-help.dc.html": {
@@ -1573,7 +1577,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-53-menu-help \u00b7 Help menu",
+      "title": "ide-53-menu-help · Help menu",
       "is_interactive": true
     },
     "v5-ide-56-scm-more-menu.dc.html": {
@@ -1582,7 +1586,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-56-scm-more-menu \u00b7 SCM ... menu",
+      "title": "ide-56-scm-more-menu · SCM ... menu",
       "is_interactive": true
     },
     "v5-ide-57-terminal-dropdown.dc.html": {
@@ -1591,7 +1595,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-57-terminal-dropdown \u00b7 terminal + dropdown",
+      "title": "ide-57-terminal-dropdown · terminal + dropdown",
       "is_interactive": true
     },
     "v5-ide-58-panel-tab-context-menu.dc.html": {
@@ -1600,7 +1604,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-58-panel-tab-context-menu \u00b7 right-click panel tab",
+      "title": "ide-58-panel-tab-context-menu · right-click panel tab",
       "is_interactive": true
     },
     "v5-ide-59-activitybar-context-menu.dc.html": {
@@ -1609,7 +1613,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-59-activitybar-context-menu \u00b7 right-click activity bar",
+      "title": "ide-59-activitybar-context-menu · right-click activity bar",
       "is_interactive": true
     },
     "v5-ide-60-scm-commit-typed.dc.html": {
@@ -1618,7 +1622,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-60-scm-commit-typed \u00b7 message typed",
+      "title": "ide-60-scm-commit-typed · message typed",
       "is_interactive": true
     },
     "v5-ide-61-scm-commit-dropdown.dc.html": {
@@ -1627,7 +1631,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-61-scm-commit-dropdown \u00b7 commit button arrow",
+      "title": "ide-61-scm-commit-dropdown · commit button arrow",
       "is_interactive": true
     },
     "v5-ide-62-scm-graph.dc.html": {
@@ -1636,7 +1640,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-62-scm-graph \u00b7 graph section",
+      "title": "ide-62-scm-graph · graph section",
       "is_interactive": true
     },
     "v5-ide-64-scm-merge-conflict.dc.html": {
@@ -1645,7 +1649,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-64-scm-merge-conflict \u00b7 sandbox conflict file",
+      "title": "ide-64-scm-merge-conflict · sandbox conflict file",
       "is_interactive": true
     },
     "v5-ide-65-terminal-split.dc.html": {
@@ -1654,7 +1658,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-65-terminal-split \u00b7 split",
+      "title": "ide-65-terminal-split · split",
       "is_interactive": true
     },
     "v5-ide-66-terminal-find.dc.html": {
@@ -1663,7 +1667,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-66-terminal-find \u00b7 Ctrl+F in terminal",
+      "title": "ide-66-terminal-find · Ctrl+F in terminal",
       "is_interactive": true
     },
     "v5-ide-67-terminal-tabs-list.dc.html": {
@@ -1672,7 +1676,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-67-terminal-tabs-list \u00b7 2 terminals",
+      "title": "ide-67-terminal-tabs-list · 2 terminals",
       "is_interactive": true
     },
     "v5-ide-68-extension-detail.dc.html": {
@@ -1681,7 +1685,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-68-extension-detail \u00b7 open an installed extension",
+      "title": "ide-68-extension-detail · open an installed extension",
       "is_interactive": true
     },
     "v5-ide-69-extension-search-results.dc.html": {
@@ -1690,7 +1694,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-69-extension-search-results \u00b7 search marketplace",
+      "title": "ide-69-extension-search-results · search marketplace",
       "is_interactive": true
     },
     "v5-ide-70-extension-context-menu.dc.html": {
@@ -1699,7 +1703,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-70-extension-context-menu \u00b7 right-click extension",
+      "title": "ide-70-extension-context-menu · right-click extension",
       "is_interactive": true
     },
     "v5-ide-72-explorer-new-file-input.dc.html": {
@@ -1708,7 +1712,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-72-explorer-new-file-input \u00b7 New File",
+      "title": "ide-72-explorer-new-file-input · New File",
       "is_interactive": true
     },
     "v5-ide-73-explorer-rename.dc.html": {
@@ -1717,7 +1721,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-73-explorer-rename \u00b7 F2 on a file",
+      "title": "ide-73-explorer-rename · F2 on a file",
       "is_interactive": true
     },
     "v5-ide-76-outline-timeline.dc.html": {
@@ -1726,7 +1730,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ide-76-outline-timeline \u00b7 Outline and Timeline open",
+      "title": "ide-76-outline-timeline · Outline and Timeline open",
       "is_interactive": true
     },
     "v5-light-01-ide-editor.dc.html": {
@@ -1735,7 +1739,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "light-01-ide-editor \u00b7 ide editor",
+      "title": "light-01-ide-editor · ide editor",
       "is_interactive": true
     },
     "v5-light-02-command-palette.dc.html": {
@@ -1744,7 +1748,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "light-02-command-palette \u00b7 command palette",
+      "title": "light-02-command-palette · command palette",
       "is_interactive": true
     },
     "v5-light-03-scm-changes.dc.html": {
@@ -1753,7 +1757,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "light-03-scm-changes \u00b7 scm changes",
+      "title": "light-03-scm-changes · scm changes",
       "is_interactive": true
     },
     "v5-light-04-diff-editor.dc.html": {
@@ -1762,7 +1766,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "light-04-diff-editor \u00b7 diff editor",
+      "title": "light-04-diff-editor · diff editor",
       "is_interactive": true
     },
     "v5-light-05-terminal-panel.dc.html": {
@@ -1771,7 +1775,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "light-05-terminal-panel \u00b7 terminal panel",
+      "title": "light-05-terminal-panel · terminal panel",
       "is_interactive": true
     },
     "v5-light-06-explorer-context-menu.dc.html": {
@@ -1780,7 +1784,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "light-06-explorer-context-menu \u00b7 explorer context menu",
+      "title": "light-06-explorer-context-menu · explorer context menu",
       "is_interactive": true
     },
     "v5-light-07-settings-general.dc.html": {
@@ -1789,7 +1793,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "light-07-settings-general \u00b7 settings general",
+      "title": "light-07-settings-general · settings general",
       "is_interactive": true
     },
     "v5-light-08-agent-mode-picker.dc.html": {
@@ -1798,7 +1802,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "light-08-agent-mode-picker \u00b7 agent mode picker",
+      "title": "light-08-agent-mode-picker · agent mode picker",
       "is_interactive": true
     },
     "v5-light-09-model-picker.dc.html": {
@@ -1807,7 +1811,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "light-09-model-picker \u00b7 model picker",
+      "title": "light-09-model-picker · model picker",
       "is_interactive": true
     },
     "v5-light-10-ide-03.dc.html": {
@@ -1816,7 +1820,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "light-10-ide-03 \u00b7 Light theme, same as ide-03",
+      "title": "light-10-ide-03 · Light theme, same as ide-03",
       "is_interactive": true
     },
     "v5-light-11-ide-04.dc.html": {
@@ -1825,7 +1829,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "light-11-ide-04 \u00b7 Light theme, same as ide-04",
+      "title": "light-11-ide-04 · Light theme, same as ide-04",
       "is_interactive": true
     },
     "v5-light-12-ide-05.dc.html": {
@@ -1834,7 +1838,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "light-12-ide-05 \u00b7 Light theme, same as ide-05",
+      "title": "light-12-ide-05 · Light theme, same as ide-05",
       "is_interactive": true
     },
     "v5-light-13-ide-08.dc.html": {
@@ -1843,7 +1847,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "light-13-ide-08 \u00b7 Light theme, same as ide-08",
+      "title": "light-13-ide-08 · Light theme, same as ide-08",
       "is_interactive": true
     },
     "v5-light-14-ide-11.dc.html": {
@@ -1852,7 +1856,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "light-14-ide-11 \u00b7 Light theme, same as ide-11",
+      "title": "light-14-ide-11 · Light theme, same as ide-11",
       "is_interactive": true
     },
     "v5-light-15-ide-14.dc.html": {
@@ -1861,7 +1865,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "light-15-ide-14 \u00b7 Light theme, same as ide-14",
+      "title": "light-15-ide-14 · Light theme, same as ide-14",
       "is_interactive": true
     },
     "v5-light-16-ide-15.dc.html": {
@@ -1870,7 +1874,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "light-16-ide-15 \u00b7 Light theme, same as ide-15",
+      "title": "light-16-ide-15 · Light theme, same as ide-15",
       "is_interactive": true
     },
     "v5-light-17-ide-20.dc.html": {
@@ -1879,7 +1883,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "light-17-ide-20 \u00b7 Light theme, same as ide-20",
+      "title": "light-17-ide-20 · Light theme, same as ide-20",
       "is_interactive": true
     },
     "v5-light-18-ide-22.dc.html": {
@@ -1888,7 +1892,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "light-18-ide-22 \u00b7 Light theme, same as ide-22",
+      "title": "light-18-ide-22 · Light theme, same as ide-22",
       "is_interactive": true
     },
     "v5-light-19-ide-29.dc.html": {
@@ -1897,7 +1901,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "light-19-ide-29 \u00b7 Light theme, same as ide-29",
+      "title": "light-19-ide-29 · Light theme, same as ide-29",
       "is_interactive": true
     },
     "v5-light-20-ide-43.dc.html": {
@@ -1906,7 +1910,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "light-20-ide-43 \u00b7 Light theme, same as ide-43",
+      "title": "light-20-ide-43 · Light theme, same as ide-43",
       "is_interactive": true
     },
     "v5-light-21-ob-01.dc.html": {
@@ -1915,7 +1919,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "light-21-ob-01 \u00b7 Light theme, same as ob-01",
+      "title": "light-21-ob-01 · Light theme, same as ob-01",
       "is_interactive": true
     },
     "v5-light-24-ai-08.dc.html": {
@@ -1924,7 +1928,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "light-24-ai-08 \u00b7 ai 08",
+      "title": "light-24-ai-08 · ai 08",
       "is_interactive": true
     },
     "v5-light-25-ai-15.dc.html": {
@@ -1933,7 +1937,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "light-25-ai-15 \u00b7 ai 15",
+      "title": "light-25-ai-15 · ai 15",
       "is_interactive": true
     },
     "v5-light-31-set-02.dc.html": {
@@ -1942,7 +1946,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "light-31-set-02 \u00b7 set 02",
+      "title": "light-31-set-02 · set 02",
       "is_interactive": true
     },
     "v5-ob-01-welcome.dc.html": {
@@ -1951,7 +1955,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ob-01-welcome \u00b7 fresh profile first launch",
+      "title": "ob-01-welcome · fresh profile first launch",
       "is_interactive": true
     },
     "v5-omni-ArchOmnide.dc.html": {
@@ -2121,7 +2125,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "review-commit-1 \u00b7 commit message generated",
+      "title": "review-commit-1 · commit message generated",
       "is_interactive": true
     },
     "v5-review-commit-2.dc.html": {
@@ -2130,7 +2134,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "review-commit-2 \u00b7 commit ready, file checkboxes",
+      "title": "review-commit-2 · commit ready, file checkboxes",
       "is_interactive": true
     },
     "v5-review-findissues-menu.dc.html": {
@@ -2139,7 +2143,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "review-findissues-menu \u00b7 Find Issues options open",
+      "title": "review-findissues-menu · Find Issues options open",
       "is_interactive": true
     },
     "v5-review-more-menu.dc.html": {
@@ -2148,7 +2152,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "review-more-menu \u00b7 More menu open",
+      "title": "review-more-menu · More menu open",
       "is_interactive": true
     },
     "v5-set-01-rules-memories.dc.html": {
@@ -2157,7 +2161,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "set-01-rules-memories \u00b7 rules memories",
+      "title": "set-01-rules-memories · rules memories",
       "is_interactive": true
     },
     "v5-set-02-mcp-tools.dc.html": {
@@ -2166,7 +2170,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "set-02-mcp-tools \u00b7 mcp tools",
+      "title": "set-02-mcp-tools · mcp tools",
       "is_interactive": true
     },
     "v5-set-03-mcp-add-server.dc.html": {
@@ -2175,7 +2179,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "set-03-mcp-add-server \u00b7 mcp add server",
+      "title": "set-03-mcp-add-server · mcp add server",
       "is_interactive": true
     },
     "v5-set-04-hooks.dc.html": {
@@ -2184,7 +2188,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "set-04-hooks \u00b7 hooks",
+      "title": "set-04-hooks · hooks",
       "is_interactive": true
     },
     "v5-set-09-notifications.dc.html": {
@@ -2193,7 +2197,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "set-09-notifications \u00b7 notifications",
+      "title": "set-09-notifications · notifications",
       "is_interactive": true
     },
     "v5-set-10-search-settings.dc.html": {
@@ -2202,7 +2206,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "set-10-search-settings \u00b7 search settings",
+      "title": "set-10-search-settings · search settings",
       "is_interactive": true
     },
     "v5-set-agents-1.dc.html": {
@@ -2211,7 +2215,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "set-agents-1 \u00b7 scroll 1",
+      "title": "set-agents-1 · scroll 1",
       "is_interactive": true
     },
     "v5-set-agents-2.dc.html": {
@@ -2220,7 +2224,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "set-agents-2 \u00b7 scroll 2",
+      "title": "set-agents-2 · scroll 2",
       "is_interactive": true
     },
     "v5-set-agents-3.dc.html": {
@@ -2229,7 +2233,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "set-agents-3 \u00b7 scroll 3",
+      "title": "set-agents-3 · scroll 3",
       "is_interactive": true
     },
     "v5-set-agents-4.dc.html": {
@@ -2238,7 +2242,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "set-agents-4 \u00b7 scroll 4",
+      "title": "set-agents-4 · scroll 4",
       "is_interactive": true
     },
     "v5-set-agents-5.dc.html": {
@@ -2247,7 +2251,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "set-agents-5 \u00b7 scroll 5",
+      "title": "set-agents-5 · scroll 5",
       "is_interactive": true
     },
     "v5-set-general-1.dc.html": {
@@ -2256,7 +2260,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "set-general-1 \u00b7 scroll 1",
+      "title": "set-general-1 · scroll 1",
       "is_interactive": true
     },
     "v5-set-general-2.dc.html": {
@@ -2265,7 +2269,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "set-general-2 \u00b7 scroll 2",
+      "title": "set-general-2 · scroll 2",
       "is_interactive": true
     },
     "v5-set-general-3.dc.html": {
@@ -2274,7 +2278,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "set-general-3 \u00b7 scroll 3",
+      "title": "set-general-3 · scroll 3",
       "is_interactive": true
     },
     "v5-set-general-4.dc.html": {
@@ -2283,7 +2287,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "set-general-4 \u00b7 scroll 4",
+      "title": "set-general-4 · scroll 4",
       "is_interactive": true
     },
     "v5-set-models-1.dc.html": {
@@ -2292,7 +2296,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "set-models-1 \u00b7 scroll 1",
+      "title": "set-models-1 · scroll 1",
       "is_interactive": true
     },
     "v5-set-models-2.dc.html": {
@@ -2301,7 +2305,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "set-models-2 \u00b7 scroll 2",
+      "title": "set-models-2 · scroll 2",
       "is_interactive": true
     },
     "v5-set-claude-1.dc.html": {
@@ -2310,7 +2314,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "set-claude-usage-1 \u00b7 scroll 1",
+      "title": "set-claude-usage-1 · scroll 1",
       "is_interactive": true
     },
     "v5-set-source-control-1.dc.html": {
@@ -2319,7 +2323,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "set-source-control-1 \u00b7 scroll 1",
+      "title": "set-source-control-1 · scroll 1",
       "is_interactive": true
     },
     "v5-set-source-control-2.dc.html": {
@@ -2328,7 +2332,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "set-source-control-2 \u00b7 scroll 2",
+      "title": "set-source-control-2 · scroll 2",
       "is_interactive": true
     },
     "v5-set-source-control-3.dc.html": {
@@ -2337,7 +2341,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "set-source-control-3 \u00b7 scroll 3",
+      "title": "set-source-control-3 · scroll 3",
       "is_interactive": true
     },
     "v5-st-01-signed-out-composer.dc.html": {
@@ -2346,7 +2350,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "st-01-signed-out-composer \u00b7 composer while signed out",
+      "title": "st-01-signed-out-composer · composer while signed out",
       "is_interactive": true
     },
     "v5-st-05-file-too-large.dc.html": {
@@ -2355,7 +2359,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "st-05-file-too-large \u00b7 open a large binary",
+      "title": "st-05-file-too-large · open a large binary",
       "is_interactive": true
     },
     "v5-terminal-panel.dc.html": {
@@ -2364,7 +2368,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "terminal-panel \u00b7 PowerShell terminal",
+      "title": "terminal-panel · PowerShell terminal",
       "is_interactive": true
     },
     "v5-NotInOmnide.dc.html": {
@@ -2901,7 +2905,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ai-01-agent-mode-picker \u00b7 agent mode picker",
+      "title": "ai-01-agent-mode-picker · agent mode picker",
       "is_interactive": true
     },
     "v4-ai-02-model-popover.dc.html": {
@@ -2910,7 +2914,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ai-02-model-popover \u00b7 model popover",
+      "title": "ai-02-model-popover · model popover",
       "is_interactive": true
     },
     "v4-ai-08-composer-at-mention-menu.dc.html": {
@@ -2919,7 +2923,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ai-08-composer-at-mention-menu \u00b7 composer at mention menu",
+      "title": "ai-08-composer-at-mention-menu · composer at mention menu",
       "is_interactive": true
     },
     "v4-ai-09-composer-at-mention-filtered.dc.html": {
@@ -2928,7 +2932,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ai-09-composer-at-mention-filtered \u00b7 composer at mention filtered",
+      "title": "ai-09-composer-at-mention-filtered · composer at mention filtered",
       "is_interactive": true
     },
     "v4-ai-10-composer-slash-menu.dc.html": {
@@ -2937,7 +2941,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ai-10-composer-slash-menu \u00b7 composer slash menu",
+      "title": "ai-10-composer-slash-menu · composer slash menu",
       "is_interactive": true
     },
     "v4-ai-11-agent-pane-overflow-menu.dc.html": {
@@ -2946,7 +2950,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ai-11-agent-pane-overflow-menu \u00b7 agent pane overflow menu",
+      "title": "ai-11-agent-pane-overflow-menu · agent pane overflow menu",
       "is_interactive": true
     },
     "v4-ai-12-composer-typed-prompt.dc.html": {
@@ -2955,7 +2959,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ai-12-composer-typed-prompt \u00b7 composer typed prompt",
+      "title": "ai-12-composer-typed-prompt · composer typed prompt",
       "is_interactive": true
     },
     "v4-ai-13-agent-turn-starting.dc.html": {
@@ -2964,7 +2968,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ai-13-agent-turn-starting \u00b7 agent turn starting",
+      "title": "ai-13-agent-turn-starting · agent turn starting",
       "is_interactive": true
     },
     "v4-ai-14-agent-turn-streaming.dc.html": {
@@ -2973,7 +2977,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ai-14-agent-turn-streaming \u00b7 agent turn streaming",
+      "title": "ai-14-agent-turn-streaming · agent turn streaming",
       "is_interactive": true
     },
     "v4-ai-15-agent-turn-tools.dc.html": {
@@ -2982,7 +2986,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ai-15-agent-turn-tools \u00b7 agent turn tools",
+      "title": "ai-15-agent-turn-tools · agent turn tools",
       "is_interactive": true
     },
     "v4-ai-16-agent-turn-done-inline-diff.dc.html": {
@@ -2991,7 +2995,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ai-16-agent-turn-done-inline-diff \u00b7 agent turn done inline diff",
+      "title": "ai-16-agent-turn-done-inline-diff · agent turn done inline diff",
       "is_interactive": true
     },
     "v4-ai-17-changed-files-expanded.dc.html": {
@@ -3000,7 +3004,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ai-17-changed-files-expanded \u00b7 changed files expanded",
+      "title": "ai-17-changed-files-expanded · changed files expanded",
       "is_interactive": true
     },
     "v4-ai-18-agent-changes-accepted.dc.html": {
@@ -3009,7 +3013,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ai-18-agent-changes-accepted \u00b7 agent changes accepted",
+      "title": "ai-18-agent-changes-accepted · agent changes accepted",
       "is_interactive": true
     },
     "v4-ai-19-review-editor.dc.html": {
@@ -3018,7 +3022,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ai-19-review-editor \u00b7 review editor",
+      "title": "ai-19-review-editor · review editor",
       "is_interactive": true
     },
     "v4-ai-20-plan-mode-composer.dc.html": {
@@ -3027,7 +3031,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ai-20-plan-mode-composer \u00b7 plan mode composer",
+      "title": "ai-20-plan-mode-composer · plan mode composer",
       "is_interactive": true
     },
     "v4-ai-21-plan-mode-streaming.dc.html": {
@@ -3036,7 +3040,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ai-21-plan-mode-streaming \u00b7 plan mode streaming",
+      "title": "ai-21-plan-mode-streaming · plan mode streaming",
       "is_interactive": true
     },
     "v4-ai-22-plan-artifact-editor.dc.html": {
@@ -3045,7 +3049,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ai-22-plan-artifact-editor \u00b7 plan artifact editor",
+      "title": "ai-22-plan-artifact-editor · plan artifact editor",
       "is_interactive": true
     },
     "v4-ai-23-plan-build-dropdown.dc.html": {
@@ -3054,7 +3058,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ai-23-plan-build-dropdown \u00b7 plan build dropdown",
+      "title": "ai-23-plan-build-dropdown · plan build dropdown",
       "is_interactive": true
     },
     "v4-ai-24-ask-mode-streaming.dc.html": {
@@ -3063,7 +3067,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ai-24-ask-mode-streaming \u00b7 ask mode streaming",
+      "title": "ai-24-ask-mode-streaming · ask mode streaming",
       "is_interactive": true
     },
     "v4-ai-25-ask-mode-answer.dc.html": {
@@ -3072,7 +3076,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ai-25-ask-mode-answer \u00b7 ask mode answer",
+      "title": "ai-25-ask-mode-answer · ask mode answer",
       "is_interactive": true
     },
     "v4-ai-26-editor-selection-toolbar.dc.html": {
@@ -3081,7 +3085,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ai-26-editor-selection-toolbar \u00b7 editor selection toolbar",
+      "title": "ai-26-editor-selection-toolbar · editor selection toolbar",
       "is_interactive": true
     },
     "v4-ai-40-tool-card-read-search.dc.html": {
@@ -3090,7 +3094,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ai-40-tool-card-read-search \u00b7 tool card read search",
+      "title": "ai-40-tool-card-read-search · tool card read search",
       "is_interactive": true
     },
     "v4-ai-41-tool-card-collapsed-expanded.dc.html": {
@@ -3099,7 +3103,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ai-41-tool-card-collapsed-expanded \u00b7 tool card collapsed expanded",
+      "title": "ai-41-tool-card-collapsed-expanded · tool card collapsed expanded",
       "is_interactive": true
     },
     "v4-ai-43-checkpoint-restore.dc.html": {
@@ -3108,7 +3112,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ai-43-checkpoint-restore \u00b7 checkpoint restore",
+      "title": "ai-43-checkpoint-restore · checkpoint restore",
       "is_interactive": true
     },
     "v4-ai-44-chat-history-list.dc.html": {
@@ -3117,7 +3121,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ai-44-chat-history-list \u00b7 chat history list",
+      "title": "ai-44-chat-history-list · chat history list",
       "is_interactive": true
     },
     "v4-ai-48-stop-generation.dc.html": {
@@ -3126,7 +3130,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ai-48-stop-generation \u00b7 stop generation",
+      "title": "ai-48-stop-generation · stop generation",
       "is_interactive": true
     },
     "v4-btn-agents-allowlist-options.dc.html": {
@@ -3135,7 +3139,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "btn-agents-allowlist-options \u00b7 Allowlist Options expanded",
+      "title": "btn-agents-allowlist-options · Allowlist Options expanded",
       "is_interactive": true
     },
     "v4-btn-general-account.dc.html": {
@@ -3144,7 +3148,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "btn-general-account \u00b7 Claude Open (opens the Claude settings)",
+      "title": "btn-general-account · Claude Open (opens the Claude settings)",
       "is_interactive": true
     },
     "v4-btn-general-reset.dc.html": {
@@ -3153,7 +3157,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "btn-general-reset \u00b7 hidden dialogs list shown",
+      "title": "btn-general-reset · hidden dialogs list shown",
       "is_interactive": true
     },
     "v4-chat-agents-sidebar.dc.html": {
@@ -3162,7 +3166,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "chat-agents-sidebar \u00b7 New Agent, Search, Automations, Customize",
+      "title": "chat-agents-sidebar · New Agent, Search, Automations, Customize",
       "is_interactive": true
     },
     "v4-chat-approval-1.dc.html": {
@@ -3171,7 +3175,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "chat-approval-1 \u00b7 command waiting for approval",
+      "title": "chat-approval-1 · command waiting for approval",
       "is_interactive": true
     },
     "v4-chat-approval-2.dc.html": {
@@ -3180,7 +3184,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "chat-approval-2 \u00b7 command approval, Settings open",
+      "title": "chat-approval-2 · command approval, Settings open",
       "is_interactive": true
     },
     "v4-chat-at-menu.dc.html": {
@@ -3189,7 +3193,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "chat-at-menu \u00b7 @ menu open",
+      "title": "chat-at-menu · @ menu open",
       "is_interactive": true
     },
     "v4-chat-at-terminals.dc.html": {
@@ -3198,7 +3202,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "chat-at-terminals \u00b7 @ Terminals submenu",
+      "title": "chat-at-terminals · @ Terminals submenu",
       "is_interactive": true
     },
     "v4-chat-files-expanded.dc.html": {
@@ -3207,7 +3211,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "chat-files-expanded \u00b7 changed files expanded",
+      "title": "chat-files-expanded · changed files expanded",
       "is_interactive": true
     },
     "v4-chat-history.dc.html": {
@@ -3216,7 +3220,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "chat-history \u00b7 Search agents, Today, Archived",
+      "title": "chat-history · Search agents, Today, Archived",
       "is_interactive": true
     },
     "v4-chat-kept.dc.html": {
@@ -3225,7 +3229,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "chat-kept \u00b7 changes kept",
+      "title": "chat-kept · changes kept",
       "is_interactive": true
     },
     "v4-chat-mode-menu.dc.html": {
@@ -3234,7 +3238,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "chat-mode-menu \u00b7 mode menu open (Agent, Plan, Debug, Multitask, Ask)",
+      "title": "chat-mode-menu · mode menu open (Agent, Plan, Debug, Multitask, Ask)",
       "is_interactive": true
     },
     "v4-chat-model-menu.dc.html": {
@@ -3243,7 +3247,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "chat-model-menu \u00b7 model menu open, Claude models",
+      "title": "chat-model-menu · model menu open, Claude models",
       "is_interactive": true
     },
     "v4-chat-more-actions.dc.html": {
@@ -3252,7 +3256,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "chat-more-actions \u00b7 More Actions menu open",
+      "title": "chat-more-actions · More Actions menu open",
       "is_interactive": true
     },
     "v4-chat-new-agent.dc.html": {
@@ -3261,7 +3265,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "chat-new-agent \u00b7 new agent, second chat tab",
+      "title": "chat-new-agent · new agent, second chat tab",
       "is_interactive": true
     },
     "v4-chat-plan-mode.dc.html": {
@@ -3270,7 +3274,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "chat-plan-mode \u00b7 Plan mode selected",
+      "title": "chat-plan-mode · Plan mode selected",
       "is_interactive": true
     },
     "v4-chat-restore-cancelled.dc.html": {
@@ -3279,7 +3283,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "chat-restore-cancelled \u00b7 restore cancelled",
+      "title": "chat-restore-cancelled · restore cancelled",
       "is_interactive": true
     },
     "v4-chat-restore-confirm.dc.html": {
@@ -3288,7 +3292,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "chat-restore-confirm \u00b7 restore checkpoint dialog",
+      "title": "chat-restore-confirm · restore checkpoint dialog",
       "is_interactive": true
     },
     "v4-chat-review.dc.html": {
@@ -3297,7 +3301,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "chat-review \u00b7 All Changes, 1 pending",
+      "title": "chat-review · All Changes, 1 pending",
       "is_interactive": true
     },
     "v4-chat-run1-1.dc.html": {
@@ -3306,7 +3310,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "chat-run1-1 \u00b7 run 1: sent",
+      "title": "chat-run1-1 · run 1: sent",
       "is_interactive": true
     },
     "v4-chat-run1-2.dc.html": {
@@ -3315,7 +3319,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "chat-run1-2 \u00b7 run 1: thinking",
+      "title": "chat-run1-2 · run 1: thinking",
       "is_interactive": true
     },
     "v4-chat-run1-3.dc.html": {
@@ -3324,7 +3328,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "chat-run1-3 \u00b7 run 1: terminal card running",
+      "title": "chat-run1-3 · run 1: terminal card running",
       "is_interactive": true
     },
     "v4-chat-run1-4.dc.html": {
@@ -3333,7 +3337,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "chat-run1-4 \u00b7 run 1: terminal output 42",
+      "title": "chat-run1-4 · run 1: terminal output 42",
       "is_interactive": true
     },
     "v4-chat-run1-5.dc.html": {
@@ -3342,7 +3346,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "chat-run1-5 \u00b7 run 1: file edit card",
+      "title": "chat-run1-5 · run 1: file edit card",
       "is_interactive": true
     },
     "v4-chat-run1-6.dc.html": {
@@ -3351,7 +3355,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "chat-run1-6 \u00b7 run 1: done, Undo / Keep / Review bar",
+      "title": "chat-run1-6 · run 1: done, Undo / Keep / Review bar",
       "is_interactive": true
     },
     "v4-chat-run2-1.dc.html": {
@@ -3360,7 +3364,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "chat-run2-1 \u00b7 run 2: sent",
+      "title": "chat-run2-1 · run 2: sent",
       "is_interactive": true
     },
     "v4-chat-run2-2.dc.html": {
@@ -3369,7 +3373,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "chat-run2-2 \u00b7 run 2: thinking",
+      "title": "chat-run2-2 · run 2: thinking",
       "is_interactive": true
     },
     "v4-chat-run2-3.dc.html": {
@@ -3378,7 +3382,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "chat-run2-3 \u00b7 command failed",
+      "title": "chat-run2-3 · command failed",
       "is_interactive": true
     },
     "v4-chat-run2-4.dc.html": {
@@ -3387,7 +3391,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "chat-run2-4 \u00b7 run 2: planning next moves",
+      "title": "chat-run2-4 · run 2: planning next moves",
       "is_interactive": true
     },
     "v4-chat-run2-5.dc.html": {
@@ -3396,7 +3400,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "chat-run2-5 \u00b7 run 2: retry running",
+      "title": "chat-run2-5 · run 2: retry running",
       "is_interactive": true
     },
     "v4-chat-run2-6.dc.html": {
@@ -3405,7 +3409,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "chat-run2-6 \u00b7 run 2: retry output",
+      "title": "chat-run2-6 · run 2: retry output",
       "is_interactive": true
     },
     "v4-chat-run2-7.dc.html": {
@@ -3414,7 +3418,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "chat-run2-7 \u00b7 run 2: answer",
+      "title": "chat-run2-7 · run 2: answer",
       "is_interactive": true
     },
     "v4-chat-run2-followup-typed.dc.html": {
@@ -3423,7 +3427,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "chat-run2-followup-typed \u00b7 follow-up typed while running",
+      "title": "chat-run2-followup-typed · follow-up typed while running",
       "is_interactive": true
     },
     "v4-chat-run2-steer-1.dc.html": {
@@ -3432,7 +3436,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "chat-run2-steer-1 \u00b7 steer sent, 1 background terminal",
+      "title": "chat-run2-steer-1 · steer sent, 1 background terminal",
       "is_interactive": true
     },
     "v4-chat-run2-steer-2.dc.html": {
@@ -3441,7 +3445,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "chat-run2-steer-2 \u00b7 steer answered, exit codes",
+      "title": "chat-run2-steer-2 · steer answered, exit codes",
       "is_interactive": true
     },
     "v4-chat-slash-menu.dc.html": {
@@ -3450,7 +3454,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "chat-slash-menu \u00b7 / menu open (skills)",
+      "title": "chat-slash-menu · / menu open (skills)",
       "is_interactive": true
     },
     "v4-chat-typed.dc.html": {
@@ -3459,7 +3463,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "chat-typed \u00b7 prompt typed",
+      "title": "chat-typed · prompt typed",
       "is_interactive": true
     },
     "v4-chat-worked-expanded.dc.html": {
@@ -3468,7 +3472,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "chat-worked-expanded \u00b7 finished turn in the Agent window layout",
+      "title": "chat-worked-expanded · finished turn in the Agent window layout",
       "is_interactive": true
     },
     "v4-customize-commands.dc.html": {
@@ -3477,7 +3481,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "customize-commands \u00b7 Commands tab",
+      "title": "customize-commands · Commands tab",
       "is_interactive": true
     },
     "v4-customize-hooks.dc.html": {
@@ -3486,7 +3490,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "customize-hooks \u00b7 Hooks tab",
+      "title": "customize-hooks · Hooks tab",
       "is_interactive": true
     },
     "v4-customize-marketplace.dc.html": {
@@ -3495,7 +3499,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "customize-marketplace \u00b7 Marketplace tab",
+      "title": "customize-marketplace · Marketplace tab",
       "is_interactive": true
     },
     "v4-customize-mcps.dc.html": {
@@ -3504,7 +3508,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "customize-mcps \u00b7 Mcps tab",
+      "title": "customize-mcps · Mcps tab",
       "is_interactive": true
     },
     "v4-customize-plugins-1.dc.html": {
@@ -3513,7 +3517,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "customize-plugins-1 \u00b7 Plugins tab",
+      "title": "customize-plugins-1 · Plugins tab",
       "is_interactive": true
     },
     "v4-customize-rules.dc.html": {
@@ -3522,7 +3526,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "customize-rules \u00b7 Rules tab",
+      "title": "customize-rules · Rules tab",
       "is_interactive": true
     },
     "v4-customize-skills.dc.html": {
@@ -3531,7 +3535,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "customize-skills \u00b7 Skills tab",
+      "title": "customize-skills · Skills tab",
       "is_interactive": true
     },
     "v4-customize-subagents.dc.html": {
@@ -3540,7 +3544,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "customize-subagents \u00b7 Subagents tab",
+      "title": "customize-subagents · Subagents tab",
       "is_interactive": true
     },
     "v4-dd-agents-auto-review.dc.html": {
@@ -3549,7 +3553,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "dd-agents-auto-review \u00b7 Auto-Review dropdown open",
+      "title": "dd-agents-auto-review · Auto-Review dropdown open",
       "is_interactive": true
     },
     "v4-dd-agents-cursor-default.dc.html": {
@@ -3558,7 +3562,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "dd-agents-omnide-default \u00b7 OmnIDE Default dropdown open",
+      "title": "dd-agents-omnide-default · OmnIDE Default dropdown open",
       "is_interactive": true
     },
     "v4-dd-agents-default.dc.html": {
@@ -3567,7 +3571,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "dd-agents-default \u00b7 Default dropdown open",
+      "title": "dd-agents-default · Default dropdown open",
       "is_interactive": true
     },
     "v4-dd-agents-manually-sent-messages-from-queue.dc.html": {
@@ -3576,7 +3580,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "dd-agents-manually-sent-messages-from-queue \u00b7 Manually Sent Messages from Queue dropdown open",
+      "title": "dd-agents-manually-sent-messages-from-queue · Manually Sent Messages from Queue dropdown open",
       "is_interactive": true
     },
     "v4-dd-agents-new-messages.dc.html": {
@@ -3585,7 +3589,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "dd-agents-new-messages \u00b7 New Messages dropdown open",
+      "title": "dd-agents-new-messages · New Messages dropdown open",
       "is_interactive": true
     },
     "v4-dd-agents-system.dc.html": {
@@ -3594,7 +3598,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "dd-agents-system \u00b7 System dropdown open",
+      "title": "dd-agents-system · System dropdown open",
       "is_interactive": true
     },
     "v4-dd-general-conversation-density.dc.html": {
@@ -3603,7 +3607,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "dd-general-conversation-density \u00b7 Conversation Density dropdown open",
+      "title": "dd-general-conversation-density · Conversation Density dropdown open",
       "is_interactive": true
     },
     "v4-dd-general-review-control-location.dc.html": {
@@ -3612,7 +3616,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "dd-general-review-control-location \u00b7 Review Control Location dropdown open",
+      "title": "dd-general-review-control-location · Review Control Location dropdown open",
       "is_interactive": true
     },
     "v4-dd-general-window-layout.dc.html": {
@@ -3621,7 +3625,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "dd-general-window-layout \u00b7 Window Layout dropdown open",
+      "title": "dd-general-window-layout · Window Layout dropdown open",
       "is_interactive": true
     },
     "v4-dd-general-window-restoration.dc.html": {
@@ -3630,7 +3634,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "dd-general-window-restoration \u00b7 Window Restoration dropdown open",
+      "title": "dd-general-window-restoration · Window Restoration dropdown open",
       "is_interactive": true
     },
     "v4-dd-models-coordinator-effort.dc.html": {
@@ -3639,7 +3643,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "dd-models-coordinator-effort \u00b7 Coordinator effort dropdown open",
+      "title": "dd-models-coordinator-effort · Coordinator effort dropdown open",
       "is_interactive": true
     },
     "v4-dd-models-default.dc.html": {
@@ -3648,7 +3652,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "dd-models-default \u00b7 Default dropdown open",
+      "title": "dd-models-default · Default dropdown open",
       "is_interactive": true
     },
     "v4-dd-source-control-default-approach.dc.html": {
@@ -3657,7 +3661,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "dd-source-control-default-approach \u00b7 Default Approach dropdown open",
+      "title": "dd-source-control-default-approach · Default Approach dropdown open",
       "is_interactive": true
     },
     "v4-dd-source-control-pr-link-destination.dc.html": {
@@ -3666,7 +3670,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "dd-source-control-pr-link-destination \u00b7 PR Link Destination dropdown open",
+      "title": "dd-source-control-pr-link-destination · PR Link Destination dropdown open",
       "is_interactive": true
     },
     "v4-ide-01-onboarding-login.dc.html": {
@@ -3675,7 +3679,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-01-onboarding-login \u00b7 onboarding login",
+      "title": "ide-01-onboarding-login · onboarding login",
       "is_interactive": true
     },
     "v4-ide-03-ide-default-layout.dc.html": {
@@ -3684,7 +3688,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-03-ide-default-layout \u00b7 ide default layout",
+      "title": "ide-03-ide-default-layout · ide default layout",
       "is_interactive": true
     },
     "v4-ide-04-explorer-sidebar.dc.html": {
@@ -3693,7 +3697,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-04-explorer-sidebar \u00b7 explorer sidebar",
+      "title": "ide-04-explorer-sidebar · explorer sidebar",
       "is_interactive": true
     },
     "v4-ide-05-quick-open.dc.html": {
@@ -3702,7 +3706,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-05-quick-open \u00b7 quick open",
+      "title": "ide-05-quick-open · quick open",
       "is_interactive": true
     },
     "v4-ide-06-editor-file-open.dc.html": {
@@ -3711,7 +3715,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-06-editor-file-open \u00b7 editor file open",
+      "title": "ide-06-editor-file-open · editor file open",
       "is_interactive": true
     },
     "v4-ide-07-command-palette.dc.html": {
@@ -3720,7 +3724,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-07-command-palette \u00b7 command palette",
+      "title": "ide-07-command-palette · command palette",
       "is_interactive": true
     },
     "v4-ide-08-search-view.dc.html": {
@@ -3729,7 +3733,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-08-search-view \u00b7 search view",
+      "title": "ide-08-search-view · search view",
       "is_interactive": true
     },
     "v4-ide-09-scm-changes.dc.html": {
@@ -3738,7 +3742,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-09-scm-changes \u00b7 scm changes",
+      "title": "ide-09-scm-changes · scm changes",
       "is_interactive": true
     },
     "v4-ide-10-scm-diff-editor.dc.html": {
@@ -3747,7 +3751,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-10-scm-diff-editor \u00b7 scm diff editor",
+      "title": "ide-10-scm-diff-editor · scm diff editor",
       "is_interactive": true
     },
     "v4-ide-11-terminal-panel.dc.html": {
@@ -3756,7 +3760,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-11-terminal-panel \u00b7 terminal panel",
+      "title": "ide-11-terminal-panel · terminal panel",
       "is_interactive": true
     },
     "v4-ide-12-problems-panel.dc.html": {
@@ -3765,7 +3769,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-12-problems-panel \u00b7 problems panel",
+      "title": "ide-12-problems-panel · problems panel",
       "is_interactive": true
     },
     "v4-ide-13-run-debug-view.dc.html": {
@@ -3774,7 +3778,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-13-run-debug-view \u00b7 run debug view",
+      "title": "ide-13-run-debug-view · run debug view",
       "is_interactive": true
     },
     "v4-ide-14-extensions-view.dc.html": {
@@ -3783,7 +3787,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-14-extensions-view \u00b7 extensions view",
+      "title": "ide-14-extensions-view · extensions view",
       "is_interactive": true
     },
     "v4-ide-15-menu-file.dc.html": {
@@ -3792,7 +3796,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-15-menu-file \u00b7 menu file",
+      "title": "ide-15-menu-file · menu file",
       "is_interactive": true
     },
     "v4-ide-16-menu-edit.dc.html": {
@@ -3801,7 +3805,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-16-menu-edit \u00b7 menu edit",
+      "title": "ide-16-menu-edit · menu edit",
       "is_interactive": true
     },
     "v4-ide-17-menu-view.dc.html": {
@@ -3810,7 +3814,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-17-menu-view \u00b7 menu view",
+      "title": "ide-17-menu-view · menu view",
       "is_interactive": true
     },
     "v4-ide-18-editor-context-menu.dc.html": {
@@ -3819,7 +3823,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-18-editor-context-menu \u00b7 editor context menu",
+      "title": "ide-18-editor-context-menu · editor context menu",
       "is_interactive": true
     },
     "v4-ide-19-explorer-context-menu.dc.html": {
@@ -3828,7 +3832,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-19-explorer-context-menu \u00b7 explorer context menu",
+      "title": "ide-19-explorer-context-menu · explorer context menu",
       "is_interactive": true
     },
     "v4-ide-20-editor-find-widget.dc.html": {
@@ -3837,7 +3841,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-20-editor-find-widget \u00b7 editor find widget",
+      "title": "ide-20-editor-find-widget · editor find widget",
       "is_interactive": true
     },
     "v4-ide-21-editor-find-replace.dc.html": {
@@ -3846,7 +3850,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-21-editor-find-replace \u00b7 editor find replace",
+      "title": "ide-21-editor-find-replace · editor find replace",
       "is_interactive": true
     },
     "v4-ide-22-editor-suggest-widget.dc.html": {
@@ -3855,7 +3859,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-22-editor-suggest-widget \u00b7 editor suggest widget",
+      "title": "ide-22-editor-suggest-widget · editor suggest widget",
       "is_interactive": true
     },
     "v4-ide-23-editor-hover.dc.html": {
@@ -3864,7 +3868,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-23-editor-hover \u00b7 editor hover",
+      "title": "ide-23-editor-hover · editor hover",
       "is_interactive": true
     },
     "v4-ide-24-go-to-symbol.dc.html": {
@@ -3873,7 +3877,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-24-go-to-symbol \u00b7 go to symbol",
+      "title": "ide-24-go-to-symbol · go to symbol",
       "is_interactive": true
     },
     "v4-ide-25-peek-references.dc.html": {
@@ -3882,7 +3886,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-25-peek-references \u00b7 peek references",
+      "title": "ide-25-peek-references · peek references",
       "is_interactive": true
     },
     "v4-ide-26-rename-input.dc.html": {
@@ -3891,7 +3895,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-26-rename-input \u00b7 rename input",
+      "title": "ide-26-rename-input · rename input",
       "is_interactive": true
     },
     "v4-ide-27-split-editor.dc.html": {
@@ -3900,7 +3904,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-27-split-editor \u00b7 split editor",
+      "title": "ide-27-split-editor · split editor",
       "is_interactive": true
     },
     "v4-ide-28-settings-narrow-layout-section.dc.html": {
@@ -3909,7 +3913,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-28-settings-narrow-layout-section \u00b7 narrow layout section",
+      "title": "ide-28-settings-narrow-layout-section · narrow layout section",
       "is_interactive": true
     },
     "v4-ide-29-settings-general.dc.html": {
@@ -3918,7 +3922,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-29-settings-general \u00b7 settings general",
+      "title": "ide-29-settings-general · settings general",
       "is_interactive": true
     },
     "v4-ide-30-vscode-settings-editor.dc.html": {
@@ -3927,7 +3931,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-30-vscode-settings-editor \u00b7 vscode settings editor",
+      "title": "ide-30-vscode-settings-editor · vscode settings editor",
       "is_interactive": true
     },
     "v4-ide-32-settings-agents.dc.html": {
@@ -3936,7 +3940,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-32-settings-agents \u00b7 settings agents",
+      "title": "ide-32-settings-agents · settings agents",
       "is_interactive": true
     },
     "v4-ide-34-settings-models.dc.html": {
@@ -3945,7 +3949,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-34-settings-models \u00b7 settings models",
+      "title": "ide-34-settings-models · settings models",
       "is_interactive": true
     },
     "v4-ide-35-settings-git-prs.dc.html": {
@@ -3954,7 +3958,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-35-settings-git-prs \u00b7 settings git prs",
+      "title": "ide-35-settings-git-prs · settings git prs",
       "is_interactive": true
     },
     "v4-ide-36-customize-page.dc.html": {
@@ -3963,7 +3967,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-36-customize-page \u00b7 customize page",
+      "title": "ide-36-customize-page · customize page",
       "is_interactive": true
     },
     "v4-ide-41-default-keybindings-json.dc.html": {
@@ -3972,7 +3976,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-41-default-keybindings-json \u00b7 default keybindings json",
+      "title": "ide-41-default-keybindings-json · default keybindings json",
       "is_interactive": true
     },
     "v4-ide-42-notifications-center-empty.dc.html": {
@@ -3981,7 +3985,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-42-notifications-center-empty \u00b7 notifications center empty",
+      "title": "ide-42-notifications-center-empty · notifications center empty",
       "is_interactive": true
     },
     "v4-ide-43-keyboard-shortcuts-editor.dc.html": {
@@ -3990,7 +3994,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-43-keyboard-shortcuts-editor \u00b7 keyboard shortcuts editor",
+      "title": "ide-43-keyboard-shortcuts-editor · keyboard shortcuts editor",
       "is_interactive": true
     },
     "v4-ide-44-editor-tab-context-menu.dc.html": {
@@ -3999,7 +4003,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-44-editor-tab-context-menu \u00b7 editor tab context menu",
+      "title": "ide-44-editor-tab-context-menu · editor tab context menu",
       "is_interactive": true
     },
     "v4-ide-45-branch-picker.dc.html": {
@@ -4008,7 +4012,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-45-branch-picker \u00b7 branch picker",
+      "title": "ide-45-branch-picker · branch picker",
       "is_interactive": true
     },
     "v4-ide-47-layout-chat-hidden-panel-open.dc.html": {
@@ -4017,7 +4021,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-47-layout-chat-hidden-panel-open \u00b7 layout chat hidden panel open",
+      "title": "ide-47-layout-chat-hidden-panel-open · layout chat hidden panel open",
       "is_interactive": true
     },
     "v4-ide-48-color-theme-picker.dc.html": {
@@ -4026,7 +4030,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-48-color-theme-picker \u00b7 color theme picker",
+      "title": "ide-48-color-theme-picker · color theme picker",
       "is_interactive": true
     },
     "v4-ide-49-menu-selection.dc.html": {
@@ -4035,7 +4039,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-49-menu-selection \u00b7 Selection menu",
+      "title": "ide-49-menu-selection · Selection menu",
       "is_interactive": true
     },
     "v4-ide-50-menu-go.dc.html": {
@@ -4044,7 +4048,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-50-menu-go \u00b7 Go menu",
+      "title": "ide-50-menu-go · Go menu",
       "is_interactive": true
     },
     "v4-ide-51-menu-run.dc.html": {
@@ -4053,7 +4057,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-51-menu-run \u00b7 Run menu",
+      "title": "ide-51-menu-run · Run menu",
       "is_interactive": true
     },
     "v4-ide-52-menu-terminal.dc.html": {
@@ -4062,7 +4066,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-52-menu-terminal \u00b7 Terminal menu",
+      "title": "ide-52-menu-terminal · Terminal menu",
       "is_interactive": true
     },
     "v4-ide-53-menu-help.dc.html": {
@@ -4071,7 +4075,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-53-menu-help \u00b7 Help menu",
+      "title": "ide-53-menu-help · Help menu",
       "is_interactive": true
     },
     "v4-ide-56-scm-more-menu.dc.html": {
@@ -4080,7 +4084,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-56-scm-more-menu \u00b7 SCM ... menu",
+      "title": "ide-56-scm-more-menu · SCM ... menu",
       "is_interactive": true
     },
     "v4-ide-57-terminal-dropdown.dc.html": {
@@ -4089,7 +4093,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-57-terminal-dropdown \u00b7 terminal + dropdown",
+      "title": "ide-57-terminal-dropdown · terminal + dropdown",
       "is_interactive": true
     },
     "v4-ide-58-panel-tab-context-menu.dc.html": {
@@ -4098,7 +4102,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-58-panel-tab-context-menu \u00b7 right-click panel tab",
+      "title": "ide-58-panel-tab-context-menu · right-click panel tab",
       "is_interactive": true
     },
     "v4-ide-59-activitybar-context-menu.dc.html": {
@@ -4107,7 +4111,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-59-activitybar-context-menu \u00b7 right-click activity bar",
+      "title": "ide-59-activitybar-context-menu · right-click activity bar",
       "is_interactive": true
     },
     "v4-ide-60-scm-commit-typed.dc.html": {
@@ -4116,7 +4120,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-60-scm-commit-typed \u00b7 message typed",
+      "title": "ide-60-scm-commit-typed · message typed",
       "is_interactive": true
     },
     "v4-ide-61-scm-commit-dropdown.dc.html": {
@@ -4125,7 +4129,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-61-scm-commit-dropdown \u00b7 commit button arrow",
+      "title": "ide-61-scm-commit-dropdown · commit button arrow",
       "is_interactive": true
     },
     "v4-ide-62-scm-graph.dc.html": {
@@ -4134,7 +4138,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-62-scm-graph \u00b7 graph section",
+      "title": "ide-62-scm-graph · graph section",
       "is_interactive": true
     },
     "v4-ide-64-scm-merge-conflict.dc.html": {
@@ -4143,7 +4147,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-64-scm-merge-conflict \u00b7 sandbox conflict file",
+      "title": "ide-64-scm-merge-conflict · sandbox conflict file",
       "is_interactive": true
     },
     "v4-ide-65-terminal-split.dc.html": {
@@ -4152,7 +4156,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-65-terminal-split \u00b7 split",
+      "title": "ide-65-terminal-split · split",
       "is_interactive": true
     },
     "v4-ide-66-terminal-find.dc.html": {
@@ -4161,7 +4165,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-66-terminal-find \u00b7 Ctrl+F in terminal",
+      "title": "ide-66-terminal-find · Ctrl+F in terminal",
       "is_interactive": true
     },
     "v4-ide-67-terminal-tabs-list.dc.html": {
@@ -4170,7 +4174,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-67-terminal-tabs-list \u00b7 2 terminals",
+      "title": "ide-67-terminal-tabs-list · 2 terminals",
       "is_interactive": true
     },
     "v4-ide-68-extension-detail.dc.html": {
@@ -4179,7 +4183,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-68-extension-detail \u00b7 open an installed extension",
+      "title": "ide-68-extension-detail · open an installed extension",
       "is_interactive": true
     },
     "v4-ide-69-extension-search-results.dc.html": {
@@ -4188,7 +4192,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-69-extension-search-results \u00b7 search marketplace",
+      "title": "ide-69-extension-search-results · search marketplace",
       "is_interactive": true
     },
     "v4-ide-70-extension-context-menu.dc.html": {
@@ -4197,7 +4201,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-70-extension-context-menu \u00b7 right-click extension",
+      "title": "ide-70-extension-context-menu · right-click extension",
       "is_interactive": true
     },
     "v4-ide-72-explorer-new-file-input.dc.html": {
@@ -4206,7 +4210,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-72-explorer-new-file-input \u00b7 New File",
+      "title": "ide-72-explorer-new-file-input · New File",
       "is_interactive": true
     },
     "v4-ide-73-explorer-rename.dc.html": {
@@ -4215,7 +4219,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-73-explorer-rename \u00b7 F2 on a file",
+      "title": "ide-73-explorer-rename · F2 on a file",
       "is_interactive": true
     },
     "v4-ide-76-outline-timeline.dc.html": {
@@ -4224,7 +4228,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ide-76-outline-timeline \u00b7 Outline and Timeline open",
+      "title": "ide-76-outline-timeline · Outline and Timeline open",
       "is_interactive": true
     },
     "v4-light-01-ide-editor.dc.html": {
@@ -4233,7 +4237,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "light-01-ide-editor \u00b7 ide editor",
+      "title": "light-01-ide-editor · ide editor",
       "is_interactive": true
     },
     "v4-light-02-command-palette.dc.html": {
@@ -4242,7 +4246,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "light-02-command-palette \u00b7 command palette",
+      "title": "light-02-command-palette · command palette",
       "is_interactive": true
     },
     "v4-light-03-scm-changes.dc.html": {
@@ -4251,7 +4255,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "light-03-scm-changes \u00b7 scm changes",
+      "title": "light-03-scm-changes · scm changes",
       "is_interactive": true
     },
     "v4-light-04-diff-editor.dc.html": {
@@ -4260,7 +4264,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "light-04-diff-editor \u00b7 diff editor",
+      "title": "light-04-diff-editor · diff editor",
       "is_interactive": true
     },
     "v4-light-05-terminal-panel.dc.html": {
@@ -4269,7 +4273,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "light-05-terminal-panel \u00b7 terminal panel",
+      "title": "light-05-terminal-panel · terminal panel",
       "is_interactive": true
     },
     "v4-light-06-explorer-context-menu.dc.html": {
@@ -4278,7 +4282,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "light-06-explorer-context-menu \u00b7 explorer context menu",
+      "title": "light-06-explorer-context-menu · explorer context menu",
       "is_interactive": true
     },
     "v4-light-07-settings-general.dc.html": {
@@ -4287,7 +4291,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "light-07-settings-general \u00b7 settings general",
+      "title": "light-07-settings-general · settings general",
       "is_interactive": true
     },
     "v4-light-08-agent-mode-picker.dc.html": {
@@ -4296,7 +4300,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "light-08-agent-mode-picker \u00b7 agent mode picker",
+      "title": "light-08-agent-mode-picker · agent mode picker",
       "is_interactive": true
     },
     "v4-light-09-model-picker.dc.html": {
@@ -4305,7 +4309,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "light-09-model-picker \u00b7 model picker",
+      "title": "light-09-model-picker · model picker",
       "is_interactive": true
     },
     "v4-light-10-ide-03.dc.html": {
@@ -4314,7 +4318,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "light-10-ide-03 \u00b7 Light theme, same as ide-03",
+      "title": "light-10-ide-03 · Light theme, same as ide-03",
       "is_interactive": true
     },
     "v4-light-11-ide-04.dc.html": {
@@ -4323,7 +4327,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "light-11-ide-04 \u00b7 Light theme, same as ide-04",
+      "title": "light-11-ide-04 · Light theme, same as ide-04",
       "is_interactive": true
     },
     "v4-light-12-ide-05.dc.html": {
@@ -4332,7 +4336,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "light-12-ide-05 \u00b7 Light theme, same as ide-05",
+      "title": "light-12-ide-05 · Light theme, same as ide-05",
       "is_interactive": true
     },
     "v4-light-13-ide-08.dc.html": {
@@ -4341,7 +4345,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "light-13-ide-08 \u00b7 Light theme, same as ide-08",
+      "title": "light-13-ide-08 · Light theme, same as ide-08",
       "is_interactive": true
     },
     "v4-light-14-ide-11.dc.html": {
@@ -4350,7 +4354,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "light-14-ide-11 \u00b7 Light theme, same as ide-11",
+      "title": "light-14-ide-11 · Light theme, same as ide-11",
       "is_interactive": true
     },
     "v4-light-15-ide-14.dc.html": {
@@ -4359,7 +4363,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "light-15-ide-14 \u00b7 Light theme, same as ide-14",
+      "title": "light-15-ide-14 · Light theme, same as ide-14",
       "is_interactive": true
     },
     "v4-light-16-ide-15.dc.html": {
@@ -4368,7 +4372,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "light-16-ide-15 \u00b7 Light theme, same as ide-15",
+      "title": "light-16-ide-15 · Light theme, same as ide-15",
       "is_interactive": true
     },
     "v4-light-17-ide-20.dc.html": {
@@ -4377,7 +4381,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "light-17-ide-20 \u00b7 Light theme, same as ide-20",
+      "title": "light-17-ide-20 · Light theme, same as ide-20",
       "is_interactive": true
     },
     "v4-light-18-ide-22.dc.html": {
@@ -4386,7 +4390,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "light-18-ide-22 \u00b7 Light theme, same as ide-22",
+      "title": "light-18-ide-22 · Light theme, same as ide-22",
       "is_interactive": true
     },
     "v4-light-19-ide-29.dc.html": {
@@ -4395,7 +4399,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "light-19-ide-29 \u00b7 Light theme, same as ide-29",
+      "title": "light-19-ide-29 · Light theme, same as ide-29",
       "is_interactive": true
     },
     "v4-light-20-ide-43.dc.html": {
@@ -4404,7 +4408,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "light-20-ide-43 \u00b7 Light theme, same as ide-43",
+      "title": "light-20-ide-43 · Light theme, same as ide-43",
       "is_interactive": true
     },
     "v4-light-21-ob-01.dc.html": {
@@ -4413,7 +4417,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "light-21-ob-01 \u00b7 Light theme, same as ob-01",
+      "title": "light-21-ob-01 · Light theme, same as ob-01",
       "is_interactive": true
     },
     "v4-light-24-ai-08.dc.html": {
@@ -4422,7 +4426,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "light-24-ai-08 \u00b7 ai 08",
+      "title": "light-24-ai-08 · ai 08",
       "is_interactive": true
     },
     "v4-light-25-ai-15.dc.html": {
@@ -4431,7 +4435,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "light-25-ai-15 \u00b7 ai 15",
+      "title": "light-25-ai-15 · ai 15",
       "is_interactive": true
     },
     "v4-light-31-set-02.dc.html": {
@@ -4440,7 +4444,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "light-31-set-02 \u00b7 set 02",
+      "title": "light-31-set-02 · set 02",
       "is_interactive": true
     },
     "v4-ob-01-welcome.dc.html": {
@@ -4449,7 +4453,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "ob-01-welcome \u00b7 fresh profile first launch",
+      "title": "ob-01-welcome · fresh profile first launch",
       "is_interactive": true
     },
     "v4-omni-ArchOmnide.dc.html": {
@@ -4619,7 +4623,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "review-commit-1 \u00b7 commit message generated",
+      "title": "review-commit-1 · commit message generated",
       "is_interactive": true
     },
     "v4-review-commit-2.dc.html": {
@@ -4628,7 +4632,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "review-commit-2 \u00b7 commit ready, file checkboxes",
+      "title": "review-commit-2 · commit ready, file checkboxes",
       "is_interactive": true
     },
     "v4-review-findissues-menu.dc.html": {
@@ -4637,7 +4641,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "review-findissues-menu \u00b7 Find Issues options open",
+      "title": "review-findissues-menu · Find Issues options open",
       "is_interactive": true
     },
     "v4-review-more-menu.dc.html": {
@@ -4646,7 +4650,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "review-more-menu \u00b7 More menu open",
+      "title": "review-more-menu · More menu open",
       "is_interactive": true
     },
     "v4-set-01-rules-memories.dc.html": {
@@ -4655,7 +4659,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "set-01-rules-memories \u00b7 rules memories",
+      "title": "set-01-rules-memories · rules memories",
       "is_interactive": true
     },
     "v4-set-02-mcp-tools.dc.html": {
@@ -4664,7 +4668,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "set-02-mcp-tools \u00b7 mcp tools",
+      "title": "set-02-mcp-tools · mcp tools",
       "is_interactive": true
     },
     "v4-set-03-mcp-add-server.dc.html": {
@@ -4673,7 +4677,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "set-03-mcp-add-server \u00b7 mcp add server",
+      "title": "set-03-mcp-add-server · mcp add server",
       "is_interactive": true
     },
     "v4-set-04-hooks.dc.html": {
@@ -4682,7 +4686,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "set-04-hooks \u00b7 hooks",
+      "title": "set-04-hooks · hooks",
       "is_interactive": true
     },
     "v4-set-09-notifications.dc.html": {
@@ -4691,7 +4695,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "set-09-notifications \u00b7 notifications",
+      "title": "set-09-notifications · notifications",
       "is_interactive": true
     },
     "v4-set-10-search-settings.dc.html": {
@@ -4700,7 +4704,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "set-10-search-settings \u00b7 search settings",
+      "title": "set-10-search-settings · search settings",
       "is_interactive": true
     },
     "v4-set-agents-1.dc.html": {
@@ -4709,7 +4713,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "set-agents-1 \u00b7 scroll 1",
+      "title": "set-agents-1 · scroll 1",
       "is_interactive": true
     },
     "v4-set-agents-2.dc.html": {
@@ -4718,7 +4722,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "set-agents-2 \u00b7 scroll 2",
+      "title": "set-agents-2 · scroll 2",
       "is_interactive": true
     },
     "v4-set-agents-3.dc.html": {
@@ -4727,7 +4731,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "set-agents-3 \u00b7 scroll 3",
+      "title": "set-agents-3 · scroll 3",
       "is_interactive": true
     },
     "v4-set-agents-4.dc.html": {
@@ -4736,7 +4740,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "set-agents-4 \u00b7 scroll 4",
+      "title": "set-agents-4 · scroll 4",
       "is_interactive": true
     },
     "v4-set-agents-5.dc.html": {
@@ -4745,7 +4749,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "set-agents-5 \u00b7 scroll 5",
+      "title": "set-agents-5 · scroll 5",
       "is_interactive": true
     },
     "v4-set-general-1.dc.html": {
@@ -4754,7 +4758,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "set-general-1 \u00b7 scroll 1",
+      "title": "set-general-1 · scroll 1",
       "is_interactive": true
     },
     "v4-set-general-2.dc.html": {
@@ -4763,7 +4767,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "set-general-2 \u00b7 scroll 2",
+      "title": "set-general-2 · scroll 2",
       "is_interactive": true
     },
     "v4-set-general-3.dc.html": {
@@ -4772,7 +4776,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "set-general-3 \u00b7 scroll 3",
+      "title": "set-general-3 · scroll 3",
       "is_interactive": true
     },
     "v4-set-general-4.dc.html": {
@@ -4781,7 +4785,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "set-general-4 \u00b7 scroll 4",
+      "title": "set-general-4 · scroll 4",
       "is_interactive": true
     },
     "v4-set-models-1.dc.html": {
@@ -4790,7 +4794,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "set-models-1 \u00b7 scroll 1",
+      "title": "set-models-1 · scroll 1",
       "is_interactive": true
     },
     "v4-set-models-2.dc.html": {
@@ -4799,7 +4803,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "set-models-2 \u00b7 scroll 2",
+      "title": "set-models-2 · scroll 2",
       "is_interactive": true
     },
     "v4-set-claude-1.dc.html": {
@@ -4808,7 +4812,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "set-claude-usage-1 \u00b7 scroll 1",
+      "title": "set-claude-usage-1 · scroll 1",
       "is_interactive": true
     },
     "v4-set-source-control-1.dc.html": {
@@ -4817,7 +4821,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "set-source-control-1 \u00b7 scroll 1",
+      "title": "set-source-control-1 · scroll 1",
       "is_interactive": true
     },
     "v4-set-source-control-2.dc.html": {
@@ -4826,7 +4830,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "set-source-control-2 \u00b7 scroll 2",
+      "title": "set-source-control-2 · scroll 2",
       "is_interactive": true
     },
     "v4-set-source-control-3.dc.html": {
@@ -4835,7 +4839,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "set-source-control-3 \u00b7 scroll 3",
+      "title": "set-source-control-3 · scroll 3",
       "is_interactive": true
     },
     "v4-st-01-signed-out-composer.dc.html": {
@@ -4844,7 +4848,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "st-01-signed-out-composer \u00b7 composer while signed out",
+      "title": "st-01-signed-out-composer · composer while signed out",
       "is_interactive": true
     },
     "v4-st-05-file-too-large.dc.html": {
@@ -4853,7 +4857,7 @@
       "w": 1440,
       "h": 900,
       "page": "v4",
-      "title": "st-05-file-too-large \u00b7 open a large binary",
+      "title": "st-05-file-too-large · open a large binary",
       "is_interactive": true
     },
     "v4-terminal-panel.dc.html": {
@@ -4862,7 +4866,7 @@
       "w": 1440,
       "h": 931,
       "page": "v4",
-      "title": "terminal-panel \u00b7 PowerShell terminal",
+      "title": "terminal-panel · PowerShell terminal",
       "is_interactive": true
     },
     "v4-NotInOmnide.dc.html": {
@@ -5228,7 +5232,7 @@
       "x": 1300,
       "y": 55400,
       "w": 1240,
-      "h": 2871,
+      "h": 2948,
       "page": "v5",
       "title": "Patch series",
       "is_interactive": false
@@ -5318,13 +5322,360 @@
       "x": 6500,
       "y": 56900,
       "w": 1240,
-      "h": 1549,
+      "h": 1873,
       "page": "v5",
       "title": "Project rules",
       "is_interactive": false
+    },
+    "v6-Progress.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 1240,
+      "h": 335,
+      "page": "v6",
+      "title": "v6: 36 frames built"
+    },
+    "v6-Main.dc.html": {
+      "x": 1320,
+      "y": 0,
+      "w": 1440,
+      "h": 930,
+      "page": "v6",
+      "title": "OmnIDE v6: permissions (To-be)"
+    },
+    "v6-chat-agent.dc.html": {
+      "x": 0,
+      "y": 1050,
+      "w": 1440,
+      "h": 930,
+      "page": "v6",
+      "title": "Chat: Agent",
+      "is_interactive": true
+    },
+    "v6-chat-picker.dc.html": {
+      "x": 1520,
+      "y": 1050,
+      "w": 1440,
+      "h": 930,
+      "page": "v6",
+      "title": "Chat: mode picker open",
+      "is_interactive": true
+    },
+    "v6-chat-plan.dc.html": {
+      "x": 3040,
+      "y": 1050,
+      "w": 1440,
+      "h": 930,
+      "page": "v6",
+      "title": "Chat: Plan",
+      "is_interactive": true
+    },
+    "v6-chat-ask.dc.html": {
+      "x": 4560,
+      "y": 1050,
+      "w": 1440,
+      "h": 930,
+      "page": "v6",
+      "title": "Chat: Ask",
+      "is_interactive": true
+    },
+    "v6-set-runmode.dc.html": {
+      "x": 0,
+      "y": 2100,
+      "w": 1440,
+      "h": 961,
+      "page": "v6",
+      "title": "Settings: Run Mode",
+      "is_interactive": true
+    },
+    "v6-set-runmode-open.dc.html": {
+      "x": 1520,
+      "y": 2100,
+      "w": 1440,
+      "h": 961,
+      "page": "v6",
+      "title": "Settings: Run Mode dropdown",
+      "is_interactive": true
+    },
+    "v6-set-runmode-allowlist.dc.html": {
+      "x": 3040,
+      "y": 2100,
+      "w": 1440,
+      "h": 961,
+      "page": "v6",
+      "title": "Settings: Run Mode, Allowlist",
+      "is_interactive": true
+    },
+    "v6-set-runmode-everything.dc.html": {
+      "x": 4560,
+      "y": 2100,
+      "w": 1440,
+      "h": 961,
+      "page": "v6",
+      "title": "Settings: Run Everything on",
+      "is_interactive": true
+    },
+    "v6-set-runmode-open-everything.dc.html": {
+      "x": 6080,
+      "y": 2100,
+      "w": 1440,
+      "h": 961,
+      "page": "v6",
+      "title": "Settings: dropdown, Run Everything on",
+      "is_interactive": true
+    },
+    "v6-set-allowlist.dc.html": {
+      "x": 7600,
+      "y": 2100,
+      "w": 1440,
+      "h": 961,
+      "page": "v6",
+      "title": "Settings: Allowlist editor",
+      "is_interactive": true
+    },
+    "v6-approval-pending.dc.html": {
+      "x": 0,
+      "y": 3181,
+      "w": 1440,
+      "h": 930,
+      "page": "v6",
+      "title": "Approval: waiting",
+      "is_interactive": true
+    },
+    "v6-approval-ran.dc.html": {
+      "x": 1520,
+      "y": 3181,
+      "w": 1440,
+      "h": 930,
+      "page": "v6",
+      "title": "Approval: ran",
+      "is_interactive": true
+    },
+    "v6-approval-skipped.dc.html": {
+      "x": 3040,
+      "y": 3181,
+      "w": 1440,
+      "h": 930,
+      "page": "v6",
+      "title": "Approval: skipped",
+      "is_interactive": true
+    },
+    "v6-approval-always.dc.html": {
+      "x": 4560,
+      "y": 3181,
+      "w": 1440,
+      "h": 930,
+      "page": "v6",
+      "title": "Approval: always run",
+      "is_interactive": true
+    },
+    "v6-edge-auto-unavailable.dc.html": {
+      "x": 0,
+      "y": 4231,
+      "w": 1440,
+      "h": 930,
+      "page": "v6",
+      "title": "Edge: Auto unavailable (chat)",
+      "is_interactive": true
+    },
+    "v6-set-auto-unavailable.dc.html": {
+      "x": 1520,
+      "y": 4231,
+      "w": 1440,
+      "h": 961,
+      "page": "v6",
+      "title": "Edge: Auto unavailable (settings)",
+      "is_interactive": true
+    },
+    "v6-edge-bypass-dialog.dc.html": {
+      "x": 3040,
+      "y": 4231,
+      "w": 1440,
+      "h": 961,
+      "page": "v6",
+      "title": "Edge: Run Everything acceptance dialog",
+      "is_interactive": true
+    },
+    "v6-edge-bypass-disabled.dc.html": {
+      "x": 4560,
+      "y": 4231,
+      "w": 1440,
+      "h": 961,
+      "page": "v6",
+      "title": "Edge: Run Everything disabled by admin",
+      "is_interactive": true
+    },
+    "v6-edge-ask-refused.dc.html": {
+      "x": 6080,
+      "y": 4231,
+      "w": 1440,
+      "h": 930,
+      "page": "v6",
+      "title": "Edge: Ask refuses an edit",
+      "is_interactive": true
+    },
+    "v6-FlowPermissions.dc.html": {
+      "x": 0,
+      "y": 5312,
+      "w": 1360,
+      "h": 1090,
+      "page": "v6",
+      "title": "Permissions flow: from a new chat to Always Run"
+    },
+    "v6-ModeCycle.dc.html": {
+      "x": 1440,
+      "y": 5312,
+      "w": 1240,
+      "h": 705,
+      "page": "v6",
+      "title": "Mode cycle: Agent, Plan, Ask"
+    },
+    "v6-Mapping.dc.html": {
+      "x": 2760,
+      "y": 5312,
+      "w": 1240,
+      "h": 1554,
+      "page": "v6",
+      "title": "Mapping: OmnIDE choice to Claude Code mode and rules"
+    },
+    "v6-EdgeCases.dc.html": {
+      "x": 4080,
+      "y": 5312,
+      "w": 1240,
+      "h": 639,
+      "page": "v6",
+      "title": "Edge cases, with evidence"
+    },
+    "v6-DataModel.dc.html": {
+      "x": 5400,
+      "y": 5312,
+      "w": 1240,
+      "h": 703,
+      "page": "v6",
+      "title": "Data model: what the permissions settings hold"
+    },
+    "v6-SeqAlways.dc.html": {
+      "x": 6720,
+      "y": 5312,
+      "w": 1240,
+      "h": 762,
+      "page": "v6",
+      "title": "Sequence: Always Run"
+    },
+    "v6-PlayAll.dc.html": {
+      "x": 0,
+      "y": 6986,
+      "w": 1240,
+      "h": 648,
+      "page": "v6",
+      "title": "Approve a command, then always run it",
+      "is_interactive": true
+    },
+    "v6-PlayAuto.dc.html": {
+      "x": 1320,
+      "y": 6986,
+      "w": 1240,
+      "h": 510,
+      "page": "v6",
+      "title": "Auto-review is unavailable",
+      "is_interactive": true
+    },
+    "v6-PlayBypass.dc.html": {
+      "x": 2640,
+      "y": 6986,
+      "w": 1240,
+      "h": 510,
+      "page": "v6",
+      "title": "Turn on Run Everything",
+      "is_interactive": true
+    },
+    "v6-PlayAskRefused.dc.html": {
+      "x": 3960,
+      "y": 6986,
+      "w": 1240,
+      "h": 510,
+      "page": "v6",
+      "title": "Ask refuses an edit",
+      "is_interactive": true
+    },
+    "v6-DesignTokens.dc.html": {
+      "x": 5280,
+      "y": 6986,
+      "w": 1240,
+      "h": 1230,
+      "page": "v6",
+      "title": "Design tokens"
+    },
+    "v6-Decisions.dc.html": {
+      "x": 6600,
+      "y": 6986,
+      "w": 1240,
+      "h": 930,
+      "page": "v6",
+      "title": "Decisions"
+    },
+    "v6-Plan.dc.html": {
+      "x": 7920,
+      "y": 6986,
+      "w": 1240,
+      "h": 530,
+      "page": "v6",
+      "title": "Plan: what changes, in order"
+    },
+    "v6-Questions.dc.html": {
+      "x": 9240,
+      "y": 6986,
+      "w": 1240,
+      "h": 550,
+      "page": "v6",
+      "title": "Open questions and risks"
+    },
+    "v6-History.dc.html": {
+      "x": 10560,
+      "y": 6986,
+      "w": 1240,
+      "h": 430,
+      "page": "v6",
+      "title": "History"
     }
   },
   "order": [
+    "v6-History.dc.html",
+    "v6-Questions.dc.html",
+    "v6-Plan.dc.html",
+    "v6-Decisions.dc.html",
+    "v6-DesignTokens.dc.html",
+    "v6-PlayAskRefused.dc.html",
+    "v6-PlayBypass.dc.html",
+    "v6-PlayAuto.dc.html",
+    "v6-PlayAll.dc.html",
+    "v6-SeqAlways.dc.html",
+    "v6-DataModel.dc.html",
+    "v6-EdgeCases.dc.html",
+    "v6-Mapping.dc.html",
+    "v6-ModeCycle.dc.html",
+    "v6-FlowPermissions.dc.html",
+    "v6-edge-ask-refused.dc.html",
+    "v6-edge-bypass-disabled.dc.html",
+    "v6-edge-bypass-dialog.dc.html",
+    "v6-set-auto-unavailable.dc.html",
+    "v6-edge-auto-unavailable.dc.html",
+    "v6-approval-always.dc.html",
+    "v6-approval-skipped.dc.html",
+    "v6-approval-ran.dc.html",
+    "v6-approval-pending.dc.html",
+    "v6-set-allowlist.dc.html",
+    "v6-set-runmode-open-everything.dc.html",
+    "v6-set-runmode-everything.dc.html",
+    "v6-set-runmode-allowlist.dc.html",
+    "v6-set-runmode-open.dc.html",
+    "v6-set-runmode.dc.html",
+    "v6-chat-ask.dc.html",
+    "v6-chat-plan.dc.html",
+    "v6-chat-picker.dc.html",
+    "v6-chat-agent.dc.html",
+    "v6-Main.dc.html",
+    "v6-Progress.dc.html",
     "v5-ArchData.dc.html",
     "v5-ArchLayers.dc.html",
     "v5-ArchSequence.dc.html",

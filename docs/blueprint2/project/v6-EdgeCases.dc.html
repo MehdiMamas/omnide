@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Edge cases, with evidence</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+a{color:#B69CFF}a:hover{color:#F4F2FB}
+table{border-collapse:collapse}
+th{text-align:left;font-weight:600;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:rgba(244, 242, 251, 0.74);padding:8px 10px;border-bottom:1px solid rgba(244, 242, 251, 0.08)}
+td{padding:8px 10px;border-bottom:1px solid rgba(244, 242, 251, 0.08);vertical-align:top}
+</style>
+<style data-omnide-v4>@font-face{font-family:'Geist';src:url(./fonts/Geist-Variable.woff2) format('woff2');font-weight:100 900;font-display:swap}@font-face{font-family:'Geist Mono';src:url(./fonts/GeistMono-Variable.woff2) format('woff2');font-weight:100 900;font-display:swap}</style></helmet>
+<div data-page="v6" data-created="2026-11-26" data-updated="2026-11-26" data-status="current" data-section="flows" style="position:relative;width:1240px;min-height:600px;box-sizing:border-box;padding:40px 48px;background:#14121B;color:#F4F2FB;font-family:'Geist','Segoe UI',system-ui,sans-serif;font-size:14px;line-height:1.5">
+<div style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:rgba(244, 242, 251, 0.74)">Flows · edge cases · v6 · 2026-11-26 · updated 2026-11-26</div><h1 style="margin:6px 0 8px;font-size:30px;font-weight:600">Edge cases, with evidence</h1><p style="margin:0 0 20px;max-width:1000px;color:rgba(244, 242, 251, 0.74)">One row per edge case. Evidence is the screen that shows it and its text. The wording is the proposal; the Claude Code behaviour is from its docs, fetched 2026-11-26, not yet run.</p>
+<table style="width:100%;font-size:13px"><thead><tr><th>#</th><th>What happens</th><th>Evidence</th><th>Way out</th></tr></thead><tbody><tr data-case="1"><td>1</td><td>Auto is unavailable (older Claude Code, unsupported model or provider, admin disabled)</td><td data-evidence="screen"><a href="v6-edge-auto-unavailable.dc.html">v6-edge-auto-unavailable</a><br><span style="color:rgba(244, 242, 251, 0.74)">Chat shows: "Auto-review isn't available here, so Allowlist is on." Settings shows the same reason under Run Mode.</span></td><td>Falls back to Allowlist; nothing runs unasked. Pick a supported model to switch back.</td></tr><tr data-case="2"><td>2</td><td>First time Run Everything is chosen</td><td data-evidence="screen"><a href="v6-edge-bypass-dialog.dc.html">v6-edge-bypass-dialog</a><br><span style="color:rgba(244, 242, 251, 0.74)">Dialog: "Run Everything skips every approval", with Cancel and "I accept the risk". Claude Code writes skipDangerousModePermissionPrompt on accept (docs, 2026-11-26).</span></td><td>Cancel keeps the old Run Mode.</td></tr><tr data-case="3"><td>3</td><td>Admin disabled Run Everything</td><td data-evidence="screen"><a href="v6-edge-bypass-disabled.dc.html">v6-edge-bypass-disabled</a><br><span style="color:rgba(244, 242, 251, 0.74)">The dropdown row is greyed with "Disabled by your administrator" and cannot be picked.</span></td><td>Ask the admin; permissions.disableBypassPermissionsMode is set in managed settings.</td></tr><tr data-case="4"><td>4</td><td>Claude tries to edit in Ask mode</td><td data-evidence="screen"><a href="v6-edge-ask-refused.dc.html">v6-edge-ask-refused</a><br><span style="color:rgba(244, 242, 251, 0.74)">Card: "Edit refused. Ask mode answers only." The file is untouched.</span></td><td>Switch to Agent from the card, or keep asking.</td></tr><tr data-case="5"><td>5</td><td>Approval card skipped</td><td data-evidence="screen"><a href="v6-approval-skipped.dc.html">v6-approval-skipped</a><br><span style="color:rgba(244, 242, 251, 0.74)">Card reads "Skipped"; Claude is told and can try another way.</span></td><td>Ask again, or switch Run Mode.</td></tr></tbody></table>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1240,"height":639}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>
