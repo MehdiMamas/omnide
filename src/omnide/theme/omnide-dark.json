@@ -1,0 +1,16 @@
+{
+  "name": "OmnIDE Dark",
+  "type": "dark",
+  "colors": {
+    "editor.background": "#14121B",
+    "sideBar.background": "#1A1823",
+    "activityBar.background": "#0E0C14",
+    "titleBar.activeBackground": "#0E0C14",
+    "panel.background": "#14121B",
+    "input.background": "#221F2C",
+    "list.hoverBackground": "#2C2938",
+    "editor.foreground": "#F4F2FB",
+    "descriptionForeground": "#8E89A3"
+  },
+  "_note": "Generated from docs/blueprint/tokens.json; starter set, extend in build step 1"
+}

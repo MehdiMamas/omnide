@@ -1,0 +1,82 @@
+[
+ {
+  "file": "v3-agent-Component.dc.html",
+  "w": 1240,
+  "h": 760
+ },
+ {
+  "file": "v3-agent-Sequence.dc.html",
+  "w": 1240,
+  "h": 1260
+ },
+ {
+  "file": "v3-agent-States.dc.html",
+  "w": 1240,
+  "h": 760
+ },
+ {
+  "file": "v3-agent-Mapping.dc.html",
+  "w": 1240,
+  "h": 1250
+ },
+ {
+  "file": "v3-agent-Registry.dc.html",
+  "w": 1240,
+  "h": 900
+ },
+ {
+  "file": "v3-DesignTokens.dc.html",
+  "w": 1240,
+  "h": 1200
+ },
+ {
+  "file": "v3-DesignSpec.dc.html",
+  "w": 1240,
+  "h": 1700
+ },
+ {
+  "file": "v3-omni-Brand.dc.html",
+  "w": 1240,
+  "h": 1500
+ },
+ {
+  "file": "v3-Plan.dc.html",
+  "w": 1240,
+  "h": 2100
+ },
+ {
+  "file": "v3-omni-Changes.dc.html",
+  "w": 1240,
+  "h": 900
+ },
+ {
+  "file": "v3-Progress.dc.html",
+  "w": 1240,
+  "h": 620
+ },
+ {
+  "file": "v3-History.dc.html",
+  "w": 1240,
+  "h": 640
+ },
+ {
+  "file": "v3-ArchLayers.dc.html",
+  "w": 1240,
+  "h": 760
+ },
+ {
+  "file": "v3-PlayClaudeSession.dc.html",
+  "w": 1240,
+  "h": 760
+ },
+ {
+  "file": "v3-PlayClaudeSetupEdge.dc.html",
+  "w": 1240,
+  "h": 560
+ },
+ {
+  "file": "v3-PlayClaudeError.dc.html",
+  "w": 1240,
+  "h": 560
+ }
+]

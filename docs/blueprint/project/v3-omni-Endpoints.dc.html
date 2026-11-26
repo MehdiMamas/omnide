@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Endpoints</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+a{color:#B69CFF}a:hover{color:#F4F2FB}
+table{border-collapse:collapse}
+th{text-align:left;font-weight:600;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:rgba(244, 242, 251, 0.74);padding:8px 10px;border-bottom:1px solid rgba(244, 242, 251, 0.08)}
+td{padding:8px 10px;border-bottom:1px solid rgba(244, 242, 251, 0.08);vertical-align:top}
+</style>
+<style data-omnide-v3>@font-face{font-family:'Geist';src:url(./fonts/Geist-Variable.woff2) format('woff2');font-weight:100 900;font-display:swap}@font-face{font-family:'Geist Mono';src:url(./fonts/GeistMono-Variable.woff2) format('woff2');font-weight:100 900;font-display:swap}</style></helmet>
+<div data-page="v3" data-created="2026-11-26" data-updated="2026-11-26" data-status="current" data-section="architecture" style="position:relative;width:1240px;min-height:900px;box-sizing:border-box;padding:40px 48px;background:#14121B;color:#F4F2FB;font-family:'Geist','Segoe UI',system-ui,sans-serif;font-size:14px;line-height:1.5">
+<div style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:rgba(244, 242, 251, 0.74)">Architecture · endpoints · v3 · 2026-11-26 · updated 2026-11-26</div><h1 style="margin:6px 0 8px;font-size:30px;font-weight:600">Endpoints and ACP methods</h1><p style="margin:0 0 20px;max-width:1000px;color:rgba(244, 242, 251, 0.74)">OmnIDE has no server. These are the ACP JSON-RPC methods between the agent panel and the adapter, and the static files the app fetches. Source: the ACP overview and schema at agentclientprotocol.com, and VSCodium's prepare_vscode.sh.</p><table style="width:100%;font-size:13px"><thead><tr><th>Method / path</th><th>Called when</th><th>Screen</th></tr></thead><tbody><tr data-endpoint="GET /registry/v1/latest/registry.json" data-called-when="Opening the agent picker (cached a day)"><td>GET cdn.agentclientprotocol.com/registry/v1/latest/registry.json</td><td>Opening the agent picker (cached a day)</td><td><a href="v3-omni-agent-picker.dc.html">Agent picker</a></td></tr><tr data-endpoint="RPC /initialize" data-called-when="Clicking Use Claude Code or Check again"><td>RPC initialize</td><td>Clicking Use Claude Code or Check again</td><td><a href="v3-omni-claude-missing.dc.html">Claude Code missing</a></td></tr><tr data-endpoint="RPC /authenticate" data-called-when="session/new answers &quot;auth required&quot;"><td>RPC authenticate</td><td>session/new answers "auth required"</td><td><a href="v3-ide-01-onboarding-login.dc.html">Sign in to Claude Code</a></td></tr><tr data-endpoint="RPC /session/new" data-called-when="The panel opens or New chat"><td>RPC session/new</td><td>The panel opens or New chat</td><td><a href="v3-st-01-signed-out-composer.dc.html">Composer</a></td></tr><tr data-endpoint="RPC /session/prompt" data-called-when="Enter on a non-empty prompt"><td>RPC session/prompt</td><td>Enter on a non-empty prompt</td><td><a href="v3-chat-typed.dc.html">Prompt typed</a></td></tr><tr data-endpoint="RPC /session/request_permission" data-called-when="Claude wants to edit or run something"><td>RPC session/request_permission</td><td>Claude wants to edit or run something</td><td><a href="v3-omni-permission-ask.dc.html">Permission ask</a></td></tr><tr data-endpoint="RPC /fs/write_text_file" data-called-when="After Allow"><td>RPC fs/write_text_file</td><td>After Allow</td><td><a href="v3-omni-permission-ask.dc.html">Permission ask</a></td></tr><tr data-endpoint="GET /versions/latest.json" data-called-when="On start and on a timer"><td>GET raw.githubusercontent.com/&lt;versions repo&gt;/latest.json</td><td>On start and on a timer</td><td><a href="v3-omni-update-ready.dc.html">Update ready</a></td></tr><tr data-endpoint="GET /releases/download/asset" data-called-when="A newer version is found"><td>GET GitHub Releases asset</td><td>A newer version is found</td><td><a href="v3-omni-update-failed.dc.html">Update failed</a></td></tr></tbody></table>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1240,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

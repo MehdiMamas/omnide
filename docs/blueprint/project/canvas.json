@@ -7,12 +7,16 @@
  "title": "OmnIDE blueprint",
  "launch": {
   "view": "canvas",
-  "page": "v2"
+  "page": "v3"
  },
  "pages": [
   {
+   "id": "v3",
+   "name": "v3 · 2026-11-26"
+  },
+  {
    "id": "v2",
-   "name": "v2 · 2026-11-26"
+   "name": "v2 · 2026-11-26 · superseded"
   },
   {
    "id": "v1",
@@ -20,6 +24,2632 @@
   }
  ],
  "boards": {
+  "v3-ArchData.dc.html": {
+   "x": 21640,
+   "y": 0,
+   "w": 1240,
+   "h": 620,
+   "page": "v3",
+   "title": "Data (er)"
+  },
+  "v3-ArchLayers.dc.html": {
+   "x": 44280,
+   "y": 0,
+   "w": 1240,
+   "h": 760,
+   "page": "v3",
+   "title": "Code OSS layers"
+  },
+  "v3-ArchSequence.dc.html": {
+   "x": 22960,
+   "y": 0,
+   "w": 1240,
+   "h": 640,
+   "page": "v3",
+   "title": "Agent turn (sequence)"
+  },
+  "v3-Architecture.dc.html": {
+   "x": 20320,
+   "y": 0,
+   "w": 1240,
+   "h": 800,
+   "page": "v3",
+   "title": "Architecture"
+  },
+  "v3-Decisions.dc.html": {
+   "x": 24280,
+   "y": 0,
+   "w": 1240,
+   "h": 1500,
+   "page": "v3",
+   "title": "Decisions"
+  },
+  "v3-Deploy.dc.html": {
+   "x": 26920,
+   "y": 0,
+   "w": 1240,
+   "h": 720,
+   "page": "v3",
+   "title": "Deploy"
+  },
+  "v3-DesignSpec.dc.html": {
+   "x": 19000,
+   "y": 0,
+   "w": 1240,
+   "h": 1700,
+   "page": "v3",
+   "title": "Design direction"
+  },
+  "v3-DesignTokens.dc.html": {
+   "x": 17680,
+   "y": 0,
+   "w": 1240,
+   "h": 1200,
+   "page": "v3",
+   "title": "Design tokens"
+  },
+  "v3-EdgeAccount.dc.html": {
+   "x": 13520,
+   "y": 0,
+   "w": 1240,
+   "h": 550,
+   "page": "v3",
+   "title": "Edge: signed out or on the Free plan",
+   "is_interactive": true
+  },
+  "v3-EdgeCases.dc.html": {
+   "x": 5600,
+   "y": 0,
+   "w": 1240,
+   "h": 900,
+   "page": "v3",
+   "title": "Edge cases"
+  },
+  "v3-EdgeFailures.dc.html": {
+   "x": 14840,
+   "y": 0,
+   "w": 1240,
+   "h": 446,
+   "page": "v3",
+   "title": "Error: the agent or a file fails",
+   "is_interactive": true
+  },
+  "v3-Features.dc.html": {
+   "x": 16160,
+   "y": 0,
+   "w": 1440,
+   "h": 1700,
+   "page": "v3",
+   "title": "Feature inventory"
+  },
+  "v3-FlowChat.dc.html": {
+   "x": 41440,
+   "y": 0,
+   "w": 1240,
+   "h": 820,
+   "page": "v3",
+   "title": "Agent turn states (v2)"
+  },
+  "v3-FlowMain.dc.html": {
+   "x": 2840,
+   "y": 0,
+   "w": 1360,
+   "h": 800,
+   "page": "v3",
+   "title": "Main flow"
+  },
+  "v3-FlowStates.dc.html": {
+   "x": 4280,
+   "y": 0,
+   "w": 1240,
+   "h": 620,
+   "page": "v3",
+   "title": "Agent turn states"
+  },
+  "v3-History.dc.html": {
+   "x": 29560,
+   "y": 0,
+   "w": 1240,
+   "h": 640,
+   "page": "v3",
+   "title": "History"
+  },
+  "v3-Main.dc.html": {
+   "x": 0,
+   "y": 0,
+   "w": 1440,
+   "h": 2300,
+   "page": "v3",
+   "title": "Start here"
+  },
+  "v3-Plan.dc.html": {
+   "x": 25600,
+   "y": 0,
+   "w": 1240,
+   "h": 2100,
+   "page": "v3",
+   "title": "Plan"
+  },
+  "v3-PlayAgent.dc.html": {
+   "x": 8240,
+   "y": 0,
+   "w": 1240,
+   "h": 890,
+   "page": "v3",
+   "title": "Ask the agent and keep its change",
+   "is_interactive": true
+  },
+  "v3-PlayChat.dc.html": {
+   "x": 30880,
+   "y": 0,
+   "w": 1240,
+   "h": 1204,
+   "page": "v3",
+   "title": "Ask the agent, review, keep and commit",
+   "is_interactive": true
+  },
+  "v3-PlayChatError.dc.html": {
+   "x": 33520,
+   "y": 0,
+   "w": 1240,
+   "h": 664,
+   "page": "v3",
+   "title": "A command fails and the agent retries",
+   "is_interactive": true
+  },
+  "v3-PlayClaudeError.dc.html": {
+   "x": 0,
+   "y": 42651,
+   "w": 1240,
+   "h": 560,
+   "title": "PlayClaudeError",
+   "page": "v3",
+   "is_interactive": true
+  },
+  "v3-PlayClaudeSession.dc.html": {
+   "x": 1340,
+   "y": 42651,
+   "w": 1240,
+   "h": 760,
+   "title": "PlayClaudeSession",
+   "page": "v3",
+   "is_interactive": true
+  },
+  "v3-PlayClaudeSetupEdge.dc.html": {
+   "x": 2680,
+   "y": 42651,
+   "w": 1240,
+   "h": 560,
+   "title": "PlayClaudeSetupEdge",
+   "page": "v3",
+   "is_interactive": true
+  },
+  "v3-PlayCode.dc.html": {
+   "x": 6920,
+   "y": 0,
+   "w": 1240,
+   "h": 954,
+   "page": "v3",
+   "title": "Read and change code by hand",
+   "is_interactive": true
+  },
+  "v3-PlayCustomize.dc.html": {
+   "x": 37480,
+   "y": 0,
+   "w": 1240,
+   "h": 768,
+   "page": "v3",
+   "title": "Customize the agent",
+   "is_interactive": true
+  },
+  "v3-PlayInline.dc.html": {
+   "x": 9560,
+   "y": 0,
+   "w": 1240,
+   "h": 416,
+   "page": "v3",
+   "title": "Work from the editor: selection, Tab, inline diff",
+   "is_interactive": true
+  },
+  "v3-PlayLight.dc.html": {
+   "x": 12200,
+   "y": 0,
+   "w": 1240,
+   "h": 764,
+   "page": "v3",
+   "title": "The same loop in the light theme",
+   "is_interactive": true
+  },
+  "v3-PlayLimit.dc.html": {
+   "x": 34840,
+   "y": 0,
+   "w": 1240,
+   "h": 456,
+   "page": "v3",
+   "title": "Free usage limit reached",
+   "is_interactive": true
+  },
+  "v3-PlayPermission.dc.html": {
+   "x": 0,
+   "y": 41711,
+   "w": 1240,
+   "h": 560,
+   "page": "v3",
+   "title": "Deny an edit",
+   "is_interactive": true
+  },
+  "v3-PlayRestore.dc.html": {
+   "x": 36160,
+   "y": 0,
+   "w": 1240,
+   "h": 456,
+   "page": "v3",
+   "title": "Restore a checkpoint, then cancel",
+   "is_interactive": true
+  },
+  "v3-PlaySettings.dc.html": {
+   "x": 10880,
+   "y": 0,
+   "w": 1240,
+   "h": 660,
+   "page": "v3",
+   "title": "Tune OmnIDE in Settings",
+   "is_interactive": true
+  },
+  "v3-PlaySettings2.dc.html": {
+   "x": 38800,
+   "y": 0,
+   "w": 1240,
+   "h": 1210,
+   "page": "v3",
+   "title": "Every OmnIDE Settings page",
+   "is_interactive": true
+  },
+  "v3-PlaySettingsEdge.dc.html": {
+   "x": 40120,
+   "y": 0,
+   "w": 1240,
+   "h": 456,
+   "page": "v3",
+   "title": "Settings that lead out or fail",
+   "is_interactive": true
+  },
+  "v3-PlaySetup.dc.html": {
+   "x": 3900,
+   "y": 40731,
+   "w": 1240,
+   "h": 560,
+   "page": "v3",
+   "title": "First run: set up Claude Code",
+   "is_interactive": true
+  },
+  "v3-PlaySteer.dc.html": {
+   "x": 32200,
+   "y": 0,
+   "w": 1240,
+   "h": 508,
+   "page": "v3",
+   "title": "Steer an agent while it runs",
+   "is_interactive": true
+  },
+  "v3-PlayUpdate.dc.html": {
+   "x": 1300,
+   "y": 41711,
+   "w": 1240,
+   "h": 560,
+   "page": "v3",
+   "title": "A bad update is refused",
+   "is_interactive": true
+  },
+  "v3-Progress.dc.html": {
+   "x": 1520,
+   "y": 0,
+   "w": 1240,
+   "h": 620,
+   "page": "v3",
+   "title": "Progress"
+  },
+  "v3-Questions.dc.html": {
+   "x": 28240,
+   "y": 0,
+   "w": 1240,
+   "h": 760,
+   "page": "v3",
+   "title": "Questions"
+  },
+  "v3-SettingsInventory.dc.html": {
+   "x": 42760,
+   "y": 0,
+   "w": 1440,
+   "h": 5454,
+   "page": "v3",
+   "title": "Settings inventory"
+  },
+  "v3-agent-Component.dc.html": {
+   "x": 4020,
+   "y": 42651,
+   "w": 1240,
+   "h": 760,
+   "title": "agent-Component",
+   "page": "v3",
+   "is_interactive": false
+  },
+  "v3-agent-Mapping.dc.html": {
+   "x": 5360,
+   "y": 42651,
+   "w": 1240,
+   "h": 1250,
+   "title": "agent-Mapping",
+   "page": "v3",
+   "is_interactive": false
+  },
+  "v3-agent-Registry.dc.html": {
+   "x": 6700,
+   "y": 42651,
+   "w": 1240,
+   "h": 900,
+   "title": "agent-Registry",
+   "page": "v3",
+   "is_interactive": false
+  },
+  "v3-agent-Sequence.dc.html": {
+   "x": 0,
+   "y": 44351,
+   "w": 1240,
+   "h": 1260,
+   "title": "agent-Sequence",
+   "page": "v3",
+   "is_interactive": false
+  },
+  "v3-agent-States.dc.html": {
+   "x": 1340,
+   "y": 44351,
+   "w": 1240,
+   "h": 760,
+   "title": "agent-States",
+   "page": "v3",
+   "is_interactive": false
+  },
+  "v3-ai-01-agent-mode-picker.dc.html": {
+   "x": 0,
+   "y": 2400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ai-01-agent-mode-picker · agent mode picker",
+   "is_interactive": true
+  },
+  "v3-ai-02-model-popover.dc.html": {
+   "x": 0,
+   "y": 3400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ai-02-model-popover · model popover",
+   "is_interactive": true
+  },
+  "v3-ai-08-composer-at-mention-menu.dc.html": {
+   "x": 1520,
+   "y": 2400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ai-08-composer-at-mention-menu · composer at mention menu",
+   "is_interactive": true
+  },
+  "v3-ai-09-composer-at-mention-filtered.dc.html": {
+   "x": 3040,
+   "y": 2400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ai-09-composer-at-mention-filtered · composer at mention filtered",
+   "is_interactive": true
+  },
+  "v3-ai-10-composer-slash-menu.dc.html": {
+   "x": 4560,
+   "y": 2400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ai-10-composer-slash-menu · composer slash menu",
+   "is_interactive": true
+  },
+  "v3-ai-11-agent-pane-overflow-menu.dc.html": {
+   "x": 6080,
+   "y": 2400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ai-11-agent-pane-overflow-menu · agent pane overflow menu",
+   "is_interactive": true
+  },
+  "v3-ai-12-composer-typed-prompt.dc.html": {
+   "x": 7600,
+   "y": 2400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ai-12-composer-typed-prompt · composer typed prompt",
+   "is_interactive": true
+  },
+  "v3-ai-13-agent-turn-starting.dc.html": {
+   "x": 0,
+   "y": 4400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ai-13-agent-turn-starting · agent turn starting",
+   "is_interactive": true
+  },
+  "v3-ai-14-agent-turn-streaming.dc.html": {
+   "x": 1520,
+   "y": 4400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ai-14-agent-turn-streaming · agent turn streaming",
+   "is_interactive": true
+  },
+  "v3-ai-15-agent-turn-tools.dc.html": {
+   "x": 3040,
+   "y": 4400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ai-15-agent-turn-tools · agent turn tools",
+   "is_interactive": true
+  },
+  "v3-ai-16-agent-turn-done-inline-diff.dc.html": {
+   "x": 0,
+   "y": 5400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ai-16-agent-turn-done-inline-diff · agent turn done inline diff",
+   "is_interactive": true
+  },
+  "v3-ai-17-changed-files-expanded.dc.html": {
+   "x": 4560,
+   "y": 4400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ai-17-changed-files-expanded · changed files expanded",
+   "is_interactive": true
+  },
+  "v3-ai-18-agent-changes-accepted.dc.html": {
+   "x": 6080,
+   "y": 4400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ai-18-agent-changes-accepted · agent changes accepted",
+   "is_interactive": true
+  },
+  "v3-ai-19-review-editor.dc.html": {
+   "x": 7600,
+   "y": 4400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ai-19-review-editor · review editor",
+   "is_interactive": true
+  },
+  "v3-ai-20-plan-mode-composer.dc.html": {
+   "x": 0,
+   "y": 6400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ai-20-plan-mode-composer · plan mode composer",
+   "is_interactive": true
+  },
+  "v3-ai-21-plan-mode-streaming.dc.html": {
+   "x": 1520,
+   "y": 6400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ai-21-plan-mode-streaming · plan mode streaming",
+   "is_interactive": true
+  },
+  "v3-ai-22-plan-artifact-editor.dc.html": {
+   "x": 3040,
+   "y": 6400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ai-22-plan-artifact-editor · plan artifact editor",
+   "is_interactive": true
+  },
+  "v3-ai-23-plan-build-dropdown.dc.html": {
+   "x": 4560,
+   "y": 6400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ai-23-plan-build-dropdown · plan build dropdown",
+   "is_interactive": true
+  },
+  "v3-ai-24-ask-mode-streaming.dc.html": {
+   "x": 0,
+   "y": 7400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ai-24-ask-mode-streaming · ask mode streaming",
+   "is_interactive": true
+  },
+  "v3-ai-25-ask-mode-answer.dc.html": {
+   "x": 1520,
+   "y": 7400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ai-25-ask-mode-answer · ask mode answer",
+   "is_interactive": true
+  },
+  "v3-ai-26-editor-selection-toolbar.dc.html": {
+   "x": 1520,
+   "y": 5400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ai-26-editor-selection-toolbar · editor selection toolbar",
+   "is_interactive": true
+  },
+  "v3-ai-34-tab-ghost-text-completion.dc.html": {
+   "x": 0,
+   "y": 8400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ai-34-tab-ghost-text-completion · tab ghost text completion",
+   "is_interactive": true
+  },
+  "v3-ai-36-debug-mode-composer.dc.html": {
+   "x": 0,
+   "y": 19400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ai-36-debug-mode-composer · debug mode composer",
+   "is_interactive": true
+  },
+  "v3-ai-37-debug-mode-streaming.dc.html": {
+   "x": 1520,
+   "y": 19400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ai-37-debug-mode-streaming · debug mode streaming",
+   "is_interactive": true
+  },
+  "v3-ai-38-debug-mode-answer.dc.html": {
+   "x": 3040,
+   "y": 19400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ai-38-debug-mode-answer · debug mode answer",
+   "is_interactive": true
+  },
+  "v3-ai-40-tool-card-read-search.dc.html": {
+   "x": 9120,
+   "y": 4400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ai-40-tool-card-read-search · tool card read search",
+   "is_interactive": true
+  },
+  "v3-ai-41-tool-card-collapsed-expanded.dc.html": {
+   "x": 10640,
+   "y": 4400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ai-41-tool-card-collapsed-expanded · tool card collapsed expanded",
+   "is_interactive": true
+  },
+  "v3-ai-43-checkpoint-restore.dc.html": {
+   "x": 12160,
+   "y": 4400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ai-43-checkpoint-restore · checkpoint restore",
+   "is_interactive": true
+  },
+  "v3-ai-44-chat-history-list.dc.html": {
+   "x": 13680,
+   "y": 4400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ai-44-chat-history-list · chat history list",
+   "is_interactive": true
+  },
+  "v3-ai-48-stop-generation.dc.html": {
+   "x": 15200,
+   "y": 4400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ai-48-stop-generation · stop generation",
+   "is_interactive": true
+  },
+  "v3-btn-agents-allowlist-options.dc.html": {
+   "x": 0,
+   "y": 22400,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-btn-agents-allowlist-options · Allowlist Options expanded",
+   "is_interactive": true
+  },
+  "v3-btn-browser-and-network-run-diagnostic.dc.html": {
+   "x": 0,
+   "y": 23440,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-btn-browser-and-network-run-diagnostic · network diagnostic running",
+   "is_interactive": true
+  },
+  "v3-btn-browser-and-network-show.dc.html": {
+   "x": 1520,
+   "y": 23440,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-btn-browser-and-network-show · required domains shown",
+   "is_interactive": true
+  },
+  "v3-btn-code-intelligence-edit.dc.html": {
+   "x": 0,
+   "y": 24480,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-btn-code-intelligence-edit · .cursorignore opened in the editor",
+   "is_interactive": true
+  },
+  "v3-btn-code-intelligence-view-included-files.dc.html": {
+   "x": 1520,
+   "y": 24480,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-btn-code-intelligence-view-included-files · error",
+   "is_interactive": true
+  },
+  "v3-btn-general-account.dc.html": {
+   "x": 0,
+   "y": 25520,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-btn-general-account · Account Open (opens the web dashboard outside the IDE)",
+   "is_interactive": true
+  },
+  "v3-btn-general-reset.dc.html": {
+   "x": 1520,
+   "y": 25520,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-btn-general-reset · hidden dialogs list shown",
+   "is_interactive": true
+  },
+  "v3-chat-agents-sidebar.dc.html": {
+   "x": 0,
+   "y": 26560,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-chat-agents-sidebar · New Agent, Search, Automations, Customize",
+   "is_interactive": true
+  },
+  "v3-chat-approval-1.dc.html": {
+   "x": 1520,
+   "y": 26560,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-chat-approval-1 · error",
+   "is_interactive": true
+  },
+  "v3-chat-approval-2.dc.html": {
+   "x": 3040,
+   "y": 26560,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-chat-approval-2 · error",
+   "is_interactive": true
+  },
+  "v3-chat-at-menu.dc.html": {
+   "x": 4560,
+   "y": 26560,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-chat-at-menu · @ menu open",
+   "is_interactive": true
+  },
+  "v3-chat-at-terminals.dc.html": {
+   "x": 6080,
+   "y": 26560,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-chat-at-terminals · @ Terminals submenu",
+   "is_interactive": true
+  },
+  "v3-chat-files-expanded.dc.html": {
+   "x": 7600,
+   "y": 26560,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-chat-files-expanded · changed files expanded",
+   "is_interactive": true
+  },
+  "v3-chat-history.dc.html": {
+   "x": 9120,
+   "y": 26560,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-chat-history · Search agents, Today, Archived",
+   "is_interactive": true
+  },
+  "v3-chat-kept.dc.html": {
+   "x": 10640,
+   "y": 26560,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-chat-kept · changes kept",
+   "is_interactive": true
+  },
+  "v3-chat-mode-menu.dc.html": {
+   "x": 12160,
+   "y": 26560,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-chat-mode-menu · mode menu open (Agent, Plan, Debug, Multitask, Ask)",
+   "is_interactive": true
+  },
+  "v3-chat-model-menu.dc.html": {
+   "x": 13680,
+   "y": 26560,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-chat-model-menu · model menu open, Free plan locked",
+   "is_interactive": true
+  },
+  "v3-chat-more-actions.dc.html": {
+   "x": 15200,
+   "y": 26560,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-chat-more-actions · More Actions menu open",
+   "is_interactive": true
+  },
+  "v3-chat-new-agent.dc.html": {
+   "x": 16720,
+   "y": 26560,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-chat-new-agent · new agent, second chat tab",
+   "is_interactive": true
+  },
+  "v3-chat-plan-mode.dc.html": {
+   "x": 18240,
+   "y": 26560,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-chat-plan-mode · Plan mode selected",
+   "is_interactive": true
+  },
+  "v3-chat-restore-cancelled.dc.html": {
+   "x": 19760,
+   "y": 26560,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-chat-restore-cancelled · restore cancelled",
+   "is_interactive": true
+  },
+  "v3-chat-restore-confirm.dc.html": {
+   "x": 21280,
+   "y": 26560,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-chat-restore-confirm · restore checkpoint dialog",
+   "is_interactive": true
+  },
+  "v3-chat-review.dc.html": {
+   "x": 22800,
+   "y": 26560,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-chat-review · All Changes, 1 pending",
+   "is_interactive": true
+  },
+  "v3-chat-run1-1.dc.html": {
+   "x": 0,
+   "y": 27600,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-chat-run1-1 · run 1: sent",
+   "is_interactive": true
+  },
+  "v3-chat-run1-2.dc.html": {
+   "x": 1520,
+   "y": 27600,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-chat-run1-2 · run 1: thinking",
+   "is_interactive": true
+  },
+  "v3-chat-run1-3.dc.html": {
+   "x": 3040,
+   "y": 27600,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-chat-run1-3 · run 1: terminal card running",
+   "is_interactive": true
+  },
+  "v3-chat-run1-4.dc.html": {
+   "x": 4560,
+   "y": 27600,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-chat-run1-4 · run 1: terminal output 42",
+   "is_interactive": true
+  },
+  "v3-chat-run1-5.dc.html": {
+   "x": 6080,
+   "y": 27600,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-chat-run1-5 · run 1: file edit card",
+   "is_interactive": true
+  },
+  "v3-chat-run1-6.dc.html": {
+   "x": 7600,
+   "y": 27600,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-chat-run1-6 · run 1: done, Undo / Keep / Review bar",
+   "is_interactive": true
+  },
+  "v3-chat-run2-1.dc.html": {
+   "x": 9120,
+   "y": 27600,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-chat-run2-1 · run 2: sent",
+   "is_interactive": true
+  },
+  "v3-chat-run2-2.dc.html": {
+   "x": 10640,
+   "y": 27600,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-chat-run2-2 · run 2: thinking",
+   "is_interactive": true
+  },
+  "v3-chat-run2-3.dc.html": {
+   "x": 12160,
+   "y": 27600,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-chat-run2-3 · error",
+   "is_interactive": true
+  },
+  "v3-chat-run2-4.dc.html": {
+   "x": 13680,
+   "y": 27600,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-chat-run2-4 · run 2: planning next moves",
+   "is_interactive": true
+  },
+  "v3-chat-run2-5.dc.html": {
+   "x": 15200,
+   "y": 27600,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-chat-run2-5 · run 2: retry running",
+   "is_interactive": true
+  },
+  "v3-chat-run2-6.dc.html": {
+   "x": 16720,
+   "y": 27600,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-chat-run2-6 · run 2: retry output",
+   "is_interactive": true
+  },
+  "v3-chat-run2-7.dc.html": {
+   "x": 18240,
+   "y": 27600,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-chat-run2-7 · run 2: answer",
+   "is_interactive": true
+  },
+  "v3-chat-run2-followup-typed.dc.html": {
+   "x": 19760,
+   "y": 27600,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-chat-run2-followup-typed · follow-up typed while running",
+   "is_interactive": true
+  },
+  "v3-chat-run2-steer-1.dc.html": {
+   "x": 21280,
+   "y": 27600,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-chat-run2-steer-1 · steer sent, 1 background terminal",
+   "is_interactive": true
+  },
+  "v3-chat-run2-steer-2.dc.html": {
+   "x": 22800,
+   "y": 27600,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-chat-run2-steer-2 · steer answered, exit codes",
+   "is_interactive": true
+  },
+  "v3-chat-slash-menu.dc.html": {
+   "x": 0,
+   "y": 28640,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-chat-slash-menu · / menu open (skills)",
+   "is_interactive": true
+  },
+  "v3-chat-typed.dc.html": {
+   "x": 1520,
+   "y": 28640,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-chat-typed · prompt typed",
+   "is_interactive": true
+  },
+  "v3-chat-worked-expanded.dc.html": {
+   "x": 3040,
+   "y": 28640,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-chat-worked-expanded · finished turn in the Agent window layout",
+   "is_interactive": true
+  },
+  "v3-customize-commands.dc.html": {
+   "x": 0,
+   "y": 29680,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-customize-commands · Commands tab",
+   "is_interactive": true
+  },
+  "v3-customize-hooks.dc.html": {
+   "x": 1520,
+   "y": 29680,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-customize-hooks · Hooks tab",
+   "is_interactive": true
+  },
+  "v3-customize-marketplace.dc.html": {
+   "x": 3040,
+   "y": 29680,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-customize-marketplace · Marketplace tab",
+   "is_interactive": true
+  },
+  "v3-customize-mcps.dc.html": {
+   "x": 4560,
+   "y": 29680,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-customize-mcps · Mcps tab",
+   "is_interactive": true
+  },
+  "v3-customize-plugins-1.dc.html": {
+   "x": 6080,
+   "y": 29680,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-customize-plugins-1 · Plugins tab",
+   "is_interactive": true
+  },
+  "v3-customize-rules.dc.html": {
+   "x": 7600,
+   "y": 29680,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-customize-rules · Rules tab",
+   "is_interactive": true
+  },
+  "v3-customize-skills.dc.html": {
+   "x": 9120,
+   "y": 29680,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-customize-skills · Skills tab",
+   "is_interactive": true
+  },
+  "v3-customize-subagents.dc.html": {
+   "x": 10640,
+   "y": 29680,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-customize-subagents · Subagents tab",
+   "is_interactive": true
+  },
+  "v3-dd-agents-auto-review.dc.html": {
+   "x": 1520,
+   "y": 22400,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-dd-agents-auto-review · Auto-Review dropdown open",
+   "is_interactive": true
+  },
+  "v3-dd-agents-cursor-default.dc.html": {
+   "x": 3040,
+   "y": 22400,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-dd-agents-cursor-default · OmnIDE Default dropdown open",
+   "is_interactive": true
+  },
+  "v3-dd-agents-default.dc.html": {
+   "x": 4560,
+   "y": 22400,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-dd-agents-default · Default dropdown open",
+   "is_interactive": true
+  },
+  "v3-dd-agents-manually-sent-messages-from-queue.dc.html": {
+   "x": 6080,
+   "y": 22400,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-dd-agents-manually-sent-messages-from-queue · Manually Sent Messages from Queue dropdown open",
+   "is_interactive": true
+  },
+  "v3-dd-agents-new-messages.dc.html": {
+   "x": 7600,
+   "y": 22400,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-dd-agents-new-messages · New Messages dropdown open",
+   "is_interactive": true
+  },
+  "v3-dd-agents-system.dc.html": {
+   "x": 9120,
+   "y": 22400,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-dd-agents-system · System dropdown open",
+   "is_interactive": true
+  },
+  "v3-dd-beta-update-access.dc.html": {
+   "x": 0,
+   "y": 30720,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-dd-beta-update-access · Update Access dropdown open",
+   "is_interactive": true
+  },
+  "v3-dd-browser-and-network-browser-mode.dc.html": {
+   "x": 3040,
+   "y": 23440,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-dd-browser-and-network-browser-mode · Browser Mode dropdown open",
+   "is_interactive": true
+  },
+  "v3-dd-browser-and-network-http-compatibility-mode.dc.html": {
+   "x": 4560,
+   "y": 23440,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-dd-browser-and-network-http-compatibility-mode · HTTP Compatibility Mode dropdown open",
+   "is_interactive": true
+  },
+  "v3-dd-general-conversation-density.dc.html": {
+   "x": 3040,
+   "y": 25520,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-dd-general-conversation-density · Conversation Density dropdown open",
+   "is_interactive": true
+  },
+  "v3-dd-general-privacy-mode.dc.html": {
+   "x": 4560,
+   "y": 25520,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-dd-general-privacy-mode · Privacy Mode dropdown open",
+   "is_interactive": true
+  },
+  "v3-dd-general-review-control-location.dc.html": {
+   "x": 6080,
+   "y": 25520,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-dd-general-review-control-location · Review Control Location dropdown open",
+   "is_interactive": true
+  },
+  "v3-dd-general-window-layout.dc.html": {
+   "x": 7600,
+   "y": 25520,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-dd-general-window-layout · Window Layout dropdown open",
+   "is_interactive": true
+  },
+  "v3-dd-general-window-restoration.dc.html": {
+   "x": 9120,
+   "y": 25520,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-dd-general-window-restoration · Window Restoration dropdown open",
+   "is_interactive": true
+  },
+  "v3-dd-models-coordinator-effort.dc.html": {
+   "x": 0,
+   "y": 31760,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-dd-models-coordinator-effort · Coordinator effort dropdown open",
+   "is_interactive": true
+  },
+  "v3-dd-models-default.dc.html": {
+   "x": 1520,
+   "y": 31760,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-dd-models-default · Default dropdown open",
+   "is_interactive": true
+  },
+  "v3-dd-source-control-default-approach.dc.html": {
+   "x": 0,
+   "y": 32800,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-dd-source-control-default-approach · Default Approach dropdown open",
+   "is_interactive": true
+  },
+  "v3-dd-source-control-pr-link-destination.dc.html": {
+   "x": 1520,
+   "y": 32800,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-dd-source-control-pr-link-destination · PR Link Destination dropdown open",
+   "is_interactive": true
+  },
+  "v3-dd-source-control-review-provider.dc.html": {
+   "x": 3040,
+   "y": 32800,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-dd-source-control-review-provider · Review Provider dropdown open",
+   "is_interactive": true
+  },
+  "v3-dd-voice-1x.dc.html": {
+   "x": 0,
+   "y": 33840,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-dd-voice-1x · 1x dropdown open",
+   "is_interactive": true
+  },
+  "v3-dd-voice-ara.dc.html": {
+   "x": 1520,
+   "y": 33840,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-dd-voice-ara · Ara dropdown open",
+   "is_interactive": true
+  },
+  "v3-dd-voice-auto-detect.dc.html": {
+   "x": 3040,
+   "y": 33840,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-dd-voice-auto-detect · Auto-detect dropdown open",
+   "is_interactive": true
+  },
+  "v3-dd-voice-system-default.dc.html": {
+   "x": 4560,
+   "y": 33840,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-dd-voice-system-default · System Default dropdown open",
+   "is_interactive": true
+  },
+  "v3-ide-01-onboarding-login.dc.html": {
+   "x": 0,
+   "y": 9400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-01-onboarding-login · onboarding login",
+   "is_interactive": true
+  },
+  "v3-ide-03-ide-default-layout.dc.html": {
+   "x": 0,
+   "y": 10400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-03-ide-default-layout · ide default layout",
+   "is_interactive": true
+  },
+  "v3-ide-04-explorer-sidebar.dc.html": {
+   "x": 0,
+   "y": 11400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-04-explorer-sidebar · explorer sidebar",
+   "is_interactive": true
+  },
+  "v3-ide-05-quick-open.dc.html": {
+   "x": 1520,
+   "y": 11400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-05-quick-open · quick open",
+   "is_interactive": true
+  },
+  "v3-ide-06-editor-file-open.dc.html": {
+   "x": 1520,
+   "y": 10400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-06-editor-file-open · editor file open",
+   "is_interactive": true
+  },
+  "v3-ide-07-command-palette.dc.html": {
+   "x": 0,
+   "y": 12400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-07-command-palette · command palette",
+   "is_interactive": true
+  },
+  "v3-ide-08-search-view.dc.html": {
+   "x": 3040,
+   "y": 10400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-08-search-view · search view",
+   "is_interactive": true
+  },
+  "v3-ide-09-scm-changes.dc.html": {
+   "x": 0,
+   "y": 13400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-09-scm-changes · scm changes",
+   "is_interactive": true
+  },
+  "v3-ide-10-scm-diff-editor.dc.html": {
+   "x": 1520,
+   "y": 13400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-10-scm-diff-editor · scm diff editor",
+   "is_interactive": true
+  },
+  "v3-ide-11-terminal-panel.dc.html": {
+   "x": 0,
+   "y": 14400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-11-terminal-panel · terminal panel",
+   "is_interactive": true
+  },
+  "v3-ide-12-problems-panel.dc.html": {
+   "x": 4560,
+   "y": 10400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-12-problems-panel · problems panel",
+   "is_interactive": true
+  },
+  "v3-ide-13-run-debug-view.dc.html": {
+   "x": 6080,
+   "y": 10400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-13-run-debug-view · run debug view",
+   "is_interactive": true
+  },
+  "v3-ide-14-extensions-view.dc.html": {
+   "x": 0,
+   "y": 15400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-14-extensions-view · extensions view",
+   "is_interactive": true
+  },
+  "v3-ide-15-menu-file.dc.html": {
+   "x": 0,
+   "y": 16400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-15-menu-file · menu file",
+   "is_interactive": true
+  },
+  "v3-ide-16-menu-edit.dc.html": {
+   "x": 1520,
+   "y": 16400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-16-menu-edit · menu edit",
+   "is_interactive": true
+  },
+  "v3-ide-17-menu-view.dc.html": {
+   "x": 3040,
+   "y": 16400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-17-menu-view · menu view",
+   "is_interactive": true
+  },
+  "v3-ide-18-editor-context-menu.dc.html": {
+   "x": 4560,
+   "y": 16400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-18-editor-context-menu · editor context menu",
+   "is_interactive": true
+  },
+  "v3-ide-19-explorer-context-menu.dc.html": {
+   "x": 6080,
+   "y": 16400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-19-explorer-context-menu · explorer context menu",
+   "is_interactive": true
+  },
+  "v3-ide-20-editor-find-widget.dc.html": {
+   "x": 7600,
+   "y": 10400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-20-editor-find-widget · editor find widget",
+   "is_interactive": true
+  },
+  "v3-ide-21-editor-find-replace.dc.html": {
+   "x": 9120,
+   "y": 10400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-21-editor-find-replace · editor find replace",
+   "is_interactive": true
+  },
+  "v3-ide-22-editor-suggest-widget.dc.html": {
+   "x": 10640,
+   "y": 10400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-22-editor-suggest-widget · editor suggest widget",
+   "is_interactive": true
+  },
+  "v3-ide-23-editor-hover.dc.html": {
+   "x": 12160,
+   "y": 10400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-23-editor-hover · editor hover",
+   "is_interactive": true
+  },
+  "v3-ide-24-go-to-symbol.dc.html": {
+   "x": 13680,
+   "y": 10400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-24-go-to-symbol · go to symbol",
+   "is_interactive": true
+  },
+  "v3-ide-25-peek-references.dc.html": {
+   "x": 15200,
+   "y": 10400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-25-peek-references · peek references",
+   "is_interactive": true
+  },
+  "v3-ide-26-rename-input.dc.html": {
+   "x": 16720,
+   "y": 10400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-26-rename-input · rename input",
+   "is_interactive": true
+  },
+  "v3-ide-27-split-editor.dc.html": {
+   "x": 18240,
+   "y": 10400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-27-split-editor · split editor",
+   "is_interactive": true
+  },
+  "v3-ide-28-settings-narrow-layout-section.dc.html": {
+   "x": 0,
+   "y": 17400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-28-settings-narrow-layout-section · narrow layout section",
+   "is_interactive": true
+  },
+  "v3-ide-29-settings-general.dc.html": {
+   "x": 1520,
+   "y": 17400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-29-settings-general · settings general",
+   "is_interactive": true
+  },
+  "v3-ide-30-vscode-settings-editor.dc.html": {
+   "x": 3040,
+   "y": 17400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-30-vscode-settings-editor · vscode settings editor",
+   "is_interactive": true
+  },
+  "v3-ide-31-settings-plan-usage.dc.html": {
+   "x": 4560,
+   "y": 17400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-31-settings-plan-usage · settings plan usage",
+   "is_interactive": true
+  },
+  "v3-ide-32-settings-agents.dc.html": {
+   "x": 6080,
+   "y": 17400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-32-settings-agents · settings agents",
+   "is_interactive": true
+  },
+  "v3-ide-33-settings-cloud-agents.dc.html": {
+   "x": 7600,
+   "y": 17400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-33-settings-cloud-agents · settings cloud agents",
+   "is_interactive": true
+  },
+  "v3-ide-34-settings-models.dc.html": {
+   "x": 9120,
+   "y": 17400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-34-settings-models · settings models",
+   "is_interactive": true
+  },
+  "v3-ide-35-settings-git-prs.dc.html": {
+   "x": 10640,
+   "y": 17400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-35-settings-git-prs · settings git prs",
+   "is_interactive": true
+  },
+  "v3-ide-36-customize-page.dc.html": {
+   "x": 12160,
+   "y": 17400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-36-customize-page · customize page",
+   "is_interactive": true
+  },
+  "v3-ide-37-settings-browser-network.dc.html": {
+   "x": 13680,
+   "y": 17400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-37-settings-browser-network · settings browser network",
+   "is_interactive": true
+  },
+  "v3-ide-39-settings-indexing.dc.html": {
+   "x": 15200,
+   "y": 17400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-39-settings-indexing · settings indexing",
+   "is_interactive": true
+  },
+  "v3-ide-40-settings-beta.dc.html": {
+   "x": 16720,
+   "y": 17400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-40-settings-beta · settings beta",
+   "is_interactive": true
+  },
+  "v3-ide-41-default-keybindings-json.dc.html": {
+   "x": 18240,
+   "y": 17400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-41-default-keybindings-json · default keybindings json",
+   "is_interactive": true
+  },
+  "v3-ide-42-notifications-center-empty.dc.html": {
+   "x": 1520,
+   "y": 12400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-42-notifications-center-empty · notifications center empty",
+   "is_interactive": true
+  },
+  "v3-ide-43-keyboard-shortcuts-editor.dc.html": {
+   "x": 19760,
+   "y": 17400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-43-keyboard-shortcuts-editor · keyboard shortcuts editor",
+   "is_interactive": true
+  },
+  "v3-ide-44-editor-tab-context-menu.dc.html": {
+   "x": 7600,
+   "y": 16400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-44-editor-tab-context-menu · editor tab context menu",
+   "is_interactive": true
+  },
+  "v3-ide-45-branch-picker.dc.html": {
+   "x": 3040,
+   "y": 13400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-45-branch-picker · branch picker",
+   "is_interactive": true
+  },
+  "v3-ide-47-layout-chat-hidden-panel-open.dc.html": {
+   "x": 19760,
+   "y": 10400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-47-layout-chat-hidden-panel-open · layout chat hidden panel open",
+   "is_interactive": true
+  },
+  "v3-ide-48-color-theme-picker.dc.html": {
+   "x": 3040,
+   "y": 12400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-48-color-theme-picker · color theme picker",
+   "is_interactive": true
+  },
+  "v3-ide-49-menu-selection.dc.html": {
+   "x": 9120,
+   "y": 16400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-49-menu-selection · Selection menu",
+   "is_interactive": true
+  },
+  "v3-ide-50-menu-go.dc.html": {
+   "x": 10640,
+   "y": 16400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-50-menu-go · Go menu",
+   "is_interactive": true
+  },
+  "v3-ide-51-menu-run.dc.html": {
+   "x": 12160,
+   "y": 16400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-51-menu-run · Run menu",
+   "is_interactive": true
+  },
+  "v3-ide-52-menu-terminal.dc.html": {
+   "x": 13680,
+   "y": 16400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-52-menu-terminal · Terminal menu",
+   "is_interactive": true
+  },
+  "v3-ide-53-menu-help.dc.html": {
+   "x": 15200,
+   "y": 16400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-53-menu-help · Help menu",
+   "is_interactive": true
+  },
+  "v3-ide-56-scm-more-menu.dc.html": {
+   "x": 16720,
+   "y": 16400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-56-scm-more-menu · SCM ... menu",
+   "is_interactive": true
+  },
+  "v3-ide-57-terminal-dropdown.dc.html": {
+   "x": 18240,
+   "y": 16400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-57-terminal-dropdown · terminal + dropdown",
+   "is_interactive": true
+  },
+  "v3-ide-58-panel-tab-context-menu.dc.html": {
+   "x": 19760,
+   "y": 16400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-58-panel-tab-context-menu · right-click panel tab",
+   "is_interactive": true
+  },
+  "v3-ide-59-activitybar-context-menu.dc.html": {
+   "x": 21280,
+   "y": 16400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-59-activitybar-context-menu · right-click activity bar",
+   "is_interactive": true
+  },
+  "v3-ide-60-scm-commit-typed.dc.html": {
+   "x": 4560,
+   "y": 13400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-60-scm-commit-typed · message typed",
+   "is_interactive": true
+  },
+  "v3-ide-61-scm-commit-dropdown.dc.html": {
+   "x": 6080,
+   "y": 13400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-61-scm-commit-dropdown · commit button arrow",
+   "is_interactive": true
+  },
+  "v3-ide-62-scm-graph.dc.html": {
+   "x": 7600,
+   "y": 13400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-62-scm-graph · graph section",
+   "is_interactive": true
+  },
+  "v3-ide-64-scm-merge-conflict.dc.html": {
+   "x": 9120,
+   "y": 13400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-64-scm-merge-conflict · sandbox conflict file",
+   "is_interactive": true
+  },
+  "v3-ide-65-terminal-split.dc.html": {
+   "x": 1520,
+   "y": 14400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-65-terminal-split · split",
+   "is_interactive": true
+  },
+  "v3-ide-66-terminal-find.dc.html": {
+   "x": 3040,
+   "y": 14400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-66-terminal-find · Ctrl+F in terminal",
+   "is_interactive": true
+  },
+  "v3-ide-67-terminal-tabs-list.dc.html": {
+   "x": 4560,
+   "y": 14400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-67-terminal-tabs-list · 2 terminals",
+   "is_interactive": true
+  },
+  "v3-ide-68-extension-detail.dc.html": {
+   "x": 1520,
+   "y": 15400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-68-extension-detail · open an installed extension",
+   "is_interactive": true
+  },
+  "v3-ide-69-extension-search-results.dc.html": {
+   "x": 3040,
+   "y": 15400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-69-extension-search-results · search marketplace",
+   "is_interactive": true
+  },
+  "v3-ide-70-extension-context-menu.dc.html": {
+   "x": 4560,
+   "y": 15400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-70-extension-context-menu · right-click extension",
+   "is_interactive": true
+  },
+  "v3-ide-72-explorer-new-file-input.dc.html": {
+   "x": 3040,
+   "y": 11400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-72-explorer-new-file-input · New File",
+   "is_interactive": true
+  },
+  "v3-ide-73-explorer-rename.dc.html": {
+   "x": 4560,
+   "y": 11400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-73-explorer-rename · F2 on a file",
+   "is_interactive": true
+  },
+  "v3-ide-76-outline-timeline.dc.html": {
+   "x": 6080,
+   "y": 11400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ide-76-outline-timeline · Outline and Timeline open",
+   "is_interactive": true
+  },
+  "v3-light-01-ide-editor.dc.html": {
+   "x": 0,
+   "y": 18400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "light-01-ide-editor · ide editor",
+   "is_interactive": true
+  },
+  "v3-light-02-command-palette.dc.html": {
+   "x": 1520,
+   "y": 18400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "light-02-command-palette · command palette",
+   "is_interactive": true
+  },
+  "v3-light-03-scm-changes.dc.html": {
+   "x": 3040,
+   "y": 18400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "light-03-scm-changes · scm changes",
+   "is_interactive": true
+  },
+  "v3-light-04-diff-editor.dc.html": {
+   "x": 4560,
+   "y": 18400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "light-04-diff-editor · diff editor",
+   "is_interactive": true
+  },
+  "v3-light-05-terminal-panel.dc.html": {
+   "x": 6080,
+   "y": 18400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "light-05-terminal-panel · terminal panel",
+   "is_interactive": true
+  },
+  "v3-light-06-explorer-context-menu.dc.html": {
+   "x": 7600,
+   "y": 18400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "light-06-explorer-context-menu · explorer context menu",
+   "is_interactive": true
+  },
+  "v3-light-07-settings-general.dc.html": {
+   "x": 9120,
+   "y": 18400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "light-07-settings-general · settings general",
+   "is_interactive": true
+  },
+  "v3-light-08-agent-mode-picker.dc.html": {
+   "x": 10640,
+   "y": 18400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "light-08-agent-mode-picker · agent mode picker",
+   "is_interactive": true
+  },
+  "v3-light-09-model-picker.dc.html": {
+   "x": 12160,
+   "y": 18400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "light-09-model-picker · model picker",
+   "is_interactive": true
+  },
+  "v3-light-10-ide-03.dc.html": {
+   "x": 13680,
+   "y": 18400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "light-10-ide-03 · Light theme, same as ide-03",
+   "is_interactive": true
+  },
+  "v3-light-11-ide-04.dc.html": {
+   "x": 15200,
+   "y": 18400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "light-11-ide-04 · Light theme, same as ide-04",
+   "is_interactive": true
+  },
+  "v3-light-12-ide-05.dc.html": {
+   "x": 16720,
+   "y": 18400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "light-12-ide-05 · Light theme, same as ide-05",
+   "is_interactive": true
+  },
+  "v3-light-13-ide-08.dc.html": {
+   "x": 18240,
+   "y": 18400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "light-13-ide-08 · Light theme, same as ide-08",
+   "is_interactive": true
+  },
+  "v3-light-14-ide-11.dc.html": {
+   "x": 19760,
+   "y": 18400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "light-14-ide-11 · Light theme, same as ide-11",
+   "is_interactive": true
+  },
+  "v3-light-15-ide-14.dc.html": {
+   "x": 21280,
+   "y": 18400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "light-15-ide-14 · Light theme, same as ide-14",
+   "is_interactive": true
+  },
+  "v3-light-16-ide-15.dc.html": {
+   "x": 22800,
+   "y": 18400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "light-16-ide-15 · Light theme, same as ide-15",
+   "is_interactive": true
+  },
+  "v3-light-17-ide-20.dc.html": {
+   "x": 24320,
+   "y": 18400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "light-17-ide-20 · Light theme, same as ide-20",
+   "is_interactive": true
+  },
+  "v3-light-18-ide-22.dc.html": {
+   "x": 25840,
+   "y": 18400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "light-18-ide-22 · Light theme, same as ide-22",
+   "is_interactive": true
+  },
+  "v3-light-19-ide-29.dc.html": {
+   "x": 27360,
+   "y": 18400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "light-19-ide-29 · Light theme, same as ide-29",
+   "is_interactive": true
+  },
+  "v3-light-20-ide-43.dc.html": {
+   "x": 28880,
+   "y": 18400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "light-20-ide-43 · Light theme, same as ide-43",
+   "is_interactive": true
+  },
+  "v3-light-21-ob-01.dc.html": {
+   "x": 30400,
+   "y": 18400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "light-21-ob-01 · Light theme, same as ob-01",
+   "is_interactive": true
+  },
+  "v3-light-24-ai-08.dc.html": {
+   "x": 31920,
+   "y": 18400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "light-24-ai-08 · ai 08",
+   "is_interactive": true
+  },
+  "v3-light-25-ai-15.dc.html": {
+   "x": 33440,
+   "y": 18400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "light-25-ai-15 · ai 15",
+   "is_interactive": true
+  },
+  "v3-light-31-set-02.dc.html": {
+   "x": 34960,
+   "y": 18400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "light-31-set-02 · set 02",
+   "is_interactive": true
+  },
+  "v3-ob-01-welcome.dc.html": {
+   "x": 1520,
+   "y": 9400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "ob-01-welcome · fresh profile first launch",
+   "is_interactive": true
+  },
+  "v3-omni-ArchOmnide.dc.html": {
+   "x": 2600,
+   "y": 41711,
+   "w": 1240,
+   "h": 640,
+   "page": "v3",
+   "title": "OmnIDE components"
+  },
+  "v3-omni-Brand.dc.html": {
+   "x": 4300,
+   "y": 39031,
+   "w": 1240,
+   "h": 1500,
+   "page": "v3",
+   "title": "Brand"
+  },
+  "v3-omni-CaseCursor.dc.html": {
+   "x": 0,
+   "y": 40011,
+   "w": 1240,
+   "h": 640,
+   "page": "v3",
+   "title": "Case study: Cursor"
+  },
+  "v3-omni-CaseLessons.dc.html": {
+   "x": 0,
+   "y": 40731,
+   "w": 1240,
+   "h": 520,
+   "page": "v3",
+   "title": "Case study: lessons"
+  },
+  "v3-omni-CaseVSCodium.dc.html": {
+   "x": 3900,
+   "y": 40011,
+   "w": 1240,
+   "h": 640,
+   "page": "v3",
+   "title": "Case study: VSCodium"
+  },
+  "v3-omni-CaseVoid.dc.html": {
+   "x": 2600,
+   "y": 40011,
+   "w": 1240,
+   "h": 640,
+   "page": "v3",
+   "title": "Case study: Void"
+  },
+  "v3-omni-CaseZed.dc.html": {
+   "x": 1300,
+   "y": 40011,
+   "w": 1240,
+   "h": 640,
+   "page": "v3",
+   "title": "Case study: Zed"
+  },
+  "v3-omni-Changes.dc.html": {
+   "x": 3000,
+   "y": 39031,
+   "w": 1240,
+   "h": 900,
+   "page": "v3",
+   "title": "Changes from Cursor"
+  },
+  "v3-omni-Endpoints.dc.html": {
+   "x": 2600,
+   "y": 40731,
+   "w": 1240,
+   "h": 900,
+   "page": "v3",
+   "title": "Endpoints"
+  },
+  "v3-omni-UpdatesFlow.dc.html": {
+   "x": 1300,
+   "y": 40731,
+   "w": 1240,
+   "h": 640,
+   "page": "v3",
+   "title": "Update flow"
+  },
+  "v3-omni-agent-picker.dc.html": {
+   "x": 0,
+   "y": 38051,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "Agent picker",
+   "is_interactive": true
+  },
+  "v3-omni-claude-error.dc.html": {
+   "x": 2680,
+   "y": 44351,
+   "w": 1440,
+   "h": 900,
+   "title": "omni-claude-error",
+   "page": "v3",
+   "is_interactive": true
+  },
+  "v3-omni-claude-missing.dc.html": {
+   "x": 1500,
+   "y": 38051,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "Claude Code missing",
+   "is_interactive": true
+  },
+  "v3-omni-claude-not-installed.dc.html": {
+   "x": 4220,
+   "y": 44351,
+   "w": 1440,
+   "h": 900,
+   "title": "omni-claude-not-installed",
+   "page": "v3",
+   "is_interactive": true
+  },
+  "v3-omni-claude-signed-out.dc.html": {
+   "x": 5760,
+   "y": 44351,
+   "w": 1440,
+   "h": 900,
+   "title": "omni-claude-signed-out",
+   "page": "v3",
+   "is_interactive": true
+  },
+  "v3-omni-permission-ask.dc.html": {
+   "x": 3000,
+   "y": 38051,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "Edit permission ask",
+   "is_interactive": true
+  },
+  "v3-omni-permission-denied.dc.html": {
+   "x": 4500,
+   "y": 38051,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "Edit permission denied",
+   "is_interactive": true
+  },
+  "v3-omni-update-failed.dc.html": {
+   "x": 1500,
+   "y": 39031,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "Update failed",
+   "is_interactive": true
+  },
+  "v3-omni-update-ready.dc.html": {
+   "x": 0,
+   "y": 39031,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "Update ready",
+   "is_interactive": true
+  },
+  "v3-review-commit-1.dc.html": {
+   "x": 0,
+   "y": 34880,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-review-commit-1 · commit message generated",
+   "is_interactive": true
+  },
+  "v3-review-commit-2.dc.html": {
+   "x": 1520,
+   "y": 34880,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-review-commit-2 · commit ready, file checkboxes",
+   "is_interactive": true
+  },
+  "v3-review-findissues-menu.dc.html": {
+   "x": 3040,
+   "y": 34880,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-review-findissues-menu · Find Issues options open",
+   "is_interactive": true
+  },
+  "v3-review-more-menu.dc.html": {
+   "x": 4560,
+   "y": 34880,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-review-more-menu · More menu open",
+   "is_interactive": true
+  },
+  "v3-set-01-rules-memories.dc.html": {
+   "x": 21280,
+   "y": 17400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "set-01-rules-memories · rules memories",
+   "is_interactive": true
+  },
+  "v3-set-02-mcp-tools.dc.html": {
+   "x": 22800,
+   "y": 17400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "set-02-mcp-tools · mcp tools",
+   "is_interactive": true
+  },
+  "v3-set-03-mcp-add-server.dc.html": {
+   "x": 24320,
+   "y": 17400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "set-03-mcp-add-server · mcp add server",
+   "is_interactive": true
+  },
+  "v3-set-04-hooks.dc.html": {
+   "x": 25840,
+   "y": 17400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "set-04-hooks · hooks",
+   "is_interactive": true
+  },
+  "v3-set-09-notifications.dc.html": {
+   "x": 27360,
+   "y": 17400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "set-09-notifications · notifications",
+   "is_interactive": true
+  },
+  "v3-set-10-search-settings.dc.html": {
+   "x": 28880,
+   "y": 17400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "set-10-search-settings · search settings",
+   "is_interactive": true
+  },
+  "v3-set-agents-1.dc.html": {
+   "x": 10640,
+   "y": 22400,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-set-agents-1 · scroll 1",
+   "is_interactive": true
+  },
+  "v3-set-agents-2.dc.html": {
+   "x": 12160,
+   "y": 22400,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-set-agents-2 · scroll 2",
+   "is_interactive": true
+  },
+  "v3-set-agents-3.dc.html": {
+   "x": 13680,
+   "y": 22400,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-set-agents-3 · scroll 3",
+   "is_interactive": true
+  },
+  "v3-set-agents-4.dc.html": {
+   "x": 15200,
+   "y": 22400,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-set-agents-4 · scroll 4",
+   "is_interactive": true
+  },
+  "v3-set-agents-5.dc.html": {
+   "x": 16720,
+   "y": 22400,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-set-agents-5 · scroll 5",
+   "is_interactive": true
+  },
+  "v3-set-beta-1.dc.html": {
+   "x": 1520,
+   "y": 30720,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-set-beta-1 · scroll 1",
+   "is_interactive": true
+  },
+  "v3-set-browser-and-network-1.dc.html": {
+   "x": 6080,
+   "y": 23440,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-set-browser-and-network-1 · scroll 1",
+   "is_interactive": true
+  },
+  "v3-set-cloud-agents-1.dc.html": {
+   "x": 0,
+   "y": 35920,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-set-cloud-agents-1 · scroll 1",
+   "is_interactive": true
+  },
+  "v3-set-code-intelligence-1.dc.html": {
+   "x": 3040,
+   "y": 24480,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-set-code-intelligence-1 · scroll 1",
+   "is_interactive": true
+  },
+  "v3-set-code-intelligence-2.dc.html": {
+   "x": 4560,
+   "y": 24480,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-set-code-intelligence-2 · scroll 2",
+   "is_interactive": true
+  },
+  "v3-set-general-1.dc.html": {
+   "x": 10640,
+   "y": 25520,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-set-general-1 · scroll 1",
+   "is_interactive": true
+  },
+  "v3-set-general-2.dc.html": {
+   "x": 12160,
+   "y": 25520,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-set-general-2 · scroll 2",
+   "is_interactive": true
+  },
+  "v3-set-general-3.dc.html": {
+   "x": 13680,
+   "y": 25520,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-set-general-3 · scroll 3",
+   "is_interactive": true
+  },
+  "v3-set-general-4.dc.html": {
+   "x": 15200,
+   "y": 25520,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-set-general-4 · scroll 4",
+   "is_interactive": true
+  },
+  "v3-set-models-1.dc.html": {
+   "x": 3040,
+   "y": 31760,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-set-models-1 · scroll 1",
+   "is_interactive": true
+  },
+  "v3-set-models-2.dc.html": {
+   "x": 4560,
+   "y": 31760,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-set-models-2 · scroll 2",
+   "is_interactive": true
+  },
+  "v3-set-plan-and-usage-1.dc.html": {
+   "x": 0,
+   "y": 36960,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-set-plan-and-usage-1 · scroll 1",
+   "is_interactive": true
+  },
+  "v3-set-plan-and-usage-limit.dc.html": {
+   "x": 1520,
+   "y": 36960,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-set-plan-and-usage-limit · error",
+   "is_interactive": true
+  },
+  "v3-set-source-control-1.dc.html": {
+   "x": 4560,
+   "y": 32800,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-set-source-control-1 · scroll 1",
+   "is_interactive": true
+  },
+  "v3-set-source-control-2.dc.html": {
+   "x": 6080,
+   "y": 32800,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-set-source-control-2 · scroll 2",
+   "is_interactive": true
+  },
+  "v3-set-source-control-3.dc.html": {
+   "x": 7600,
+   "y": 32800,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-set-source-control-3 · scroll 3",
+   "is_interactive": true
+  },
+  "v3-set-voice-1.dc.html": {
+   "x": 6080,
+   "y": 33840,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-set-voice-1 · scroll 1",
+   "is_interactive": true
+  },
+  "v3-set-voice-2.dc.html": {
+   "x": 7600,
+   "y": 33840,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-set-voice-2 · scroll 2",
+   "is_interactive": true
+  },
+  "v3-st-01-signed-out-composer.dc.html": {
+   "x": 0,
+   "y": 20400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "st-01-signed-out-composer · composer while signed out",
+   "is_interactive": true
+  },
+  "v3-st-05-file-too-large.dc.html": {
+   "x": 1520,
+   "y": 20400,
+   "w": 1440,
+   "h": 900,
+   "page": "v3",
+   "title": "st-05-file-too-large · open a large binary",
+   "is_interactive": true
+  },
+  "v3-terminal-panel.dc.html": {
+   "x": 4560,
+   "y": 28640,
+   "w": 1440,
+   "h": 931,
+   "page": "v3",
+   "title": "v2-terminal-panel · PowerShell terminal",
+   "is_interactive": true
+  },
   "v1-Cover.dc.html": {
    "x": 0,
    "y": 0,
@@ -2955,6 +5585,301 @@
   }
  },
  "order": [
+  "v3-ArchData.dc.html",
+  "v3-ArchLayers.dc.html",
+  "v3-ArchSequence.dc.html",
+  "v3-Architecture.dc.html",
+  "v3-Decisions.dc.html",
+  "v3-Deploy.dc.html",
+  "v3-DesignSpec.dc.html",
+  "v3-DesignTokens.dc.html",
+  "v3-EdgeAccount.dc.html",
+  "v3-EdgeCases.dc.html",
+  "v3-EdgeFailures.dc.html",
+  "v3-Features.dc.html",
+  "v3-FlowChat.dc.html",
+  "v3-FlowMain.dc.html",
+  "v3-FlowStates.dc.html",
+  "v3-History.dc.html",
+  "v3-Main.dc.html",
+  "v3-Plan.dc.html",
+  "v3-PlayAgent.dc.html",
+  "v3-PlayChat.dc.html",
+  "v3-PlayChatError.dc.html",
+  "v3-PlayClaudeError.dc.html",
+  "v3-PlayClaudeSession.dc.html",
+  "v3-PlayClaudeSetupEdge.dc.html",
+  "v3-PlayCode.dc.html",
+  "v3-PlayCustomize.dc.html",
+  "v3-PlayInline.dc.html",
+  "v3-PlayLight.dc.html",
+  "v3-PlayLimit.dc.html",
+  "v3-PlayPermission.dc.html",
+  "v3-PlayRestore.dc.html",
+  "v3-PlaySettings.dc.html",
+  "v3-PlaySettings2.dc.html",
+  "v3-PlaySettingsEdge.dc.html",
+  "v3-PlaySetup.dc.html",
+  "v3-PlaySteer.dc.html",
+  "v3-PlayUpdate.dc.html",
+  "v3-Progress.dc.html",
+  "v3-Questions.dc.html",
+  "v3-SettingsInventory.dc.html",
+  "v3-agent-Component.dc.html",
+  "v3-agent-Mapping.dc.html",
+  "v3-agent-Registry.dc.html",
+  "v3-agent-Sequence.dc.html",
+  "v3-agent-States.dc.html",
+  "v3-ai-01-agent-mode-picker.dc.html",
+  "v3-ai-02-model-popover.dc.html",
+  "v3-ai-08-composer-at-mention-menu.dc.html",
+  "v3-ai-09-composer-at-mention-filtered.dc.html",
+  "v3-ai-10-composer-slash-menu.dc.html",
+  "v3-ai-11-agent-pane-overflow-menu.dc.html",
+  "v3-ai-12-composer-typed-prompt.dc.html",
+  "v3-ai-13-agent-turn-starting.dc.html",
+  "v3-ai-14-agent-turn-streaming.dc.html",
+  "v3-ai-15-agent-turn-tools.dc.html",
+  "v3-ai-16-agent-turn-done-inline-diff.dc.html",
+  "v3-ai-17-changed-files-expanded.dc.html",
+  "v3-ai-18-agent-changes-accepted.dc.html",
+  "v3-ai-19-review-editor.dc.html",
+  "v3-ai-20-plan-mode-composer.dc.html",
+  "v3-ai-21-plan-mode-streaming.dc.html",
+  "v3-ai-22-plan-artifact-editor.dc.html",
+  "v3-ai-23-plan-build-dropdown.dc.html",
+  "v3-ai-24-ask-mode-streaming.dc.html",
+  "v3-ai-25-ask-mode-answer.dc.html",
+  "v3-ai-26-editor-selection-toolbar.dc.html",
+  "v3-ai-34-tab-ghost-text-completion.dc.html",
+  "v3-ai-36-debug-mode-composer.dc.html",
+  "v3-ai-37-debug-mode-streaming.dc.html",
+  "v3-ai-38-debug-mode-answer.dc.html",
+  "v3-ai-40-tool-card-read-search.dc.html",
+  "v3-ai-41-tool-card-collapsed-expanded.dc.html",
+  "v3-ai-43-checkpoint-restore.dc.html",
+  "v3-ai-44-chat-history-list.dc.html",
+  "v3-ai-48-stop-generation.dc.html",
+  "v3-btn-agents-allowlist-options.dc.html",
+  "v3-btn-browser-and-network-run-diagnostic.dc.html",
+  "v3-btn-browser-and-network-show.dc.html",
+  "v3-btn-code-intelligence-edit.dc.html",
+  "v3-btn-code-intelligence-view-included-files.dc.html",
+  "v3-btn-general-account.dc.html",
+  "v3-btn-general-reset.dc.html",
+  "v3-chat-agents-sidebar.dc.html",
+  "v3-chat-approval-1.dc.html",
+  "v3-chat-approval-2.dc.html",
+  "v3-chat-at-menu.dc.html",
+  "v3-chat-at-terminals.dc.html",
+  "v3-chat-files-expanded.dc.html",
+  "v3-chat-history.dc.html",
+  "v3-chat-kept.dc.html",
+  "v3-chat-mode-menu.dc.html",
+  "v3-chat-model-menu.dc.html",
+  "v3-chat-more-actions.dc.html",
+  "v3-chat-new-agent.dc.html",
+  "v3-chat-plan-mode.dc.html",
+  "v3-chat-restore-cancelled.dc.html",
+  "v3-chat-restore-confirm.dc.html",
+  "v3-chat-review.dc.html",
+  "v3-chat-run1-1.dc.html",
+  "v3-chat-run1-2.dc.html",
+  "v3-chat-run1-3.dc.html",
+  "v3-chat-run1-4.dc.html",
+  "v3-chat-run1-5.dc.html",
+  "v3-chat-run1-6.dc.html",
+  "v3-chat-run2-1.dc.html",
+  "v3-chat-run2-2.dc.html",
+  "v3-chat-run2-3.dc.html",
+  "v3-chat-run2-4.dc.html",
+  "v3-chat-run2-5.dc.html",
+  "v3-chat-run2-6.dc.html",
+  "v3-chat-run2-7.dc.html",
+  "v3-chat-run2-followup-typed.dc.html",
+  "v3-chat-run2-steer-1.dc.html",
+  "v3-chat-run2-steer-2.dc.html",
+  "v3-chat-slash-menu.dc.html",
+  "v3-chat-typed.dc.html",
+  "v3-chat-worked-expanded.dc.html",
+  "v3-customize-commands.dc.html",
+  "v3-customize-hooks.dc.html",
+  "v3-customize-marketplace.dc.html",
+  "v3-customize-mcps.dc.html",
+  "v3-customize-plugins-1.dc.html",
+  "v3-customize-rules.dc.html",
+  "v3-customize-skills.dc.html",
+  "v3-customize-subagents.dc.html",
+  "v3-dd-agents-auto-review.dc.html",
+  "v3-dd-agents-cursor-default.dc.html",
+  "v3-dd-agents-default.dc.html",
+  "v3-dd-agents-manually-sent-messages-from-queue.dc.html",
+  "v3-dd-agents-new-messages.dc.html",
+  "v3-dd-agents-system.dc.html",
+  "v3-dd-beta-update-access.dc.html",
+  "v3-dd-browser-and-network-browser-mode.dc.html",
+  "v3-dd-browser-and-network-http-compatibility-mode.dc.html",
+  "v3-dd-general-conversation-density.dc.html",
+  "v3-dd-general-privacy-mode.dc.html",
+  "v3-dd-general-review-control-location.dc.html",
+  "v3-dd-general-window-layout.dc.html",
+  "v3-dd-general-window-restoration.dc.html",
+  "v3-dd-models-coordinator-effort.dc.html",
+  "v3-dd-models-default.dc.html",
+  "v3-dd-source-control-default-approach.dc.html",
+  "v3-dd-source-control-pr-link-destination.dc.html",
+  "v3-dd-source-control-review-provider.dc.html",
+  "v3-dd-voice-1x.dc.html",
+  "v3-dd-voice-ara.dc.html",
+  "v3-dd-voice-auto-detect.dc.html",
+  "v3-dd-voice-system-default.dc.html",
+  "v3-ide-01-onboarding-login.dc.html",
+  "v3-ide-03-ide-default-layout.dc.html",
+  "v3-ide-04-explorer-sidebar.dc.html",
+  "v3-ide-05-quick-open.dc.html",
+  "v3-ide-06-editor-file-open.dc.html",
+  "v3-ide-07-command-palette.dc.html",
+  "v3-ide-08-search-view.dc.html",
+  "v3-ide-09-scm-changes.dc.html",
+  "v3-ide-10-scm-diff-editor.dc.html",
+  "v3-ide-11-terminal-panel.dc.html",
+  "v3-ide-12-problems-panel.dc.html",
+  "v3-ide-13-run-debug-view.dc.html",
+  "v3-ide-14-extensions-view.dc.html",
+  "v3-ide-15-menu-file.dc.html",
+  "v3-ide-16-menu-edit.dc.html",
+  "v3-ide-17-menu-view.dc.html",
+  "v3-ide-18-editor-context-menu.dc.html",
+  "v3-ide-19-explorer-context-menu.dc.html",
+  "v3-ide-20-editor-find-widget.dc.html",
+  "v3-ide-21-editor-find-replace.dc.html",
+  "v3-ide-22-editor-suggest-widget.dc.html",
+  "v3-ide-23-editor-hover.dc.html",
+  "v3-ide-24-go-to-symbol.dc.html",
+  "v3-ide-25-peek-references.dc.html",
+  "v3-ide-26-rename-input.dc.html",
+  "v3-ide-27-split-editor.dc.html",
+  "v3-ide-28-settings-narrow-layout-section.dc.html",
+  "v3-ide-29-settings-general.dc.html",
+  "v3-ide-30-vscode-settings-editor.dc.html",
+  "v3-ide-31-settings-plan-usage.dc.html",
+  "v3-ide-32-settings-agents.dc.html",
+  "v3-ide-33-settings-cloud-agents.dc.html",
+  "v3-ide-34-settings-models.dc.html",
+  "v3-ide-35-settings-git-prs.dc.html",
+  "v3-ide-36-customize-page.dc.html",
+  "v3-ide-37-settings-browser-network.dc.html",
+  "v3-ide-39-settings-indexing.dc.html",
+  "v3-ide-40-settings-beta.dc.html",
+  "v3-ide-41-default-keybindings-json.dc.html",
+  "v3-ide-42-notifications-center-empty.dc.html",
+  "v3-ide-43-keyboard-shortcuts-editor.dc.html",
+  "v3-ide-44-editor-tab-context-menu.dc.html",
+  "v3-ide-45-branch-picker.dc.html",
+  "v3-ide-47-layout-chat-hidden-panel-open.dc.html",
+  "v3-ide-48-color-theme-picker.dc.html",
+  "v3-ide-49-menu-selection.dc.html",
+  "v3-ide-50-menu-go.dc.html",
+  "v3-ide-51-menu-run.dc.html",
+  "v3-ide-52-menu-terminal.dc.html",
+  "v3-ide-53-menu-help.dc.html",
+  "v3-ide-56-scm-more-menu.dc.html",
+  "v3-ide-57-terminal-dropdown.dc.html",
+  "v3-ide-58-panel-tab-context-menu.dc.html",
+  "v3-ide-59-activitybar-context-menu.dc.html",
+  "v3-ide-60-scm-commit-typed.dc.html",
+  "v3-ide-61-scm-commit-dropdown.dc.html",
+  "v3-ide-62-scm-graph.dc.html",
+  "v3-ide-64-scm-merge-conflict.dc.html",
+  "v3-ide-65-terminal-split.dc.html",
+  "v3-ide-66-terminal-find.dc.html",
+  "v3-ide-67-terminal-tabs-list.dc.html",
+  "v3-ide-68-extension-detail.dc.html",
+  "v3-ide-69-extension-search-results.dc.html",
+  "v3-ide-70-extension-context-menu.dc.html",
+  "v3-ide-72-explorer-new-file-input.dc.html",
+  "v3-ide-73-explorer-rename.dc.html",
+  "v3-ide-76-outline-timeline.dc.html",
+  "v3-light-01-ide-editor.dc.html",
+  "v3-light-02-command-palette.dc.html",
+  "v3-light-03-scm-changes.dc.html",
+  "v3-light-04-diff-editor.dc.html",
+  "v3-light-05-terminal-panel.dc.html",
+  "v3-light-06-explorer-context-menu.dc.html",
+  "v3-light-07-settings-general.dc.html",
+  "v3-light-08-agent-mode-picker.dc.html",
+  "v3-light-09-model-picker.dc.html",
+  "v3-light-10-ide-03.dc.html",
+  "v3-light-11-ide-04.dc.html",
+  "v3-light-12-ide-05.dc.html",
+  "v3-light-13-ide-08.dc.html",
+  "v3-light-14-ide-11.dc.html",
+  "v3-light-15-ide-14.dc.html",
+  "v3-light-16-ide-15.dc.html",
+  "v3-light-17-ide-20.dc.html",
+  "v3-light-18-ide-22.dc.html",
+  "v3-light-19-ide-29.dc.html",
+  "v3-light-20-ide-43.dc.html",
+  "v3-light-21-ob-01.dc.html",
+  "v3-light-24-ai-08.dc.html",
+  "v3-light-25-ai-15.dc.html",
+  "v3-light-31-set-02.dc.html",
+  "v3-ob-01-welcome.dc.html",
+  "v3-omni-ArchOmnide.dc.html",
+  "v3-omni-Brand.dc.html",
+  "v3-omni-CaseCursor.dc.html",
+  "v3-omni-CaseLessons.dc.html",
+  "v3-omni-CaseVSCodium.dc.html",
+  "v3-omni-CaseVoid.dc.html",
+  "v3-omni-CaseZed.dc.html",
+  "v3-omni-Changes.dc.html",
+  "v3-omni-Endpoints.dc.html",
+  "v3-omni-UpdatesFlow.dc.html",
+  "v3-omni-agent-picker.dc.html",
+  "v3-omni-claude-error.dc.html",
+  "v3-omni-claude-missing.dc.html",
+  "v3-omni-claude-not-installed.dc.html",
+  "v3-omni-claude-signed-out.dc.html",
+  "v3-omni-permission-ask.dc.html",
+  "v3-omni-permission-denied.dc.html",
+  "v3-omni-update-failed.dc.html",
+  "v3-omni-update-ready.dc.html",
+  "v3-review-commit-1.dc.html",
+  "v3-review-commit-2.dc.html",
+  "v3-review-findissues-menu.dc.html",
+  "v3-review-more-menu.dc.html",
+  "v3-set-01-rules-memories.dc.html",
+  "v3-set-02-mcp-tools.dc.html",
+  "v3-set-03-mcp-add-server.dc.html",
+  "v3-set-04-hooks.dc.html",
+  "v3-set-09-notifications.dc.html",
+  "v3-set-10-search-settings.dc.html",
+  "v3-set-agents-1.dc.html",
+  "v3-set-agents-2.dc.html",
+  "v3-set-agents-3.dc.html",
+  "v3-set-agents-4.dc.html",
+  "v3-set-agents-5.dc.html",
+  "v3-set-beta-1.dc.html",
+  "v3-set-browser-and-network-1.dc.html",
+  "v3-set-cloud-agents-1.dc.html",
+  "v3-set-code-intelligence-1.dc.html",
+  "v3-set-code-intelligence-2.dc.html",
+  "v3-set-general-1.dc.html",
+  "v3-set-general-2.dc.html",
+  "v3-set-general-3.dc.html",
+  "v3-set-general-4.dc.html",
+  "v3-set-models-1.dc.html",
+  "v3-set-models-2.dc.html",
+  "v3-set-plan-and-usage-1.dc.html",
+  "v3-set-plan-and-usage-limit.dc.html",
+  "v3-set-source-control-1.dc.html",
+  "v3-set-source-control-2.dc.html",
+  "v3-set-source-control-3.dc.html",
+  "v3-set-voice-1.dc.html",
+  "v3-set-voice-2.dc.html",
+  "v3-st-01-signed-out-composer.dc.html",
+  "v3-st-05-file-too-large.dc.html",
+  "v3-terminal-panel.dc.html",
   "v2-Main.dc.html",
   "v2-Progress.dc.html",
   "v2-FlowMain.dc.html",

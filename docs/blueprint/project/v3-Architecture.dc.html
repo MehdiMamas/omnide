@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Architecture</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+a{color:#B69CFF}a:hover{color:#F4F2FB}
+table{border-collapse:collapse}
+th{text-align:left;font-weight:600;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:rgba(244, 242, 251, 0.74);padding:8px 10px;border-bottom:1px solid rgba(244, 242, 251, 0.08)}
+td{padding:8px 10px;border-bottom:1px solid rgba(244, 242, 251, 0.08);vertical-align:top}
+</style>
+<style data-omnide-v3>@font-face{font-family:'Geist';src:url(./fonts/Geist-Variable.woff2) format('woff2');font-weight:100 900;font-display:swap}@font-face{font-family:'Geist Mono';src:url(./fonts/GeistMono-Variable.woff2) format('woff2');font-weight:100 900;font-display:swap}</style></helmet>
+<div data-page="v3" data-created="2026-11-26" data-updated="2026-11-26" data-status="current" data-section="architecture" data-diagram="component" style="position:relative;width:1240px;min-height:800px;box-sizing:border-box;padding:40px 48px;background:#14121B;color:#F4F2FB;font-family:'Geist','Segoe UI',system-ui,sans-serif;font-size:14px;line-height:1.5">
+<div style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:rgba(244, 242, 251, 0.74)">Architecture · v3 · 2026-11-26 · updated 2026-11-26</div><div data-reference style="margin:8px 0 0;padding:8px 12px;border:1px solid rgba(244, 242, 251, 0.08);border-radius:6px;color:rgba(244, 242, 251, 0.74)">Reference: this frame describes the reference IDE capture that v2 was copied from. OmnIDE's own parts are on <a href="v3-omni-ArchOmnide.dc.html">OmnIDE components</a> and <a href="v3-omni-Changes.dc.html">Changes</a>.</div><h1 style="margin:6px 0 8px;font-size:30px;font-weight:600">Components and where they talk</h1><p style="margin:0 0 20px;max-width:1000px;color:rgba(244, 242, 251, 0.74)">Seen from the outside of the running app (window titles, settings pages, network-bound states), not from OmnIDE's source. Blue lines are calls to Cloud agents.</p><svg role="img" aria-label="Component diagram: OmnIDE desktop app with workbench, agent pane, agents window, extension host, terminal and git, talking to OmnIDE cloud for sign-in, models and cloud agents" width="1140" height="420" viewBox="0 0 1140 420" style="display:block">
+<rect x="0" y="0" width="760" height="420" rx="10" fill="#1A1823" stroke="rgba(244, 242, 251, 0.08)"/><text x="16" y="26" fill="rgba(244, 242, 251, 0.74)" font-size="13">the reference IDE desktop app (Electron, Code OSS 1.147.0 fork; see Code OSS layers)</text>
+<g font-size="13" fill="#F4F2FB">
+<rect x="20" y="44" width="230" height="80" rx="8" fill="#1A1823" stroke="rgba(244, 242, 251, 0.2)"/><text x="34" y="72">Workbench (renderer)</text><text x="34" y="94" fill="rgba(244, 242, 251, 0.74)" font-size="12">editor, file tree, SCM, menus</text>
+<rect x="270" y="44" width="230" height="80" rx="8" fill="#1A1823" stroke="rgba(244, 242, 251, 0.2)"/><text x="284" y="72">Agent pane + composer</text><text x="284" y="94" fill="rgba(244, 242, 251, 0.74)" font-size="12">modes, model picker, review</text>
+<rect x="520" y="44" width="220" height="80" rx="8" fill="#1A1823" stroke="rgba(244, 242, 251, 0.2)"/><text x="534" y="72">Agents window</text><text x="534" y="94" fill="rgba(244, 242, 251, 0.74)" font-size="12">list, running, new agent</text>
+<rect x="20" y="150" width="230" height="80" rx="8" fill="#1A1823" stroke="rgba(244, 242, 251, 0.2)"/><text x="34" y="178">Extension host</text><text x="34" y="200" fill="rgba(244, 242, 251, 0.74)" font-size="12">language servers, Git ext.</text>
+<rect x="270" y="150" width="230" height="80" rx="8" fill="#1A1823" stroke="rgba(244, 242, 251, 0.2)"/><text x="284" y="178">Terminal (pty)</text><text x="284" y="200" fill="rgba(244, 242, 251, 0.74)" font-size="12">agent shell tools run here</text>
+<rect x="520" y="150" width="220" height="80" rx="8" fill="#1A1823" stroke="rgba(244, 242, 251, 0.2)"/><text x="534" y="178">Settings (OmnIDE + VS Code)</text><text x="534" y="200" fill="rgba(244, 242, 251, 0.74)" font-size="12">MCP, rules, hooks, models</text>
+<rect x="20" y="256" width="720" height="70" rx="8" fill="#1A1823" stroke="rgba(244, 242, 251, 0.2)"/><text x="34" y="284">Local workspace: files, .git, .claude/ (rules, MCP config)</text><text x="34" y="306" fill="rgba(244, 242, 251, 0.74)" font-size="12">read and written by the editor and by agent tool calls</text>
+</g>
+<rect x="820" y="0" width="320" height="420" rx="10" fill="#1A1823" stroke="rgba(244, 242, 251, 0.08)"/><text x="836" y="26" fill="rgba(244, 242, 251, 0.74)" font-size="13">Cloud agents</text>
+<g font-size="13" fill="#F4F2FB"><rect x="840" y="44" width="280" height="70" rx="8" fill="#1A1823" stroke="rgba(244, 242, 251, 0.2)"/><text x="854" y="72">Sign-in (WorkOS)</text><text x="854" y="94" fill="rgba(244, 242, 251, 0.74)" font-size="12">account, plan, avatar</text>
+<rect x="840" y="130" width="280" height="70" rx="8" fill="#1A1823" stroke="rgba(244, 242, 251, 0.2)"/><text x="854" y="158">Model gateway</text><text x="854" y="180" fill="rgba(244, 242, 251, 0.74)" font-size="12">agent turns, Tab, Ctrl+K</text>
+<rect x="840" y="216" width="280" height="70" rx="8" fill="#1A1823" stroke="rgba(244, 242, 251, 0.2)"/><text x="854" y="244">Cloud agents</text><text x="854" y="266" fill="rgba(244, 242, 251, 0.74)" font-size="12">paid plans; remote repo</text>
+<rect x="840" y="302" width="280" height="70" rx="8" fill="#1A1823" stroke="rgba(244, 242, 251, 0.2)"/><text x="854" y="330">Usage and billing</text><text x="854" y="352" fill="rgba(244, 242, 251, 0.74)" font-size="12">limits, Upgrade prompts</text></g>
+<g stroke="#B69CFF" stroke-width="1.6" fill="none"><path d="M500 84 H820"/><path d="M630 124 V140 H800 V165 H838"/><path d="M740 300 H790 V337 H838"/><path d="M740 70 H780 V79 H838"/></g>
+</svg><h2 style="font-size:16px;margin:24px 0 8px">How each screen was made</h2><div data-diagram="deployment" style="display:flex;gap:8px;align-items:stretch"><span style="align-self:center;color:rgba(244, 242, 251, 0.5)<div style="background:#1A1823;border:1px solid rgba(244, 242, 251, 0.08);border-radius:8px;padding:14px 16px;flex:1"><div style="font-weight:600">Capture OmnIDE</div><div style="color:rgba(244, 242, 251, 0.74);font-size:12px">A second the reference IDE with its own profile, off-screen, updates off.</div></div>">→</span><div style="background:#1A1823;border:1px solid rgba(244, 242, 251, 0.08);border-radius:8px;padding:14px 16px;flex:1"><div style="font-weight:600">DevTools bridge</div><div style="color:rgba(244, 242, 251, 0.74);font-size:12px">Drives it by script: clicks, keys, DOM snapshot, screenshot.</div></div>">→</span><div style="background:#1A1823;border:1px solid rgba(244, 242, 251, 0.08);border-radius:8px;padding:14px 16px;flex:1"><div style="font-weight:600">Snapshot</div><div style="color:rgba(244, 242, 251, 0.74);font-size:12px">DOM plus used CSS, shadow roots and scroll offsets.</div></div>">→</span><div style="background:#1A1823;border:1px solid rgba(244, 242, 251, 0.08);border-radius:8px;padding:14px 16px;flex:1"><div style="font-weight:600">Converter</div><div style="color:rgba(244, 242, 251, 0.74);font-size:12px">Personal data replaced, gate-safe markup, verbatim CSS and icon fonts.</div></div>">→</span><div style="background:#1A1823;border:1px solid rgba(244, 242, 251, 0.08);border-radius:8px;padding:14px 16px;flex:1"><div style="font-weight:600">Pixel check</div><div style="color:rgba(244, 242, 251, 0.74);font-size:12px">Rendered frame vs screenshot, under 1%.</div></div>">→</span><div style="background:#1A1823;border:1px solid rgba(244, 242, 251, 0.08);border-radius:8px;padding:14px 16px;flex:1"><div style="font-weight:600">This canvas</div><div style="color:rgba(244, 242, 251, 0.74);font-size:12px">Private artifact; screens linked by real buttons.</div></div></div>
+<p style="margin:16px 0 0">Layer by layer, with UML: <a href="v3-ArchLayers.dc.html">How OmnIDE sits on top of Code OSS</a>.</p></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1240,"height":800}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

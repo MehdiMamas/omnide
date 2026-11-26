@@ -1,0 +1,16 @@
+{
+  "name": "OmnIDE Light",
+  "type": "light",
+  "colors": {
+    "editor.background": "#F8F6FC",
+    "sideBar.background": "#F0EDF7",
+    "activityBar.background": "#FFFFFF",
+    "titleBar.activeBackground": "#FFFFFF",
+    "panel.background": "#F8F6FC",
+    "input.background": "#E5E1F0",
+    "list.hoverBackground": "#D6D1E5",
+    "editor.foreground": "#1A1626",
+    "descriptionForeground": "#5F5977"
+  },
+  "_note": "Generated from docs/blueprint/tokens.json; starter set, extend in build step 1"
+}

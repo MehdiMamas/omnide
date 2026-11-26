@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Free usage limit reached</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+a{color:#B69CFF}a:hover{color:#F4F2FB}
+table{border-collapse:collapse}
+th{text-align:left;font-weight:600;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:rgba(244, 242, 251, 0.74);padding:8px 10px;border-bottom:1px solid rgba(244, 242, 251, 0.08)}
+td{padding:8px 10px;border-bottom:1px solid rgba(244, 242, 251, 0.08);vertical-align:top}
+</style>
+<style data-omnide-v3>@font-face{font-family:'Geist';src:url(./fonts/Geist-Variable.woff2) format('woff2');font-weight:100 900;font-display:swap}@font-face{font-family:'Geist Mono';src:url(./fonts/GeistMono-Variable.woff2) format('woff2');font-weight:100 900;font-display:swap}</style></helmet>
+<div data-page="v3" data-created="2026-11-26" data-updated="2026-11-26" data-status="current" data-section="play" data-scenario="v2-PlayLimit" data-kind="error" data-story="As a developer on the Free plan, I want to know at once when I am out of agent usage and what to do, so that I am not left waiting on a turn that will never run." style="position:relative;width:1240px;min-height:456px;box-sizing:border-box;padding:40px 48px;background:#14121B;color:#F4F2FB;font-family:'Geist','Segoe UI',system-ui,sans-serif;font-size:14px;line-height:1.5">
+<div style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:rgba(244, 242, 251, 0.74)">Play · error · v3 · 2026-11-26 · updated 2026-11-26</div><h1 style="margin:6px 0 8px;font-size:30px;font-weight:600">Free usage limit reached</h1><p style="margin:0 0 12px;color:rgba(244, 242, 251, 0.74)">Reference: this is a OmnIDE feature. OmnIDE has no plans or usage limits; see <a href="v3-omni-Changes.dc.html">Changes</a>.</p><p style="margin:0 0 20px;max-width:1080px;color:rgba(244, 242, 251, 0.74)">As a developer on the Free plan, I want to know at once when I am out of agent usage and what to do, so that I am not left waiting on a turn that will never run. Click a step to open its screen; each screen links on through its real buttons. <a href="v3-FlowChat.dc.html">See the flow</a>.</p><ol style="margin:0;padding-left:22px;max-width:1080px"><li style="margin:0 0 8px"><a href="v3-chat-approval-1.dc.html" data-flow="v3-FlowChat:limit" data-endpoint="STREAM agent turn">Agent turn: error</a> <br><span style="color:rgba(244, 242, 251, 0.74);font-size:13px">The next turn ends at once: &quot;Agent error: You&#x27;ve hit your usage limit.&quot;</span></li><li style="margin:0 0 8px"><a href="v3-chat-approval-2.dc.html" data-flow="v3-FlowChat:run">Agent turn: error</a> <br><span style="color:rgba(244, 242, 251, 0.74);font-size:13px">The error stays in the chat with an upgrade offer.</span></li><li style="margin:0 0 8px"><a href="v3-set-plan-and-usage-limit.dc.html" data-flow="v3-FlowChat:limit" data-endpoint="GET plan and usage">OmnIDE Settings · Claude: error</a> <br><span style="color:rgba(244, 242, 251, 0.74);font-size:13px">Settings &gt; Claude shows the used-up Free allowance.</span></li></ol>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1240,"height":456}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>
