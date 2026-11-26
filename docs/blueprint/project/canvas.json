@@ -1,0 +1,477 @@
+{
+  "v": 3,
+  "createdOnFiles": {
+    "v": 1,
+    "at": "2026-11-26T09:00:00Z"
+  },
+  "title": "OmnIDE blueprint",
+  "launch": {
+    "view": "canvas"
+  },
+  "pages": [
+    {
+      "id": "v1",
+      "name": "v1 · 2026-11-26"
+    }
+  ],
+  "boards": {
+    "v1-Cover.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 1300,
+      "h": 1000,
+      "title": "OmnIDE blueprint",
+      "page": "v1"
+    },
+    "v1-Progress.dc.html": {
+      "x": 1400,
+      "y": 0,
+      "w": 1200,
+      "h": 520,
+      "title": "Progress",
+      "page": "v1"
+    },
+    "v1-Brand.dc.html": {
+      "x": 2700,
+      "y": 0,
+      "w": 1200,
+      "h": 980,
+      "title": "Rebrand: Omnide to OmnIDE",
+      "page": "v1"
+    },
+    "v1-ScreenWelcome.dc.html": {
+      "x": 0,
+      "y": 3170,
+      "w": 1280,
+      "h": 800,
+      "title": "Screen: Welcome",
+      "page": "v1",
+      "is_interactive": true
+    },
+    "v1-ScreenAgentPicker.dc.html": {
+      "x": 1360,
+      "y": 3170,
+      "w": 1280,
+      "h": 800,
+      "title": "Screen: Agent Picker",
+      "page": "v1",
+      "is_interactive": true
+    },
+    "v1-ScreenClaudeMissing.dc.html": {
+      "x": 2720,
+      "y": 4110,
+      "w": 1280,
+      "h": 800,
+      "title": "Screen: Claude Missing",
+      "page": "v1",
+      "is_interactive": true
+    },
+    "v1-ScreenSignIn.dc.html": {
+      "x": 1360,
+      "y": 4110,
+      "w": 1280,
+      "h": 800,
+      "title": "Screen: Sign In",
+      "page": "v1",
+      "is_interactive": true
+    },
+    "v1-ScreenChatEmpty.dc.html": {
+      "x": 2720,
+      "y": 3170,
+      "w": 1280,
+      "h": 800,
+      "title": "Screen: Chat Empty",
+      "page": "v1",
+      "is_interactive": true
+    },
+    "v1-ScreenChatStreaming.dc.html": {
+      "x": 4080,
+      "y": 3170,
+      "w": 1280,
+      "h": 800,
+      "title": "Screen: Chat Streaming",
+      "page": "v1",
+      "is_interactive": true
+    },
+    "v1-ScreenPermission.dc.html": {
+      "x": 5440,
+      "y": 3170,
+      "w": 1280,
+      "h": 800,
+      "title": "Screen: Permission",
+      "page": "v1",
+      "is_interactive": true
+    },
+    "v1-ScreenDenied.dc.html": {
+      "x": 0,
+      "y": 4110,
+      "w": 1280,
+      "h": 800,
+      "title": "Screen: Denied",
+      "page": "v1",
+      "is_interactive": true
+    },
+    "v1-ScreenDiff.dc.html": {
+      "x": 6800,
+      "y": 3170,
+      "w": 1280,
+      "h": 800,
+      "title": "Screen: Diff",
+      "page": "v1",
+      "is_interactive": true
+    },
+    "v1-ScreenChatDone.dc.html": {
+      "x": 8160,
+      "y": 3170,
+      "w": 1280,
+      "h": 800,
+      "title": "Screen: Chat Done",
+      "page": "v1",
+      "is_interactive": true
+    },
+    "v1-ScreenUpdate.dc.html": {
+      "x": 4080,
+      "y": 4110,
+      "w": 1280,
+      "h": 800,
+      "title": "Screen: Update",
+      "page": "v1",
+      "is_interactive": true
+    },
+    "v1-ScreenUpdateFailed.dc.html": {
+      "x": 5440,
+      "y": 4110,
+      "w": 1280,
+      "h": 800,
+      "title": "Screen: Update Failed",
+      "page": "v1",
+      "is_interactive": true
+    },
+    "v1-ScreenAgentsSettings.dc.html": {
+      "x": 6800,
+      "y": 4110,
+      "w": 1280,
+      "h": 800,
+      "title": "Screen: Agents Settings",
+      "page": "v1",
+      "is_interactive": true
+    },
+    "v1-ScreenEditorNoAI.dc.html": {
+      "x": 8160,
+      "y": 4110,
+      "w": 1280,
+      "h": 800,
+      "title": "Screen: Editor No AI",
+      "page": "v1",
+      "is_interactive": true
+    },
+    "v1-ScenarioFirstRun.dc.html": {
+      "x": 0,
+      "y": 1120,
+      "w": 960,
+      "h": 1146,
+      "title": "Scenario: First run with Claude Code",
+      "page": "v1",
+      "is_interactive": true
+    },
+    "v1-ScenarioSignedOut.dc.html": {
+      "x": 1040,
+      "y": 1120,
+      "w": 960,
+      "h": 474,
+      "title": "Scenario: Signed out of Claude Code",
+      "page": "v1",
+      "is_interactive": true
+    },
+    "v1-ScenarioMissing.dc.html": {
+      "x": 2080,
+      "y": 1120,
+      "w": 960,
+      "h": 524,
+      "title": "Scenario: Claude Code not installed",
+      "page": "v1",
+      "is_interactive": true
+    },
+    "v1-ScenarioDenied.dc.html": {
+      "x": 3120,
+      "y": 1120,
+      "w": 960,
+      "h": 474,
+      "title": "Scenario: Edit denied, or stopped",
+      "page": "v1",
+      "is_interactive": true
+    },
+    "v1-ScenarioNoAI.dc.html": {
+      "x": 4160,
+      "y": 1120,
+      "w": 960,
+      "h": 424,
+      "title": "Scenario: No AI at all",
+      "page": "v1",
+      "is_interactive": true
+    },
+    "v1-ScenarioUpdate.dc.html": {
+      "x": 0,
+      "y": 2406,
+      "w": 960,
+      "h": 624,
+      "title": "Scenario: Update available",
+      "page": "v1",
+      "is_interactive": true
+    },
+    "v1-ScenarioBadUpdate.dc.html": {
+      "x": 1040,
+      "y": 2406,
+      "w": 960,
+      "h": 424,
+      "title": "Scenario: Update fails its check",
+      "page": "v1",
+      "is_interactive": true
+    },
+    "v1-StateMatrix.dc.html": {
+      "x": 2080,
+      "y": 2406,
+      "w": 960,
+      "h": 480,
+      "title": "State matrix",
+      "page": "v1",
+      "is_interactive": true
+    },
+    "v1-FlowAgent.dc.html": {
+      "x": 0,
+      "y": 5050,
+      "w": 1690,
+      "h": 724,
+      "title": "Agent flow: from \"Set up an agent\" to a reviewed edit (UML activity diagram)",
+      "page": "v1"
+    },
+    "v1-UpdatesFlow.dc.html": {
+      "x": 1800,
+      "y": 5050,
+      "w": 1240,
+      "h": 624,
+      "title": "Update flow: how a new OmnIDE reaches a running app (UML activity diagram)",
+      "page": "v1"
+    },
+    "v1-StateSession.dc.html": {
+      "x": 3200,
+      "y": 5050,
+      "w": 900,
+      "h": 440,
+      "title": "UML state machine: agent session",
+      "page": "v1"
+    },
+    "v1-Timeline.dc.html": {
+      "x": 4200,
+      "y": 5050,
+      "w": 1240,
+      "h": 440,
+      "title": "Timeline: VS Code release to your machine",
+      "page": "v1"
+    },
+    "v1-EdgeCases.dc.html": {
+      "x": 0,
+      "y": 5914,
+      "w": 1400,
+      "h": 820,
+      "title": "Edge cases",
+      "page": "v1"
+    },
+    "v1-CaseCursor.dc.html": {
+      "x": 0,
+      "y": 6874,
+      "w": 760,
+      "h": 820,
+      "title": "Case study: Cursor",
+      "page": "v1"
+    },
+    "v1-CaseZed.dc.html": {
+      "x": 800,
+      "y": 6874,
+      "w": 760,
+      "h": 820,
+      "title": "Case study: Zed",
+      "page": "v1"
+    },
+    "v1-CaseVoid.dc.html": {
+      "x": 1600,
+      "y": 6874,
+      "w": 760,
+      "h": 820,
+      "title": "Case study: Void",
+      "page": "v1"
+    },
+    "v1-CaseVSCodium.dc.html": {
+      "x": 2400,
+      "y": 6874,
+      "w": 760,
+      "h": 820,
+      "title": "Case study: VSCodium",
+      "page": "v1"
+    },
+    "v1-CaseLessons.dc.html": {
+      "x": 3200,
+      "y": 6874,
+      "w": 1100,
+      "h": 560,
+      "title": "Case study: lessons",
+      "page": "v1"
+    },
+    "v1-Components.dc.html": {
+      "x": 0,
+      "y": 7834,
+      "w": 1300,
+      "h": 700,
+      "title": "C4 container diagram",
+      "page": "v1"
+    },
+    "v1-SequenceAcp.dc.html": {
+      "x": 1400,
+      "y": 7834,
+      "w": 1300,
+      "h": 720,
+      "title": "UML sequence diagram: one prompt over ACP",
+      "page": "v1"
+    },
+    "v1-ErLocal.dc.html": {
+      "x": 2800,
+      "y": 7834,
+      "w": 1100,
+      "h": 560,
+      "title": "ER diagram: what OmnIDE stores",
+      "page": "v1"
+    },
+    "v1-UseCase.dc.html": {
+      "x": 0,
+      "y": 8694,
+      "w": 1100,
+      "h": 560,
+      "title": "UML use case diagram",
+      "page": "v1"
+    },
+    "v1-Deployment.dc.html": {
+      "x": 1200,
+      "y": 8694,
+      "w": 1300,
+      "h": 600,
+      "title": "UML deployment diagram and cost",
+      "page": "v1"
+    },
+    "v1-Endpoints.dc.html": {
+      "x": 2600,
+      "y": 8694,
+      "w": 1400,
+      "h": 820,
+      "title": "Endpoints and ACP methods",
+      "page": "v1"
+    },
+    "v1-DesignDirection.dc.html": {
+      "x": 0,
+      "y": 9654,
+      "w": 960,
+      "h": 760,
+      "title": "Visual direction",
+      "page": "v1"
+    },
+    "v1-DesignTokens.dc.html": {
+      "x": 1060,
+      "y": 9654,
+      "w": 1300,
+      "h": 900,
+      "title": "Colour tokens",
+      "page": "v1"
+    },
+    "v1-DesignType.dc.html": {
+      "x": 2460,
+      "y": 9654,
+      "w": 960,
+      "h": 600,
+      "title": "Type, spacing and motion",
+      "page": "v1"
+    },
+    "v1-Decisions.dc.html": {
+      "x": 0,
+      "y": 10694,
+      "w": 1400,
+      "h": 1500,
+      "title": "Decisions",
+      "page": "v1"
+    },
+    "v1-Plan.dc.html": {
+      "x": 1500,
+      "y": 10694,
+      "w": 1300,
+      "h": 900,
+      "title": "Plan",
+      "page": "v1"
+    },
+    "v1-Questions.dc.html": {
+      "x": 2900,
+      "y": 10694,
+      "w": 1100,
+      "h": 700,
+      "title": "Questions and risks",
+      "page": "v1"
+    },
+    "v1-History.dc.html": {
+      "x": 4100,
+      "y": 10694,
+      "w": 900,
+      "h": 400,
+      "title": "History",
+      "page": "v1"
+    }
+  },
+  "order": [
+    "v1-Cover.dc.html",
+    "v1-Progress.dc.html",
+    "v1-Brand.dc.html",
+    "v1-ScreenWelcome.dc.html",
+    "v1-ScreenAgentPicker.dc.html",
+    "v1-ScreenClaudeMissing.dc.html",
+    "v1-ScreenSignIn.dc.html",
+    "v1-ScreenChatEmpty.dc.html",
+    "v1-ScreenChatStreaming.dc.html",
+    "v1-ScreenPermission.dc.html",
+    "v1-ScreenDenied.dc.html",
+    "v1-ScreenDiff.dc.html",
+    "v1-ScreenChatDone.dc.html",
+    "v1-ScreenUpdate.dc.html",
+    "v1-ScreenUpdateFailed.dc.html",
+    "v1-ScreenAgentsSettings.dc.html",
+    "v1-ScreenEditorNoAI.dc.html",
+    "v1-ScenarioFirstRun.dc.html",
+    "v1-ScenarioSignedOut.dc.html",
+    "v1-ScenarioMissing.dc.html",
+    "v1-ScenarioDenied.dc.html",
+    "v1-ScenarioNoAI.dc.html",
+    "v1-ScenarioUpdate.dc.html",
+    "v1-ScenarioBadUpdate.dc.html",
+    "v1-StateMatrix.dc.html",
+    "v1-FlowAgent.dc.html",
+    "v1-UpdatesFlow.dc.html",
+    "v1-StateSession.dc.html",
+    "v1-Timeline.dc.html",
+    "v1-EdgeCases.dc.html",
+    "v1-CaseCursor.dc.html",
+    "v1-CaseZed.dc.html",
+    "v1-CaseVoid.dc.html",
+    "v1-CaseVSCodium.dc.html",
+    "v1-CaseLessons.dc.html",
+    "v1-Components.dc.html",
+    "v1-SequenceAcp.dc.html",
+    "v1-ErLocal.dc.html",
+    "v1-UseCase.dc.html",
+    "v1-Deployment.dc.html",
+    "v1-Endpoints.dc.html",
+    "v1-DesignDirection.dc.html",
+    "v1-DesignTokens.dc.html",
+    "v1-DesignType.dc.html",
+    "v1-Decisions.dc.html",
+    "v1-Plan.dc.html",
+    "v1-Questions.dc.html",
+    "v1-History.dc.html"
+  ],
+  "notes": [],
+  "designSystems": []
+}

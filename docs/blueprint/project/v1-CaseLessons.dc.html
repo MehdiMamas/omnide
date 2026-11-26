@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Case study: lessons</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap">
+<style>
+:root{--bg:#0F1216;--surface:#171B21;--ink:#E6EAF0;--muted:#9AA4B2;--line:#5C6776;--accent:#2BD4A4;--on-accent:#06231B;--warn:#F5B83D;--error:#F0616D;--error-bg:#2A1519;--ok:#5FD08A;--ok-bg:#12261B;--dg-bg:#0B0E12;--dg-lane:#141920;--dg-node:#1C222B;--dg-line:#6B7787;--dg-ink:#E6EAF0;--dg-muted:#9AA4B2;--font-body:'IBM Plex Sans',system-ui,sans-serif;--font-display:'IBM Plex Sans',system-ui,sans-serif;--font-mono:'JetBrains Mono',ui-monospace,Consolas,monospace;}
+body{margin:0}
+a{color:var(--accent)}a:hover{color:var(--accent)}
+</style>
+</helmet>
+<div data-page="v1" data-created="2026-11-26" data-updated="2026-11-26" data-status="current" data-section="decisions" style="position:relative;width:1100px;min-height:560px;box-sizing:border-box;overflow:hidden;padding:40px 40px;background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:15px;line-height:1.55">
+<h1 style="margin:0 0 6px;font:700 30px/1.2 var(--font-display)">Case study: what OmnIDE takes</h1><p style="margin:0 0 22px;color:var(--muted);font-size:13px">Status: current. Created 2026-11-26. Updated 2026-11-26.</p><p style="margin:0 0 10px;">OmnIDE = VSCodium's build + Zed's protocol + Cursor's layout, without Cursor's lock-in or Void's do-it-all scope.</p><table style="border-collapse:collapse;width:100%;font-size:13.5px"><thead><tr><th style="text-align:left;padding:7px 10px;border-bottom:2px solid var(--line);font-weight:600"></th><th style="text-align:left;padding:7px 10px;border-bottom:2px solid var(--line);font-weight:600">Cursor</th><th style="text-align:left;padding:7px 10px;border-bottom:2px solid var(--line);font-weight:600">Zed</th><th style="text-align:left;padding:7px 10px;border-bottom:2px solid var(--line);font-weight:600">Void</th><th style="text-align:left;padding:7px 10px;border-bottom:2px solid var(--line);font-weight:600">VSCodium</th><th style="text-align:left;padding:7px 10px;border-bottom:2px solid var(--line);font-weight:600">OmnIDE</th></tr></thead><tbody><tr ><td style="padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top">Base</td><td style="padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top">Fork, months behind</td><td style="padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top">Own engine</td><td style="padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top">Fork, archived</td><td style="padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top">Patches, days behind</td><td style="padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top"><b>Patches, days behind</b></td></tr><tr ><td style="padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top">Agents</td><td style="padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top">Own, closed</td><td style="padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top">Any via ACP</td><td style="padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top">Own, built by hand</td><td style="padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top">None</td><td style="padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top"><b>Any via ACP, Claude first</b></td></tr><tr ><td style="padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top">Extensions</td><td style="padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top">Open VSX, MS blocked</td><td style="padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top">Own small store</td><td style="padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top">Open VSX</td><td style="padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top">Open VSX</td><td style="padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top"><b>Open VSX</b></td></tr><tr ><td style="padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top">Pays whom</td><td style="padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top">Cursor</td><td style="padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top">Zed (optional)</td><td style="padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top">Nobody</td><td style="padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top">Nobody</td><td style="padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top"><b>Nobody; agents billed directly</b></td></tr><tr ><td style="padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top">Updates</td><td style="padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top">Own server</td><td style="padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top">On restart</td><td style="padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top">Own</td><td style="padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top">GitHub JSON</td><td style="padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top"><b>GitHub JSON, on restart</b></td></tr></tbody></table><p style="margin:0 0 10px;margin-top:16px">Open the four studies: <a href="v1-CaseCursor.dc.html">Cursor</a> · <a href="v1-CaseZed.dc.html">Zed</a> · <a href="v1-CaseVoid.dc.html">Void</a> · <a href="v1-CaseVSCodium.dc.html">VSCodium</a></p>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1100,"height":560}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>

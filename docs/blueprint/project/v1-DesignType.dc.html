@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Type, spacing and motion</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap">
+<style>
+:root{--bg:#0F1216;--surface:#171B21;--ink:#E6EAF0;--muted:#9AA4B2;--line:#5C6776;--accent:#2BD4A4;--on-accent:#06231B;--warn:#F5B83D;--error:#F0616D;--error-bg:#2A1519;--ok:#5FD08A;--ok-bg:#12261B;--dg-bg:#0B0E12;--dg-lane:#141920;--dg-node:#1C222B;--dg-line:#6B7787;--dg-ink:#E6EAF0;--dg-muted:#9AA4B2;--font-body:'IBM Plex Sans',system-ui,sans-serif;--font-display:'IBM Plex Sans',system-ui,sans-serif;--font-mono:'JetBrains Mono',ui-monospace,Consolas,monospace;}
+body{margin:0}
+a{color:var(--accent)}a:hover{color:var(--accent)}
+</style>
+</helmet>
+<div data-page="v1" data-created="2026-11-26" data-updated="2026-11-26" data-status="current" data-section="design" style="position:relative;width:960px;min-height:600px;box-sizing:border-box;overflow:hidden;padding:40px 40px;background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:15px;line-height:1.55">
+<h1 style="margin:0 0 6px;font:700 30px/1.2 var(--font-display)">Type, spacing and motion</h1><p style="margin:0 0 22px;color:var(--muted);font-size:13px">Status: current. Created 2026-11-26. Updated 2026-11-26.</p><svg role="img" aria-label="Type sizes 44, 20, 13 and mono 13" width="420" height="64"><text x="0" y="50" font-size="44" fill="var(--ink)" font-family="IBM Plex Sans">Aa</text><text x="90" y="50" font-size="20" fill="var(--ink)" font-family="IBM Plex Sans">Aa</text><text x="140" y="50" font-size="13" fill="var(--ink)" font-family="IBM Plex Sans">Aa</text><text x="180" y="50" font-size="13" fill="var(--accent)" font-family="JetBrains Mono">const a = 1;</text></svg><ul style="margin:0 0 10px;padding-left:20px"><li style="margin:0 0 4px"><b>IBM Plex Sans</b> for UI: open licence, clear at 13 px, wider than Inter so it does not look like every other AI tool.</li><li style="margin:0 0 4px"><b>JetBrains Mono</b> for code and tool cards: free, ligatures optional, the most used free coding font after the defaults.</li><li style="margin:0 0 4px">Sizes: 13 px UI (VS Code default), 15 px agent text, 20 px settings titles, 44 px only on Welcome.</li><li style="margin:0 0 4px">Spacing on a 4 px grid; VS Code's own paddings are kept so extensions still fit.</li><li style="margin:0 0 4px">Motion: none except the streaming text and a 150 ms fade on toasts; respects reduced motion.</li></ul>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":960,"height":600}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>

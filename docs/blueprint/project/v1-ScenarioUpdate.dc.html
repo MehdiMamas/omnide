@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Scenario: Update available</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap">
+<style>
+:root{--bg:#0F1216;--surface:#171B21;--ink:#E6EAF0;--muted:#9AA4B2;--line:#5C6776;--accent:#2BD4A4;--on-accent:#06231B;--warn:#F5B83D;--error:#F0616D;--error-bg:#2A1519;--ok:#5FD08A;--ok-bg:#12261B;--dg-bg:#0B0E12;--dg-lane:#141920;--dg-node:#1C222B;--dg-line:#6B7787;--dg-ink:#E6EAF0;--dg-muted:#9AA4B2;--font-body:'IBM Plex Sans',system-ui,sans-serif;--font-display:'IBM Plex Sans',system-ui,sans-serif;--font-mono:'JetBrains Mono',ui-monospace,Consolas,monospace;}
+body{margin:0}
+a{color:var(--accent)}a:hover{color:var(--accent)}
+</style>
+</helmet>
+<div data-page="v1" data-created="2026-11-26" data-updated="2026-11-26" data-status="current" data-section="play" data-scenario="ScenarioUpdate" data-kind="happy" data-story="As a developer, I want updates to download quietly and apply on restart, so that I stay a few days behind VS Code without doing anything." style="position:relative;width:960px;min-height:624px;box-sizing:border-box;overflow:hidden;padding:40px 40px;background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:15px;line-height:1.55">
+<div style="display:flex;align-items:center;gap:10px"><span style="padding:2px 8px;border:1px solid var(--ok);color:var(--ok);border-radius:10px;font-size:12px">happy</span><a href="v1-UpdatesFlow.dc.html" style="font-size:13px">Update flow</a> · <a href="v1-Timeline.dc.html" style="font-size:13px">Release timeline</a></div>
+<h1 style="margin:8px 0 4px;font:700 26px/1.2 var(--font-display)">Update available</h1><p style="margin:0 0 12px;color:var(--muted);font-size:13px">Status: current. Created 2026-11-26. Updated 2026-11-26.</p>
+<p style="margin:0 0 8px"><b>As a developer, I want updates to download quietly and apply on restart, so that I stay a few days behind VS Code without doing anything.</b></p>
+<p style="margin:0 0 4px;font-weight:600">Done when</p><ul style="margin:0 0 12px;padding-left:20px"><li>The download is checked against sha256 before it is offered.</li><li>Restart reopens the same windows and chats.</li></ul>
+<p style="margin:0 0 6px;font-weight:600">Steps (click one to open its screen)</p><ol style="margin:0;padding-left:22px"><li style="margin:0 0 9px"><a href="v1-ScreenChatEmpty.dc.html" data-flow="v1-UpdatesFlow:up_check" data-endpoint="GET versions/stable/{os}/{arch}/{type}/latest.json">Keeps working.</a> <span style="font-size:12px;color:var(--muted)">→ ChatEmpty · up_check · <code>GET versions/stable/{os}/{arch}/{type}/latest.json</code></span><br><span style="color:var(--muted);font-size:13px">System: On start and then on a timer, the app fetches latest.json for its platform.</span></li><li style="margin:0 0 9px"><a href="v1-ScreenChatEmpty.dc.html" data-flow="v1-UpdatesFlow:up_get"></a> <span style="font-size:12px;color:var(--muted)">→ ChatEmpty · up_get</span><br><span style="color:var(--muted);font-size:13px">System: GitHub serves the file from the versions repo (free, cached by GitHub).</span></li><li style="margin:0 0 9px"><a href="v1-ScreenChatEmpty.dc.html" data-flow="v1-UpdatesFlow:up_new"></a> <span style="font-size:12px;color:var(--muted)">→ ChatEmpty · up_new</span><br><span style="color:var(--muted);font-size:13px">System: Compares productVersion and commit with its own build.</span></li><li style="margin:0 0 9px"><a href="v1-ScreenChatEmpty.dc.html" data-flow="v1-UpdatesFlow:up_download" data-endpoint="GET github.com/{org}/omnide/releases/download/{version}/{file}"></a> <span style="font-size:12px;color:var(--muted)">→ ChatEmpty · up_download · <code>GET github.com/{org}/omnide/releases/download/{version}/{file}</code></span><br><span style="color:var(--muted);font-size:13px">System: Downloads the signed installer from GitHub Releases in the background.</span></li><li style="margin:0 0 9px"><a href="v1-ScreenUpdate.dc.html" data-flow="v1-UpdatesFlow:up_verify"></a> <span style="font-size:12px;color:var(--muted)">→ Update · up_verify</span><br><span style="color:var(--muted);font-size:13px">System: sha256 of the file equals sha256hash in latest.json.</span></li><li style="margin:0 0 9px"><a href="v1-ScreenUpdate.dc.html" data-flow="v1-UpdatesFlow:up_notify">Sees "OmnIDE 1.149.0 is ready" with Restart to update.</a> <span style="font-size:12px;color:var(--muted)">→ Update · up_notify</span></li><li style="margin:0 0 9px"><a href="v1-ScreenChatEmpty.dc.html" data-flow="v1-UpdatesFlow:up_apply">Clicks Restart; windows reopen on the new version.</a> <span style="font-size:12px;color:var(--muted)">→ ChatEmpty · up_apply</span></li></ol>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":960,"height":624}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>

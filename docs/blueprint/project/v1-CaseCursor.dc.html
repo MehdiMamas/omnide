@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Case study: Cursor</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap">
+<style>
+:root{--bg:#0F1216;--surface:#171B21;--ink:#E6EAF0;--muted:#9AA4B2;--line:#5C6776;--accent:#2BD4A4;--on-accent:#06231B;--warn:#F5B83D;--error:#F0616D;--error-bg:#2A1519;--ok:#5FD08A;--ok-bg:#12261B;--dg-bg:#0B0E12;--dg-lane:#141920;--dg-node:#1C222B;--dg-line:#6B7787;--dg-ink:#E6EAF0;--dg-muted:#9AA4B2;--font-body:'IBM Plex Sans',system-ui,sans-serif;--font-display:'IBM Plex Sans',system-ui,sans-serif;--font-mono:'JetBrains Mono',ui-monospace,Consolas,monospace;}
+body{margin:0}
+a{color:var(--accent)}a:hover{color:var(--accent)}
+</style>
+</helmet>
+<div data-page="v1" data-created="2026-11-26" data-updated="2026-11-26" data-status="current" data-section="decisions" style="position:relative;width:760px;min-height:820px;box-sizing:border-box;overflow:hidden;padding:40px 40px;background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:15px;line-height:1.55">
+<h1 style="margin:0 0 6px;font:700 30px/1.2 var(--font-display)">Case study: Cursor</h1><p style="margin:0 0 22px;color:var(--muted);font-size:13px">Status: current. Created 2026-11-26. Updated 2026-11-26.</p><p style="margin:0 0 10px;font-size:16px">A closed VS Code fork with its own AI. Huge success, and the clearest list of what to avoid.</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:14px"><div style="background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px 16px;"><b style="color:var(--ok)">Got right</b><ul style="margin:0 0 10px;padding-left:20px"><li style="margin:0 0 4px">AI-first layout people love: agent panel, Tab, inline edit.</li><li style="margin:0 0 4px">Fast, visible response to backlash (refunds after the June 2025 pricing change).</li><li style="margin:0 0 4px">Rules, MCP and skills in plain files.</li></ul></div><div style="background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px 16px;"><b style="color:var(--error)">Got wrong</b><ul style="margin:0 0 10px;padding-left:20px"><li style="margin:0 0 4px">Pricing switch in June 2025 surprised paying users (TechCrunch, 2025-07-07).</li><li style="margin:0 0 4px">Long upstream lag: still built on VS Code 1.105 months after newer releases shipped (forum thread 164204).</li><li style="margin:0 0 4px">Microsoft's C/C++ extension stopped working in forks (The Register, 2025-04-24).</li><li style="margin:0 0 4px">Closed: users cannot pick the agent or the model provider freely.</li></ul></div></div><h2 style="margin:22px 0 8px;font:600 18px/1.3 var(--font-display)">What OmnIDE takes from it</h2><ul style="margin:0 0 10px;padding-left:20px"><li style="margin:0 0 4px">Copy the layout, not the lock-in: any ACP agent, the user's own account.</li><li style="margin:0 0 4px">No OmnIDE billing at all: users pay their agent directly.</li><li style="margin:0 0 4px">Stay close to upstream with a thin patch set.</li><li style="margin:0 0 4px">Same file formats (AGENTS.md, mcp.json, SKILL.md).</li></ul><h2 style="margin:22px 0 8px;font:600 18px/1.3 var(--font-display)">Sources</h2><ul style="margin:0 0 10px;padding-left:20px"><li style="margin:0 0 4px"><a data-source href="https://techcrunch.com/2025/07/07/cursor-apologizes-for-unclear-pricing-changes-that-upset-users/" data-fetched="2026-11-26">TechCrunch: Cursor apologizes for unclear pricing changes</a></li><li style="margin:0 0 4px"><a data-source href="https://forum.cursor.com/t/164204" data-fetched="2026-11-26">Cursor forum: upstream version thread</a></li><li style="margin:0 0 4px"><a data-source href="https://www.theregister.com/2025/04/24/microsoft_vs_code_subtracts_cc_extension/" data-fetched="2026-11-26">The Register: C/C++ extension blocked in forks</a></li><li style="margin:0 0 4px"><a data-source href="https://cursor.com/pricing" data-fetched="2026-11-26">cursor.com/pricing</a></li></ul>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":760,"height":820}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>

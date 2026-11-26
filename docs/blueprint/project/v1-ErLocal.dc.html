@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>ER diagram: what OmnIDE stores</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap">
+<style>
+:root{--bg:#0F1216;--surface:#171B21;--ink:#E6EAF0;--muted:#9AA4B2;--line:#5C6776;--accent:#2BD4A4;--on-accent:#06231B;--warn:#F5B83D;--error:#F0616D;--error-bg:#2A1519;--ok:#5FD08A;--ok-bg:#12261B;--dg-bg:#0B0E12;--dg-lane:#141920;--dg-node:#1C222B;--dg-line:#6B7787;--dg-ink:#E6EAF0;--dg-muted:#9AA4B2;--font-body:'IBM Plex Sans',system-ui,sans-serif;--font-display:'IBM Plex Sans',system-ui,sans-serif;--font-mono:'JetBrains Mono',ui-monospace,Consolas,monospace;}
+body{margin:0}
+a{color:var(--accent)}a:hover{color:var(--accent)}
+</style>
+</helmet>
+<div data-page="v1" data-created="2026-11-26" data-updated="2026-11-26" data-status="current" data-diagram="er" style="position:relative;width:1100px;min-height:560px;box-sizing:border-box;overflow:hidden;height:560px;padding:40px 40px;background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:15px;line-height:1.55">
+<h1 style="margin:0 0 6px;font:700 30px/1.2 var(--font-display)">ER diagram: what OmnIDE stores locally</h1><p style="margin:0 0 22px;color:var(--muted);font-size:13px">Status: current. Created 2026-11-26. Updated 2026-11-26.</p><p style="margin:0;color:var(--muted);font-size:13px">No server, no account. Everything lives on the user's machine; OmnIDE never stores Claude credentials (they stay in Claude Code).</p><svg role="img" aria-label="AgentEntry 1 to many Session; Session 1 to many PermissionGrant; Session 1 to many Checkpoint" width="1300" height="760" style="position:absolute;left:0;top:0"><defs><marker id="er" orient="auto" markerWidth="8" markerHeight="8" refX="4" refY="4"><path d="M0 0 L8 4 L0 8 Z" fill="var(--line)"/></marker></defs><path d="M 300 260 H 396" stroke="var(--line)" stroke-width="2" fill="none" marker-end="url(#er)"/><text x="316" y="252" font-size="11" fill="var(--muted)">1 .. 0..*</text><path d="M 640 230 H 736" stroke="var(--line)" stroke-width="2" fill="none" marker-end="url(#er)"/><text x="656" y="222" font-size="11" fill="var(--muted)">1 .. 0..*</text><path d="M 640 330 V 420 H 736" stroke="var(--line)" stroke-width="2" fill="none" marker-end="url(#er)"/><text x="660" y="412" font-size="11" fill="var(--muted)">1 .. 0..*</text></svg><div style="position:absolute;left:40px;top:160px;width:260px;height:220px;box-sizing:border-box;padding:10px 12px;background:var(--surface);border:2px solid var(--line);border-radius:8px;font-size:13px;line-height:1.35;font-family:var(--font-body)"><b>AgentEntry</b><br><code>id</code> string PK (registry id)<br><code>command</code>, <code>args[]</code>, <code>env{}</code><br><code>source</code> registry | custom<br><code>enabled</code> bool<br><small style="color:var(--muted)">settings.json: omnide.agents</small></div><div style="position:absolute;left:400px;top:160px;width:240px;height:220px;box-sizing:border-box;padding:10px 12px;background:var(--surface);border:2px solid var(--line);border-radius:8px;font-size:13px;line-height:1.35;"><b>Session</b><br><code>id</code> PK<br><code>agentId</code> FK<br><code>acpSessionId</code><br><code>cwd</code>, <code>createdAt</code><br><code>transcript</code> (messages)<br><small style="color:var(--muted)">workspaceStorage, per folder</small></div><div style="position:absolute;left:740px;top:160px;width:320px;height:130px;box-sizing:border-box;padding:10px 12px;background:var(--surface);border:2px solid var(--line);border-radius:8px;font-size:13px;line-height:1.35;"><b>PermissionGrant</b><br><code>sessionId</code> FK, <code>toolKind</code><br><code>scope</code> once | session<br><small style="color:var(--muted)">memory only; cleared with the session</small></div><div style="position:absolute;left:740px;top:340px;width:320px;height:150px;box-sizing:border-box;padding:10px 12px;background:var(--surface);border:2px solid var(--line);border-radius:8px;font-size:13px;line-height:1.35;"><b>Checkpoint</b><br><code>sessionId</code> FK, <code>path</code><br><code>before</code> blob, <code>createdAt</code><br><small style="color:var(--muted)">workspaceStorage; dropped on Keep, restored on Revert</small></div><p style="position:absolute;left:40px;top:500px;margin:0;font-size:13px;color:var(--muted)">Secrets: an Anthropic API key, if chosen, goes into VS Code SecretStorage (OS keychain), never settings.json.</p>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1100,"height":560}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>
