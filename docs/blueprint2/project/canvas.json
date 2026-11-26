@@ -565,7 +565,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ai-24-ask-mode-streaming \u00b7 ask mode streaming",
+      "title": "ai-24-ask-mode-streaming \u00b7 question answered as a plan, streaming",
       "is_interactive": true
     },
     "v5-ai-25-ask-mode-answer.dc.html": {
@@ -574,7 +574,7 @@
       "w": 1440,
       "h": 900,
       "page": "v5",
-      "title": "ai-25-ask-mode-answer \u00b7 ask mode answer",
+      "title": "ai-25-ask-mode-answer \u00b7 question answered as a plan",
       "is_interactive": true
     },
     "v5-ai-26-editor-selection-toolbar.dc.html": {
@@ -736,7 +736,7 @@
       "w": 1440,
       "h": 931,
       "page": "v5",
-      "title": "chat-mode-menu \u00b7 mode menu open (Agent, Plan, Debug, Multitask, Ask)",
+      "title": "chat-mode-menu \u00b7 mode menu open (Manual, Accept edits, Plan, Auto, Bypass permissions)",
       "is_interactive": true
     },
     "v5-chat-model-menu.dc.html": {
