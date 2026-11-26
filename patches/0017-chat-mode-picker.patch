@@ -1,0 +1,209 @@
+Subject: Agent/Plan/Ask picker and Shift+Tab chat mode cycle (issue 19)
+Original to OmnIDE.
+
+diff --git a/src/vs/platform/agentHost/node/claude/claudeAgent.ts b/src/vs/platform/agentHost/node/claude/claudeAgent.ts
+index 208f1054..d70f51fe 100644
+--- a/src/vs/platform/agentHost/node/claude/claudeAgent.ts
++++ b/src/vs/platform/agentHost/node/claude/claudeAgent.ts
+@@ -28,6 +28,8 @@ import { AgentSdkSetupChannel } from '../agentSdkSetupChannel.js';
+ import { decodeProviderData, encodeProviderData, type IPersistedChat } from '../agentChatBackings.js';
+ import { AgentHostAutoApprovePolicyRestrictedConfigKey, createSchema, platformRootSchema, platformSessionSchema, schemaProperty } from '../../common/agentHostSchema.js';
+ import { ClaudePermissionMode, ClaudeSessionConfigKey, narrowClaudePermissionMode } from '../../common/claudeSessionConfigKeys.js';
++import { agentSdkMode, type IRunPolicyState, sdkModeFor } from '../../common/claudeRunPolicy.js';
++import { RunPolicyConfigKey } from '../../common/claudeRunPolicyConfig.js';
+ import { createClaudeThinkingLevelSchema, isClaudeEffortLevel } from '../../common/claudeModelConfig.js';
+ import { SessionConfigKey } from '../../common/sessionConfigKeys.js';
+ import { AgentChatMigrationDeferred, type AgentChatMigrationResult, AgentProvider, AgentSession, resolveSessionBackedStorage, type IAgentChatOwnerRef, AgentSignal, CLAUDE_AGENT_PROVIDER_ID, IActiveClient, IAgent, IAgentListedChat, IAgentChatContext, IAgentChatDataChange, IAgentChatMetadata, type IAgentChatMetadataOptions, IAgentChats, IAgentChatConfigCompletionsParams, IAgentCreateChatOptions, IAgentCreateChatResult, IAgentDescriptor, IAgentDiscoveredChat, IAgentMaterializeChatEvent, IAgentModelInfo, IAgentResolveChatConfigParams, IAgentSessionProjectInfo, IAgentSpawnChatEvent, IAgentSpawnedChatParent, SubagentChatSignal, resolveAgentChatContext, resolveAgentHostCustomizations, resolveAgentHostInstructions, resolveSubagentChatParent } from '../../common/agent.js';
+@@ -1339,7 +1341,7 @@ export class ClaudeAgent extends Disposable implements IAgent {
+ 	 * validator shouldn't have accepted (defense-in-depth).
+ 	 */
+ 	private _resolvePermissionMode(config: Record<string, unknown> | undefined): ClaudePermissionMode {
+-		return narrowClaudePermissionMode(config?.[ClaudeSessionConfigKey.PermissionMode]) ?? 'default';
++		return narrowClaudePermissionMode(config?.[ClaudeSessionConfigKey.PermissionMode]) ?? sdkModeFor(this._readDefaultChatMode(), this._readRunPolicyState());
+ 	}
+ 
+ 	private async _disposeLiveSession(session: ClaudeAgentSession): Promise<void> {
+@@ -2273,6 +2275,20 @@ export class ClaudeAgent extends Disposable implements IAgent {
+ 		return { ...meta, workingDirectories: [primary, ...tail] };
+ 	}
+ 
++	private _readRunPolicyState(): IRunPolicyState {
++		const root = <K extends typeof RunPolicyConfigKey.RunMode | typeof RunPolicyConfigKey.RunEverythingAccepted>(key: K) => this._configurationService.getRootValue(platformRootSchema, key);
++		return {
++			runMode: root(RunPolicyConfigKey.RunMode) ?? 'autoReview',
++			runEverythingAccepted: root(RunPolicyConfigKey.RunEverythingAccepted) === true,
++			autoAvailable: true,
++			bypassDisabled: false,
++		};
++	}
++
++	private _readDefaultChatMode(): 'agent' | 'plan' | 'ask' {
++		return this._configurationService.getRootValue(platformRootSchema, RunPolicyConfigKey.DefaultChatMode) ?? 'agent';
++	}
++
+ 	resolveChatConfig(_params: IAgentResolveChatConfigParams): Promise<ResolveSessionConfigResult> {
+ 		// Decision B5 (plan section 3.3.5): Claude collapses the platform's
+ 		// `autoApprove` × `mode` two-axis approval surface onto a single
+@@ -2283,27 +2299,26 @@ export class ClaudeAgent extends Disposable implements IAgent {
+ 		// BranchNameHint — workbench pickers key off the property names
+ 		// to decide what to render, so omitting these intentionally
+ 		// suppresses the default mode/branch UI for Claude sessions.
++		const policy = this._readRunPolicyState();
++		const agentValue = agentSdkMode(policy);
++		const defaultValue = sdkModeFor(this._readDefaultChatMode(), policy);
+ 		const sessionSchema = createSchema({
+ 			[ClaudeSessionConfigKey.PermissionMode]: schemaProperty<ClaudePermissionMode>({
+ 				type: 'string',
+ 				title: localize('claude.sessionConfig.permissionMode', "Approvals"),
+ 				description: localize('claude.sessionConfig.permissionModeDescription', "How Claude handles tool approvals."),
+-				enum: ['default', 'acceptEdits', 'plan', 'auto', 'bypassPermissions'],
++				enum: [agentValue, 'plan', 'default'],
+ 				enumLabels: [
+-					localize('claude.sessionConfig.permissionMode.default', "Ask Before Edits"),
+-					localize('claude.sessionConfig.permissionMode.acceptEdits', "Edit Automatically"),
+-					localize('claude.sessionConfig.permissionMode.plan', "Plan Mode"),
+-					localize('claude.sessionConfig.permissionMode.auto', "Auto Mode"),
+-					localize('claude.sessionConfig.permissionMode.bypassPermissions', "Bypass Permissions"),
++					localize('claude.sessionConfig.permissionMode.agent', "Agent"),
++					localize('claude.sessionConfig.permissionMode.plan', "Plan"),
++					localize('claude.sessionConfig.permissionMode.ask', "Ask (No edits)"),
+ 				],
+ 				enumDescriptions: [
+-					localize('claude.sessionConfig.permissionMode.defaultDescription', "Claude asks before editing files."),
+-					localize('claude.sessionConfig.permissionMode.acceptEditsDescription', "Claude edits files without asking, and asks before using other tools."),
++					localize('claude.sessionConfig.permissionMode.agentDescription', "Claude edits and runs commands. How much it asks is set by Run Mode in Settings."),
+ 					localize('claude.sessionConfig.permissionMode.planDescription', "Claude creates a plan before making changes."),
+-					localize('claude.sessionConfig.permissionMode.autoDescription', "Claude decides whether to ask for each tool operation."),
+-					localize('claude.sessionConfig.permissionMode.bypassPermissionsDescription', "Claude runs all tools without asking."),
++					localize('claude.sessionConfig.permissionMode.askDescription', "Claude answers questions and cannot edit files. Shell commands still ask."),
+ 				],
+-				default: 'default',
++				default: defaultValue,
+ 				sessionMutable: true,
+ 				chatMutable: true,
+ 			}),
+@@ -2312,7 +2327,7 @@ export class ClaudeAgent extends Disposable implements IAgent {
+ 		});
+ 
+ 		const values = sessionSchema.validateOrDefault(_params.config, {
+-			[ClaudeSessionConfigKey.PermissionMode]: 'default' satisfies ClaudePermissionMode,
++			[ClaudeSessionConfigKey.PermissionMode]: defaultValue,
+ 			// Permissions intentionally omitted from defaults — leave
+ 			// unset so auto-approval falls through to the host-level
+ 			// default, materializing on the session only once the user
+diff --git a/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostChatInputPicker.contribution.ts b/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostChatInputPicker.contribution.ts
+index 9627f045..3b180839 100644
+--- a/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostChatInputPicker.contribution.ts
++++ b/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostChatInputPicker.contribution.ts
+@@ -3,7 +3,11 @@
+  *  Licensed under the MIT License. See License.txt in the project root for license information.
+  *--------------------------------------------------------------------------------------------*/
+ 
++import { KeyCode, KeyMod } from '../../../../../../base/common/keyCodes.js';
+ import { localize2 } from '../../../../../../nls.js';
++import { ServicesAccessor } from '../../../../../../platform/instantiation/common/instantiation.js';
++import { KeybindingWeight } from '../../../../../../platform/keybinding/common/keybindingsRegistry.js';
++import { IChatWidgetService } from '../../chat.js';
+ import { Action2, MenuId, registerAction2 } from '../../../../../../platform/actions/common/actions.js';
+ import { ClaudeSessionConfigKey } from '../../../../../../platform/agentHost/common/claudeSessionConfigKeys.js';
+ import { CodexSessionConfigKey } from '../../../../../../platform/agentHost/common/codexSessionConfigKeys.js';
+@@ -159,6 +163,26 @@ export class OpenAgentHostCodexApprovalsPickerAction extends Action2 {
+ 	override async run(): Promise<void> { /* the action view item handles interaction */ }
+ }
+ 
++export class CycleChatModeAction extends Action2 {
++	static readonly ID = 'workbench.action.chat.cycleChatMode';
++	constructor() {
++		super({
++			id: CycleChatModeAction.ID,
++			title: localize2('agentHost.cycleChatMode', "Cycle Chat Mode (Agent, Plan, Ask)"),
++			f1: true,
++			precondition: ChatContextKeys.enabled,
++			keybinding: [{
++				primary: KeyMod.Shift | KeyCode.Tab,
++				weight: KeybindingWeight.WorkbenchContrib,
++				when: ContextKeyExpr.and(ChatContextKeys.inChatInput, ChatContextKeyExprs.isAgentHostSession),
++			}],
++		});
++	}
++	override run(accessor: ServicesAccessor): void {
++		accessor.get(IChatWidgetService).lastFocusedWidget?.input.cycleClaudeChatMode(false);
++	}
++}
++
+ export function getAgentHostPickerProperty(actionId: string): string | undefined {
+ 	switch (actionId) {
+ 		case OpenAgentHostModePickerAction.ID:
+@@ -178,4 +202,5 @@ registerAction2(OpenAgentHostModePickerAction);
+ registerAction2(OpenAgentHostAutoApprovePickerAction);
+ registerAction2(OpenAgentHostPermissionModePickerAction);
+ registerAction2(OpenAgentHostCodexApprovalsPickerAction);
++registerAction2(CycleChatModeAction);
+ registerAction2(OpenAgentHostFolderPickerAction);
+diff --git a/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostChatInputPicker.ts b/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostChatInputPicker.ts
+index d25bcfbb..ab970d33 100644
+--- a/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostChatInputPicker.ts
++++ b/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostChatInputPicker.ts
+@@ -35,7 +35,8 @@ import { SessionConfigKey } from '../../../../../../platform/agentHost/common/se
+ import { CLOUD_SANDBOX_AGENT_PROVIDER } from '../../../../../../platform/agentHost/common/cloudSandboxAgentHost.js';
+ import { filterSessionConfigValues, getAvailableSessionApprovalValues, getEffectiveSessionApprovalValue, getSessionApprovalProperty, isChatConfigProperty, getSessionConfigPresentationKey, getSessionModeProperty, getSessionWorkspaceProperties, isHiddenSessionConfigProperty, isSessionConfigWritable, readSessionApprovalLevel, SessionApprovalLevel, validateChatPickerConfigWrite, writeSessionApprovalLevel } from '../../../../../../platform/agentHost/common/sessionConfigProperties.js';
+ import { readSessionSandboxPolicy } from '../../../../../../platform/agentHost/common/meta/agentSandboxPolicyMeta.js';
+-import { ClaudeSessionConfigKey } from '../../../../../../platform/agentHost/common/claudeSessionConfigKeys.js';
++import { ClaudeSessionConfigKey, narrowClaudePermissionMode } from '../../../../../../platform/agentHost/common/claudeSessionConfigKeys.js';
++import { chatModeOf, nextChatMode } from '../../../../../../platform/agentHost/common/claudeRunPolicy.js';
+ import { CodexSessionConfigKey } from '../../../../../../platform/agentHost/common/codexSessionConfigKeys.js';
+ import type { ResolveSessionConfigResult, SessionConfigCompletionsResult, SessionConfigPropertySchema, SessionConfigSchema, SessionConfigValueItem } from '../../../../../../platform/agentHost/common/state/protocol/commands.js';
+ import type { SessionState } from '../../../../../../platform/agentHost/common/state/protocol/state.js';
+@@ -1427,6 +1428,23 @@ export class AgentHostChatInputPicker extends Disposable {
+ 		return getAgentHostChatConfig(state, chat?.resource, member => chat?.chain.get(member)?.value, hostPublishesCompleteChatConfig(connection?.rootState?.value));
+ 	}
+ 
++	/** Moves the chat to its next mode: Agent, Plan, Ask. Each chat keeps its own. */
++	async cycleChatMode(backwards: boolean): Promise<void> {
++		const context = this._readContext(ClaudeSessionConfigKey.PermissionMode);
++		const current = narrowClaudePermissionMode(context?.value);
++		if (!context || !current || !Array.isArray(context.schema.enum)) {
++			return;
++		}
++		const next = nextChatMode(chatModeOf(current), backwards);
++		const target = context.schema.enum.find(value => {
++			const mode = narrowClaudePermissionMode(value);
++			return mode !== undefined && chatModeOf(mode) === next;
++		});
++		if (typeof target === 'string') {
++			await this._setValue(context, target, ClaudeSessionConfigKey.PermissionMode);
++		}
++	}
++
+ 	/** Confirms an elevated approval selection before writing through its host binding. */
+ 	private async _confirmAndSetValue(context: IConfigPickerContext, item: IConfigPickerItem, property = this._property): Promise<void> {
+ 		const value = item.value;
+diff --git a/src/vs/workbench/contrib/chat/browser/widget/input/chatInputPart.ts b/src/vs/workbench/contrib/chat/browser/widget/input/chatInputPart.ts
+index 79b1b0e0..d518279d 100644
+--- a/src/vs/workbench/contrib/chat/browser/widget/input/chatInputPart.ts
++++ b/src/vs/workbench/contrib/chat/browser/widget/input/chatInputPart.ts
+@@ -24,6 +24,7 @@ import { CancellationToken } from '../../../../../../base/common/cancellation.js
+ import { Codicon } from '../../../../../../base/common/codicons.js';
+ import { Emitter, Event } from '../../../../../../base/common/event.js';
+ import { onUnexpectedError } from '../../../../../../base/common/errors.js';
++import { ClaudeSessionConfigKey } from '../../../../../../platform/agentHost/common/claudeSessionConfigKeys.js';
+ import { Iterable } from '../../../../../../base/common/iterator.js';
+ import { KeyCode } from '../../../../../../base/common/keyCodes.js';
+ import { Lazy } from '../../../../../../base/common/lazy.js';
+@@ -1734,6 +1735,16 @@ export class ChatInputPart extends Disposable implements IHistoryNavigationWidge
+ 		return picker?.triggerElement?.isConnected ? picker : undefined;
+ 	}
+ 
++	/** Shift+Tab: moves a Claude chat to its next mode (Agent, Plan, Ask). Returns false when there is no such picker. */
++	public cycleClaudeChatMode(backwards: boolean): boolean {
++		const picker = this.agentHostPickers.get(ClaudeSessionConfigKey.PermissionMode);
++		if (!picker?.triggerElement?.isConnected) {
++			return false;
++		}
++		void picker.cycleChatMode(backwards).catch(onUnexpectedError);
++		return true;
++	}
++
+ 	public get isAgentPickerInAttachContextMenu(): boolean {
+ 		return this._agentPickerInAttachContext.get() && !!this.getModePickerAction();
+ 	}
