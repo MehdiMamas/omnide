@@ -32,7 +32,7 @@
       "x": 44280,
       "y": 0,
       "w": 1240,
-      "h": 760,
+      "h": 690,
       "page": "v5",
       "title": "Code OSS layers"
     },
@@ -146,7 +146,7 @@
       "x": 29560,
       "y": 0,
       "w": 1240,
-      "h": 1794,
+      "h": 1928,
       "page": "v5",
       "title": "History"
     },
@@ -154,7 +154,7 @@
       "x": 0,
       "y": 0,
       "w": 1440,
-      "h": 3222,
+      "h": 3720,
       "page": "v5",
       "title": "Start here"
     },
@@ -162,7 +162,7 @@
       "x": 25600,
       "y": 0,
       "w": 1240,
-      "h": 2117,
+      "h": 2136,
       "page": "v5",
       "title": "Plan"
     },
@@ -340,7 +340,7 @@
       "x": 28240,
       "y": 0,
       "w": 1240,
-      "h": 760,
+      "h": 507,
       "page": "v5",
       "title": "Questions"
     },
@@ -374,7 +374,7 @@
       "x": 6700,
       "y": 42651,
       "w": 1240,
-      "h": 900,
+      "h": 989,
       "title": "agent-Registry",
       "page": "v5",
       "is_interactive": false
@@ -5075,7 +5075,7 @@
       "x": 9100,
       "y": 52400,
       "w": 1240,
-      "h": 1399,
+      "h": 1521,
       "page": "v5",
       "title": "Claude Code files and paths per OS",
       "is_interactive": false
@@ -5084,7 +5084,7 @@
       "x": 10400,
       "y": 52400,
       "w": 1240,
-      "h": 905,
+      "h": 1039,
       "page": "v5",
       "title": "Never auto-approved",
       "is_interactive": false
@@ -5264,7 +5264,7 @@
       "x": 5200,
       "y": 55400,
       "w": 1240,
-      "h": 700,
+      "h": 652,
       "page": "v5",
       "title": "Roadmap order",
       "is_interactive": false
@@ -5303,6 +5303,24 @@
       "h": 1710,
       "page": "v5",
       "title": "Milestone 1 evidence",
+      "is_interactive": false
+    },
+    "v5-ref-Values.dc.html": {
+      "x": 5200,
+      "y": 56900,
+      "w": 1240,
+      "h": 2911,
+      "page": "v5",
+      "title": "Values",
+      "is_interactive": false
+    },
+    "v5-ref-ProjectRules.dc.html": {
+      "x": 6500,
+      "y": 56900,
+      "w": 1240,
+      "h": 1549,
+      "page": "v5",
+      "title": "Project rules",
       "is_interactive": false
     }
   },
@@ -5900,7 +5918,9 @@
     "v5-ref-Scope.dc.html",
     "v5-ref-AuthPolicy.dc.html",
     "v5-ref-NetworkCapture.dc.html",
-    "v5-ref-Milestone1Evidence.dc.html"
+    "v5-ref-Milestone1Evidence.dc.html",
+    "v5-ref-Values.dc.html",
+    "v5-ref-ProjectRules.dc.html"
   ],
   "notes": [],
   "designSystems": []
