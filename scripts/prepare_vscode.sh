@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 root="$(cd "$(dirname "$0")/.." && pwd)"
-repo="$(node -p "require('$root/upstream.json').repo")"
-tag="$(node -p "require('$root/upstream.json').tag")"
+cd "$root"
+repo="$(node -p "require('./upstream.json').repo")"
+tag="$(node -p "require('./upstream.json').tag")"
 dest="$root/vscode"
 if [ ! -d "$dest/.git" ]; then
   git init -q "$dest"
