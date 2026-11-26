@@ -17,6 +17,7 @@ import {
 	versionAtLeast,
 	withAllowRule,
 } from "../vscode/src/vs/platform/agentHost/common/claudeRunPolicy.ts";
+import { classifyDenial } from "../vscode/src/vs/platform/agentHost/common/claudeBlockedNotice.ts";
 
 const chat = fc.constantFrom(...CHAT_MODES);
 const run = fc.constantFrom(...RUN_MODES);
@@ -158,4 +159,14 @@ test("versions: 2.1.304 lacks External files, 2.1.314 and later have it", () => 
 			assert.equal(versionAtLeast(`2.1.${a}`, `2.1.${b}`), a >= b);
 		}),
 	);
+});
+
+test("denials: classifier failure, pause at 3 in a row or 20 total, otherwise plain blocked", () => {
+	const c = (reasonType: string, text: string, consecutive: number, total: number) => classifyDenial({ tool: "Bash", reasonType, text }, consecutive, total).kind;
+	assert.equal(c("classifier", "Auto mode cannot determine the safety of this action", 1, 1), "classifierError");
+	assert.equal(c("classifier", "The server returned no safety verdict", 1, 1), "classifierError");
+	assert.equal(c("classifier", "too risky", 3, 3), "paused");
+	assert.equal(c("classifier", "too risky", 1, 20), "paused");
+	assert.equal(c("classifier", "too risky", 2, 2), "blocked");
+	assert.equal(c("rule", "denied by rule", 3, 3), "blocked");
 });
