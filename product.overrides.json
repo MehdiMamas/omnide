@@ -37,5 +37,21 @@
 	},
 	"linkProtectionTrustedDomains": ["https://open-vsx.org"],
 	"configurationDefaults": { "workbench.colorTheme": "OmnIDE Dark" },
+	"agentSdks": {
+		"claude": {
+			"version": "0.3.304",
+			"urlTemplate": "https://main.vscode-cdn.net/agent-sdk/claude/0.3.304/{sdkTarget}.tgz",
+			"sha256": {
+				"darwin-arm64": "11bf295547d681849a808e08984f87df50f9ba7feeaa412b0a3ee096e02c4508",
+				"darwin-x64": "d4c6228cbdd589d762b1f79a022183f2a26337fb9f644b0be1410d551049ce40",
+				"linux-arm64": "4df23478c0341013c0d654ebb72eb027e17c642e63b7cc90a0f61aedb1db9248",
+				"linux-arm64-musl": "84ed69dfb98cf58af0ed0e3fc894fff0749478e1a6e79837ee68a28bd005bb4f",
+				"linux-x64": "1ac5d2622ee12aee1b2ff56492cad08d9e17ea369c840a55c405632becc4c4f0",
+				"linux-x64-musl": "19238d35d1b0c7def6f1f1b9acf555d2158319cd441a1a49837db2d29be73e7e",
+				"win32-arm64": "26d31e46c24c5b5d2bf7790e6f6b21dbee44cbd3f768846a9d1decf14e033a4e",
+				"win32-x64": "96768afa019f8e042ec22c5408c61bdaf38a75a64a9ed90c1c3a8f09ed3f8531"
+			}
+		}
+	},
 	"removeKeys": ["agentsTelemetryAppName", "webviewContentExternalBaseUrlTemplate", "voiceWsUrl"]
 }

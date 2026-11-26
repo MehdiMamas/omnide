@@ -1,0 +1,48 @@
+Subject: New chats open on Claude: Copilot and Local harness defaults off, Claude is the fallback
+Original to OmnIDE.
+
+diff --git a/src/vs/platform/agentHost/common/agentHostEnablementService.ts b/src/vs/platform/agentHost/common/agentHostEnablementService.ts
+index ee216e0c..281470f7 100644
+--- a/src/vs/platform/agentHost/common/agentHostEnablementService.ts
++++ b/src/vs/platform/agentHost/common/agentHostEnablementService.ts
+@@ -71,7 +71,7 @@ configurationRegistry.registerConfiguration({
+ 		'chat.editor.preferCopilotHarness': {
+ 			type: 'boolean',
+ 			description: nls.localize('chat.editor.preferCopilotHarness', "When enabled, uses the Agent Host Copilot SDK whenever the local harness would otherwise be selected for a new editor chat session. Claude and Codex selections are unaffected."),
+-			default: true,
++			default: false,
+ 			policy: {
+ 				name: 'ChatEditorPreferCopilotHarness',
+ 				category: PolicyCategory.InteractiveSession,
+@@ -87,12 +87,12 @@ configurationRegistry.registerConfiguration({
+ 		'chat.defaultToCopilotHarness': {
+ 			type: 'boolean',
+ 			description: nls.localize('chat.defaultToCopilotHarness', "When enabled, new editor and panel chat sessions default to the Agent Host Copilot SDK instead of the local harness."),
+-			default: true,
++			default: false,
+ 		},
+ 		'chat.editor.localAgent.enabled': {
+ 			type: 'boolean',
+ 			description: nls.localize('chat.editor.localAgent.enabled', "When enabled, shows the VS Code local chat harness in the chat picker. This setting is ignored in virtual workspaces, where the local chat harness is always available."),
+-			default: true,
++			default: false,
+ 			tags: ['experimental'],
+ 			experiment: { mode: 'startup' },
+ 		},
+diff --git a/src/vs/workbench/contrib/chat/common/constants.ts b/src/vs/workbench/contrib/chat/common/constants.ts
+index 908e0a04..de09d4e0 100644
+--- a/src/vs/workbench/contrib/chat/common/constants.ts
++++ b/src/vs/workbench/contrib/chat/common/constants.ts
+@@ -561,10 +561,8 @@ export function getComputedDefaultSessionType(
+ 		return localChatSessionType;
+ 	}
+ 
+-	// Without another session type, a new chat is local, unless a feature hides local chats: then it is Copilot, which reports
+-	// when it cannot start rather than a local chat starting in its place
+-	return getVisibleNonLocalEditorChatSessionTypes(configurationService, chatSessionsService, workspace)[0]
+-		?? (localChatHidden && !isLocalChatExemptFromHiding(configurationService, workspace) ? SessionType.AgentHostCopilot : localChatSessionType);
++	// OmnIDE registers only the Claude provider, so Claude is the default even before it has registered
++	return SessionType.AgentHostClaude;
+ }
+ 
+ export function getComputedDefaultSessionResource(

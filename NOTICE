@@ -8,8 +8,9 @@ patches/00-extension-disable-signature-verification.patch,
 Copyright (c) 2018 VSCodium contributors, MIT License.
 product.overrides.json gallery values follow VSCodium's prepare_vscode.sh.
 
-patches/0005-copilot-chat-disabled.patch follows the approach of
-VSCodium patches/00-copilot-fix-action-condition.patch (MIT).
+The Claude Agent SDK is Anthropic's proprietary software. It is not part of OmnIDE: it is fetched at runtime
+from VS Code's CDN (main.vscode-cdn.net), pinned by sha256 in product.overrides.json, and used under the
+user's own Claude Code sign-in.
 
 Geist and Geist Mono (src/omnide/fonts), Copyright (c) 2023 Vercel, in
 collaboration with basement.studio, SIL Open Font License 1.1: see

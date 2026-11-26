@@ -1,0 +1,16 @@
+Subject: Title-bar Copilot Sign In off by default (chat.titleBar.signIn.enabled defaults to false)
+Original to OmnIDE.
+
+diff --git a/src/vs/workbench/contrib/chat/browser/chat.shared.contribution.ts b/src/vs/workbench/contrib/chat/browser/chat.shared.contribution.ts
+index c0f85771..359a78a4 100644
+--- a/src/vs/workbench/contrib/chat/browser/chat.shared.contribution.ts
++++ b/src/vs/workbench/contrib/chat/browser/chat.shared.contribution.ts
+@@ -2448,7 +2448,7 @@ configurationRegistry.registerConfiguration({
+ 		[ChatConfiguration.TitleBarSignInEnabled]: {
+ 			type: 'boolean',
+ 			description: nls.localize('chat.titleBar.signIn.enabled', "Controls whether the Copilot Sign In button is shown in the title bar when signed out. When disabled, the Sign In affordance falls back to the status bar."),
+-			default: true,
++			default: false,
+ 		},
+ 		[ChatConfiguration.WelcomePageSignInEnabled]: {
+ 			type: 'boolean',
