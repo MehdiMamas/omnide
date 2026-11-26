@@ -1,0 +1,800 @@
+.xterm-dom-renderer-owner-3 .xterm-rows { pointer-events: none; color: rgb(244, 242, 251); }
+.xterm-dom-renderer-owner-3 .xterm-rows, .xterm-dom-renderer-owner-3 .xterm-rows span { font-family: Consolas, "Courier New", monospace, monospace; font-size: 14px; font-kerning: none; white-space: pre; }
+.xterm-dom-renderer-owner-3 .xterm-rows .xterm-dim { color: rgba(244, 242, 251, 0.5); }
+.xterm-dom-renderer-owner-3 span:not(.xterm-bold) { font-weight: normal; }
+.xterm-dom-renderer-owner-3 span.xterm-bold { font-weight: bold; }
+.xterm-dom-renderer-owner-3 span.xterm-italic { font-style: italic; }
+.xterm-dom-renderer-owner-3 span.xterm-blink-hidden { visibility: hidden; }
+@keyframes blink_underline_3 { 
+  50% { border-bottom-style: hidden; }
+}
+@keyframes blink_bar_3 { 
+  50% { box-shadow: none; }
+}
+@keyframes blink_block_3 { 
+  0% { background-color: rgb(244, 242, 251); color: rgb(20, 18, 27); }
+  50% { background-color: inherit; color: rgb(244, 242, 251); }
+}
+.xterm-dom-renderer-owner-3 .xterm-rows.xterm-focus .xterm-cursor.xterm-cursor-blink.xterm-cursor-underline { animation: 1s step-end 0s infinite normal none running blink_underline_3; }
+.xterm-dom-renderer-owner-3 .xterm-rows.xterm-focus .xterm-cursor.xterm-cursor-blink.xterm-cursor-bar { animation: 1s step-end 0s infinite normal none running blink_bar_3; }
+.xterm-dom-renderer-owner-3 .xterm-rows.xterm-focus .xterm-cursor.xterm-cursor-blink.xterm-cursor-block { animation: 1s step-end 0s infinite normal none running blink_block_3; }
+.xterm-dom-renderer-owner-3 .xterm-rows.xterm-cursor-blink-idle .xterm-cursor.xterm-cursor-blink { animation: auto ease 0s 1 normal none running none !important; }
+.xterm-dom-renderer-owner-3 .xterm-rows .xterm-cursor.xterm-cursor-block { background-color: rgb(244, 242, 251); color: rgb(20, 18, 27); }
+.xterm-dom-renderer-owner-3 .xterm-rows .xterm-cursor.xterm-cursor-block:not(.xterm-cursor-blink) { background-color: rgb(244, 242, 251) !important; color: rgb(20, 18, 27) !important; }
+.xterm-dom-renderer-owner-3 .xterm-rows .xterm-cursor.xterm-cursor-outline { outline: 1px solid rgb(244, 242, 251); outline-offset: -1px; }
+.xterm-dom-renderer-owner-3 .xterm-rows .xterm-cursor.xterm-cursor-bar { box-shadow: rgb(244, 242, 251) 1px 0px 0px inset; }
+.xterm-dom-renderer-owner-3 .xterm-rows .xterm-cursor.xterm-cursor-underline { border-bottom: 1px solid rgb(244, 242, 251); height: calc(100% - 1px); }
+.xterm-dom-renderer-owner-3 .xterm-selection { position: absolute; top: 0px; left: 0px; z-index: 1; pointer-events: none; }
+.xterm-dom-renderer-owner-3.focus .xterm-selection div { position: absolute; background-color: rgb(58, 54, 73); }
+.xterm-dom-renderer-owner-3 .xterm-selection div { position: absolute; background-color: rgb(34, 31, 44); }
+.xterm-dom-renderer-owner-3 .xterm-fg-0 { color: rgb(34, 31, 44); }
+.xterm-dom-renderer-owner-3 .xterm-fg-0.xterm-dim { color: rgba(34, 31, 44, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-0 { background-color: rgb(34, 31, 44); }
+.xterm-dom-renderer-owner-3 .xterm-fg-1 { color: rgb(255, 127, 122); }
+.xterm-dom-renderer-owner-3 .xterm-fg-1.xterm-dim { color: rgba(255, 127, 122, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-1 { background-color: rgb(255, 127, 122); }
+.xterm-dom-renderer-owner-3 .xterm-fg-2 { color: rgb(115, 214, 151); }
+.xterm-dom-renderer-owner-3 .xterm-fg-2.xterm-dim { color: rgba(115, 214, 151, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-2 { background-color: rgb(115, 214, 151); }
+.xterm-dom-renderer-owner-3 .xterm-fg-3 { color: rgb(249, 178, 90); }
+.xterm-dom-renderer-owner-3 .xterm-fg-3.xterm-dim { color: rgba(249, 178, 90, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-3 { background-color: rgb(249, 178, 90); }
+.xterm-dom-renderer-owner-3 .xterm-fg-4 { color: rgb(196, 181, 253); }
+.xterm-dom-renderer-owner-3 .xterm-fg-4.xterm-dim { color: rgba(196, 181, 253, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-4 { background-color: rgb(196, 181, 253); }
+.xterm-dom-renderer-owner-3 .xterm-fg-5 { color: rgb(255, 172, 203); }
+.xterm-dom-renderer-owner-3 .xterm-fg-5.xterm-dim { color: rgba(255, 172, 203, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-5 { background-color: rgb(255, 172, 203); }
+.xterm-dom-renderer-owner-3 .xterm-fg-6 { color: rgb(128, 209, 193); }
+.xterm-dom-renderer-owner-3 .xterm-fg-6.xterm-dim { color: rgba(128, 209, 193, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-6 { background-color: rgb(128, 209, 193); }
+.xterm-dom-renderer-owner-3 .xterm-fg-7 { color: rgb(210, 207, 224); }
+.xterm-dom-renderer-owner-3 .xterm-fg-7.xterm-dim { color: rgba(210, 207, 224, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-7 { background-color: rgb(210, 207, 224); }
+.xterm-dom-renderer-owner-3 .xterm-fg-8 { color: rgba(244, 242, 251, 0.68); }
+.xterm-dom-renderer-owner-3 .xterm-fg-8.xterm-dim { color: rgba(244, 242, 251, 0.34); }
+.xterm-dom-renderer-owner-3 .xterm-bg-8 { background-color: rgba(244, 242, 251, 0.68); }
+.xterm-dom-renderer-owner-3 .xterm-fg-9 { color: rgb(255, 97, 97); }
+.xterm-dom-renderer-owner-3 .xterm-fg-9.xterm-dim { color: rgba(255, 97, 97, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-9 { background-color: rgb(255, 97, 97); }
+.xterm-dom-renderer-owner-3 .xterm-fg-10 { color: rgb(65, 203, 126); }
+.xterm-dom-renderer-owner-3 .xterm-fg-10.xterm-dim { color: rgba(65, 203, 126, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-10 { background-color: rgb(65, 203, 126); }
+.xterm-dom-renderer-owner-3 .xterm-fg-11 { color: rgb(246, 159, 22); }
+.xterm-dom-renderer-owner-3 .xterm-fg-11.xterm-dim { color: rgba(246, 159, 22, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-11 { background-color: rgb(246, 159, 22); }
+.xterm-dom-renderer-owner-3 .xterm-fg-12 { color: rgb(182, 156, 255); }
+.xterm-dom-renderer-owner-3 .xterm-fg-12.xterm-dim { color: rgba(182, 156, 255, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-12 { background-color: rgb(182, 156, 255); }
+.xterm-dom-renderer-owner-3 .xterm-fg-13 { color: rgb(255, 108, 172); }
+.xterm-dom-renderer-owner-3 .xterm-fg-13.xterm-dim { color: rgba(255, 108, 172, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-13 { background-color: rgb(255, 108, 172); }
+.xterm-dom-renderer-owner-3 .xterm-fg-14 { color: rgb(91, 198, 179); }
+.xterm-dom-renderer-owner-3 .xterm-fg-14.xterm-dim { color: rgba(91, 198, 179, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-14 { background-color: rgb(91, 198, 179); }
+.xterm-dom-renderer-owner-3 .xterm-fg-15 { color: rgb(244, 242, 251); }
+.xterm-dom-renderer-owner-3 .xterm-fg-15.xterm-dim { color: rgba(244, 242, 251, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-15 { background-color: rgb(244, 242, 251); }
+.xterm-dom-renderer-owner-3 .xterm-fg-16 { color: rgb(14, 12, 20); }
+.xterm-dom-renderer-owner-3 .xterm-fg-16.xterm-dim { color: rgba(14, 12, 20, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-16 { background-color: rgb(14, 12, 20); }
+.xterm-dom-renderer-owner-3 .xterm-fg-17 { color: rgb(59, 29, 122); }
+.xterm-dom-renderer-owner-3 .xterm-fg-17.xterm-dim { color: rgba(59, 29, 122, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-17 { background-color: rgb(59, 29, 122); }
+.xterm-dom-renderer-owner-3 .xterm-fg-18 { color: rgb(59, 29, 122); }
+.xterm-dom-renderer-owner-3 .xterm-fg-18.xterm-dim { color: rgba(59, 29, 122, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-18 { background-color: rgb(59, 29, 122); }
+.xterm-dom-renderer-owner-3 .xterm-fg-19 { color: rgb(59, 29, 122); }
+.xterm-dom-renderer-owner-3 .xterm-fg-19.xterm-dim { color: rgba(59, 29, 122, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-19 { background-color: rgb(59, 29, 122); }
+.xterm-dom-renderer-owner-3 .xterm-fg-20 { color: rgb(76, 29, 149); }
+.xterm-dom-renderer-owner-3 .xterm-fg-20.xterm-dim { color: rgba(76, 29, 149, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-20 { background-color: rgb(76, 29, 149); }
+.xterm-dom-renderer-owner-3 .xterm-fg-21 { color: rgb(91, 33, 182); }
+.xterm-dom-renderer-owner-3 .xterm-fg-21.xterm-dim { color: rgba(91, 33, 182, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-21 { background-color: rgb(91, 33, 182); }
+.xterm-dom-renderer-owner-3 .xterm-fg-22 { color: rgb(0, 95, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-22.xterm-dim { color: rgba(0, 95, 0, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-22 { background-color: rgb(0, 95, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-23 { color: rgb(0, 95, 95); }
+.xterm-dom-renderer-owner-3 .xterm-fg-23.xterm-dim { color: rgba(0, 95, 95, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-23 { background-color: rgb(0, 95, 95); }
+.xterm-dom-renderer-owner-3 .xterm-fg-24 { color: rgb(109, 40, 217); }
+.xterm-dom-renderer-owner-3 .xterm-fg-24.xterm-dim { color: rgba(109, 40, 217, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-24 { background-color: rgb(109, 40, 217); }
+.xterm-dom-renderer-owner-3 .xterm-fg-25 { color: rgb(109, 40, 217); }
+.xterm-dom-renderer-owner-3 .xterm-fg-25.xterm-dim { color: rgba(109, 40, 217, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-25 { background-color: rgb(109, 40, 217); }
+.xterm-dom-renderer-owner-3 .xterm-fg-26 { color: rgb(124, 58, 237); }
+.xterm-dom-renderer-owner-3 .xterm-fg-26.xterm-dim { color: rgba(124, 58, 237, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-26 { background-color: rgb(124, 58, 237); }
+.xterm-dom-renderer-owner-3 .xterm-fg-27 { color: rgb(124, 58, 237); }
+.xterm-dom-renderer-owner-3 .xterm-fg-27.xterm-dim { color: rgba(124, 58, 237, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-27 { background-color: rgb(124, 58, 237); }
+.xterm-dom-renderer-owner-3 .xterm-fg-28 { color: rgb(0, 135, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-28.xterm-dim { color: rgba(0, 135, 0, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-28 { background-color: rgb(0, 135, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-29 { color: rgb(0, 135, 95); }
+.xterm-dom-renderer-owner-3 .xterm-fg-29.xterm-dim { color: rgba(0, 135, 95, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-29 { background-color: rgb(0, 135, 95); }
+.xterm-dom-renderer-owner-3 .xterm-fg-30 { color: rgb(0, 135, 135); }
+.xterm-dom-renderer-owner-3 .xterm-fg-30.xterm-dim { color: rgba(0, 135, 135, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-30 { background-color: rgb(0, 135, 135); }
+.xterm-dom-renderer-owner-3 .xterm-fg-31 { color: rgb(139, 92, 246); }
+.xterm-dom-renderer-owner-3 .xterm-fg-31.xterm-dim { color: rgba(139, 92, 246, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-31 { background-color: rgb(139, 92, 246); }
+.xterm-dom-renderer-owner-3 .xterm-fg-32 { color: rgb(139, 92, 246); }
+.xterm-dom-renderer-owner-3 .xterm-fg-32.xterm-dim { color: rgba(139, 92, 246, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-32 { background-color: rgb(139, 92, 246); }
+.xterm-dom-renderer-owner-3 .xterm-fg-33 { color: rgb(139, 92, 246); }
+.xterm-dom-renderer-owner-3 .xterm-fg-33.xterm-dim { color: rgba(139, 92, 246, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-33 { background-color: rgb(139, 92, 246); }
+.xterm-dom-renderer-owner-3 .xterm-fg-34 { color: rgb(0, 175, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-34.xterm-dim { color: rgba(0, 175, 0, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-34 { background-color: rgb(0, 175, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-35 { color: rgb(0, 175, 95); }
+.xterm-dom-renderer-owner-3 .xterm-fg-35.xterm-dim { color: rgba(0, 175, 95, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-35 { background-color: rgb(0, 175, 95); }
+.xterm-dom-renderer-owner-3 .xterm-fg-36 { color: rgb(0, 175, 135); }
+.xterm-dom-renderer-owner-3 .xterm-fg-36.xterm-dim { color: rgba(0, 175, 135, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-36 { background-color: rgb(0, 175, 135); }
+.xterm-dom-renderer-owner-3 .xterm-fg-37 { color: rgb(0, 175, 175); }
+.xterm-dom-renderer-owner-3 .xterm-fg-37.xterm-dim { color: rgba(0, 175, 175, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-37 { background-color: rgb(0, 175, 175); }
+.xterm-dom-renderer-owner-3 .xterm-fg-38 { color: rgb(182, 156, 255); }
+.xterm-dom-renderer-owner-3 .xterm-fg-38.xterm-dim { color: rgba(182, 156, 255, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-38 { background-color: rgb(182, 156, 255); }
+.xterm-dom-renderer-owner-3 .xterm-fg-39 { color: rgb(182, 156, 255); }
+.xterm-dom-renderer-owner-3 .xterm-fg-39.xterm-dim { color: rgba(182, 156, 255, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-39 { background-color: rgb(182, 156, 255); }
+.xterm-dom-renderer-owner-3 .xterm-fg-40 { color: rgb(0, 215, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-40.xterm-dim { color: rgba(0, 215, 0, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-40 { background-color: rgb(0, 215, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-41 { color: rgb(0, 215, 95); }
+.xterm-dom-renderer-owner-3 .xterm-fg-41.xterm-dim { color: rgba(0, 215, 95, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-41 { background-color: rgb(0, 215, 95); }
+.xterm-dom-renderer-owner-3 .xterm-fg-42 { color: rgb(0, 215, 135); }
+.xterm-dom-renderer-owner-3 .xterm-fg-42.xterm-dim { color: rgba(0, 215, 135, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-42 { background-color: rgb(0, 215, 135); }
+.xterm-dom-renderer-owner-3 .xterm-fg-43 { color: rgb(0, 215, 175); }
+.xterm-dom-renderer-owner-3 .xterm-fg-43.xterm-dim { color: rgba(0, 215, 175, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-43 { background-color: rgb(0, 215, 175); }
+.xterm-dom-renderer-owner-3 .xterm-fg-44 { color: rgb(0, 215, 215); }
+.xterm-dom-renderer-owner-3 .xterm-fg-44.xterm-dim { color: rgba(0, 215, 215, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-44 { background-color: rgb(0, 215, 215); }
+.xterm-dom-renderer-owner-3 .xterm-fg-45 { color: rgb(0, 215, 255); }
+.xterm-dom-renderer-owner-3 .xterm-fg-45.xterm-dim { color: rgba(0, 215, 255, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-45 { background-color: rgb(0, 215, 255); }
+.xterm-dom-renderer-owner-3 .xterm-fg-46 { color: rgb(0, 255, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-46.xterm-dim { color: rgba(0, 255, 0, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-46 { background-color: rgb(0, 255, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-47 { color: rgb(0, 255, 95); }
+.xterm-dom-renderer-owner-3 .xterm-fg-47.xterm-dim { color: rgba(0, 255, 95, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-47 { background-color: rgb(0, 255, 95); }
+.xterm-dom-renderer-owner-3 .xterm-fg-48 { color: rgb(0, 255, 135); }
+.xterm-dom-renderer-owner-3 .xterm-fg-48.xterm-dim { color: rgba(0, 255, 135, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-48 { background-color: rgb(0, 255, 135); }
+.xterm-dom-renderer-owner-3 .xterm-fg-49 { color: rgb(0, 255, 175); }
+.xterm-dom-renderer-owner-3 .xterm-fg-49.xterm-dim { color: rgba(0, 255, 175, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-49 { background-color: rgb(0, 255, 175); }
+.xterm-dom-renderer-owner-3 .xterm-fg-50 { color: rgb(0, 255, 215); }
+.xterm-dom-renderer-owner-3 .xterm-fg-50.xterm-dim { color: rgba(0, 255, 215, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-50 { background-color: rgb(0, 255, 215); }
+.xterm-dom-renderer-owner-3 .xterm-fg-51 { color: rgb(0, 255, 255); }
+.xterm-dom-renderer-owner-3 .xterm-fg-51.xterm-dim { color: rgba(0, 255, 255, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-51 { background-color: rgb(0, 255, 255); }
+.xterm-dom-renderer-owner-3 .xterm-fg-52 { color: rgb(95, 0, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-52.xterm-dim { color: rgba(95, 0, 0, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-52 { background-color: rgb(95, 0, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-53 { color: rgb(59, 29, 122); }
+.xterm-dom-renderer-owner-3 .xterm-fg-53.xterm-dim { color: rgba(59, 29, 122, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-53 { background-color: rgb(59, 29, 122); }
+.xterm-dom-renderer-owner-3 .xterm-fg-54 { color: rgb(76, 29, 149); }
+.xterm-dom-renderer-owner-3 .xterm-fg-54.xterm-dim { color: rgba(76, 29, 149, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-54 { background-color: rgb(76, 29, 149); }
+.xterm-dom-renderer-owner-3 .xterm-fg-55 { color: rgb(76, 29, 149); }
+.xterm-dom-renderer-owner-3 .xterm-fg-55.xterm-dim { color: rgba(76, 29, 149, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-55 { background-color: rgb(76, 29, 149); }
+.xterm-dom-renderer-owner-3 .xterm-fg-56 { color: rgb(91, 33, 182); }
+.xterm-dom-renderer-owner-3 .xterm-fg-56.xterm-dim { color: rgba(91, 33, 182, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-56 { background-color: rgb(91, 33, 182); }
+.xterm-dom-renderer-owner-3 .xterm-fg-57 { color: rgb(109, 40, 217); }
+.xterm-dom-renderer-owner-3 .xterm-fg-57.xterm-dim { color: rgba(109, 40, 217, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-57 { background-color: rgb(109, 40, 217); }
+.xterm-dom-renderer-owner-3 .xterm-fg-58 { color: rgb(95, 95, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-58.xterm-dim { color: rgba(95, 95, 0, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-58 { background-color: rgb(95, 95, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-59 { color: rgb(110, 105, 133); }
+.xterm-dom-renderer-owner-3 .xterm-fg-59.xterm-dim { color: rgba(110, 105, 133, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-59 { background-color: rgb(110, 105, 133); }
+.xterm-dom-renderer-owner-3 .xterm-fg-60 { color: rgb(110, 105, 133); }
+.xterm-dom-renderer-owner-3 .xterm-fg-60.xterm-dim { color: rgba(110, 105, 133, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-60 { background-color: rgb(110, 105, 133); }
+.xterm-dom-renderer-owner-3 .xterm-fg-61 { color: rgb(124, 58, 237); }
+.xterm-dom-renderer-owner-3 .xterm-fg-61.xterm-dim { color: rgba(124, 58, 237, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-61 { background-color: rgb(124, 58, 237); }
+.xterm-dom-renderer-owner-3 .xterm-fg-62 { color: rgb(124, 58, 237); }
+.xterm-dom-renderer-owner-3 .xterm-fg-62.xterm-dim { color: rgba(124, 58, 237, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-62 { background-color: rgb(124, 58, 237); }
+.xterm-dom-renderer-owner-3 .xterm-fg-63 { color: rgb(139, 92, 246); }
+.xterm-dom-renderer-owner-3 .xterm-fg-63.xterm-dim { color: rgba(139, 92, 246, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-63 { background-color: rgb(139, 92, 246); }
+.xterm-dom-renderer-owner-3 .xterm-fg-64 { color: rgb(95, 135, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-64.xterm-dim { color: rgba(95, 135, 0, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-64 { background-color: rgb(95, 135, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-65 { color: rgb(142, 137, 163); }
+.xterm-dom-renderer-owner-3 .xterm-fg-65.xterm-dim { color: rgba(142, 137, 163, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-65 { background-color: rgb(142, 137, 163); }
+.xterm-dom-renderer-owner-3 .xterm-fg-66 { color: rgb(142, 137, 163); }
+.xterm-dom-renderer-owner-3 .xterm-fg-66.xterm-dim { color: rgba(142, 137, 163, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-66 { background-color: rgb(142, 137, 163); }
+.xterm-dom-renderer-owner-3 .xterm-fg-67 { color: rgb(139, 92, 246); }
+.xterm-dom-renderer-owner-3 .xterm-fg-67.xterm-dim { color: rgba(139, 92, 246, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-67 { background-color: rgb(139, 92, 246); }
+.xterm-dom-renderer-owner-3 .xterm-fg-68 { color: rgb(139, 92, 246); }
+.xterm-dom-renderer-owner-3 .xterm-fg-68.xterm-dim { color: rgba(139, 92, 246, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-68 { background-color: rgb(139, 92, 246); }
+.xterm-dom-renderer-owner-3 .xterm-fg-69 { color: rgb(139, 92, 246); }
+.xterm-dom-renderer-owner-3 .xterm-fg-69.xterm-dim { color: rgba(139, 92, 246, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-69 { background-color: rgb(139, 92, 246); }
+.xterm-dom-renderer-owner-3 .xterm-fg-70 { color: rgb(95, 175, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-70.xterm-dim { color: rgba(95, 175, 0, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-70 { background-color: rgb(95, 175, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-71 { color: rgb(95, 175, 95); }
+.xterm-dom-renderer-owner-3 .xterm-fg-71.xterm-dim { color: rgba(95, 175, 95, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-71 { background-color: rgb(95, 175, 95); }
+.xterm-dom-renderer-owner-3 .xterm-fg-72 { color: rgb(95, 175, 135); }
+.xterm-dom-renderer-owner-3 .xterm-fg-72.xterm-dim { color: rgba(95, 175, 135, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-72 { background-color: rgb(95, 175, 135); }
+.xterm-dom-renderer-owner-3 .xterm-fg-73 { color: rgb(95, 175, 175); }
+.xterm-dom-renderer-owner-3 .xterm-fg-73.xterm-dim { color: rgba(95, 175, 175, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-73 { background-color: rgb(95, 175, 175); }
+.xterm-dom-renderer-owner-3 .xterm-fg-74 { color: rgb(182, 156, 255); }
+.xterm-dom-renderer-owner-3 .xterm-fg-74.xterm-dim { color: rgba(182, 156, 255, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-74 { background-color: rgb(182, 156, 255); }
+.xterm-dom-renderer-owner-3 .xterm-fg-75 { color: rgb(182, 156, 255); }
+.xterm-dom-renderer-owner-3 .xterm-fg-75.xterm-dim { color: rgba(182, 156, 255, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-75 { background-color: rgb(182, 156, 255); }
+.xterm-dom-renderer-owner-3 .xterm-fg-76 { color: rgb(95, 215, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-76.xterm-dim { color: rgba(95, 215, 0, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-76 { background-color: rgb(95, 215, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-77 { color: rgb(95, 215, 95); }
+.xterm-dom-renderer-owner-3 .xterm-fg-77.xterm-dim { color: rgba(95, 215, 95, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-77 { background-color: rgb(95, 215, 95); }
+.xterm-dom-renderer-owner-3 .xterm-fg-78 { color: rgb(95, 215, 135); }
+.xterm-dom-renderer-owner-3 .xterm-fg-78.xterm-dim { color: rgba(95, 215, 135, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-78 { background-color: rgb(95, 215, 135); }
+.xterm-dom-renderer-owner-3 .xterm-fg-79 { color: rgb(95, 215, 175); }
+.xterm-dom-renderer-owner-3 .xterm-fg-79.xterm-dim { color: rgba(95, 215, 175, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-79 { background-color: rgb(95, 215, 175); }
+.xterm-dom-renderer-owner-3 .xterm-fg-80 { color: rgb(95, 215, 215); }
+.xterm-dom-renderer-owner-3 .xterm-fg-80.xterm-dim { color: rgba(95, 215, 215, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-80 { background-color: rgb(95, 215, 215); }
+.xterm-dom-renderer-owner-3 .xterm-fg-81 { color: rgb(196, 181, 253); }
+.xterm-dom-renderer-owner-3 .xterm-fg-81.xterm-dim { color: rgba(196, 181, 253, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-81 { background-color: rgb(196, 181, 253); }
+.xterm-dom-renderer-owner-3 .xterm-fg-82 { color: rgb(95, 255, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-82.xterm-dim { color: rgba(95, 255, 0, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-82 { background-color: rgb(95, 255, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-83 { color: rgb(95, 255, 95); }
+.xterm-dom-renderer-owner-3 .xterm-fg-83.xterm-dim { color: rgba(95, 255, 95, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-83 { background-color: rgb(95, 255, 95); }
+.xterm-dom-renderer-owner-3 .xterm-fg-84 { color: rgb(95, 255, 135); }
+.xterm-dom-renderer-owner-3 .xterm-fg-84.xterm-dim { color: rgba(95, 255, 135, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-84 { background-color: rgb(95, 255, 135); }
+.xterm-dom-renderer-owner-3 .xterm-fg-85 { color: rgb(95, 255, 175); }
+.xterm-dom-renderer-owner-3 .xterm-fg-85.xterm-dim { color: rgba(95, 255, 175, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-85 { background-color: rgb(95, 255, 175); }
+.xterm-dom-renderer-owner-3 .xterm-fg-86 { color: rgb(95, 255, 215); }
+.xterm-dom-renderer-owner-3 .xterm-fg-86.xterm-dim { color: rgba(95, 255, 215, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-86 { background-color: rgb(95, 255, 215); }
+.xterm-dom-renderer-owner-3 .xterm-fg-87 { color: rgb(95, 255, 255); }
+.xterm-dom-renderer-owner-3 .xterm-fg-87.xterm-dim { color: rgba(95, 255, 255, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-87 { background-color: rgb(95, 255, 255); }
+.xterm-dom-renderer-owner-3 .xterm-fg-88 { color: rgb(135, 0, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-88.xterm-dim { color: rgba(135, 0, 0, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-88 { background-color: rgb(135, 0, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-89 { color: rgb(135, 0, 95); }
+.xterm-dom-renderer-owner-3 .xterm-fg-89.xterm-dim { color: rgba(135, 0, 95, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-89 { background-color: rgb(135, 0, 95); }
+.xterm-dom-renderer-owner-3 .xterm-fg-90 { color: rgb(91, 33, 182); }
+.xterm-dom-renderer-owner-3 .xterm-fg-90.xterm-dim { color: rgba(91, 33, 182, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-90 { background-color: rgb(91, 33, 182); }
+.xterm-dom-renderer-owner-3 .xterm-fg-91 { color: rgb(109, 40, 217); }
+.xterm-dom-renderer-owner-3 .xterm-fg-91.xterm-dim { color: rgba(109, 40, 217, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-91 { background-color: rgb(109, 40, 217); }
+.xterm-dom-renderer-owner-3 .xterm-fg-92 { color: rgb(109, 40, 217); }
+.xterm-dom-renderer-owner-3 .xterm-fg-92.xterm-dim { color: rgba(109, 40, 217, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-92 { background-color: rgb(109, 40, 217); }
+.xterm-dom-renderer-owner-3 .xterm-fg-93 { color: rgb(124, 58, 237); }
+.xterm-dom-renderer-owner-3 .xterm-fg-93.xterm-dim { color: rgba(124, 58, 237, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-93 { background-color: rgb(124, 58, 237); }
+.xterm-dom-renderer-owner-3 .xterm-fg-94 { color: rgb(135, 95, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-94.xterm-dim { color: rgba(135, 95, 0, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-94 { background-color: rgb(135, 95, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-95 { color: rgb(110, 105, 133); }
+.xterm-dom-renderer-owner-3 .xterm-fg-95.xterm-dim { color: rgba(110, 105, 133, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-95 { background-color: rgb(110, 105, 133); }
+.xterm-dom-renderer-owner-3 .xterm-fg-96 { color: rgb(110, 105, 133); }
+.xterm-dom-renderer-owner-3 .xterm-fg-96.xterm-dim { color: rgba(110, 105, 133, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-96 { background-color: rgb(110, 105, 133); }
+.xterm-dom-renderer-owner-3 .xterm-fg-97 { color: rgb(139, 92, 246); }
+.xterm-dom-renderer-owner-3 .xterm-fg-97.xterm-dim { color: rgba(139, 92, 246, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-97 { background-color: rgb(139, 92, 246); }
+.xterm-dom-renderer-owner-3 .xterm-fg-98 { color: rgb(139, 92, 246); }
+.xterm-dom-renderer-owner-3 .xterm-fg-98.xterm-dim { color: rgba(139, 92, 246, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-98 { background-color: rgb(139, 92, 246); }
+.xterm-dom-renderer-owner-3 .xterm-fg-99 { color: rgb(139, 92, 246); }
+.xterm-dom-renderer-owner-3 .xterm-fg-99.xterm-dim { color: rgba(139, 92, 246, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-99 { background-color: rgb(139, 92, 246); }
+.xterm-dom-renderer-owner-3 .xterm-fg-100 { color: rgb(135, 135, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-100.xterm-dim { color: rgba(135, 135, 0, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-100 { background-color: rgb(135, 135, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-101 { color: rgb(142, 137, 163); }
+.xterm-dom-renderer-owner-3 .xterm-fg-101.xterm-dim { color: rgba(142, 137, 163, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-101 { background-color: rgb(142, 137, 163); }
+.xterm-dom-renderer-owner-3 .xterm-fg-102 { color: rgb(142, 137, 163); }
+.xterm-dom-renderer-owner-3 .xterm-fg-102.xterm-dim { color: rgba(142, 137, 163, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-102 { background-color: rgb(142, 137, 163); }
+.xterm-dom-renderer-owner-3 .xterm-fg-103 { color: rgb(139, 92, 246); }
+.xterm-dom-renderer-owner-3 .xterm-fg-103.xterm-dim { color: rgba(139, 92, 246, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-103 { background-color: rgb(139, 92, 246); }
+.xterm-dom-renderer-owner-3 .xterm-fg-104 { color: rgb(139, 92, 246); }
+.xterm-dom-renderer-owner-3 .xterm-fg-104.xterm-dim { color: rgba(139, 92, 246, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-104 { background-color: rgb(139, 92, 246); }
+.xterm-dom-renderer-owner-3 .xterm-fg-105 { color: rgb(182, 156, 255); }
+.xterm-dom-renderer-owner-3 .xterm-fg-105.xterm-dim { color: rgba(182, 156, 255, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-105 { background-color: rgb(182, 156, 255); }
+.xterm-dom-renderer-owner-3 .xterm-fg-106 { color: rgb(135, 175, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-106.xterm-dim { color: rgba(135, 175, 0, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-106 { background-color: rgb(135, 175, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-107 { color: rgb(135, 175, 95); }
+.xterm-dom-renderer-owner-3 .xterm-fg-107.xterm-dim { color: rgba(135, 175, 95, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-107 { background-color: rgb(135, 175, 95); }
+.xterm-dom-renderer-owner-3 .xterm-fg-108 { color: rgb(135, 175, 135); }
+.xterm-dom-renderer-owner-3 .xterm-fg-108.xterm-dim { color: rgba(135, 175, 135, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-108 { background-color: rgb(135, 175, 135); }
+.xterm-dom-renderer-owner-3 .xterm-fg-109 { color: rgb(135, 175, 175); }
+.xterm-dom-renderer-owner-3 .xterm-fg-109.xterm-dim { color: rgba(135, 175, 175, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-109 { background-color: rgb(135, 175, 175); }
+.xterm-dom-renderer-owner-3 .xterm-fg-110 { color: rgb(182, 156, 255); }
+.xterm-dom-renderer-owner-3 .xterm-fg-110.xterm-dim { color: rgba(182, 156, 255, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-110 { background-color: rgb(182, 156, 255); }
+.xterm-dom-renderer-owner-3 .xterm-fg-111 { color: rgb(182, 156, 255); }
+.xterm-dom-renderer-owner-3 .xterm-fg-111.xterm-dim { color: rgba(182, 156, 255, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-111 { background-color: rgb(182, 156, 255); }
+.xterm-dom-renderer-owner-3 .xterm-fg-112 { color: rgb(135, 215, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-112.xterm-dim { color: rgba(135, 215, 0, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-112 { background-color: rgb(135, 215, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-113 { color: rgb(135, 215, 95); }
+.xterm-dom-renderer-owner-3 .xterm-fg-113.xterm-dim { color: rgba(135, 215, 95, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-113 { background-color: rgb(135, 215, 95); }
+.xterm-dom-renderer-owner-3 .xterm-fg-114 { color: rgb(135, 215, 135); }
+.xterm-dom-renderer-owner-3 .xterm-fg-114.xterm-dim { color: rgba(135, 215, 135, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-114 { background-color: rgb(135, 215, 135); }
+.xterm-dom-renderer-owner-3 .xterm-fg-115 { color: rgb(135, 215, 175); }
+.xterm-dom-renderer-owner-3 .xterm-fg-115.xterm-dim { color: rgba(135, 215, 175, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-115 { background-color: rgb(135, 215, 175); }
+.xterm-dom-renderer-owner-3 .xterm-fg-116 { color: rgb(135, 215, 215); }
+.xterm-dom-renderer-owner-3 .xterm-fg-116.xterm-dim { color: rgba(135, 215, 215, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-116 { background-color: rgb(135, 215, 215); }
+.xterm-dom-renderer-owner-3 .xterm-fg-117 { color: rgb(221, 214, 254); }
+.xterm-dom-renderer-owner-3 .xterm-fg-117.xterm-dim { color: rgba(221, 214, 254, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-117 { background-color: rgb(221, 214, 254); }
+.xterm-dom-renderer-owner-3 .xterm-fg-118 { color: rgb(135, 255, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-118.xterm-dim { color: rgba(135, 255, 0, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-118 { background-color: rgb(135, 255, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-119 { color: rgb(135, 255, 95); }
+.xterm-dom-renderer-owner-3 .xterm-fg-119.xterm-dim { color: rgba(135, 255, 95, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-119 { background-color: rgb(135, 255, 95); }
+.xterm-dom-renderer-owner-3 .xterm-fg-120 { color: rgb(135, 255, 135); }
+.xterm-dom-renderer-owner-3 .xterm-fg-120.xterm-dim { color: rgba(135, 255, 135, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-120 { background-color: rgb(135, 255, 135); }
+.xterm-dom-renderer-owner-3 .xterm-fg-121 { color: rgb(135, 255, 175); }
+.xterm-dom-renderer-owner-3 .xterm-fg-121.xterm-dim { color: rgba(135, 255, 175, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-121 { background-color: rgb(135, 255, 175); }
+.xterm-dom-renderer-owner-3 .xterm-fg-122 { color: rgb(135, 255, 215); }
+.xterm-dom-renderer-owner-3 .xterm-fg-122.xterm-dim { color: rgba(135, 255, 215, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-122 { background-color: rgb(135, 255, 215); }
+.xterm-dom-renderer-owner-3 .xterm-fg-123 { color: rgb(135, 255, 255); }
+.xterm-dom-renderer-owner-3 .xterm-fg-123.xterm-dim { color: rgba(135, 255, 255, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-123 { background-color: rgb(135, 255, 255); }
+.xterm-dom-renderer-owner-3 .xterm-fg-124 { color: rgb(175, 0, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-124.xterm-dim { color: rgba(175, 0, 0, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-124 { background-color: rgb(175, 0, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-125 { color: rgb(175, 0, 95); }
+.xterm-dom-renderer-owner-3 .xterm-fg-125.xterm-dim { color: rgba(175, 0, 95, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-125 { background-color: rgb(175, 0, 95); }
+.xterm-dom-renderer-owner-3 .xterm-fg-126 { color: rgb(175, 0, 135); }
+.xterm-dom-renderer-owner-3 .xterm-fg-126.xterm-dim { color: rgba(175, 0, 135, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-126 { background-color: rgb(175, 0, 135); }
+.xterm-dom-renderer-owner-3 .xterm-fg-127 { color: rgb(124, 58, 237); }
+.xterm-dom-renderer-owner-3 .xterm-fg-127.xterm-dim { color: rgba(124, 58, 237, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-127 { background-color: rgb(124, 58, 237); }
+.xterm-dom-renderer-owner-3 .xterm-fg-128 { color: rgb(124, 58, 237); }
+.xterm-dom-renderer-owner-3 .xterm-fg-128.xterm-dim { color: rgba(124, 58, 237, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-128 { background-color: rgb(124, 58, 237); }
+.xterm-dom-renderer-owner-3 .xterm-fg-129 { color: rgb(124, 58, 237); }
+.xterm-dom-renderer-owner-3 .xterm-fg-129.xterm-dim { color: rgba(124, 58, 237, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-129 { background-color: rgb(124, 58, 237); }
+.xterm-dom-renderer-owner-3 .xterm-fg-130 { color: rgb(175, 95, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-130.xterm-dim { color: rgba(175, 95, 0, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-130 { background-color: rgb(175, 95, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-131 { color: rgb(175, 95, 95); }
+.xterm-dom-renderer-owner-3 .xterm-fg-131.xterm-dim { color: rgba(175, 95, 95, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-131 { background-color: rgb(175, 95, 95); }
+.xterm-dom-renderer-owner-3 .xterm-fg-132 { color: rgb(175, 95, 135); }
+.xterm-dom-renderer-owner-3 .xterm-fg-132.xterm-dim { color: rgba(175, 95, 135, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-132 { background-color: rgb(175, 95, 135); }
+.xterm-dom-renderer-owner-3 .xterm-fg-133 { color: rgb(139, 92, 246); }
+.xterm-dom-renderer-owner-3 .xterm-fg-133.xterm-dim { color: rgba(139, 92, 246, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-133 { background-color: rgb(139, 92, 246); }
+.xterm-dom-renderer-owner-3 .xterm-fg-134 { color: rgb(139, 92, 246); }
+.xterm-dom-renderer-owner-3 .xterm-fg-134.xterm-dim { color: rgba(139, 92, 246, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-134 { background-color: rgb(139, 92, 246); }
+.xterm-dom-renderer-owner-3 .xterm-fg-135 { color: rgb(139, 92, 246); }
+.xterm-dom-renderer-owner-3 .xterm-fg-135.xterm-dim { color: rgba(139, 92, 246, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-135 { background-color: rgb(139, 92, 246); }
+.xterm-dom-renderer-owner-3 .xterm-fg-136 { color: rgb(175, 135, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-136.xterm-dim { color: rgba(175, 135, 0, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-136 { background-color: rgb(175, 135, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-137 { color: rgb(175, 135, 95); }
+.xterm-dom-renderer-owner-3 .xterm-fg-137.xterm-dim { color: rgba(175, 135, 95, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-137 { background-color: rgb(175, 135, 95); }
+.xterm-dom-renderer-owner-3 .xterm-fg-138 { color: rgb(175, 135, 135); }
+.xterm-dom-renderer-owner-3 .xterm-fg-138.xterm-dim { color: rgba(175, 135, 135, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-138 { background-color: rgb(175, 135, 135); }
+.xterm-dom-renderer-owner-3 .xterm-fg-139 { color: rgb(182, 156, 255); }
+.xterm-dom-renderer-owner-3 .xterm-fg-139.xterm-dim { color: rgba(182, 156, 255, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-139 { background-color: rgb(182, 156, 255); }
+.xterm-dom-renderer-owner-3 .xterm-fg-140 { color: rgb(182, 156, 255); }
+.xterm-dom-renderer-owner-3 .xterm-fg-140.xterm-dim { color: rgba(182, 156, 255, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-140 { background-color: rgb(182, 156, 255); }
+.xterm-dom-renderer-owner-3 .xterm-fg-141 { color: rgb(182, 156, 255); }
+.xterm-dom-renderer-owner-3 .xterm-fg-141.xterm-dim { color: rgba(182, 156, 255, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-141 { background-color: rgb(182, 156, 255); }
+.xterm-dom-renderer-owner-3 .xterm-fg-142 { color: rgb(175, 175, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-142.xterm-dim { color: rgba(175, 175, 0, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-142 { background-color: rgb(175, 175, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-143 { color: rgb(175, 175, 95); }
+.xterm-dom-renderer-owner-3 .xterm-fg-143.xterm-dim { color: rgba(175, 175, 95, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-143 { background-color: rgb(175, 175, 95); }
+.xterm-dom-renderer-owner-3 .xterm-fg-144 { color: rgb(175, 175, 135); }
+.xterm-dom-renderer-owner-3 .xterm-fg-144.xterm-dim { color: rgba(175, 175, 135, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-144 { background-color: rgb(175, 175, 135); }
+.xterm-dom-renderer-owner-3 .xterm-fg-145 { color: rgb(174, 169, 194); }
+.xterm-dom-renderer-owner-3 .xterm-fg-145.xterm-dim { color: rgba(174, 169, 194, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-145 { background-color: rgb(174, 169, 194); }
+.xterm-dom-renderer-owner-3 .xterm-fg-146 { color: rgb(182, 156, 255); }
+.xterm-dom-renderer-owner-3 .xterm-fg-146.xterm-dim { color: rgba(182, 156, 255, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-146 { background-color: rgb(182, 156, 255); }
+.xterm-dom-renderer-owner-3 .xterm-fg-147 { color: rgb(196, 181, 253); }
+.xterm-dom-renderer-owner-3 .xterm-fg-147.xterm-dim { color: rgba(196, 181, 253, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-147 { background-color: rgb(196, 181, 253); }
+.xterm-dom-renderer-owner-3 .xterm-fg-148 { color: rgb(175, 215, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-148.xterm-dim { color: rgba(175, 215, 0, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-148 { background-color: rgb(175, 215, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-149 { color: rgb(175, 215, 95); }
+.xterm-dom-renderer-owner-3 .xterm-fg-149.xterm-dim { color: rgba(175, 215, 95, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-149 { background-color: rgb(175, 215, 95); }
+.xterm-dom-renderer-owner-3 .xterm-fg-150 { color: rgb(175, 215, 135); }
+.xterm-dom-renderer-owner-3 .xterm-fg-150.xterm-dim { color: rgba(175, 215, 135, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-150 { background-color: rgb(175, 215, 135); }
+.xterm-dom-renderer-owner-3 .xterm-fg-151 { color: rgb(175, 215, 175); }
+.xterm-dom-renderer-owner-3 .xterm-fg-151.xterm-dim { color: rgba(175, 215, 175, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-151 { background-color: rgb(175, 215, 175); }
+.xterm-dom-renderer-owner-3 .xterm-fg-152 { color: rgb(175, 215, 215); }
+.xterm-dom-renderer-owner-3 .xterm-fg-152.xterm-dim { color: rgba(175, 215, 215, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-152 { background-color: rgb(175, 215, 215); }
+.xterm-dom-renderer-owner-3 .xterm-fg-153 { color: rgb(221, 214, 254); }
+.xterm-dom-renderer-owner-3 .xterm-fg-153.xterm-dim { color: rgba(221, 214, 254, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-153 { background-color: rgb(221, 214, 254); }
+.xterm-dom-renderer-owner-3 .xterm-fg-154 { color: rgb(175, 255, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-154.xterm-dim { color: rgba(175, 255, 0, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-154 { background-color: rgb(175, 255, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-155 { color: rgb(175, 255, 95); }
+.xterm-dom-renderer-owner-3 .xterm-fg-155.xterm-dim { color: rgba(175, 255, 95, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-155 { background-color: rgb(175, 255, 95); }
+.xterm-dom-renderer-owner-3 .xterm-fg-156 { color: rgb(175, 255, 135); }
+.xterm-dom-renderer-owner-3 .xterm-fg-156.xterm-dim { color: rgba(175, 255, 135, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-156 { background-color: rgb(175, 255, 135); }
+.xterm-dom-renderer-owner-3 .xterm-fg-157 { color: rgb(175, 255, 175); }
+.xterm-dom-renderer-owner-3 .xterm-fg-157.xterm-dim { color: rgba(175, 255, 175, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-157 { background-color: rgb(175, 255, 175); }
+.xterm-dom-renderer-owner-3 .xterm-fg-158 { color: rgb(175, 255, 215); }
+.xterm-dom-renderer-owner-3 .xterm-fg-158.xterm-dim { color: rgba(175, 255, 215, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-158 { background-color: rgb(175, 255, 215); }
+.xterm-dom-renderer-owner-3 .xterm-fg-159 { color: rgb(175, 255, 255); }
+.xterm-dom-renderer-owner-3 .xterm-fg-159.xterm-dim { color: rgba(175, 255, 255, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-159 { background-color: rgb(175, 255, 255); }
+.xterm-dom-renderer-owner-3 .xterm-fg-160 { color: rgb(215, 0, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-160.xterm-dim { color: rgba(215, 0, 0, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-160 { background-color: rgb(215, 0, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-161 { color: rgb(215, 0, 95); }
+.xterm-dom-renderer-owner-3 .xterm-fg-161.xterm-dim { color: rgba(215, 0, 95, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-161 { background-color: rgb(215, 0, 95); }
+.xterm-dom-renderer-owner-3 .xterm-fg-162 { color: rgb(215, 0, 135); }
+.xterm-dom-renderer-owner-3 .xterm-fg-162.xterm-dim { color: rgba(215, 0, 135, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-162 { background-color: rgb(215, 0, 135); }
+.xterm-dom-renderer-owner-3 .xterm-fg-163 { color: rgb(215, 0, 175); }
+.xterm-dom-renderer-owner-3 .xterm-fg-163.xterm-dim { color: rgba(215, 0, 175, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-163 { background-color: rgb(215, 0, 175); }
+.xterm-dom-renderer-owner-3 .xterm-fg-164 { color: rgb(139, 92, 246); }
+.xterm-dom-renderer-owner-3 .xterm-fg-164.xterm-dim { color: rgba(139, 92, 246, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-164 { background-color: rgb(139, 92, 246); }
+.xterm-dom-renderer-owner-3 .xterm-fg-165 { color: rgb(139, 92, 246); }
+.xterm-dom-renderer-owner-3 .xterm-fg-165.xterm-dim { color: rgba(139, 92, 246, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-165 { background-color: rgb(139, 92, 246); }
+.xterm-dom-renderer-owner-3 .xterm-fg-166 { color: rgb(215, 95, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-166.xterm-dim { color: rgba(215, 95, 0, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-166 { background-color: rgb(215, 95, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-167 { color: rgb(215, 95, 95); }
+.xterm-dom-renderer-owner-3 .xterm-fg-167.xterm-dim { color: rgba(215, 95, 95, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-167 { background-color: rgb(215, 95, 95); }
+.xterm-dom-renderer-owner-3 .xterm-fg-168 { color: rgb(215, 95, 135); }
+.xterm-dom-renderer-owner-3 .xterm-fg-168.xterm-dim { color: rgba(215, 95, 135, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-168 { background-color: rgb(215, 95, 135); }
+.xterm-dom-renderer-owner-3 .xterm-fg-169 { color: rgb(215, 95, 175); }
+.xterm-dom-renderer-owner-3 .xterm-fg-169.xterm-dim { color: rgba(215, 95, 175, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-169 { background-color: rgb(215, 95, 175); }
+.xterm-dom-renderer-owner-3 .xterm-fg-170 { color: rgb(139, 92, 246); }
+.xterm-dom-renderer-owner-3 .xterm-fg-170.xterm-dim { color: rgba(139, 92, 246, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-170 { background-color: rgb(139, 92, 246); }
+.xterm-dom-renderer-owner-3 .xterm-fg-171 { color: rgb(182, 156, 255); }
+.xterm-dom-renderer-owner-3 .xterm-fg-171.xterm-dim { color: rgba(182, 156, 255, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-171 { background-color: rgb(182, 156, 255); }
+.xterm-dom-renderer-owner-3 .xterm-fg-172 { color: rgb(215, 135, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-172.xterm-dim { color: rgba(215, 135, 0, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-172 { background-color: rgb(215, 135, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-173 { color: rgb(215, 135, 95); }
+.xterm-dom-renderer-owner-3 .xterm-fg-173.xterm-dim { color: rgba(215, 135, 95, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-173 { background-color: rgb(215, 135, 95); }
+.xterm-dom-renderer-owner-3 .xterm-fg-174 { color: rgb(215, 135, 135); }
+.xterm-dom-renderer-owner-3 .xterm-fg-174.xterm-dim { color: rgba(215, 135, 135, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-174 { background-color: rgb(215, 135, 135); }
+.xterm-dom-renderer-owner-3 .xterm-fg-175 { color: rgb(215, 135, 175); }
+.xterm-dom-renderer-owner-3 .xterm-fg-175.xterm-dim { color: rgba(215, 135, 175, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-175 { background-color: rgb(215, 135, 175); }
+.xterm-dom-renderer-owner-3 .xterm-fg-176 { color: rgb(182, 156, 255); }
+.xterm-dom-renderer-owner-3 .xterm-fg-176.xterm-dim { color: rgba(182, 156, 255, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-176 { background-color: rgb(182, 156, 255); }
+.xterm-dom-renderer-owner-3 .xterm-fg-177 { color: rgb(182, 156, 255); }
+.xterm-dom-renderer-owner-3 .xterm-fg-177.xterm-dim { color: rgba(182, 156, 255, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-177 { background-color: rgb(182, 156, 255); }
+.xterm-dom-renderer-owner-3 .xterm-fg-178 { color: rgb(215, 175, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-178.xterm-dim { color: rgba(215, 175, 0, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-178 { background-color: rgb(215, 175, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-179 { color: rgb(215, 175, 95); }
+.xterm-dom-renderer-owner-3 .xterm-fg-179.xterm-dim { color: rgba(215, 175, 95, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-179 { background-color: rgb(215, 175, 95); }
+.xterm-dom-renderer-owner-3 .xterm-fg-180 { color: rgb(215, 175, 135); }
+.xterm-dom-renderer-owner-3 .xterm-fg-180.xterm-dim { color: rgba(215, 175, 135, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-180 { background-color: rgb(215, 175, 135); }
+.xterm-dom-renderer-owner-3 .xterm-fg-181 { color: rgb(215, 175, 175); }
+.xterm-dom-renderer-owner-3 .xterm-fg-181.xterm-dim { color: rgba(215, 175, 175, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-181 { background-color: rgb(215, 175, 175); }
+.xterm-dom-renderer-owner-3 .xterm-fg-182 { color: rgb(196, 181, 253); }
+.xterm-dom-renderer-owner-3 .xterm-fg-182.xterm-dim { color: rgba(196, 181, 253, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-182 { background-color: rgb(196, 181, 253); }
+.xterm-dom-renderer-owner-3 .xterm-fg-183 { color: rgb(196, 181, 253); }
+.xterm-dom-renderer-owner-3 .xterm-fg-183.xterm-dim { color: rgba(196, 181, 253, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-183 { background-color: rgb(196, 181, 253); }
+.xterm-dom-renderer-owner-3 .xterm-fg-184 { color: rgb(215, 215, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-184.xterm-dim { color: rgba(215, 215, 0, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-184 { background-color: rgb(215, 215, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-185 { color: rgb(215, 215, 95); }
+.xterm-dom-renderer-owner-3 .xterm-fg-185.xterm-dim { color: rgba(215, 215, 95, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-185 { background-color: rgb(215, 215, 95); }
+.xterm-dom-renderer-owner-3 .xterm-fg-186 { color: rgb(215, 215, 135); }
+.xterm-dom-renderer-owner-3 .xterm-fg-186.xterm-dim { color: rgba(215, 215, 135, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-186 { background-color: rgb(215, 215, 135); }
+.xterm-dom-renderer-owner-3 .xterm-fg-187 { color: rgb(215, 215, 175); }
+.xterm-dom-renderer-owner-3 .xterm-fg-187.xterm-dim { color: rgba(215, 215, 175, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-187 { background-color: rgb(215, 215, 175); }
+.xterm-dom-renderer-owner-3 .xterm-fg-188 { color: rgb(210, 207, 224); }
+.xterm-dom-renderer-owner-3 .xterm-fg-188.xterm-dim { color: rgba(210, 207, 224, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-188 { background-color: rgb(210, 207, 224); }
+.xterm-dom-renderer-owner-3 .xterm-fg-189 { color: rgb(221, 214, 254); }
+.xterm-dom-renderer-owner-3 .xterm-fg-189.xterm-dim { color: rgba(221, 214, 254, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-189 { background-color: rgb(221, 214, 254); }
+.xterm-dom-renderer-owner-3 .xterm-fg-190 { color: rgb(215, 255, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-190.xterm-dim { color: rgba(215, 255, 0, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-190 { background-color: rgb(215, 255, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-191 { color: rgb(215, 255, 95); }
+.xterm-dom-renderer-owner-3 .xterm-fg-191.xterm-dim { color: rgba(215, 255, 95, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-191 { background-color: rgb(215, 255, 95); }
+.xterm-dom-renderer-owner-3 .xterm-fg-192 { color: rgb(215, 255, 135); }
+.xterm-dom-renderer-owner-3 .xterm-fg-192.xterm-dim { color: rgba(215, 255, 135, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-192 { background-color: rgb(215, 255, 135); }
+.xterm-dom-renderer-owner-3 .xterm-fg-193 { color: rgb(215, 255, 175); }
+.xterm-dom-renderer-owner-3 .xterm-fg-193.xterm-dim { color: rgba(215, 255, 175, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-193 { background-color: rgb(215, 255, 175); }
+.xterm-dom-renderer-owner-3 .xterm-fg-194 { color: rgb(215, 255, 215); }
+.xterm-dom-renderer-owner-3 .xterm-fg-194.xterm-dim { color: rgba(215, 255, 215, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-194 { background-color: rgb(215, 255, 215); }
+.xterm-dom-renderer-owner-3 .xterm-fg-195 { color: rgb(215, 255, 255); }
+.xterm-dom-renderer-owner-3 .xterm-fg-195.xterm-dim { color: rgba(215, 255, 255, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-195 { background-color: rgb(215, 255, 255); }
+.xterm-dom-renderer-owner-3 .xterm-fg-196 { color: rgb(255, 0, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-196.xterm-dim { color: rgba(255, 0, 0, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-196 { background-color: rgb(255, 0, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-197 { color: rgb(255, 0, 95); }
+.xterm-dom-renderer-owner-3 .xterm-fg-197.xterm-dim { color: rgba(255, 0, 95, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-197 { background-color: rgb(255, 0, 95); }
+.xterm-dom-renderer-owner-3 .xterm-fg-198 { color: rgb(255, 0, 135); }
+.xterm-dom-renderer-owner-3 .xterm-fg-198.xterm-dim { color: rgba(255, 0, 135, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-198 { background-color: rgb(255, 0, 135); }
+.xterm-dom-renderer-owner-3 .xterm-fg-199 { color: rgb(255, 0, 175); }
+.xterm-dom-renderer-owner-3 .xterm-fg-199.xterm-dim { color: rgba(255, 0, 175, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-199 { background-color: rgb(255, 0, 175); }
+.xterm-dom-renderer-owner-3 .xterm-fg-200 { color: rgb(255, 0, 215); }
+.xterm-dom-renderer-owner-3 .xterm-fg-200.xterm-dim { color: rgba(255, 0, 215, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-200 { background-color: rgb(255, 0, 215); }
+.xterm-dom-renderer-owner-3 .xterm-fg-201 { color: rgb(139, 92, 246); }
+.xterm-dom-renderer-owner-3 .xterm-fg-201.xterm-dim { color: rgba(139, 92, 246, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-201 { background-color: rgb(139, 92, 246); }
+.xterm-dom-renderer-owner-3 .xterm-fg-202 { color: rgb(255, 95, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-202.xterm-dim { color: rgba(255, 95, 0, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-202 { background-color: rgb(255, 95, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-203 { color: rgb(255, 95, 95); }
+.xterm-dom-renderer-owner-3 .xterm-fg-203.xterm-dim { color: rgba(255, 95, 95, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-203 { background-color: rgb(255, 95, 95); }
+.xterm-dom-renderer-owner-3 .xterm-fg-204 { color: rgb(255, 95, 135); }
+.xterm-dom-renderer-owner-3 .xterm-fg-204.xterm-dim { color: rgba(255, 95, 135, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-204 { background-color: rgb(255, 95, 135); }
+.xterm-dom-renderer-owner-3 .xterm-fg-205 { color: rgb(255, 95, 175); }
+.xterm-dom-renderer-owner-3 .xterm-fg-205.xterm-dim { color: rgba(255, 95, 175, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-205 { background-color: rgb(255, 95, 175); }
+.xterm-dom-renderer-owner-3 .xterm-fg-206 { color: rgb(255, 95, 215); }
+.xterm-dom-renderer-owner-3 .xterm-fg-206.xterm-dim { color: rgba(255, 95, 215, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-206 { background-color: rgb(255, 95, 215); }
+.xterm-dom-renderer-owner-3 .xterm-fg-207 { color: rgb(182, 156, 255); }
+.xterm-dom-renderer-owner-3 .xterm-fg-207.xterm-dim { color: rgba(182, 156, 255, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-207 { background-color: rgb(182, 156, 255); }
+.xterm-dom-renderer-owner-3 .xterm-fg-208 { color: rgb(255, 135, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-208.xterm-dim { color: rgba(255, 135, 0, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-208 { background-color: rgb(255, 135, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-209 { color: rgb(255, 135, 95); }
+.xterm-dom-renderer-owner-3 .xterm-fg-209.xterm-dim { color: rgba(255, 135, 95, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-209 { background-color: rgb(255, 135, 95); }
+.xterm-dom-renderer-owner-3 .xterm-fg-210 { color: rgb(255, 135, 135); }
+.xterm-dom-renderer-owner-3 .xterm-fg-210.xterm-dim { color: rgba(255, 135, 135, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-210 { background-color: rgb(255, 135, 135); }
+.xterm-dom-renderer-owner-3 .xterm-fg-211 { color: rgb(255, 135, 175); }
+.xterm-dom-renderer-owner-3 .xterm-fg-211.xterm-dim { color: rgba(255, 135, 175, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-211 { background-color: rgb(255, 135, 175); }
+.xterm-dom-renderer-owner-3 .xterm-fg-212 { color: rgb(255, 135, 215); }
+.xterm-dom-renderer-owner-3 .xterm-fg-212.xterm-dim { color: rgba(255, 135, 215, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-212 { background-color: rgb(255, 135, 215); }
+.xterm-dom-renderer-owner-3 .xterm-fg-213 { color: rgb(182, 156, 255); }
+.xterm-dom-renderer-owner-3 .xterm-fg-213.xterm-dim { color: rgba(182, 156, 255, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-213 { background-color: rgb(182, 156, 255); }
+.xterm-dom-renderer-owner-3 .xterm-fg-214 { color: rgb(255, 175, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-214.xterm-dim { color: rgba(255, 175, 0, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-214 { background-color: rgb(255, 175, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-215 { color: rgb(255, 175, 95); }
+.xterm-dom-renderer-owner-3 .xterm-fg-215.xterm-dim { color: rgba(255, 175, 95, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-215 { background-color: rgb(255, 175, 95); }
+.xterm-dom-renderer-owner-3 .xterm-fg-216 { color: rgb(255, 175, 135); }
+.xterm-dom-renderer-owner-3 .xterm-fg-216.xterm-dim { color: rgba(255, 175, 135, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-216 { background-color: rgb(255, 175, 135); }
+.xterm-dom-renderer-owner-3 .xterm-fg-217 { color: rgb(255, 175, 175); }
+.xterm-dom-renderer-owner-3 .xterm-fg-217.xterm-dim { color: rgba(255, 175, 175, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-217 { background-color: rgb(255, 175, 175); }
+.xterm-dom-renderer-owner-3 .xterm-fg-218 { color: rgb(255, 175, 215); }
+.xterm-dom-renderer-owner-3 .xterm-fg-218.xterm-dim { color: rgba(255, 175, 215, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-218 { background-color: rgb(255, 175, 215); }
+.xterm-dom-renderer-owner-3 .xterm-fg-219 { color: rgb(196, 181, 253); }
+.xterm-dom-renderer-owner-3 .xterm-fg-219.xterm-dim { color: rgba(196, 181, 253, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-219 { background-color: rgb(196, 181, 253); }
+.xterm-dom-renderer-owner-3 .xterm-fg-220 { color: rgb(255, 215, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-220.xterm-dim { color: rgba(255, 215, 0, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-220 { background-color: rgb(255, 215, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-221 { color: rgb(255, 215, 95); }
+.xterm-dom-renderer-owner-3 .xterm-fg-221.xterm-dim { color: rgba(255, 215, 95, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-221 { background-color: rgb(255, 215, 95); }
+.xterm-dom-renderer-owner-3 .xterm-fg-222 { color: rgb(255, 215, 135); }
+.xterm-dom-renderer-owner-3 .xterm-fg-222.xterm-dim { color: rgba(255, 215, 135, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-222 { background-color: rgb(255, 215, 135); }
+.xterm-dom-renderer-owner-3 .xterm-fg-223 { color: rgb(255, 215, 175); }
+.xterm-dom-renderer-owner-3 .xterm-fg-223.xterm-dim { color: rgba(255, 215, 175, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-223 { background-color: rgb(255, 215, 175); }
+.xterm-dom-renderer-owner-3 .xterm-fg-224 { color: rgb(255, 215, 215); }
+.xterm-dom-renderer-owner-3 .xterm-fg-224.xterm-dim { color: rgba(255, 215, 215, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-224 { background-color: rgb(255, 215, 215); }
+.xterm-dom-renderer-owner-3 .xterm-fg-225 { color: rgb(221, 214, 254); }
+.xterm-dom-renderer-owner-3 .xterm-fg-225.xterm-dim { color: rgba(221, 214, 254, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-225 { background-color: rgb(221, 214, 254); }
+.xterm-dom-renderer-owner-3 .xterm-fg-226 { color: rgb(255, 255, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-226.xterm-dim { color: rgba(255, 255, 0, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-226 { background-color: rgb(255, 255, 0); }
+.xterm-dom-renderer-owner-3 .xterm-fg-227 { color: rgb(255, 255, 95); }
+.xterm-dom-renderer-owner-3 .xterm-fg-227.xterm-dim { color: rgba(255, 255, 95, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-227 { background-color: rgb(255, 255, 95); }
+.xterm-dom-renderer-owner-3 .xterm-fg-228 { color: rgb(255, 255, 135); }
+.xterm-dom-renderer-owner-3 .xterm-fg-228.xterm-dim { color: rgba(255, 255, 135, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-228 { background-color: rgb(255, 255, 135); }
+.xterm-dom-renderer-owner-3 .xterm-fg-229 { color: rgb(255, 255, 175); }
+.xterm-dom-renderer-owner-3 .xterm-fg-229.xterm-dim { color: rgba(255, 255, 175, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-229 { background-color: rgb(255, 255, 175); }
+.xterm-dom-renderer-owner-3 .xterm-fg-230 { color: rgb(255, 255, 215); }
+.xterm-dom-renderer-owner-3 .xterm-fg-230.xterm-dim { color: rgba(255, 255, 215, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-230 { background-color: rgb(255, 255, 215); }
+.xterm-dom-renderer-owner-3 .xterm-fg-231 { color: rgb(244, 242, 251); }
+.xterm-dom-renderer-owner-3 .xterm-fg-231.xterm-dim { color: rgba(244, 242, 251, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-231 { background-color: rgb(244, 242, 251); }
+.xterm-dom-renderer-owner-3 .xterm-fg-232 { color: rgb(14, 12, 20); }
+.xterm-dom-renderer-owner-3 .xterm-fg-232.xterm-dim { color: rgba(14, 12, 20, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-232 { background-color: rgb(14, 12, 20); }
+.xterm-dom-renderer-owner-3 .xterm-fg-233 { color: rgb(20, 18, 27); }
+.xterm-dom-renderer-owner-3 .xterm-fg-233.xterm-dim { color: rgba(20, 18, 27, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-233 { background-color: rgb(20, 18, 27); }
+.xterm-dom-renderer-owner-3 .xterm-fg-234 { color: rgb(26, 24, 35); }
+.xterm-dom-renderer-owner-3 .xterm-fg-234.xterm-dim { color: rgba(26, 24, 35, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-234 { background-color: rgb(26, 24, 35); }
+.xterm-dom-renderer-owner-3 .xterm-fg-235 { color: rgb(44, 41, 56); }
+.xterm-dom-renderer-owner-3 .xterm-fg-235.xterm-dim { color: rgba(44, 41, 56, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-235 { background-color: rgb(44, 41, 56); }
+.xterm-dom-renderer-owner-3 .xterm-fg-236 { color: rgb(44, 41, 56); }
+.xterm-dom-renderer-owner-3 .xterm-fg-236.xterm-dim { color: rgba(44, 41, 56, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-236 { background-color: rgb(44, 41, 56); }
+.xterm-dom-renderer-owner-3 .xterm-fg-237 { color: rgb(58, 54, 73); }
+.xterm-dom-renderer-owner-3 .xterm-fg-237.xterm-dim { color: rgba(58, 54, 73, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-237 { background-color: rgb(58, 54, 73); }
+.xterm-dom-renderer-owner-3 .xterm-fg-238 { color: rgb(58, 54, 73); }
+.xterm-dom-renderer-owner-3 .xterm-fg-238.xterm-dim { color: rgba(58, 54, 73, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-238 { background-color: rgb(58, 54, 73); }
+.xterm-dom-renderer-owner-3 .xterm-fg-239 { color: rgb(58, 54, 73); }
+.xterm-dom-renderer-owner-3 .xterm-fg-239.xterm-dim { color: rgba(58, 54, 73, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-239 { background-color: rgb(58, 54, 73); }
+.xterm-dom-renderer-owner-3 .xterm-fg-240 { color: rgb(110, 105, 133); }
+.xterm-dom-renderer-owner-3 .xterm-fg-240.xterm-dim { color: rgba(110, 105, 133, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-240 { background-color: rgb(110, 105, 133); }
+.xterm-dom-renderer-owner-3 .xterm-fg-241 { color: rgb(110, 105, 133); }
+.xterm-dom-renderer-owner-3 .xterm-fg-241.xterm-dim { color: rgba(110, 105, 133, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-241 { background-color: rgb(110, 105, 133); }
+.xterm-dom-renderer-owner-3 .xterm-fg-242 { color: rgb(110, 105, 133); }
+.xterm-dom-renderer-owner-3 .xterm-fg-242.xterm-dim { color: rgba(110, 105, 133, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-242 { background-color: rgb(110, 105, 133); }
+.xterm-dom-renderer-owner-3 .xterm-fg-243 { color: rgb(110, 105, 133); }
+.xterm-dom-renderer-owner-3 .xterm-fg-243.xterm-dim { color: rgba(110, 105, 133, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-243 { background-color: rgb(110, 105, 133); }
+.xterm-dom-renderer-owner-3 .xterm-fg-244 { color: rgb(142, 137, 163); }
+.xterm-dom-renderer-owner-3 .xterm-fg-244.xterm-dim { color: rgba(142, 137, 163, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-244 { background-color: rgb(142, 137, 163); }
+.xterm-dom-renderer-owner-3 .xterm-fg-245 { color: rgb(142, 137, 163); }
+.xterm-dom-renderer-owner-3 .xterm-fg-245.xterm-dim { color: rgba(142, 137, 163, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-245 { background-color: rgb(142, 137, 163); }
+.xterm-dom-renderer-owner-3 .xterm-fg-246 { color: rgb(142, 137, 163); }
+.xterm-dom-renderer-owner-3 .xterm-fg-246.xterm-dim { color: rgba(142, 137, 163, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-246 { background-color: rgb(142, 137, 163); }
+.xterm-dom-renderer-owner-3 .xterm-fg-247 { color: rgb(174, 169, 194); }
+.xterm-dom-renderer-owner-3 .xterm-fg-247.xterm-dim { color: rgba(174, 169, 194, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-247 { background-color: rgb(174, 169, 194); }
+.xterm-dom-renderer-owner-3 .xterm-fg-248 { color: rgb(174, 169, 194); }
+.xterm-dom-renderer-owner-3 .xterm-fg-248.xterm-dim { color: rgba(174, 169, 194, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-248 { background-color: rgb(174, 169, 194); }
+.xterm-dom-renderer-owner-3 .xterm-fg-249 { color: rgb(174, 169, 194); }
+.xterm-dom-renderer-owner-3 .xterm-fg-249.xterm-dim { color: rgba(174, 169, 194, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-249 { background-color: rgb(174, 169, 194); }
+.xterm-dom-renderer-owner-3 .xterm-fg-250 { color: rgb(174, 169, 194); }
+.xterm-dom-renderer-owner-3 .xterm-fg-250.xterm-dim { color: rgba(174, 169, 194, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-250 { background-color: rgb(174, 169, 194); }
+.xterm-dom-renderer-owner-3 .xterm-fg-251 { color: rgb(210, 207, 224); }
+.xterm-dom-renderer-owner-3 .xterm-fg-251.xterm-dim { color: rgba(210, 207, 224, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-251 { background-color: rgb(210, 207, 224); }
+.xterm-dom-renderer-owner-3 .xterm-fg-252 { color: rgb(210, 207, 224); }
+.xterm-dom-renderer-owner-3 .xterm-fg-252.xterm-dim { color: rgba(210, 207, 224, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-252 { background-color: rgb(210, 207, 224); }
+.xterm-dom-renderer-owner-3 .xterm-fg-253 { color: rgb(210, 207, 224); }
+.xterm-dom-renderer-owner-3 .xterm-fg-253.xterm-dim { color: rgba(210, 207, 224, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-253 { background-color: rgb(210, 207, 224); }
+.xterm-dom-renderer-owner-3 .xterm-fg-254 { color: rgb(244, 242, 251); }
+.xterm-dom-renderer-owner-3 .xterm-fg-254.xterm-dim { color: rgba(244, 242, 251, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-254 { background-color: rgb(244, 242, 251); }
+.xterm-dom-renderer-owner-3 .xterm-fg-255 { color: rgb(244, 242, 251); }
+.xterm-dom-renderer-owner-3 .xterm-fg-255.xterm-dim { color: rgba(244, 242, 251, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-255 { background-color: rgb(244, 242, 251); }
+.xterm-dom-renderer-owner-3 .xterm-fg-257 { color: rgb(20, 18, 27); }
+.xterm-dom-renderer-owner-3 .xterm-fg-257.xterm-dim { color: rgba(20, 18, 27, 0.5); }
+.xterm-dom-renderer-owner-3 .xterm-bg-257 { background-color: rgb(244, 242, 251); }

@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Not in OmnIDE v0.1</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+a{color:#B69CFF}a:hover{color:#F4F2FB}
+table{border-collapse:collapse}
+th{text-align:left;font-weight:600;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:rgba(244, 242, 251, 0.74);padding:8px 10px;border-bottom:1px solid rgba(244, 242, 251, 0.08)}
+td{padding:8px 10px;border-bottom:1px solid rgba(244, 242, 251, 0.08);vertical-align:top}
+</style>
+<style data-omnide-v4>@font-face{font-family:'Geist';src:url(./fonts/Geist-Variable.woff2) format('woff2');font-weight:100 900;font-display:swap}@font-face{font-family:'Geist Mono';src:url(./fonts/GeistMono-Variable.woff2) format('woff2');font-weight:100 900;font-display:swap}</style></helmet>
+<div data-page="v4" data-created="2026-11-26" data-updated="2026-11-26" data-status="in-progress" data-section="screens" style="position:relative;width:1240px;min-height:760px;box-sizing:border-box;padding:40px 48px;background:#14121B;color:#F4F2FB;font-family:'Geist','Segoe UI',system-ui,sans-serif;font-size:14px;line-height:1.5">
+<div style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:rgba(244, 242, 251, 0.74)">Doc · scope · v4 · 2026-11-26 · updated 2026-11-26</div><h1 style="margin:6px 0 8px;font-size:30px;font-weight:600">Not in OmnIDE v0.1</h1><p style="margin:0 0 14px;max-width:1080px;color:rgba(244, 242, 251, 0.74)">Everything in the Cursor As-is that OmnIDE does not ship, with one reason each. Nothing in OmnIDE is locked or paid: if it is here, it is gone, not greyed.</p><table style="width:100%;font-size:13px"><thead><tr><th>Dropped from Cursor</th><th>Why</th><th>Where it went</th></tr></thead><tbody><tr><td>Account, Plan &amp; Usage, Upgrade</td><td>OmnIDE is free and has no account. Settings &gt; Claude shows your own Claude sign-in instead.</td><td><a href="v4-set-claude-1.dc.html">set-claude-1</a></td></tr><tr><td>Usage-limit screen (Cursor plan)</td><td>Replaced by Claude's own usage-limit message in the chat.</td><td><a href="v4-omni-rate-limit.dc.html">omni-rate-limit</a></td></tr><tr><td>Tab ghost-text completion</td><td>Cursor's own model feature; Claude Code has no inline completion.</td><td>Nothing; dropped</td></tr><tr><td>Debug mode (3 screens)</td><td>Cursor-only agent mode; the modes are Manual, Accept edits, Plan, Auto, Bypass.</td><td><a href="v4-ai-01-agent-mode-picker.dc.html">ai-01-agent-mode-picker</a></td></tr><tr><td>Browser &amp; Network settings</td><td>Cursor's agent browser and proxy tests; not part of Claude Code over ACP.</td><td>Nothing; dropped</td></tr><tr><td>Code Intelligence and Indexing</td><td>Cursor's cloud index; Claude Code reads files itself.</td><td>Nothing; dropped</td></tr><tr><td>Beta channel and update access</td><td>Cursor release channels; OmnIDE updates come from GitHub releases.</td><td>Nothing; dropped</td></tr><tr><td>Privacy mode</td><td>Cursor's data-retention switch; OmnIDE sends nothing to its own servers.</td><td>Nothing; dropped</td></tr><tr><td>Review provider and Bugbot</td><td>Replaced by Claude Review in Source Control.</td><td>Nothing; dropped</td></tr><tr><td>Voice input</td><td>Cursor feature, not in Claude Code.</td><td>Nothing; dropped</td></tr><tr><td>Cloud Agents and the Agents Window promo</td><td>Cursor cloud product; OmnIDE runs Claude Code locally.</td><td>Nothing; dropped</td></tr><tr><td>Other agents (Codex, Gemini CLI)</td><td>Roadmap v0.2, shown in the agent picker but not clickable.</td><td><a href="v4-omni-agent-picker.dc.html">omni-agent-picker</a></td></tr></tbody></table>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1240,"height":760}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

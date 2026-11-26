@@ -1,0 +1,38 @@
+@startuml
+!include skin.iuml
+
+package "Code OSS 1.147.0 (VS Code base, MIT)" as oss {
+  [Electron main\nout/main.js] as main
+  [Workbench renderer\nout/vs/workbench/workbench.desktop.main.js (32 MB)] as wb
+  [Extension host\n(Node 24.22.1)] as exthost
+  [Built-in extensions\n95 of 117 (git, languages, debug)] as builtin
+  [Monaco editor, terminal, SCM,\nsettings, quick input] as core
+}
+package "Cursor 3.32.4 layer (Anysphere)" as cur {
+  [Agents window ("glass")\nout/vs/workbench/workbench.glass.main.js (40 MB)] as glass
+  [React UI\nworkbench.anysphere-ui.js (9 MB) + react-runtime] as react
+  [Composer contrib\nout/vs/workbench/contrib/composer] as composer
+  [Cursor Settings\n(own pages beside VS Code Settings)] as settings
+  [21 cursor-* extensions\nagent host/exec, MCP, retrieval,\nbrowser automation, commits, resolver] as cext
+  [theme-cursor\nCursor Dark / Light] as theme
+}
+cloud "Cursor cloud" as cloud {
+  [api2.cursor.sh\nagent, models, updates] as api
+  [marketplace.cursorapi.com\nextension gallery] as gal
+  [downloads.cursor.com\nagent harness] as cdn
+}
+main --> wb
+main --> glass
+wb --> core
+wb ..> react : mounts
+glass ..> react : mounts
+react --> composer
+react --> settings
+exthost --> builtin
+exthost --> cext
+cext --> api
+composer --> cext : agent turn
+theme ..> core
+builtin ..> gal
+cext ..> cdn : downloads harness
+@enduml

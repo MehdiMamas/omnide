@@ -1,0 +1,32 @@
+@startuml
+!include skin.iuml
+
+node "Windows PC" as pc {
+  node "Cursor.exe (Electron main)" as m
+  node "Renderer: editor window" as r1
+  node "Renderer: Agents window" as r2
+  node "Extension host: workspace" as e1
+  node "Extension host: Always Local" as e2
+  node "AgentExec extension host\n(cursor-agent-host, cursor-agent-exec)" as e3
+  node "Shell ptys\n(PowerShell here)" as pty
+  database "%APPDATA%\\Cursor\n(user data, state)" as ud
+  database "~/.cursor\n(extensions, rules, MCP config)" as dd
+  artifact "workspace\n(.git, .cursor/)" as ws
+}
+cloud "Cursor cloud" as cc {
+  node "api2.cursor.sh" as api
+  node "background-composer\n(cloud agents, remote authority)" as bg
+}
+m --> r1
+m --> r2
+m --> e1
+m --> e2
+m --> e3
+e3 --> pty : agent commands
+e3 --> ws : reads, edits
+e1 --> ws
+m --> ud
+e1 --> dd
+e3 --> api : HTTPS stream
+e1 ..> bg : cursor-resolver
+@enduml
