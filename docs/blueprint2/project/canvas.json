@@ -114,7 +114,7 @@
       "x": 16160,
       "y": 0,
       "w": 1440,
-      "h": 1700,
+      "h": 1840,
       "page": "v5",
       "title": "Feature inventory"
     },
@@ -146,7 +146,7 @@
       "x": 29560,
       "y": 0,
       "w": 1240,
-      "h": 640,
+      "h": 1000,
       "page": "v5",
       "title": "History"
     },
@@ -332,7 +332,7 @@
       "x": 1520,
       "y": 0,
       "w": 1240,
-      "h": 1000,
+      "h": 1480,
       "page": "v5",
       "title": "Progress"
     },
@@ -365,7 +365,7 @@
       "x": 5360,
       "y": 42651,
       "w": 1240,
-      "h": 1250,
+      "h": 1640,
       "title": "agent-Mapping",
       "page": "v5",
       "is_interactive": false
@@ -2514,7 +2514,7 @@
       "x": 20320,
       "y": 1000,
       "w": 1360,
-      "h": 1300,
+      "h": 1380,
       "page": "v5",
       "title": "Fork, upstream and telemetry"
     },
@@ -5084,7 +5084,7 @@
       "x": 10400,
       "y": 52400,
       "w": 1240,
-      "h": 520,
+      "h": 560,
       "page": "v5",
       "title": "Never auto-approved",
       "is_interactive": false
@@ -5093,7 +5093,7 @@
       "x": 11700,
       "y": 52400,
       "w": 1240,
-      "h": 640,
+      "h": 820,
       "page": "v5",
       "title": "Rewind limits and warnings",
       "is_interactive": false
@@ -5138,7 +5138,7 @@
       "x": 3900,
       "y": 53900,
       "w": 1240,
-      "h": 640,
+      "h": 720,
       "page": "v5",
       "title": "Effort levels and model picker",
       "is_interactive": false
@@ -5165,7 +5165,7 @@
       "x": 7800,
       "y": 53900,
       "w": 1240,
-      "h": 1280,
+      "h": 2100,
       "page": "v5",
       "title": "Full keyboard map",
       "is_interactive": false
@@ -5214,6 +5214,33 @@
       "page": "v5",
       "title": "Command permission ask",
       "is_interactive": true
+    },
+    "v5-ref-BuildCI.dc.html": {
+      "x": 0,
+      "y": 55400,
+      "w": 1240,
+      "h": 1040,
+      "page": "v5",
+      "title": "Build and CI",
+      "is_interactive": false
+    },
+    "v5-ref-PatchSeries.dc.html": {
+      "x": 1300,
+      "y": 55400,
+      "w": 1240,
+      "h": 840,
+      "page": "v5",
+      "title": "Patch series",
+      "is_interactive": false
+    },
+    "v5-ref-LintRules.dc.html": {
+      "x": 2600,
+      "y": 55400,
+      "w": 1240,
+      "h": 1000,
+      "page": "v5",
+      "title": "Lint and code rules",
+      "is_interactive": false
     }
   },
   "order": [
@@ -5800,7 +5827,10 @@
     "v5-ref-QueueSteer.dc.html",
     "v5-ref-MCP.dc.html",
     "v5-ref-RulesSkills.dc.html",
-    "v5-ref-Timings.dc.html"
+    "v5-ref-Timings.dc.html",
+    "v5-ref-BuildCI.dc.html",
+    "v5-ref-PatchSeries.dc.html",
+    "v5-ref-LintRules.dc.html"
   ],
   "notes": [],
   "designSystems": []

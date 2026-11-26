@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Lint and code rules</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+a{color:#B69CFF}a:hover{color:#F4F2FB}
+table{border-collapse:collapse}
+th{text-align:left;font-weight:600;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:rgba(244, 242, 251, 0.74);padding:8px 10px;border-bottom:1px solid rgba(244, 242, 251, 0.08)}
+td{padding:8px 10px;border-bottom:1px solid rgba(244, 242, 251, 0.08);vertical-align:top}
+</style>
+<style data-omnide-v4>@font-face{font-family:'Geist';src:url(./fonts/Geist-Variable.woff2) format('woff2');font-weight:100 900;font-display:swap}@font-face{font-family:'Geist Mono';src:url(./fonts/GeistMono-Variable.woff2) format('woff2');font-weight:100 900;font-display:swap}</style></helmet>
+<div data-page="v5" data-created="2026-11-26" data-updated="2026-11-26" data-status="current" data-section="architecture" style="position:relative;width:1240px;min-height:1000px;box-sizing:border-box;padding:40px 48px;background:#14121B;color:#F4F2FB;font-family:'Geist','Segoe UI',system-ui,sans-serif;font-size:14px;line-height:1.5">
+<div style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:rgba(244, 242, 251, 0.74)">Architecture · reference · lint and code rules · v5 · 2026-11-26 · updated 2026-11-26</div><h1 style="margin:6px 0 8px;font-size:30px;font-weight:600">Lint and code rules</h1><p style="margin:0 0 14px;max-width:1080px;color:rgba(244, 242, 251, 0.74)">The checks that stop wrong code from landing, and the rules that remain as requests.</p><table style="width:100%;font-size:13px"><thead><tr><th>Rule</th><th>Where</th><th>Message or effect</th></tr></thead><tbody><tr><td>Biome 2.6.9, errors</td><td>suspicious.noExplicitAny, noTsIgnore; performance.noAccumulatingSpread, noDynamicNamespaceImportAccess, noReExportAll</td><td>Formatter and assist are off; vcs uses the ignore file</td></tr><tr><td>Files checked</td><td>extensions/omnide-agent/**, src/omnide/**, scripts/**</td><td>Not vscode/ and not docs/</td></tr><tr><td>Boundary: webview</td><td>extensions/omnide-agent/webview/** may not import **/src/** or vscode (style.noRestrictedImports)</td><td>&quot;The webview runs in a browser frame and cannot reach the extension host. Send a message with postMessage and handle it in src/.&quot;</td></tr><tr><td>Boundary: extension host</td><td>extensions/omnide-agent/src/** may not import **/webview/**</td><td>&quot;Extension host code cannot import webview code. Share types through extensions/omnide-agent/src/protocol.ts.&quot;</td></tr><tr><td>CI</td><td>Workflow lint, job biome, on push and pull_request, ubuntu-latest</td><td>npx --yes @biomejs/biome@2.6.9 ci .</td></tr></tbody></table><div style="height:12px"></div><table style="width:100%;font-size:13px"><thead><tr><th>CLAUDE.md rule</th><th>Detail</th></tr></thead><tbody><tr><td>Order of fixes</td><td>Make the wrong code impossible (API, folders), then lint and types, then tests, then a rule in CLAUDE.md, then human review</td></tr><tr><td>Upstream</td><td>Fetched into vscode/ and never hand-edited; every change is a patch, one concern per patch</td></tr><tr><td>Types</td><td>Strict TypeScript: no any, no @ts-ignore</td></tr><tr><td>Repeated mistake</td><td>A mistake made twice becomes a Biome rule whose message says how to fix it, never a new line in CLAUDE.md</td></tr><tr><td>Comments</td><td>A comment that justifies a workaround is deleted and the cause fixed; a one-line why the code cannot show stays</td></tr><tr><td>Property tests</td><td>fast-check for the mode cycle, permission grants, patch order and the update version check. Planned, not yet in the repo</td></tr><tr><td>Pull requests</td><td>Every PR shows the built app working: a screenshot or log from a real run</td></tr><tr><td>Weeding</td><td>A monthly sweep removes workarounds and dead code</td></tr></tbody></table><div style="height:12px"></div><div style="background:#1A1823;border:1px solid rgba(244, 242, 251, 0.08);border-radius:8px;padding:12px 16px;margin:0 0 10px"><b>Status of omnide#11 (open, roadmap)</b><br><span style="color:rgba(244, 242, 251, 0.74)">Done: CLAUDE.md, biome.json, the boundary rules and the CI lint; a planted bad file raised 4 errors (any, ts-ignore, 2 boundary imports). Still to do: strict tsconfig (lands with #2), fast-check tests (each lands with the code it covers) and the monthly sweep. Decided against: a comment ban, a blanket setTimeout ban, TLA+ and Lean. Lesson recorded: lint caught only 1 of 77 corrections, so tests and behaviour checks carry the rest.</span></div><p style="margin:14px 0 0;font-size:11px;color:rgba(244, 242, 251, 0.74)">Source: biome.json, .github/workflows/lint.yml and CLAUDE.md in <a href="https://github.com/MehdiMamas/omnide">https://github.com/MehdiMamas/omnide</a>; <a href="https://github.com/MehdiMamas/omnide/issues/11">https://github.com/MehdiMamas/omnide/issues/11</a></p>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1240,"height":1000}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>
