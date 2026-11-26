@@ -7,12 +7,16 @@
   "title": "OmnIDE blueprint",
   "launch": {
     "view": "canvas",
-    "page": "v6"
+    "page": "v7"
   },
   "pages": [
     {
+      "id": "v7",
+      "name": "v7 · 2026-11-26 · To-be · permissions fixes"
+    },
+    {
       "id": "v6",
-      "name": "v6 · 2026-11-26 · To-be · permissions"
+      "name": "v6 · 2026-11-26 · To-be · permissions · superseded"
     },
     {
       "id": "v5",
@@ -5637,9 +5641,456 @@
       "h": 430,
       "page": "v6",
       "title": "History"
+    },
+    "v7-Progress.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 1240,
+      "h": 1000,
+      "page": "v7",
+      "title": "v7: 46 frames built"
+    },
+    "v7-Main.dc.html": {
+      "x": 1320,
+      "y": 0,
+      "w": 1440,
+      "h": 1000,
+      "page": "v7",
+      "title": "OmnIDE v7: permissions (To-be)"
+    },
+    "v7-chat-agent.dc.html": {
+      "x": 0,
+      "y": 1120,
+      "w": 1440,
+      "h": 960,
+      "page": "v7",
+      "title": "Chat: Agent",
+      "is_interactive": true
+    },
+    "v7-chat-picker.dc.html": {
+      "x": 1520,
+      "y": 1120,
+      "w": 1440,
+      "h": 960,
+      "page": "v7",
+      "title": "Chat: mode picker open",
+      "is_interactive": true
+    },
+    "v7-chat-plan.dc.html": {
+      "x": 3040,
+      "y": 1120,
+      "w": 1440,
+      "h": 960,
+      "page": "v7",
+      "title": "Chat: Plan",
+      "is_interactive": true
+    },
+    "v7-chat-ask.dc.html": {
+      "x": 4560,
+      "y": 1120,
+      "w": 1440,
+      "h": 960,
+      "page": "v7",
+      "title": "Chat: Ask",
+      "is_interactive": true
+    },
+    "v7-set-runmode.dc.html": {
+      "x": 0,
+      "y": 2200,
+      "w": 1440,
+      "h": 960,
+      "page": "v7",
+      "title": "Settings: Run Mode",
+      "is_interactive": true
+    },
+    "v7-set-runmode-open.dc.html": {
+      "x": 1520,
+      "y": 2200,
+      "w": 1440,
+      "h": 960,
+      "page": "v7",
+      "title": "Settings: Run Mode dropdown",
+      "is_interactive": true
+    },
+    "v7-set-runmode-allowlist.dc.html": {
+      "x": 3040,
+      "y": 2200,
+      "w": 1440,
+      "h": 960,
+      "page": "v7",
+      "title": "Settings: Run Mode, Allowlist",
+      "is_interactive": true
+    },
+    "v7-set-runmode-everything.dc.html": {
+      "x": 4560,
+      "y": 2200,
+      "w": 1440,
+      "h": 960,
+      "page": "v7",
+      "title": "Settings: Run Everything on",
+      "is_interactive": true
+    },
+    "v7-set-runmode-open-everything.dc.html": {
+      "x": 6080,
+      "y": 2200,
+      "w": 1440,
+      "h": 960,
+      "page": "v7",
+      "title": "Settings: dropdown, Run Everything on",
+      "is_interactive": true
+    },
+    "v7-set-allowlist.dc.html": {
+      "x": 7600,
+      "y": 2200,
+      "w": 1440,
+      "h": 960,
+      "page": "v7",
+      "title": "Settings: Allowlist editor",
+      "is_interactive": true
+    },
+    "v7-set-default-mode.dc.html": {
+      "x": 9120,
+      "y": 2200,
+      "w": 1440,
+      "h": 960,
+      "page": "v7",
+      "title": "Settings: default mode for new chats",
+      "is_interactive": true
+    },
+    "v7-approval-pending.dc.html": {
+      "x": 0,
+      "y": 3280,
+      "w": 1440,
+      "h": 960,
+      "page": "v7",
+      "title": "Approval: waiting",
+      "is_interactive": true
+    },
+    "v7-approval-ran.dc.html": {
+      "x": 1520,
+      "y": 3280,
+      "w": 1440,
+      "h": 960,
+      "page": "v7",
+      "title": "Approval: ran",
+      "is_interactive": true
+    },
+    "v7-approval-skipped.dc.html": {
+      "x": 3040,
+      "y": 3280,
+      "w": 1440,
+      "h": 960,
+      "page": "v7",
+      "title": "Approval: skipped",
+      "is_interactive": true
+    },
+    "v7-approval-always.dc.html": {
+      "x": 4560,
+      "y": 3280,
+      "w": 1440,
+      "h": 960,
+      "page": "v7",
+      "title": "Approval: always run",
+      "is_interactive": true
+    },
+    "v7-edit-keep-undo.dc.html": {
+      "x": 6080,
+      "y": 3280,
+      "w": 1440,
+      "h": 960,
+      "page": "v7",
+      "title": "Allowlist: edit with Keep or Undo",
+      "is_interactive": true
+    },
+    "v7-edge-auto-unavailable.dc.html": {
+      "x": 0,
+      "y": 4360,
+      "w": 1440,
+      "h": 960,
+      "page": "v7",
+      "title": "Edge: Auto unavailable (chat)",
+      "is_interactive": true
+    },
+    "v7-set-auto-unavailable.dc.html": {
+      "x": 1520,
+      "y": 4360,
+      "w": 1440,
+      "h": 960,
+      "page": "v7",
+      "title": "Edge: Auto unavailable (settings)",
+      "is_interactive": true
+    },
+    "v7-edge-bypass-dialog.dc.html": {
+      "x": 3040,
+      "y": 4360,
+      "w": 1440,
+      "h": 960,
+      "page": "v7",
+      "title": "Edge: Run Everything acceptance dialog",
+      "is_interactive": true
+    },
+    "v7-edge-bypass-disabled.dc.html": {
+      "x": 4560,
+      "y": 4360,
+      "w": 1440,
+      "h": 960,
+      "page": "v7",
+      "title": "Edge: Run Everything disabled by admin",
+      "is_interactive": true
+    },
+    "v7-edge-ask-refused.dc.html": {
+      "x": 6080,
+      "y": 4360,
+      "w": 1440,
+      "h": 960,
+      "page": "v7",
+      "title": "Edge: Ask refuses an edit",
+      "is_interactive": true
+    },
+    "v7-edge-auto-blocked.dc.html": {
+      "x": 7600,
+      "y": 4360,
+      "w": 1440,
+      "h": 960,
+      "page": "v7",
+      "title": "Edge: Auto skips an action",
+      "is_interactive": true
+    },
+    "v7-edge-auto-paused.dc.html": {
+      "x": 9120,
+      "y": 4360,
+      "w": 1440,
+      "h": 960,
+      "page": "v7",
+      "title": "Edge: Auto-review paused",
+      "is_interactive": true
+    },
+    "v7-edge-classifier-error.dc.html": {
+      "x": 10640,
+      "y": 4360,
+      "w": 1440,
+      "h": 960,
+      "page": "v7",
+      "title": "Edge: classifier error",
+      "is_interactive": true
+    },
+    "v7-edge-auto-rejected.dc.html": {
+      "x": 12160,
+      "y": 4360,
+      "w": 1440,
+      "h": 960,
+      "page": "v7",
+      "title": "Edge: server rejects Auto mid-session",
+      "is_interactive": true
+    },
+    "v7-edge-auto-admin.dc.html": {
+      "x": 13680,
+      "y": 4360,
+      "w": 1440,
+      "h": 960,
+      "page": "v7",
+      "title": "Edge: Auto-review disabled by admin",
+      "is_interactive": true
+    },
+    "v7-edge-runmode-changed.dc.html": {
+      "x": 15200,
+      "y": 4360,
+      "w": 1440,
+      "h": 960,
+      "page": "v7",
+      "title": "Edge: Run Mode changed, chat open",
+      "is_interactive": true
+    },
+    "v7-FlowPermissions.dc.html": {
+      "x": 0,
+      "y": 5440,
+      "w": 1360,
+      "h": 1000,
+      "page": "v7",
+      "title": "Permissions flow: from a new chat to Always Run"
+    },
+    "v7-ModeCycle.dc.html": {
+      "x": 1440,
+      "y": 5440,
+      "w": 1240,
+      "h": 1000,
+      "page": "v7",
+      "title": "Mode cycle: Agent, Plan, Ask"
+    },
+    "v7-Mapping.dc.html": {
+      "x": 2760,
+      "y": 5440,
+      "w": 1240,
+      "h": 1000,
+      "page": "v7",
+      "title": "Mapping: OmnIDE choice to Claude Code mode and rules"
+    },
+    "v7-EdgeCases.dc.html": {
+      "x": 4080,
+      "y": 5440,
+      "w": 1240,
+      "h": 1000,
+      "page": "v7",
+      "title": "Edge cases, with evidence"
+    },
+    "v7-DataModel.dc.html": {
+      "x": 5400,
+      "y": 5440,
+      "w": 1240,
+      "h": 1000,
+      "page": "v7",
+      "title": "Data model: what the permissions settings hold"
+    },
+    "v7-SeqAlways.dc.html": {
+      "x": 6720,
+      "y": 5440,
+      "w": 1240,
+      "h": 1000,
+      "page": "v7",
+      "title": "Sequence: Always Run"
+    },
+    "v7-PlayAll.dc.html": {
+      "x": 0,
+      "y": 6560,
+      "w": 1240,
+      "h": 1000,
+      "page": "v7",
+      "title": "Choose Allowlist, approve a command, then always run it",
+      "is_interactive": true
+    },
+    "v7-PlayAuto.dc.html": {
+      "x": 1320,
+      "y": 6560,
+      "w": 1240,
+      "h": 1000,
+      "page": "v7",
+      "title": "Auto-review is unavailable",
+      "is_interactive": true
+    },
+    "v7-PlayAutoStops.dc.html": {
+      "x": 2640,
+      "y": 6560,
+      "w": 1240,
+      "h": 1000,
+      "page": "v7",
+      "title": "Auto-review skips, pauses and fails",
+      "is_interactive": true
+    },
+    "v7-PlayRunMode.dc.html": {
+      "x": 3960,
+      "y": 6560,
+      "w": 1240,
+      "h": 1000,
+      "page": "v7",
+      "title": "Change the Run Mode with chats open",
+      "is_interactive": true
+    },
+    "v7-PlayBypass.dc.html": {
+      "x": 5280,
+      "y": 6560,
+      "w": 1240,
+      "h": 1000,
+      "page": "v7",
+      "title": "Turn on Run Everything",
+      "is_interactive": true
+    },
+    "v7-PlayAskRefused.dc.html": {
+      "x": 6600,
+      "y": 6560,
+      "w": 1240,
+      "h": 1000,
+      "page": "v7",
+      "title": "Ask refuses an edit",
+      "is_interactive": true
+    },
+    "v7-DesignTokens.dc.html": {
+      "x": 7920,
+      "y": 6560,
+      "w": 1240,
+      "h": 1000,
+      "page": "v7",
+      "title": "Design tokens"
+    },
+    "v7-Decisions.dc.html": {
+      "x": 9240,
+      "y": 6560,
+      "w": 1240,
+      "h": 1000,
+      "page": "v7",
+      "title": "Decisions"
+    },
+    "v7-Plan.dc.html": {
+      "x": 10560,
+      "y": 6560,
+      "w": 1240,
+      "h": 1000,
+      "page": "v7",
+      "title": "Plan: what changes, in order"
+    },
+    "v7-Questions.dc.html": {
+      "x": 11880,
+      "y": 6560,
+      "w": 1240,
+      "h": 1000,
+      "page": "v7",
+      "title": "Open questions and risks"
+    },
+    "v7-History.dc.html": {
+      "x": 13200,
+      "y": 6560,
+      "w": 1240,
+      "h": 1000,
+      "page": "v7",
+      "title": "History"
     }
   },
   "order": [
+    "v7-History.dc.html",
+    "v7-Questions.dc.html",
+    "v7-Plan.dc.html",
+    "v7-Decisions.dc.html",
+    "v7-DesignTokens.dc.html",
+    "v7-PlayAskRefused.dc.html",
+    "v7-PlayBypass.dc.html",
+    "v7-PlayRunMode.dc.html",
+    "v7-PlayAutoStops.dc.html",
+    "v7-PlayAuto.dc.html",
+    "v7-PlayAll.dc.html",
+    "v7-SeqAlways.dc.html",
+    "v7-DataModel.dc.html",
+    "v7-EdgeCases.dc.html",
+    "v7-Mapping.dc.html",
+    "v7-ModeCycle.dc.html",
+    "v7-FlowPermissions.dc.html",
+    "v7-edge-runmode-changed.dc.html",
+    "v7-edge-auto-admin.dc.html",
+    "v7-edge-auto-rejected.dc.html",
+    "v7-edge-classifier-error.dc.html",
+    "v7-edge-auto-paused.dc.html",
+    "v7-edge-auto-blocked.dc.html",
+    "v7-edge-ask-refused.dc.html",
+    "v7-edge-bypass-disabled.dc.html",
+    "v7-edge-bypass-dialog.dc.html",
+    "v7-set-auto-unavailable.dc.html",
+    "v7-edge-auto-unavailable.dc.html",
+    "v7-edit-keep-undo.dc.html",
+    "v7-approval-always.dc.html",
+    "v7-approval-skipped.dc.html",
+    "v7-approval-ran.dc.html",
+    "v7-approval-pending.dc.html",
+    "v7-set-default-mode.dc.html",
+    "v7-set-allowlist.dc.html",
+    "v7-set-runmode-open-everything.dc.html",
+    "v7-set-runmode-everything.dc.html",
+    "v7-set-runmode-allowlist.dc.html",
+    "v7-set-runmode-open.dc.html",
+    "v7-set-runmode.dc.html",
+    "v7-chat-ask.dc.html",
+    "v7-chat-plan.dc.html",
+    "v7-chat-picker.dc.html",
+    "v7-chat-agent.dc.html",
+    "v7-Main.dc.html",
+    "v7-Progress.dc.html",
     "v6-History.dc.html",
     "v6-Questions.dc.html",
     "v6-Plan.dc.html",

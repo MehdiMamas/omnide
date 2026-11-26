@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Plan: what changes, in order</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+a{color:#B69CFF}a:hover{color:#F4F2FB}
+table{border-collapse:collapse}
+th{text-align:left;font-weight:600;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:rgba(244, 242, 251, 0.74);padding:8px 10px;border-bottom:1px solid rgba(244, 242, 251, 0.08)}
+td{padding:8px 10px;border-bottom:1px solid rgba(244, 242, 251, 0.08);vertical-align:top}
+</style>
+<style data-omnide-v4>@font-face{font-family:'Geist';src:url(./fonts/Geist-Variable.woff2) format('woff2');font-weight:100 900;font-display:swap}@font-face{font-family:'Geist Mono';src:url(./fonts/GeistMono-Variable.woff2) format('woff2');font-weight:100 900;font-display:swap}</style></helmet>
+<div data-page="v7" data-created="2026-11-26" data-updated="2026-11-26" data-status="current" data-section="plan" style="position:relative;width:1240px;min-height:500px;box-sizing:border-box;padding:40px 48px;background:#14121B;color:#F4F2FB;font-family:'Geist','Segoe UI',system-ui,sans-serif;font-size:14px;line-height:1.5">
+<div style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:rgba(244, 242, 251, 0.74)">Plan · v7 · 2026-11-26 · updated 2026-11-26</div><h1 style="margin:6px 0 8px;font-size:30px;font-weight:600">Plan: what changes, in order</h1><p style="margin:0 0 20px;max-width:1000px;color:rgba(244, 242, 251, 0.74)">Issue <a href="https://github.com/MehdiMamas/omnide/issues/19">#19</a> holds the plan; no code starts before the owner's yes on this page. Out of scope: other agents, a cloud sandbox.</p>
+<table style="width:100%;font-size:13px"><thead><tr><th>#</th><th>Step</th><th>What</th><th>Frame</th></tr></thead><tbody><tr><td>1</td><td>Chat picker and Shift+Tab</td><td>Agent, Plan, Ask in the composer; per-chat state</td><td><a href="v7-chat-picker.dc.html">v7-chat-picker</a></td></tr><tr><td>2</td><td>Settings: Run Mode, protections, default mode</td><td>Dropdown, Allowlist editor, two best-effort protections, default for new chats</td><td><a href="v7-set-runmode.dc.html">v7-set-runmode</a></td></tr><tr><td>3</td><td>Edits and the inline approval card</td><td>Keep or Undo on edits; Run, Skip, Always Run for commands and the three after-states</td><td><a href="v7-approval-pending.dc.html">v7-approval-pending</a></td></tr><tr><td>4</td><td>Auto-review states</td><td>Skipped action, pause, classifier error, server rejection</td><td><a href="v7-edge-auto-blocked.dc.html">v7-edge-auto-blocked</a></td></tr><tr><td>5</td><td>Mapping to Claude Code</td><td>Start each chat with the mode; write allow rules to the workspace file only</td><td><a href="v7-Mapping.dc.html">v7-Mapping</a></td></tr><tr><td>6</td><td>Edge cases</td><td>Auto fallback, admin blocks, bypass dialog, Ask refusal, Run Mode change</td><td><a href="v7-EdgeCases.dc.html">v7-EdgeCases</a></td></tr></tbody></table><p style="margin:14px 0 0;color:rgba(244, 242, 251, 0.74)">Check per step: the built screen is compared with its frame here, and a real Claude Code run shows each mode and rule.</p>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1240,"height":500}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Data model: what the permissions settings hold</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+a{color:#B69CFF}a:hover{color:#F4F2FB}
+table{border-collapse:collapse}
+th{text-align:left;font-weight:600;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:rgba(244, 242, 251, 0.74);padding:8px 10px;border-bottom:1px solid rgba(244, 242, 251, 0.08)}
+td{padding:8px 10px;border-bottom:1px solid rgba(244, 242, 251, 0.08);vertical-align:top}
+</style>
+<style data-omnide-v4>@font-face{font-family:'Geist';src:url(./fonts/Geist-Variable.woff2) format('woff2');font-weight:100 900;font-display:swap}@font-face{font-family:'Geist Mono';src:url(./fonts/GeistMono-Variable.woff2) format('woff2');font-weight:100 900;font-display:swap}</style></helmet>
+<div data-page="v7" data-created="2026-11-26" data-updated="2026-11-26" data-status="current" data-section="architecture" data-diagram="er" style="position:relative;width:1240px;min-height:600px;box-sizing:border-box;padding:40px 48px;background:#14121B;color:#F4F2FB;font-family:'Geist','Segoe UI',system-ui,sans-serif;font-size:14px;line-height:1.5">
+<div style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:rgba(244, 242, 251, 0.74)">Architecture · ER · v7 · 2026-11-26 · updated 2026-11-26</div><h1 style="margin:6px 0 8px;font-size:30px;font-weight:600">Data model: what the permissions settings hold</h1><p style="margin:0 0 20px;max-width:1000px;color:rgba(244, 242, 251, 0.74)">Four records and a managed policy. OmnIDE settings hold the first three; the workspace file holds allow rules.</p>
+<div style="position:relative;width:1144px;height:420px;background:#0E0C14;border-radius:8px"><div data-entity="Chat" style="position:absolute;left:20px;top:20px;width:300px;box-sizing:border-box;background:#1A1823;border:2px solid #B69CFF;border-radius:6px"><div style="padding:8px 12px;font-weight:600;border-bottom:1px solid rgba(244, 242, 251, 0.08)">Chat</div><div style="padding:4px 12px;font-size:12px;color:rgba(244, 242, 251, 0.74)">id</div><div style="padding:4px 12px;font-size:12px;color:rgba(244, 242, 251, 0.74)">mode: agent | plan | ask</div><div style="padding:4px 12px;font-size:12px;color:rgba(244, 242, 251, 0.74)">runMode (copy of the setting at start)</div><div style="padding:4px 12px;font-size:12px;color:rgba(244, 242, 251, 0.74)">restartToApply: boolean</div></div><div data-entity="RunModeSetting" style="position:absolute;left:420px;top:20px;width:300px;box-sizing:border-box;background:#1A1823;border:2px solid #B69CFF;border-radius:6px"><div style="padding:8px 12px;font-weight:600;border-bottom:1px solid rgba(244, 242, 251, 0.08)">RunModeSetting</div><div style="padding:4px 12px;font-size:12px;color:rgba(244, 242, 251, 0.74)">value: auto | allowlist | bypass</div><div style="padding:4px 12px;font-size:12px;color:rgba(244, 242, 251, 0.74)">default for new chats: Agent + Auto-review</div><div style="padding:4px 12px;font-size:12px;color:rgba(244, 242, 251, 0.74)">stored in OmnIDE settings, never ~/.claude</div></div><div data-entity="AllowRule" style="position:absolute;left:820px;top:20px;width:300px;box-sizing:border-box;background:#1A1823;border:2px solid #B69CFF;border-radius:6px"><div style="padding:8px 12px;font-weight:600;border-bottom:1px solid rgba(244, 242, 251, 0.08)">AllowRule</div><div style="padding:4px 12px;font-size:12px;color:rgba(244, 242, 251, 0.74)">rule, for example Bash(npm test)</div><div style="padding:4px 12px;font-size:12px;color:rgba(244, 242, 251, 0.74)">file: workspace .claude/settings.local.json</div><div style="padding:4px 12px;font-size:12px;color:rgba(244, 242, 251, 0.74)">added by: Always Run | editor</div></div><div data-entity="Protection" style="position:absolute;left:420px;top:220px;width:300px;box-sizing:border-box;background:#1A1823;border:2px solid #B69CFF;border-radius:6px"><div style="padding:8px 12px;font-weight:600;border-bottom:1px solid rgba(244, 242, 251, 0.08)">Protection</div><div style="padding:4px 12px;font-size:12px;color:rgba(244, 242, 251, 0.74)">kind: file deletion | external files</div><div style="padding:4px 12px;font-size:12px;color:rgba(244, 242, 251, 0.74)">on: boolean, both on by default</div><div style="padding:4px 12px;font-size:12px;color:rgba(244, 242, 251, 0.74)">best effort: ask rules, or a refusal outside the workspace</div></div><div data-entity="ManagedPolicy" style="position:absolute;left:820px;top:220px;width:300px;box-sizing:border-box;background:#1A1823;border:2px solid #B69CFF;border-radius:6px"><div style="padding:8px 12px;font-weight:600;border-bottom:1px solid rgba(244, 242, 251, 0.08)">ManagedPolicy</div><div style="padding:4px 12px;font-size:12px;color:rgba(244, 242, 251, 0.74)">disableAutoMode</div><div style="padding:4px 12px;font-size:12px;color:rgba(244, 242, 251, 0.74)">disableBypassPermissionsMode</div><div style="padding:4px 12px;font-size:12px;color:rgba(244, 242, 251, 0.74)">read only, wins over everything</div></div>
+<svg role="img" aria-label="A chat uses one run mode setting; the setting is limited by the managed policy; allow rules and protections shape what asks" width="1144" height="420" viewBox="0 0 1144 420" style="position:absolute;left:0;top:0;fill:none;stroke-width:1.6"><defs><marker id="er1" orient="auto" markerWidth="6" markerHeight="6" refX="3" refY="3"><path d="M0 0 L6 3 L0 6 Z" fill="rgba(244, 242, 251, 0.5)"/></marker></defs><path d="M 322 90 L 416 90" stroke="rgba(244, 242, 251, 0.5)" marker-end="url(#er1)"/><path d="M 722 90 L 816 90" stroke="rgba(244, 242, 251, 0.5)" marker-end="url(#er1)"/><path d="M 570 160 L 570 216" stroke="rgba(244, 242, 251, 0.5)" marker-end="url(#er1)"/><path d="M 970 160 L 970 216" stroke="rgba(244, 242, 251, 0.5)" marker-end="url(#er1)"/></svg>
+<span style="position:absolute;left:340px;top:68px;font-size:11px;color:rgba(244, 242, 251, 0.74)">1 : 1</span><span style="position:absolute;left:740px;top:68px;font-size:11px;color:rgba(244, 242, 251, 0.74)">1 : 0..*</span></div>
+<p style="margin:14px 0 0;color:rgba(244, 242, 251, 0.74)">Run Mode, protections and the default live in OmnIDE's own settings; allow rules live in the workspace file; the managed policy is read only. There is no OmnIDE database. Field names beyond the Claude Code keys are proposals. TO VERIFY: where the per-chat mode is kept.</p>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1240,"height":600}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

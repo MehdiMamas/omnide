@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Sequence: Always Run</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+a{color:#B69CFF}a:hover{color:#F4F2FB}
+table{border-collapse:collapse}
+th{text-align:left;font-weight:600;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:rgba(244, 242, 251, 0.74);padding:8px 10px;border-bottom:1px solid rgba(244, 242, 251, 0.08)}
+td{padding:8px 10px;border-bottom:1px solid rgba(244, 242, 251, 0.08);vertical-align:top}
+</style>
+<style data-omnide-v4>@font-face{font-family:'Geist';src:url(./fonts/Geist-Variable.woff2) format('woff2');font-weight:100 900;font-display:swap}@font-face{font-family:'Geist Mono';src:url(./fonts/GeistMono-Variable.woff2) format('woff2');font-weight:100 900;font-display:swap}</style></helmet>
+<div data-page="v7" data-created="2026-11-26" data-updated="2026-11-26" data-status="current" data-section="architecture" data-diagram="sequence" style="position:relative;width:1240px;min-height:600px;box-sizing:border-box;padding:40px 48px;background:#14121B;color:#F4F2FB;font-family:'Geist','Segoe UI',system-ui,sans-serif;font-size:14px;line-height:1.5">
+<div style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:rgba(244, 242, 251, 0.74)">Architecture · sequence · v7 · 2026-11-26 · updated 2026-11-26</div><h1 style="margin:6px 0 8px;font-size:30px;font-weight:600">Sequence: Always Run</h1><p style="margin:0 0 20px;max-width:1000px;color:rgba(244, 242, 251, 0.74)">What happens between the approval card and the saved rule, in order.</p>
+<div style="position:relative;width:1144px;height:500px;background:#0E0C14;border-radius:8px"><svg role="img" aria-label="Sequence: Claude Code asks, the card shows, the user clicks Always Run, OmnIDE writes the rule, Claude Code runs the command" width="0" height="0" style="position:absolute"><defs><marker id="sq" orient="auto" markerWidth="6" markerHeight="6" refX="3" refY="3"><path d="M0 0 L6 3 L0 6 Z" fill="#B69CFF"/></marker></defs></svg>
+<div style="position:absolute;left:40px;top:20px;width:200px;height:40px;box-sizing:border-box;background:#1A1823;border:2px solid #B69CFF;border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:600">Developer</div><div style="position:absolute;left:140px;top:60px;width:0;height:420px;border-left:1.5px dashed rgba(244, 242, 251, 0.35)"></div><div style="position:absolute;left:340px;top:20px;width:200px;height:40px;box-sizing:border-box;background:#1A1823;border:2px solid #B69CFF;border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:600">OmnIDE app</div><div style="position:absolute;left:440px;top:60px;width:0;height:420px;border-left:1.5px dashed rgba(244, 242, 251, 0.35)"></div><div style="position:absolute;left:640px;top:20px;width:200px;height:40px;box-sizing:border-box;background:#1A1823;border:2px solid #B69CFF;border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:600">Claude Code</div><div style="position:absolute;left:740px;top:60px;width:0;height:420px;border-left:1.5px dashed rgba(244, 242, 251, 0.35)"></div><div style="position:absolute;left:900px;width:200px;top:20px;width:200px;height:40px;box-sizing:border-box;background:#1A1823;border:2px solid #B69CFF;border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:600">Workspace file</div><div style="position:absolute;left:1000px;top:60px;width:0;height:420px;border-left:1.5px dashed rgba(244, 242, 251, 0.35)"></div>
+<svg width="1144" height="500" viewBox="0 0 1144 500" style="position:absolute;left:0;top:0;fill:none;pointer-events:none" aria-hidden="true"><path d="M 740 120 L 440 120" stroke="#B69CFF" stroke-width="1.6" marker-end="url(#sq)"/></svg><span style="position:absolute;left:448px;top:100px;font-size:12px">1. permission request: Bash(npm test)</span><svg width="1144" height="500" viewBox="0 0 1144 500" style="position:absolute;left:0;top:0;fill:none;pointer-events:none" aria-hidden="true"><path d="M 440 170 L 140 170" stroke="#B69CFF" stroke-width="1.6" marker-end="url(#sq)"/></svg><span style="position:absolute;left:148px;top:150px;font-size:12px">2. card: Run, Skip, Always Run</span><svg width="1144" height="500" viewBox="0 0 1144 500" style="position:absolute;left:0;top:0;fill:none;pointer-events:none" aria-hidden="true"><path d="M 140 220 L 440 220" stroke="#B69CFF" stroke-width="1.6" marker-end="url(#sq)"/></svg><span style="position:absolute;left:148px;top:200px;font-size:12px">3. Always Run</span><svg width="1144" height="500" viewBox="0 0 1144 500" style="position:absolute;left:0;top:0;fill:none;pointer-events:none" aria-hidden="true"><path d="M 440 270 L 1000 270" stroke="#B69CFF" stroke-width="1.6" marker-end="url(#sq)"/></svg><span style="position:absolute;left:448px;top:250px;font-size:12px">4. write allow rule to the workspace .claude/settings.local.json</span><svg width="1144" height="500" viewBox="0 0 1144 500" style="position:absolute;left:0;top:0;fill:none;pointer-events:none" aria-hidden="true"><path d="M 440 320 L 740 320" stroke="#B69CFF" stroke-width="1.6" marker-end="url(#sq)"/></svg><span style="position:absolute;left:448px;top:300px;font-size:12px">5. allow the command</span><svg width="1144" height="500" viewBox="0 0 1144 500" style="position:absolute;left:0;top:0;fill:none;pointer-events:none" aria-hidden="true"><path d="M 740 380 L 740 380" stroke="#B69CFF" stroke-width="1.6" marker-end="url(#sq)"/></svg><span style="position:absolute;left:748px;top:360px;font-size:12px">6. runs; next matching call does not ask</span></div>
+<p style="margin:14px 0 0;color:rgba(244, 242, 251, 0.74)">Steps 1 and 5 use Claude Code's permission prompt. How OmnIDE intercepts it (the SDK permission callback or the CLI prompt) is TO VERIFY.</p>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1240,"height":600}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>
