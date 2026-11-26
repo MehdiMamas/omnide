@@ -47,6 +47,15 @@ function dropChip(s) {
   return s;
 }
 
+
+// ---------- header label ("Claude connected" / "Connect Claude" under the OmnIDE logo), issue #10 decision ----------
+// Kept only on the signed-out boards. Palette rows, settings rows and buttons named "Connect Claude" are content, not the label.
+const LABEL_KEEP = new Set([...CHIP_KEEP, 'omni-claude-signed-out', 'omni-claude-not-installed', 'omni-claude-api-key', 'omni-claude-error']);
+const LABEL_CONNECTED = /<div class="flex flex-row gap-1\.5 items-center text-description-foreground"><span class="w-0\.5 h-0\.5 rounded-full bg-description-foreground inline-block"><\/span><span class="text-xs text-text-link-foreground font-light hover:underline cursor-pointer opacity-80">Claude connected<\/span><\/div>/g;
+const LABEL_CONNECT = /<div class="text-xs text-text-link-foreground font-light hover:underline cursor-pointer opacity-80 text-description-foreground translate-x-\[34px\]">Connect Claude<\/div>/g;
+const LABEL_OVERLAY = /<a href="v[45]-omni-claude-signed-out\.dc\.html" aria-label="Open Connect Claude" style="position:absolute;left:8\d\d+px;top:(279|339)px;[^"]*"[^>]*><\/a>\s?/g;
+function dropLabel(s) { return s.replace(LABEL_CONNECTED, '').replace(LABEL_CONNECT, '').replace(LABEL_OVERLAY, ''); }
+
 // ---------- model picker popover ----------
 const ACC = '#6d28d9';
 const chk = '<span style="width:16px;display:inline-flex;justify-content:center"><i class="codicon codicon-check" style="font-size:14px"></i></span>';
@@ -155,7 +164,16 @@ edits['agent-Mapping'] = chain(
 edits['agent-Registry'] = T('command: node, claude-agent-acp pinned in the app. roadmap: false', 'command: node, claude-agent-acp pinned in the app, with CLAUDE_CODE_EXECUTABLE set to the user&#x27;s installed claude (no bundled CLI). roadmap: false', 'ar1');
 
 // ---------- main ----------
-if (process.argv[1] === fileURLToPath(import.meta.url)) {
+if (process.argv[1] === fileURLToPath(import.meta.url) && process.argv[2] === '--labels') {
+  // in place on the current v5 boards (keeps later edits); idempotent
+  let n = 0;
+  for (const f of fs.readdirSync(P).filter((f) => /^v5-.*\.dc\.html$/.test(f))) {
+    if (LABEL_KEEP.has(f.replace(/^v5-/, '').replace(/\.dc\.html$/, ''))) continue;
+    const s = rd(f), t = dropLabel(s);
+    if (s !== t) { fs.writeFileSync(path.join(P, f), t); n++; }
+  }
+  console.log('labels removed on', n, 'boards');
+} else if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const canvas = JSON.parse(rd('canvas.json'));
   const stems = canvas.order.filter((k) => k.startsWith('v4-')).map((k) => k.replace(/^v4-/, '').replace(/\.dc\.html$/, ''));
   const applied = {};
@@ -165,6 +183,7 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
     s = s.replace(/<a href="v5-Main\.dc\.html" style="position:absolute;right:8px;top:8px;z-index:99999[^>]*>Superseded by v5<\/a>/, '').replace('<div data-superseded-by="v5" data-page="v4"', '<div data-page="v4"').replace(/data-status="superseded" data-was="([a-z-]+)"/, 'data-status="$1"');
     const log = [];
     if (!CHIP_KEEP.has(stem) && s.includes('omn-claude-chip')) { const b = s; s = dropChip(s); if (b !== s) log.push('chip'); }
+    if (!LABEL_KEEP.has(stem)) { const b = s; s = dropLabel(s); if (b !== s) log.push('label'); }
     if (edits[stem]) { s = edits[stem](s); log.push('row'); }
     s = s.replace(/\bv4-/g, 'v5-');
     s = s.replace(/data-page="v4"/g, 'data-page="v5"');
