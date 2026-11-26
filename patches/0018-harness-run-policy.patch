@@ -1,0 +1,162 @@
+Subject: Claude harness takes Run Mode: permission rules as flag settings, bypass only for Run Everything (issue 19)
+Original to OmnIDE.
+
+diff --git a/src/vs/platform/agentHost/common/claudeRunPolicyConfig.ts b/src/vs/platform/agentHost/common/claudeRunPolicyConfig.ts
+index 72b423ca..3cdd1c08 100644
+--- a/src/vs/platform/agentHost/common/claudeRunPolicyConfig.ts
++++ b/src/vs/platform/agentHost/common/claudeRunPolicyConfig.ts
+@@ -24,3 +24,6 @@ export const RunPolicySettingId = {
+ 
+ export const RUN_MODE_VALUES = ['autoReview', 'allowlist', 'runEverything'] as const;
+ export const DEFAULT_CHAT_MODE_VALUES = ['agent', 'plan', 'ask'] as const;
++
++/** Equals `@anthropic-ai/claude-agent-sdk` in vscode/package.json; the bundled Claude Code version follows from it. */
++export const PINNED_CLAUDE_AGENT_SDK_VERSION = '0.3.304';
+diff --git a/src/vs/platform/agentHost/node/claude/claudeAgentSession.ts b/src/vs/platform/agentHost/node/claude/claudeAgentSession.ts
+index 74ae088c..dc027ab6 100644
+--- a/src/vs/platform/agentHost/node/claude/claudeAgentSession.ts
++++ b/src/vs/platform/agentHost/node/claude/claudeAgentSession.ts
+@@ -17,7 +17,9 @@ import { IInstantiationService } from '../../../instantiation/common/instantiati
+ import { ILogService } from '../../../log/common/log.js';
+ import { IAgentConfigurationService } from '../agentConfigurationService.js';
+ import { ISyncedCustomization } from '../../common/agentPluginManager.js';
+-import { ClaudePermissionMode } from '../../common/claudeSessionConfigKeys.js';
++import { claudeCodeVersionOfSdk, EXTERNAL_FILES_MIN_VERSION, permissionRules, versionAtLeast } from '../../common/claudeRunPolicy.js';
++import { PINNED_CLAUDE_AGENT_SDK_VERSION, RunPolicyConfigKey } from '../../common/claudeRunPolicyConfig.js';
++import { ClaudePermissionMode, narrowClaudePermissionMode } from '../../common/claudeSessionConfigKeys.js';
+ import { ClaudeRuntimeEffortLevel, toRuntimeEffortLevel, resolveClaudeEffort } from '../../common/claudeModelConfig.js';
+ import { AgentPermissionKind, AgentSignal, IAgentSessionProjectInfo, type IAgentChatOwnerRef } from '../../common/agent.js';
+ import type { IAgentHostClientTelemetryContext } from '../../common/agentHostTelemetry.js';
+@@ -654,6 +656,7 @@ export class ClaudeAgentSession extends Disposable implements IRematerializer {
+ 				model: this._provisionalModel,
+ 				abortController: this.abortController,
+ 				permissionMode,
++				...this._runPolicyOptions(permissionMode),
+ 				canUseTool: ctx.canUseTool,
+ 				onElicitation: ctx.onElicitation,
+ 				isResume: ctx.isResume,
+@@ -696,6 +699,7 @@ export class ClaudeAgentSession extends Disposable implements IRematerializer {
+ 				this.subagents,
+ 				this.toolDiff.model,
+ 			));
++			pipeline.permissionRulesFor = mode => this._permissionRulesFor(mode);
+ 		} catch (err) {
+ 			dbRef.dispose();
+ 			await warm[Symbol.asyncDispose]();
+@@ -753,6 +757,26 @@ export class ClaudeAgentSession extends Disposable implements IRematerializer {
+ 		this._onDidCustomizationsChange.fire();
+ 	}
+ 
++	private _permissionRulesFor(mode: PermissionMode) {
++		const root = this._configurationService;
++		return permissionRules({
++			mode: narrowClaudePermissionMode(mode) ?? 'default',
++			allowlist: root.getRootValue(platformRootSchema, RunPolicyConfigKey.Allowlist) ?? [],
++			protectFileDeletion: root.getRootValue(platformRootSchema, RunPolicyConfigKey.ProtectFileDeletion) !== false,
++			protectExternalFiles: root.getRootValue(platformRootSchema, RunPolicyConfigKey.ProtectExternalFiles) !== false,
++			externalFilesSupported: versionAtLeast(claudeCodeVersionOfSdk(PINNED_CLAUDE_AGENT_SDK_VERSION), EXTERNAL_FILES_MIN_VERSION),
++		});
++	}
++
++	private _runPolicyOptions(mode: ClaudePermissionMode) {
++		const root = this._configurationService;
++		return {
++			permissionRules: this._permissionRulesFor(mode),
++			allowDangerouslySkipPermissions: root.getRootValue(platformRootSchema, RunPolicyConfigKey.RunMode) === 'runEverything'
++				&& root.getRootValue(platformRootSchema, RunPolicyConfigKey.RunEverythingAccepted) === true,
++		};
++	}
++
+ 	/** Rebuilds the SDK subprocess with the external inputs captured at materialization. */
+ 	async rematerialize(_reason: 'restart' | 'recover'): Promise<{ readonly warm: WarmQuery; readonly abortController: AbortController }> {
+ 		if (!this._rebuildContext) {
+@@ -784,6 +808,7 @@ export class ClaudeAgentSession extends Disposable implements IRematerializer {
+ 					model: this._provisionalModel,
+ 					abortController: rebuildAbort,
+ 					permissionMode: liveMode,
++					...this._runPolicyOptions(liveMode),
+ 					canUseTool: ctx.canUseTool,
+ 					onElicitation: ctx.onElicitation,
+ 					isResume: ctx.isResume || pipeline.isResumed,
+diff --git a/src/vs/platform/agentHost/node/claude/claudeSdkOptions.ts b/src/vs/platform/agentHost/node/claude/claudeSdkOptions.ts
+index 0f9a3ce7..317776b8 100644
+--- a/src/vs/platform/agentHost/node/claude/claudeSdkOptions.ts
++++ b/src/vs/platform/agentHost/node/claude/claudeSdkOptions.ts
+@@ -10,6 +10,7 @@ import { delimiter, dirname, normalize } from '../../../../base/common/path.js';
+ import { URI } from '../../../../base/common/uri.js';
+ import { rgDiskPath } from '../../../../base/node/ripgrep.js';
+ import { AiAgentEnvValue, AiAgentEnvVar } from '../../../chat/common/aiAgentEnv.js';
++import type { IPermissionRules } from '../../common/claudeRunPolicy.js';
+ import { ClaudePermissionMode } from '../../common/claudeSessionConfigKeys.js';
+ import { resolveClaudeEffort } from '../../common/claudeModelConfig.js';
+ import { PendingRequestRegistry } from '../../common/pendingRequestRegistry.js';
+@@ -53,6 +54,10 @@ export interface IBuildOptionsInput {
+ 	readonly model: ModelSelection | undefined;
+ 	readonly abortController: AbortController;
+ 	readonly permissionMode: ClaudePermissionMode;
++	/** Only Run Everything (after its one-time warning) lets the session take `bypassPermissions`. */
++	readonly allowDangerouslySkipPermissions?: boolean;
++	/** Allow, deny and ask rules for the session; passed as flag settings, never written to a settings file. */
++	readonly permissionRules?: IPermissionRules;
+ 	readonly canUseTool: NonNullable<Options['canUseTool']>;
+ 	readonly onElicitation: OnElicitation;
+ 	readonly onPreToolUse?: (toolName: string, input: unknown) => SyncHookJSONOutput | undefined;
+@@ -177,7 +182,7 @@ export async function buildOptions(
+ 		executable: process.execPath as 'node',
+ 		env: subprocessEnv,
+ 		abortController: input.abortController,
+-		allowDangerouslySkipPermissions: true,
++		allowDangerouslySkipPermissions: input.allowDangerouslySkipPermissions === true,
+ 		canUseTool: input.canUseTool,
+ 		onElicitation: input.onElicitation,
+ 		disallowedTools: ['WebSearch'],
+@@ -199,6 +204,7 @@ export async function buildOptions(
+ 		settingSources: ['user', 'project', 'local'],
+ 		settings: {
+ 			env: settingsEnv,
++			...(input.permissionRules ? { permissions: { ...input.permissionRules } } : {}),
+ 			...(input.deniedMcpServers?.length
+ 				? { deniedMcpServers: [...input.deniedMcpServers] }
+ 				: {}),
+diff --git a/src/vs/platform/agentHost/node/claude/claudeSdkPipeline.ts b/src/vs/platform/agentHost/node/claude/claudeSdkPipeline.ts
+index 829fa131..6024d343 100644
+--- a/src/vs/platform/agentHost/node/claude/claudeSdkPipeline.ts
++++ b/src/vs/platform/agentHost/node/claude/claudeSdkPipeline.ts
+@@ -3,6 +3,7 @@
+  *  Licensed under the MIT License. See License.txt in the project root for license information.
+  *--------------------------------------------------------------------------------------------*/
+ 
++import type { IPermissionRules } from '../../common/claudeRunPolicy.js';
+ import type { AgentInfo, McpServerStatus, PermissionMode, Query, SDKUserMessage, SlashCommand, WarmQuery } from '@anthropic-ai/claude-agent-sdk';
+ import { CancellationError, isCancellationError } from '../../../../base/common/errors.js';
+ import { Emitter, Event } from '../../../../base/common/event.js';
+@@ -545,10 +546,21 @@ export class ClaudeSdkPipeline extends Disposable {
+ 		this._currentPermissionMode = mode;
+ 		if (this._query && !this._needsRebind && mode !== this._appliedPermissionMode) {
+ 			await this._query.setPermissionMode(mode);
++			await this._applyPermissionRules(mode);
+ 			this._appliedPermissionMode = mode;
+ 		}
+ 	}
+ 
++	/** Rules for a mode (Ask adds deny rules). `applyFlagSettings` replaces `permissions`, so the whole object is sent. */
++	permissionRulesFor: ((mode: PermissionMode) => IPermissionRules) | undefined;
++
++	private async _applyPermissionRules(mode: PermissionMode): Promise<void> {
++		const permissions = this.permissionRulesFor?.(mode);
++		if (permissions) {
++			await this._query?.applyFlagSettings({ permissions: { ...permissions } });
++		}
++	}
++
+ 	private _bindAbortController(controller: AbortController): void {
+ 		this._abortController = controller;
+ 		this._queue.bindAbortSignal(controller.signal);
+@@ -606,6 +618,7 @@ export class ClaudeSdkPipeline extends Disposable {
+ 			}
+ 			if (this._currentPermissionMode !== undefined && this._currentPermissionMode !== this._appliedPermissionMode) {
+ 				await this._query?.setPermissionMode(this._currentPermissionMode);
++				await this._applyPermissionRules(this._currentPermissionMode);
+ 				this._appliedPermissionMode = this._currentPermissionMode;
+ 			}
+ 		} catch (err) {
