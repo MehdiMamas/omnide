@@ -1,0 +1,19 @@
+name: Bug report
+description: Something is broken
+labels: [bug]
+body:
+  - type: textarea
+    attributes:
+      label: What happened
+      description: Steps, what you expected, what you saw. Screenshots welcome (no personal data).
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Omnide version and OS
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Logs
+      render: text

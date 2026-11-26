@@ -1,0 +1,14 @@
+name: Feature request
+description: Suggest something Omnide should do
+labels: [enhancement]
+body:
+  - type: textarea
+    attributes:
+      label: The problem
+      description: What are you trying to do, and what gets in the way?
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Idea
+      description: How could Omnide solve it? Describe behaviour, not another editor's code or assets.
