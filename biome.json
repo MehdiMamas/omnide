@@ -1,0 +1,62 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.6.9/schema.json",
+  "vcs": { "enabled": true, "clientKind": "git", "useIgnoreFile": true },
+  "files": {
+    "includes": ["extensions/omnide-agent/**", "src/omnide/**", "scripts/**", "!vscode", "!docs"]
+  },
+  "formatter": { "enabled": false },
+  "assist": { "enabled": false },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "suspicious": { "noExplicitAny": "error", "noTsIgnore": "error" },
+      "performance": {
+        "noAccumulatingSpread": "error",
+        "noDynamicNamespaceImportAccess": "error",
+        "noReExportAll": "error"
+      }
+    }
+  },
+  "overrides": [
+    {
+      "includes": ["extensions/omnide-agent/webview/**"],
+      "linter": {
+        "rules": {
+          "style": {
+            "noRestrictedImports": {
+              "level": "error",
+              "options": {
+                "patterns": [
+                  {
+                    "group": ["**/src/**", "vscode"],
+                    "message": "The webview runs in a browser frame and cannot reach the extension host. Send a message with postMessage and handle it in src/."
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": ["extensions/omnide-agent/src/**"],
+      "linter": {
+        "rules": {
+          "style": {
+            "noRestrictedImports": {
+              "level": "error",
+              "options": {
+                "patterns": [
+                  {
+                    "group": ["**/webview/**"],
+                    "message": "Extension host code cannot import webview code. Share types through extensions/omnide-agent/src/protocol.ts."
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}
