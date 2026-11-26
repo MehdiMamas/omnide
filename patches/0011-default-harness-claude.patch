@@ -1,0 +1,16 @@
+Subject: New chats default to the Agent Host harness, not Local (chat.editor.localAgent.enabled defaults to false)
+Original to OmnIDE.
+
+diff --git a/src/vs/workbench/contrib/chat/common/constants.ts b/src/vs/workbench/contrib/chat/common/constants.ts
+index 908e0a04..3469a7ba 100644
+--- a/src/vs/workbench/contrib/chat/common/constants.ts
++++ b/src/vs/workbench/contrib/chat/common/constants.ts
+@@ -807,7 +807,7 @@ export function isEditorLocalAgentEnabled(configurationService: IConfigurationSe
+ 	}
+ 
+ 	// A feature that hides new local chats turns them off as the setting does, leaving the setting as it is
+-	return !localChatHidden && (configurationService.getValue<boolean>(ChatConfiguration.EditorLocalAgentEnabled) ?? true);
++	return !localChatHidden && (configurationService.getValue<boolean>(ChatConfiguration.EditorLocalAgentEnabled) ?? false);
+ }
+ 
+ /**

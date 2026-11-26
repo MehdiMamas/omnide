@@ -37,5 +37,6 @@
 	},
 	"linkProtectionTrustedDomains": ["https://open-vsx.org"],
 	"configurationDefaults": { "workbench.colorTheme": "OmnIDE Dark" },
+	"agentSdks": { "claude": { "version": "0.3.304", "urlTemplate": "https://main.vscode-cdn.net/agent-sdk/claude/0.3.304/{sdkTarget}.tgz" } },
 	"removeKeys": ["agentsTelemetryAppName", "webviewContentExternalBaseUrlTemplate", "voiceWsUrl"]
 }
