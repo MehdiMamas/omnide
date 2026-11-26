@@ -1,0 +1,149 @@
+Subject: Run, Always Run and Skip on the confirmation card; Always Run writes a narrow rule to the workspace settings.local.json (issue 19)
+Original to OmnIDE.
+
+diff --git a/src/vs/platform/agentHost/common/claudeRunPolicyConfig.ts b/src/vs/platform/agentHost/common/claudeRunPolicyConfig.ts
+index 3cdd1c08..51a87c31 100644
+--- a/src/vs/platform/agentHost/common/claudeRunPolicyConfig.ts
++++ b/src/vs/platform/agentHost/common/claudeRunPolicyConfig.ts
+@@ -2,7 +2,10 @@
+  *  Copyright (c) OmnIDE contributors. Licensed under the MIT License.
+  *--------------------------------------------------------------------------------------------*/
+ 
+-// Names of OmnIDE's run-policy settings. No imports, so tests and both the settings registry and the agent host can share them.
++import { localize } from '../../../nls.js';
++import { ConfirmationOptionKind, type ConfirmationOption } from './state/protocol/state.js';
++
++// Names of OmnIDE's run-policy settings and the confirmation-card options, shared by the settings registry and the agent host.
+ 
+ export const RunPolicyConfigKey = {
+ 	RunMode: 'runMode',
+@@ -27,3 +30,35 @@ export const DEFAULT_CHAT_MODE_VALUES = ['agent', 'plan', 'ask'] as const;
+ 
+ /** Equals `@anthropic-ai/claude-agent-sdk` in vscode/package.json; the bundled Claude Code version follows from it. */
+ export const PINNED_CLAUDE_AGENT_SDK_VERSION = '0.3.304';
++
++const ALWAYS_RUN_OPTION_PREFIX = 'omnide-always-run:';
++
++/** Option id for Always Run: carries the rule and the settings file it is written to. */
++export function alwaysRunOptionId(file: string, rule: string): string {
++	return ALWAYS_RUN_OPTION_PREFIX + JSON.stringify({ file, rule });
++}
++
++/** Decodes {@link alwaysRunOptionId}; `undefined` for any other id. */
++export function parseAlwaysRunOptionId(id: string): { readonly file: string; readonly rule: string } | undefined {
++	if (!id.startsWith(ALWAYS_RUN_OPTION_PREFIX)) {
++		return undefined;
++	}
++	try {
++		const v: unknown = JSON.parse(id.slice(ALWAYS_RUN_OPTION_PREFIX.length));
++		if (typeof v === 'object' && v !== null && 'file' in v && 'rule' in v && typeof v.file === 'string' && typeof v.rule === 'string') {
++			return { file: v.file, rule: v.rule };
++		}
++	} catch {
++		// not ours
++	}
++	return undefined;
++}
++
++/** The three buttons on the confirmation card: Run, Skip, and Always Run when a narrow rule exists. */
++export function runSkipAlwaysOptions(always: { readonly file: string; readonly rule: string } | undefined): ConfirmationOption[] {
++	return [
++		{ id: 'allow-once', label: localize('omnide.runPolicy.run', "Run"), kind: ConfirmationOptionKind.Approve },
++		...(always ? [{ id: alwaysRunOptionId(always.file, always.rule), label: localize('omnide.runPolicy.alwaysRun', "Always Run"), kind: ConfirmationOptionKind.Approve, group: 1 }] : []),
++		{ id: 'skip', label: localize('omnide.runPolicy.skip', "Skip"), kind: ConfirmationOptionKind.Deny, group: 2 },
++	];
++}
+diff --git a/src/vs/platform/agentHost/node/claude/claudeCanUseTool.ts b/src/vs/platform/agentHost/node/claude/claudeCanUseTool.ts
+index a4e1f6d7..cad6565e 100644
+--- a/src/vs/platform/agentHost/node/claude/claudeCanUseTool.ts
++++ b/src/vs/platform/agentHost/node/claude/claudeCanUseTool.ts
+@@ -4,8 +4,11 @@
+  *--------------------------------------------------------------------------------------------*/
+ 
+ import type { PermissionResult, PermissionUpdate } from '@anthropic-ai/claude-agent-sdk';
++import { join } from '../../../../base/common/path.js';
+ import { AgentPermissionKind, type IAgentChatOwnerRef } from '../../common/agent.js';
+ import type { IAgentServerToolHost } from '../../common/agentServerTools.js';
++import { alwaysRunRule } from '../../common/claudeRunPolicy.js';
++import { runSkipAlwaysOptions } from '../../common/claudeRunPolicyConfig.js';
+ import { ClaudePermissionMode, ClaudeSessionConfigKey } from '../../common/claudeSessionConfigKeys.js';
+ import { ChatInputRequestPurpose, withChatInputRequestPurpose } from '../../common/meta/agentChatInputRequestMeta.js';
+ import { ChatInputResponseKind, ToolCallPendingConfirmationState, ToolCallStatus } from '../../common/state/protocol/state.js';
+@@ -152,6 +155,9 @@ async function dispatchCanUseTool(
+ 	const serverDisplay = serverToolName ? serverToolHost?.getConfirmationDisplay(serverToolName, input) ?? getServerToolDisplay(serverToolName, input) : undefined;
+ 	const toolInputString = serverDisplay?.hideConfirmationInput ? undefined : getClaudeToolInputString(toolName, input);
+ 	const meta = buildClaudeToolMeta(toolName);
++	const cwd = session.workingDirectory?.fsPath;
++	const rule = cwd ? alwaysRunRule(toolName, input, cwd) : undefined;
++	const alwaysRun = cwd && rule ? { file: join(cwd, '.claude', 'settings.local.json'), rule } : undefined;
+ 	const state: ToolCallPendingConfirmationState = {
+ 		status: ToolCallStatus.PendingConfirmation,
+ 		toolCallId: options.toolUseID,
+@@ -161,6 +167,7 @@ async function dispatchCanUseTool(
+ 		toolInput: toolInputString,
+ 		confirmationTitle: serverDisplay?.confirmationTitle ?? getClaudeConfirmationTitle(toolName),
+ 		...(meta ? { _meta: meta } : {}),
++		options: runSkipAlwaysOptions(alwaysRun),
+ 	};
+ 
+ 	const parentToolCallId = resolveSubagentParent(session, options);
+diff --git a/src/vs/platform/agentHost/node/sessionPermissions.ts b/src/vs/platform/agentHost/node/sessionPermissions.ts
+index cfb68ad9..944f894a 100644
+--- a/src/vs/platform/agentHost/node/sessionPermissions.ts
++++ b/src/vs/platform/agentHost/node/sessionPermissions.ts
+@@ -4,6 +4,7 @@
+  *--------------------------------------------------------------------------------------------*/
+ 
+ import { lstat as fsLstat, realpath as fsRealpath } from 'fs';
++import { mkdir, readFile, writeFile } from 'fs/promises';
+ import { homedir } from 'os';
+ import { promisify } from 'util';
+ import { firstParallel } from '../../../base/common/async.js';
+@@ -30,6 +31,8 @@ import { SessionConfigKey } from '../common/sessionConfigKeys.js';
+ import type { SessionConfigSchema } from '../common/state/protocol/commands.js';
+ import { getAvailableSessionApprovalValues, getEffectiveSessionApprovalValue, getSessionApprovalProperty, readSessionApprovalLevel } from '../common/sessionConfigProperties.js';
+ import { isExactAbsolutePathRule, matchesPermissionRule, matchesShellCommandLine, matchesShellSubCommand, parsePermissionGrantOptionId, pathRule, permissionGrantOptionId, PermissionGrantScope, shellExactRule, shellPrefixRule, webFetchRule, type IPermissionRequest, type IPermissionRuleContext } from '../common/permissionRules.js';
++import { withAllowRule } from '../common/claudeRunPolicy.js';
++import { parseAlwaysRunOptionId } from '../common/claudeRunPolicyConfig.js';
+ import { readToolCallMeta } from '../common/meta/agentToolCallMeta.js';
+ import { ConfirmationOptionKind, type ConfirmationOption } from '../common/state/protocol/state.js';
+ import { ActionType, type IToolCallReadyAction } from '../common/state/sessionActions.js';
+@@ -597,6 +600,8 @@ export class SessionPermissionManager extends Disposable {
+ 				// otherwise the standard session/once/skip set is used.
+ 				options: e.managedApprovalRequired
+ 					? oneTimeOptions.slice()
++					: state.options?.some(o => parseAlwaysRunOptionId(o.id))
++						? state.options.slice()
+ 					: e.requestSandboxBypass && readToolCallMeta(state)['vscode.sandboxPathGrant'] && state.options
+ 						? state.options.slice()
+ 						: e.requestSandboxPermissive || e.requestSandboxBypass
+@@ -641,8 +646,11 @@ export class SessionPermissionManager extends Disposable {
+ 		if (readToolCallMeta(part.toolCall)[SANDBOX_BYPASS_META_KEY] || option?.id !== selectedOptionId || option?.kind !== ConfirmationOptionKind.Approve) {
+ 			return;
+ 		}
++		const always = parseAlwaysRunOptionId(option.id);
+ 		const grant = parsePermissionGrantOptionId(option.id);
+-		if (grant) {
++		if (always) {
++			this._writeAlwaysRunRule(always.file, always.rule);
++		} else if (grant) {
+ 			if (grant.scope === PermissionGrantScope.Session) {
+ 				this._addRulesToSessionPermissions(sessionKey, grant.rules);
+ 			} else {
+@@ -657,6 +665,16 @@ export class SessionPermissionManager extends Disposable {
+ 		}
+ 	}
+ 
++	/** Always Run: adds the narrow rule to the workspace `.claude/settings.local.json`, never to the user's own settings. */
++	private _writeAlwaysRunRule(file: string, rule: string): void {
++		readFile(file, 'utf8').catch(() => undefined)
++			.then(async text => {
++				await mkdir(path.dirname(file), { recursive: true });
++				await writeFile(file, withAllowRule(text, rule));
++			})
++			.catch(err => this._logService.warn(`[SessionPermissions] Could not write Always Run rule to ${file}: ${err}`));
++	}
++
+ 	// ---- Internal helpers ---------------------------------------------------
+ 
+ 	/**
