@@ -1,0 +1,16 @@
+{
+  "name": "theme-omnide",
+  "displayName": "OmnIDE Themes",
+  "description": "OmnIDE Dark and OmnIDE Light colour themes",
+  "version": "0.1.0",
+  "publisher": "omnide",
+  "license": "MIT",
+  "engines": { "vscode": "*" },
+  "categories": ["Themes"],
+  "contributes": {
+    "themes": [
+      { "label": "OmnIDE Dark", "uiTheme": "vs-dark", "path": "./themes/omnide-dark.json" },
+      { "label": "OmnIDE Light", "uiTheme": "vs", "path": "./themes/omnide-light.json" }
+    ]
+  }
+}

@@ -21,7 +21,8 @@ Omnide follows the [VSCodium](https://github.com/VSCodium/vscodium) model: we pi
 | Piece | Where |
 |---|---|
 | Upstream version | [`upstream.json`](upstream.json) |
-| Our changes | `patches/` (coming in the base-build issue) |
+| Our changes | [`patches/`](patches), applied in order by `scripts/patches.sh` |
+| Build | `scripts/build.sh` fetches the tag, applies patches and runs Code - OSS's gulp build (`vscode/` is gitignored) |
 | Features | built-in extensions under `extensions/` |
 
 ## Contributing

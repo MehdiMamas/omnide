@@ -1,0 +1,16 @@
+Subject: Built-in Copilot chat disabled (chat.disableAIFeatures defaults to true)
+Original to OmnIDE.
+
+diff --git a/src/vs/workbench/contrib/chat/browser/chat.shared.contribution.ts b/src/vs/workbench/contrib/chat/browser/chat.shared.contribution.ts
+index c0f85771..01e77a7f 100644
+--- a/src/vs/workbench/contrib/chat/browser/chat.shared.contribution.ts
++++ b/src/vs/workbench/contrib/chat/browser/chat.shared.contribution.ts
+@@ -2425,7 +2425,7 @@ configurationRegistry.registerConfiguration({
+ 		[ChatAIDisabledSettingId]: {
+ 			type: 'boolean',
+ 			description: nls.localize('chat.disableAIFeatures', "Disable and hide built-in AI features provided by GitHub Copilot, including chat and inline suggestions."),
+-			default: false,
++			default: true,
+ 			scope: ConfigurationScope.WINDOW,
+ 		},
+ 		[ChatConfiguration.CopilotCliCommandEnabled]: {

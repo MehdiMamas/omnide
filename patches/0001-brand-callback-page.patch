@@ -1,0 +1,25 @@
+Subject: Brand: the web auth callback page title
+Original to OmnIDE.
+
+diff --git a/src/vs/code/browser/workbench/callback.html b/src/vs/code/browser/workbench/callback.html
+index 4f54d4d1..c107c291 100644
+--- a/src/vs/code/browser/workbench/callback.html
++++ b/src/vs/code/browser/workbench/callback.html
+@@ -7,7 +7,7 @@
+ 		<!-- Disable pinch zooming -->
+ 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+ 
+-		<title>Visual Studio Code</title>
++		<title>OmnIDE</title>
+ 
+ 		<!-- Scripts -->
+ 		<script>
+@@ -112,7 +112,7 @@
+ 	</head>
+ 	<body>
+ 		<span class="branding">
+-			Visual Studio Code
++			OmnIDE
+ 		</span>
+ 		<div class="message-container">
+ 			<div class="message">
