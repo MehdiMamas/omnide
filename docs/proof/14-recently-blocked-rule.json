@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Edit(//tmp/omt/outside.txt)",
+      "Bash(touch /tmp/omt/ws/c.txt)"
+    ],
+    "deny": [
+      "Bash(touch /tmp/omt/ws/c.txt)"
+    ]
+  }
+}

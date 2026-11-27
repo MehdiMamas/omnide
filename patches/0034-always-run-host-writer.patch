@@ -1,0 +1,329 @@
+Subject: Always Run on blocked calls goes through the host-side writer, into the chat's own working directory (issue 19)
+Original to OmnIDE.
+
+diff --git a/src/vs/platform/agentHost/common/agent.ts b/src/vs/platform/agentHost/common/agent.ts
+index 7815733f..aad01d41 100644
+--- a/src/vs/platform/agentHost/common/agent.ts
++++ b/src/vs/platform/agentHost/common/agent.ts
+@@ -2324,6 +2324,8 @@ export interface IAgent {
+ 	 * cancels it. Resolves false when the prompt is no longer pending.
+ 	 */
+ 	answerShellAuthentication?(chat: URI, requestId: string, answer: string | undefined): Promise<boolean>;
++	/** Always Run for a call the chat blocked: the host writes the narrow rule into the chat's own working directory's `.claude/settings.local.json`. Resolves to the rule written. */
++	writeAlwaysRunRule?(chat: URI, tool: string, input: Readonly<Record<string, string>>): Promise<string>;
+ 	/** Manages the host's sandbox CA from saved runtime settings without creating a chat. */
+ 	manageHostSandboxCertificate?(operation: AgentSandboxCertificateOperation): Promise<void>;
+ 	/** Installs the live chat runtime's sandbox certificate after explicit client consent, preserving the advertised chat string. */
+diff --git a/src/vs/platform/agentHost/common/agentService.ts b/src/vs/platform/agentHost/common/agentService.ts
+index c0296c98..d295d3e5 100644
+--- a/src/vs/platform/agentHost/common/agentService.ts
++++ b/src/vs/platform/agentHost/common/agentService.ts
+@@ -929,6 +929,8 @@ export interface IAgentHostManagementService {
+ 	 * `createChat` (`model`).
+ 	 */
+ 	createChatWithExtensions(session: URI, chat: URI, options: IAgentCreateChatRequestOptions): Promise<void>;
++	/** Always Run for a call the chat blocked: the host writes the narrow rule into the chat's own working directory's `.claude/settings.local.json`. Resolves to the rule written. */
++	writeAlwaysRunRule(chat: URI, tool: string, input: Readonly<Record<string, string>>): Promise<string>;
+ 	/** Manages a provider's host CA through trusted local IPC after user consent, without creating a chat. */
+ 	manageHostSandboxCertificate(provider: AgentProvider, operation: AgentSandboxCertificateOperation): Promise<void>;
+ 	/** Installs the chat's sandbox CA through trusted local management IPC after user consent, preserving its advertised identity. */
+@@ -1059,6 +1061,7 @@ export interface IAgentService {
+ 	stopBackgroundWork?(chat: URI, id: string): Promise<boolean>;
+ 	/** Answers a chat's pending shell authentication prompt; `undefined` cancels it. Resolves false when it had already ended. */
+ 	answerShellAuthentication?(chat: URI, requestId: string, answer: string | undefined): Promise<boolean>;
++	writeAlwaysRunRule?(chat: URI, tool: string, input: Readonly<Record<string, string>>): Promise<string>;
+ 	manageHostSandboxCertificate?(provider: AgentProvider, operation: AgentSandboxCertificateOperation): Promise<void>;
+ 	installSandboxCertificate?(chat: string, scopeId: string): Promise<void>;
+ 	rotateSandboxCertificate?(chat: string, scopeId: string): Promise<void>;
+@@ -1511,6 +1514,8 @@ export interface IAgentConnection {
+ 	stopBackgroundWork?(chat: URI, id: string): Promise<boolean>;
+ 	/** Only for shell authentication prompts. `undefined` cancels the prompt. Resolves false when it had already ended. */
+ 	answerShellAuthentication?(chat: URI, requestId: string, answer: string | undefined): Promise<boolean>;
++	/** Always Run for a call the chat blocked: the host writes the narrow rule into the chat's own working directory's `.claude/settings.local.json`. Resolves to the rule written. */
++	writeAlwaysRunRule?(chat: URI, tool: string, input: Readonly<Record<string, string>>): Promise<string>;
+ 	/** Whether this connection can install through trusted local management or an advertised remote capability. */
+ 	readonly sandboxCertificateInstallationSupported?: IObservable<boolean>;
+ 	/** Requires installation support and explicit user consent. The advertised chat identity must not be URI-normalized. */
+diff --git a/src/vs/platform/agentHost/common/claudeBlockedNotice.ts b/src/vs/platform/agentHost/common/claudeBlockedNotice.ts
+index 6ac7ee76..70c6da1b 100644
+--- a/src/vs/platform/agentHost/common/claudeBlockedNotice.ts
++++ b/src/vs/platform/agentHost/common/claudeBlockedNotice.ts
+@@ -14,6 +14,8 @@ export interface IBlockedMeta {
+ 	readonly reason?: string;
+ 	/** The refused call's command, path or url, so Always Run can write a narrow rule. The SDK's denial message carries no input. */
+ 	readonly input?: Readonly<Record<string, string>>;
++	/** The chat the call was refused in, so the host can write the rule into that chat's own working directory. */
++	readonly chat?: string;
+ }
+ 
+ /** Claude Code pauses auto mode after 3 blocks in a row or 20 in total (code.claude.com/docs/en/permission-modes). */
+@@ -60,7 +62,7 @@ export function ruleInputOf(parsed: Readonly<Record<string, unknown>> | undefine
+ export function readBlockedMeta(meta: Record<string, unknown> | undefined): IBlockedMeta | undefined {
+ 	const v = meta?.[BLOCKED_META_KEY];
+ 	if (typeof v === 'object' && v !== null && 'kind' in v && typeof v.kind === 'string') {
+-		return { kind: v.kind as BlockedKind, tool: 'tool' in v && typeof v.tool === 'string' ? v.tool : undefined, reason: 'reason' in v && typeof v.reason === 'string' ? v.reason : undefined, input: 'input' in v ? ruleInputOf(v.input as Record<string, unknown>) : undefined };
++		return { kind: v.kind as BlockedKind, tool: 'tool' in v && typeof v.tool === 'string' ? v.tool : undefined, reason: 'reason' in v && typeof v.reason === 'string' ? v.reason : undefined, input: 'input' in v ? ruleInputOf(v.input as Record<string, unknown>) : undefined, chat: 'chat' in v && typeof v.chat === 'string' ? v.chat : undefined };
+ 	}
+ 	return undefined;
+ }
+diff --git a/src/vs/platform/agentHost/electron-browser/localAgentHostService.ts b/src/vs/platform/agentHost/electron-browser/localAgentHostService.ts
+index 65b22612..46e00a06 100644
+--- a/src/vs/platform/agentHost/electron-browser/localAgentHostService.ts
++++ b/src/vs/platform/agentHost/electron-browser/localAgentHostService.ts
+@@ -564,6 +564,10 @@ export class LocalAgentHostServiceClient extends Disposable implements IAgentHos
+ 	readonly sandboxCertificateRemovalSupported = constObservable(true);
+ 	readonly sandboxCertificateRefreshSupported = constObservable(true);
+ 
++	writeAlwaysRunRule(chat: URI, tool: string, input: Readonly<Record<string, string>>): Promise<string> {
++		return this._getManagementService().writeAlwaysRunRule(chat, tool, input);
++	}
++
+ 	manageHostSandboxCertificate(provider: AgentProvider, operation: AgentSandboxCertificateOperation): Promise<void> {
+ 		return this._getManagementService().manageHostSandboxCertificate(provider, operation);
+ 	}
+diff --git a/src/vs/platform/agentHost/node/agentHostManagementService.ts b/src/vs/platform/agentHost/node/agentHostManagementService.ts
+index 24e49599..73da5531 100644
+--- a/src/vs/platform/agentHost/node/agentHostManagementService.ts
++++ b/src/vs/platform/agentHost/node/agentHostManagementService.ts
+@@ -87,6 +87,13 @@ export class AgentHostManagementService implements IAgentHostManagementService {
+ 		return this._runMutation(() => this._agentService.createChat(session, chat, options));
+ 	}
+ 
++	writeAlwaysRunRule(chat: URI, tool: string, input: Readonly<Record<string, string>>): Promise<string> {
++		if (!this._agentService.writeAlwaysRunRule) {
++			throw new Error('Always Run is unavailable');
++		}
++		return this._runMutation(() => this._agentService.writeAlwaysRunRule!(chat, tool, input));
++	}
++
+ 	manageHostSandboxCertificate(...args: Parameters<IAgentHostManagementService['manageHostSandboxCertificate']>): Promise<void> {
+ 		if (!this._agentService.manageHostSandboxCertificate) {
+ 			throw new Error('Host sandbox certificate management is unavailable');
+diff --git a/src/vs/platform/agentHost/node/agentService.ts b/src/vs/platform/agentHost/node/agentService.ts
+index d4831381..7fbe0912 100644
+--- a/src/vs/platform/agentHost/node/agentService.ts
++++ b/src/vs/platform/agentHost/node/agentService.ts
+@@ -2661,6 +2661,15 @@ export class AgentService extends Disposable implements IAgentService {
+ 		});
+ 	}
+ 
++	async writeAlwaysRunRule(chat: URI, tool: string, input: Readonly<Record<string, string>>): Promise<string> {
++		const owner = this._chatOwnership.getChatOwner(chat.toString());
++		const provider = owner === undefined ? undefined : this._providerService.getProviderForChat(URI.parse(owner), chat);
++		if (!provider?.writeAlwaysRunRule) {
++			throw new Error('Always Run is unavailable for this chat.');
++		}
++		return provider.writeAlwaysRunRule(chat, tool, input);
++	}
++
+ 	async manageHostSandboxCertificate(provider: AgentProvider, operation: Parameters<NonNullable<IAgent['manageHostSandboxCertificate']>>[0]): Promise<void> {
+ 		const agent = this._providerService.getProvider(provider);
+ 		if (!agent?.manageHostSandboxCertificate) {
+diff --git a/src/vs/platform/agentHost/node/claude/claudeAgent.ts b/src/vs/platform/agentHost/node/claude/claudeAgent.ts
+index 7ee984fb..f5d94085 100644
+--- a/src/vs/platform/agentHost/node/claude/claudeAgent.ts
++++ b/src/vs/platform/agentHost/node/claude/claudeAgent.ts
+@@ -7,6 +7,8 @@ import type { CCAModel } from '@vscode/copilot-api';
+ import type { ModelInfo, OnElicitation, Options, SDKSessionInfo, SDKUserMessage } from '@anthropic-ai/claude-agent-sdk';
+ import type { CallToolResult } from '@modelcontextprotocol/sdk/types.js';
+ import * as fs from 'fs/promises';
++import { join } from '../../../../base/common/path.js';
++import { writeAlwaysRunRule as writeAlwaysRunRuleFile } from './claudeAlwaysRun.js';
+ import { Limiter, retry, SequencerByKey } from '../../../../base/common/async.js';
+ import { CancellationToken } from '../../../../base/common/cancellation.js';
+ import { CancellationError } from '../../../../base/common/errors.js';
+@@ -28,7 +30,7 @@ import { AgentSdkSetupChannel } from '../agentSdkSetupChannel.js';
+ import { decodeProviderData, encodeProviderData, type IPersistedChat } from '../agentChatBackings.js';
+ import { AgentHostAutoApprovePolicyRestrictedConfigKey, createSchema, platformRootSchema, platformSessionSchema, schemaProperty } from '../../common/agentHostSchema.js';
+ import { ClaudePermissionMode, ClaudeSessionConfigKey, narrowClaudePermissionMode } from '../../common/claudeSessionConfigKeys.js';
+-import { agentSdkMode, type IRunPolicyState, sdkModeFor } from '../../common/claudeRunPolicy.js';
++import { alwaysRunRule, agentSdkMode, type IRunPolicyState, sdkModeFor } from '../../common/claudeRunPolicy.js';
+ import { RunPolicyConfigKey } from '../../common/claudeRunPolicyConfig.js';
+ import { readAdminFlags } from './claudeManagedSettings.js';
+ import { createClaudeThinkingLevelSchema, isClaudeEffortLevel } from '../../common/claudeModelConfig.js';
+@@ -748,6 +750,17 @@ export class ClaudeAgent extends Disposable implements IAgent {
+ 		};
+ 	}
+ 
++	/** Always Run for a blocked call: the narrow rule goes into the chat's own working directory, never the user's settings. */
++	async writeAlwaysRunRule(chat: URI, tool: string, input: Readonly<Record<string, string>>): Promise<string> {
++		const cwd = this._findChatByUri(chat)?.workingDirectory?.fsPath;
++		const rule = cwd ? alwaysRunRule(tool, input, cwd) : undefined;
++		if (!cwd || !rule) {
++			throw new Error(`Always Run can't write a rule for ${tool}`);
++		}
++		await writeAlwaysRunRuleFile(join(cwd, '.claude', 'settings.local.json'), rule);
++		return rule;
++	}
++
+ 	async setWorkingDirectory(_chat: URI, _context: URI | IAgentChatContext, _workingDirectory: URI): Promise<void> {
+ 		throw new Error('Claude does not support changing the working directory of an existing session.');
+ 	}
+diff --git a/src/vs/platform/agentHost/node/claude/claudeAlwaysRun.ts b/src/vs/platform/agentHost/node/claude/claudeAlwaysRun.ts
+new file mode 100644
+index 00000000..11df8dae
+--- /dev/null
++++ b/src/vs/platform/agentHost/node/claude/claudeAlwaysRun.ts
+@@ -0,0 +1,21 @@
++/*---------------------------------------------------------------------------------------------
++ *  Copyright (c) OmnIDE contributors. Licensed under the MIT License.
++ *--------------------------------------------------------------------------------------------*/
++
++import { mkdir, readFile, rename, writeFile } from 'fs/promises';
++import { dirname } from '../../../../base/common/path.js';
++import { withAllowRule } from '../../common/claudeRunPolicy.js';
++
++/** Adds an allow rule to a `.claude/settings.local.json`. A missing file is created; any other read error stops the write. The new text lands by rename, so a crash never leaves half a file. */
++export async function writeAlwaysRunRule(file: string, rule: string): Promise<void> {
++	const text = await readFile(file, 'utf8').catch(e => {
++		if (e instanceof Error && 'code' in e && e.code === 'ENOENT') {
++			return undefined;
++		}
++		throw e;
++	});
++	await mkdir(dirname(file), { recursive: true });
++	const temp = `${file}.${process.pid}.tmp`;
++	await writeFile(temp, withAllowRule(text, rule));
++	await rename(temp, file);
++}
+diff --git a/src/vs/platform/agentHost/node/claude/claudeMapSessionEvents.ts b/src/vs/platform/agentHost/node/claude/claudeMapSessionEvents.ts
+index c1719782..a19039d2 100644
+--- a/src/vs/platform/agentHost/node/claude/claudeMapSessionEvents.ts
++++ b/src/vs/platform/agentHost/node/claude/claudeMapSessionEvents.ts
+@@ -322,7 +322,7 @@ function blockedNotice(message: Extract<SDKMessage, { type: 'system'; subtype: '
+ 			part: {
+ 				kind: ResponsePartKind.SystemNotification,
+ 				content: text,
+-				_meta: { [BLOCKED_META_KEY]: { kind, tool: message.tool_name, reason: message.decision_reason_type, input: ruleInputOf(state.toolCalls.lookup(message.tool_use_id)?.info?.parsedInput) } },
++				_meta: { [BLOCKED_META_KEY]: { kind, tool: message.tool_name, reason: message.decision_reason_type, chat: chat.toString(), input: ruleInputOf(state.toolCalls.lookup(message.tool_use_id)?.info?.parsedInput) } },
+ 			},
+ 		},
+ 	};
+diff --git a/src/vs/platform/agentHost/node/sessionPermissions.ts b/src/vs/platform/agentHost/node/sessionPermissions.ts
+index 944f894a..5e8e8045 100644
+--- a/src/vs/platform/agentHost/node/sessionPermissions.ts
++++ b/src/vs/platform/agentHost/node/sessionPermissions.ts
+@@ -4,7 +4,6 @@
+  *--------------------------------------------------------------------------------------------*/
+ 
+ import { lstat as fsLstat, realpath as fsRealpath } from 'fs';
+-import { mkdir, readFile, writeFile } from 'fs/promises';
+ import { homedir } from 'os';
+ import { promisify } from 'util';
+ import { firstParallel } from '../../../base/common/async.js';
+@@ -31,7 +30,7 @@ import { SessionConfigKey } from '../common/sessionConfigKeys.js';
+ import type { SessionConfigSchema } from '../common/state/protocol/commands.js';
+ import { getAvailableSessionApprovalValues, getEffectiveSessionApprovalValue, getSessionApprovalProperty, readSessionApprovalLevel } from '../common/sessionConfigProperties.js';
+ import { isExactAbsolutePathRule, matchesPermissionRule, matchesShellCommandLine, matchesShellSubCommand, parsePermissionGrantOptionId, pathRule, permissionGrantOptionId, PermissionGrantScope, shellExactRule, shellPrefixRule, webFetchRule, type IPermissionRequest, type IPermissionRuleContext } from '../common/permissionRules.js';
+-import { withAllowRule } from '../common/claudeRunPolicy.js';
++import { writeAlwaysRunRule } from './claude/claudeAlwaysRun.js';
+ import { parseAlwaysRunOptionId } from '../common/claudeRunPolicyConfig.js';
+ import { readToolCallMeta } from '../common/meta/agentToolCallMeta.js';
+ import { ConfirmationOptionKind, type ConfirmationOption } from '../common/state/protocol/state.js';
+@@ -667,11 +666,7 @@ export class SessionPermissionManager extends Disposable {
+ 
+ 	/** Always Run: adds the narrow rule to the workspace `.claude/settings.local.json`, never to the user's own settings. */
+ 	private _writeAlwaysRunRule(file: string, rule: string): void {
+-		readFile(file, 'utf8').catch(() => undefined)
+-			.then(async text => {
+-				await mkdir(path.dirname(file), { recursive: true });
+-				await writeFile(file, withAllowRule(text, rule));
+-			})
++		writeAlwaysRunRule(file, rule)
+ 			.catch(err => this._logService.warn(`[SessionPermissions] Could not write Always Run rule to ${file}: ${err}`));
+ 	}
+ 
+diff --git a/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostAlwaysRunBlocked.ts b/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostAlwaysRunBlocked.ts
+index 26d9f047..12e21aa3 100644
+--- a/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostAlwaysRunBlocked.ts
++++ b/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostAlwaysRunBlocked.ts
+@@ -2,31 +2,25 @@
+  *  Copyright (c) OmnIDE contributors. Licensed under the MIT License.
+  *--------------------------------------------------------------------------------------------*/
+ 
+-import { VSBuffer } from '../../../../../../base/common/buffer.js';
++import { URI } from '../../../../../../base/common/uri.js';
+ import { localize } from '../../../../../../nls.js';
+-import { alwaysRunRule, withAllowRule } from '../../../../../../platform/agentHost/common/claudeRunPolicy.js';
++import { IAgentHostService } from '../../../../../../platform/agentHost/common/agentService.js';
+ import { CommandsRegistry } from '../../../../../../platform/commands/common/commands.js';
+-import { IFileService } from '../../../../../../platform/files/common/files.js';
+ import { ServicesAccessor } from '../../../../../../platform/instantiation/common/instantiation.js';
+ import { INotificationService } from '../../../../../../platform/notification/common/notification.js';
+-import { IWorkspaceContextService } from '../../../../../../platform/workspace/common/workspace.js';
+ 
+ export const ALWAYS_RUN_BLOCKED_COMMAND = 'omnide.agents.alwaysRunBlocked';
+ 
+-/** Writes the narrow allow rule for a refused call into <folder>/.claude/settings.local.json, the file Claude Code's own Always Run writes. */
+-CommandsRegistry.registerCommand(ALWAYS_RUN_BLOCKED_COMMAND, async (accessor: ServicesAccessor, tool: string, input: Readonly<Record<string, string>>) => {
++/** Always Run for a refused call. The agent host writes the rule (atomic, into the chat's own working directory); this only asks it to and reports the result. */
++CommandsRegistry.registerCommand(ALWAYS_RUN_BLOCKED_COMMAND, async (accessor: ServicesAccessor, chat: string | undefined, tool: string, input: Readonly<Record<string, string>>) => {
+ 	const notifications = accessor.get(INotificationService);
+-	const folder = accessor.get(IWorkspaceContextService).getWorkspace().folders[0]?.uri;
+-	const rule = folder && alwaysRunRule(tool, input, folder.path);
+-	if (!folder || !rule) {
++	const host = accessor.get(IAgentHostService);
++	if (!chat || !host.writeAlwaysRunRule) {
+ 		notifications.warn(localize('omnide.alwaysRun.none', "Always Run can't write a rule for this call."));
+ 		return;
+ 	}
+-	const files = accessor.get(IFileService);
+-	const file = folder.with({ path: `${folder.path}/.claude/settings.local.json` });
+-	const existing = await files.readFile(file).then(f => f.value.toString(), () => undefined);
+ 	try {
+-		await files.writeFile(file, VSBuffer.fromString(withAllowRule(existing, rule)));
++		const rule = await host.writeAlwaysRunRule(URI.parse(chat), tool, input);
+ 		notifications.info(localize('omnide.alwaysRun.done', "Always Run saved {0}", rule));
+ 	} catch (e) {
+ 		notifications.warn(localize('omnide.alwaysRun.failed', "Always Run could not save the rule: {0}", e instanceof Error ? e.message : String(e)));
+diff --git a/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostRecentlyBlocked.ts b/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostRecentlyBlocked.ts
+index 24b22096..a311b020 100644
+--- a/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostRecentlyBlocked.ts
++++ b/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostRecentlyBlocked.ts
+@@ -28,7 +28,7 @@ registerAction2(class ShowRecentlyBlockedAction extends Action2 {
+ 
+ 	override async run(accessor: ServicesAccessor): Promise<void> {
+ 		const model = accessor.get(IChatWidgetService).lastFocusedWidget?.viewModel?.model;
+-		const items: (IQuickPickItem & { blocked: { tool?: string; input?: Readonly<Record<string, string>> } })[] = [];
++		const items: (IQuickPickItem & { blocked: { tool?: string; chat?: string; input?: Readonly<Record<string, string>> } })[] = [];
+ 		for (const request of model?.getRequests() ?? []) {
+ 			for (const part of request.response?.response.value ?? []) {
+ 				if (part.kind === 'systemNotification' && part.blocked) {
+@@ -51,9 +51,9 @@ registerAction2(class ShowRecentlyBlockedAction extends Action2 {
+ 		picker.title = localize('omnide.blocked.title', "Recently blocked in this chat");
+ 		picker.placeholder = localize('omnide.blocked.noRunOnce', "Run once isn't offered: Claude Code can't re-run a blocked call. Always Run allows it from now on.");
+ 		picker.onDidTriggerItemButton(e => {
+-			const { tool, input } = e.item.blocked;
++			const { chat, tool, input } = e.item.blocked;
+ 			if (tool && input) {
+-				void commands.executeCommand(ALWAYS_RUN_BLOCKED_COMMAND, tool, input);
++				void commands.executeCommand(ALWAYS_RUN_BLOCKED_COMMAND, chat, tool, input);
+ 			}
+ 		});
+ 		picker.onDidHide(() => picker.dispose());
+diff --git a/src/vs/workbench/contrib/chat/browser/widget/chatContentParts/chatSystemNotificationContentPart.ts b/src/vs/workbench/contrib/chat/browser/widget/chatContentParts/chatSystemNotificationContentPart.ts
+index bca2a697..7d4ff3ba 100644
+--- a/src/vs/workbench/contrib/chat/browser/widget/chatContentParts/chatSystemNotificationContentPart.ts
++++ b/src/vs/workbench/contrib/chat/browser/widget/chatContentParts/chatSystemNotificationContentPart.ts
+@@ -103,7 +103,7 @@ export class ChatSystemNotificationContentPart extends Disposable implements ICh
+ 		if (blocked.tool && blocked.input) {
+ 			const always = this._register(new Button(buttons, defaultButtonStyles));
+ 			always.label = localize('omnide.blocked.alwaysRun', "Always Run");
+-			this._register(always.onDidClick(() => commandService.executeCommand(ALWAYS_RUN_BLOCKED_COMMAND, blocked.tool, blocked.input)));
++			this._register(always.onDidClick(() => commandService.executeCommand(ALWAYS_RUN_BLOCKED_COMMAND, blocked.chat, blocked.tool, blocked.input)));
+ 		}
+ 		const skip = this._register(new Button(buttons, { ...defaultButtonStyles, secondary: true }));
+ 		skip.label = localize('omnide.blocked.skip', "Skip");
+diff --git a/src/vs/workbench/contrib/chat/common/chatService/chatService.ts b/src/vs/workbench/contrib/chat/common/chatService/chatService.ts
+index 882d82d7..ea470833 100644
+--- a/src/vs/workbench/contrib/chat/common/chatService/chatService.ts
++++ b/src/vs/workbench/contrib/chat/common/chatService/chatService.ts
+@@ -369,7 +369,7 @@ export interface IChatSystemNotificationPart {
+ 	/** Complete accessible description for non-visual presentation and announcements. */
+ 	accessibilityLabel?: string;
+ 	/** OmnIDE: set when Claude Code refused a call without asking; feeds the Recently blocked list. */
+-	blocked?: { readonly kind: string; readonly tool?: string; readonly input?: Readonly<Record<string, string>> };
++	blocked?: { readonly kind: string; readonly tool?: string; readonly input?: Readonly<Record<string, string>>; readonly chat?: string };
+ }
+ 
+ export interface IChatTask extends IChatTaskDto {
