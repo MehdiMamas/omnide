@@ -2,10 +2,10 @@ Subject: Ask mode: a PreToolUse hook refuses edits and keeps the card for Bash a
 Original to OmnIDE.
 
 diff --git a/src/vs/platform/agentHost/common/claudeRunPolicy.ts b/src/vs/platform/agentHost/common/claudeRunPolicy.ts
-index 1a73f090..6b133f57 100644
+index 1d2cc314..04f95f16 100644
 --- a/src/vs/platform/agentHost/common/claudeRunPolicy.ts
 +++ b/src/vs/platform/agentHost/common/claudeRunPolicy.ts
-@@ -50,12 +50,21 @@ export function chatModeOf(mode: SdkPermissionMode): ChatMode {
+@@ -50,12 +50,27 @@ export function chatModeOf(mode: SdkPermissionMode): ChatMode {
  }
  
  /** Tools Ask refuses at call time. Never deny rules: Claude Code drops a denied tool at start and never brings it back. */
@@ -25,11 +25,17 @@ index 1a73f090..6b133f57 100644
 +	}
 +	return mode === 'default' && (toolName === 'Bash' || toolName.startsWith('mcp__')) ? { permissionDecision: 'ask' } : undefined;
 +}
++
++/** A deny from the Agent Merge restriction always wins; Ask's `ask` is only asked when the restriction has nothing to say. */
++export function mergeRestrictionFirst<T>(restriction: () => T | undefined, askHook: () => T | undefined): T | undefined {
++	return restriction() ?? askHook();
++}
++
  export const FILE_DELETION_ASK_RULES: readonly string[] = ['Bash(rm *)', 'Bash(rmdir *)', 'Bash(git rm *)'];
  
  export interface IRulesInput {
 diff --git a/src/vs/platform/agentHost/node/claude/claudeAgentSession.ts b/src/vs/platform/agentHost/node/claude/claudeAgentSession.ts
-index dc027ab6..fdd2dd7d 100644
+index dc027ab6..d44126a5 100644
 --- a/src/vs/platform/agentHost/node/claude/claudeAgentSession.ts
 +++ b/src/vs/platform/agentHost/node/claude/claudeAgentSession.ts
 @@ -17,7 +17,7 @@ import { IInstantiationService } from '../../../instantiation/common/instantiati
@@ -37,7 +43,7 @@ index dc027ab6..fdd2dd7d 100644
  import { IAgentConfigurationService } from '../agentConfigurationService.js';
  import { ISyncedCustomization } from '../../common/agentPluginManager.js';
 -import { claudeCodeVersionOfSdk, EXTERNAL_FILES_MIN_VERSION, permissionRules, versionAtLeast } from '../../common/claudeRunPolicy.js';
-+import { askHookDecision, claudeCodeVersionOfSdk, EXTERNAL_FILES_MIN_VERSION, permissionRules, versionAtLeast } from '../../common/claudeRunPolicy.js';
++import { askHookDecision, claudeCodeVersionOfSdk, mergeRestrictionFirst, EXTERNAL_FILES_MIN_VERSION, permissionRules, versionAtLeast } from '../../common/claudeRunPolicy.js';
  import { PINNED_CLAUDE_AGENT_SDK_VERSION, RunPolicyConfigKey } from '../../common/claudeRunPolicyConfig.js';
  import { ClaudePermissionMode, narrowClaudePermissionMode } from '../../common/claudeSessionConfigKeys.js';
  import { ClaudeRuntimeEffortLevel, toRuntimeEffortLevel, resolveClaudeEffort } from '../../common/claudeModelConfig.js';
@@ -46,7 +52,7 @@ index dc027ab6..fdd2dd7d 100644
  				traceContext,
  				getUserPromptAdditionalContext: () => this._hostInstructions?.join('\n\n'),
 -				onPreToolUse: (toolName, input) => this._restrictAgentMergeGitHubTool(toolName, input, agentMergeRestrictedMcpServerNames),
-+				onPreToolUse: (toolName, input) => this._askModeHook(toolName) ?? this._restrictAgentMergeGitHubTool(toolName, input, agentMergeRestrictedMcpServerNames),
++				onPreToolUse: (toolName, input) => mergeRestrictionFirst(() => this._restrictAgentMergeGitHubTool(toolName, input, agentMergeRestrictedMcpServerNames), () => this._askModeHook(toolName)),
  			},
  			ctx.transport,
  			data => this._logService.error(`[Claude SDK stderr] ${data}`),
@@ -55,7 +61,7 @@ index dc027ab6..fdd2dd7d 100644
  					traceContext,
  					getUserPromptAdditionalContext: () => this._hostInstructions?.join('\n\n'),
 -					onPreToolUse: (toolName, input) => this._restrictAgentMergeGitHubTool(toolName, input, rebuildAgentMergeRestrictedMcpServerNames),
-+					onPreToolUse: (toolName, input) => this._askModeHook(toolName) ?? this._restrictAgentMergeGitHubTool(toolName, input, rebuildAgentMergeRestrictedMcpServerNames),
++					onPreToolUse: (toolName, input) => mergeRestrictionFirst(() => this._restrictAgentMergeGitHubTool(toolName, input, rebuildAgentMergeRestrictedMcpServerNames), () => this._askModeHook(toolName)),
  				},
  				rebuildTransport,
  				data => this._logService.error(`[Claude SDK stderr] ${data}`),

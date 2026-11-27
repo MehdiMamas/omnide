@@ -18,6 +18,9 @@ import {
 	CHAT_MODES,
 	chatModeOf,
 	claudeCodeVersionOfSdk,
+	mergeRestrictionFirst,
+	readAlwaysRunRefusal,
+	ALWAYS_RUN_REFUSAL_META,
 	nextChatMode,
 	permissionRules,
 	RUN_MODES,
@@ -26,6 +29,7 @@ import {
 	withAllowRule,
 } from "../vscode/src/vs/platform/agentHost/common/claudeRunPolicy.ts";
 import { classifyDenial, readBlockedMeta, ruleInputOf } from "../vscode/src/vs/platform/agentHost/common/claudeBlockedNotice.ts";
+import { effectiveRunMode, RunModeTracker } from "../vscode/src/vs/platform/agentHost/common/runModeStale.ts";
 import { readFileSync } from "node:fs";
 import path from "node:path";
 
@@ -156,8 +160,8 @@ test("Always Run writes a narrow rule: never a bare Bash, and only the approved 
 	fc.assert(
 		fc.property(fc.string({ minLength: 1 }), (command) => {
 			const rule = alwaysRunRule("Bash", { command }, "/w", posix);
-			if (command.includes("*")) {
-				// the grammar has no literal *, so no rule is written and the card says why
+			if (/[*()]/.test(command)) {
+				// the grammar has no literal *, and does not say how ( ) are read, so no rule is written and the card says why
 				assert.equal(rule, undefined);
 				assert.ok(alwaysRunRefusal("Bash", { command }));
 			} else {
@@ -378,4 +382,81 @@ test("a blocked call's input keeps only the strings a rule is made from, and sur
 			assert.deepEqual(readBlockedMeta({ "omnide.blocked": { kind: "blocked", tool: "Bash", input: kept } })?.input, kept);
 		}),
 	);
+});
+
+test("a Bash command with parentheses gets no Always Run rule and says why", () => {
+	for (const command of ["echo (hi)", "(cd a && ls)", "echo $(date)", "f() { :; }"]) {
+		assert.equal(alwaysRunRule("Bash", { command }, "/w", posix), undefined);
+		assert.match(alwaysRunRefusal("Bash", { command }) ?? "", /\( or \)/);
+	}
+	assert.equal(alwaysRunRule("Bash", { command: "ls -la" }, "/w", posix), "Bash(ls -la)");
+	// the same parentheses in a file path stay literal in Edit rules (documented), so they are not refused
+	assert.equal(alwaysRunRule("Edit", { file_path: "/w/Finance (2024)/a.ts" }, "/w", posix), "Edit(/Finance (2024)/a.ts)");
+});
+
+test("the refusal reason travels in its own _meta field, not in the title", () => {
+	const reason = alwaysRunRefusal("Bash", { command: "rm *.log" });
+	assert.ok(reason);
+	assert.equal(readAlwaysRunRefusal({ [ALWAYS_RUN_REFUSAL_META]: reason }), reason);
+	assert.equal(readAlwaysRunRefusal({ toolKind: "terminal" }), undefined);
+	assert.equal(readAlwaysRunRefusal({ [ALWAYS_RUN_REFUSAL_META]: "" }), undefined);
+	assert.equal(readAlwaysRunRefusal(undefined), undefined);
+});
+
+test("the Agent Merge restriction runs first: its deny wins over Ask's ask, and Ask is not consulted", () => {
+	const deny = { permissionDecision: "deny" } as const;
+	const ask = askHookDecision("default", "Bash");
+	assert.deepEqual(ask, { permissionDecision: "ask" });
+	let asked = 0;
+	const askHook = () => {
+		asked++;
+		return ask;
+	};
+	assert.equal(mergeRestrictionFirst(() => deny, askHook), deny);
+	assert.equal(asked, 0);
+	assert.equal(mergeRestrictionFirst(() => undefined, askHook), ask);
+	assert.equal(asked, 1);
+	assert.equal(mergeRestrictionFirst(() => undefined, () => undefined), undefined);
+});
+
+test("Restart to apply: only a chat whose Run Mode really differs is stale", () => {
+	const a = {};
+	const b = {};
+	const modes = new RunModeTracker<object>("allowlist");
+	modes.start(a);
+	modes.change("autoReview", [a, b]);
+	assert.equal(modes.isStale(a), true);
+	assert.equal(modes.isStale(b), true, "an open chat nobody recorded started under the previous mode");
+	// the change is undone (Cancel on the Run Everything dialog): no chip
+	modes.change("allowlist", [a, b]);
+	assert.equal(modes.isStale(a), false);
+	assert.equal(modes.isStale(b), false);
+	// a new session in a widget starts under the mode in force now
+	modes.change("autoReview", [a, b]);
+	modes.start(a);
+	assert.equal(modes.isStale(a), false);
+	assert.equal(modes.isStale(b), true);
+	const fresh = {};
+	assert.equal(modes.isStale(fresh), false);
+});
+
+test("Restart to apply: any sequence of changes leaves a chat stale exactly when its start mode differs from the last mode", () => {
+	const mode = fc.constantFrom("autoReview", "allowlist", "runEverything");
+	fc.assert(
+		fc.property(mode, fc.array(mode), (first, changes) => {
+			const chat = {};
+			const modes = new RunModeTracker<object>(first);
+			modes.start(chat);
+			for (const m of changes) modes.change(m, [chat]);
+			assert.equal(modes.isStale(chat), (changes.at(-1) ?? first) !== first);
+		}),
+	);
+});
+
+test("effective Run Mode: unaccepted Run Everything and admin-disabled modes run as Allowlist", () => {
+	assert.equal(effectiveRunMode("runEverything", false, []), "allowlist");
+	assert.equal(effectiveRunMode("runEverything", true, []), "runEverything");
+	assert.equal(effectiveRunMode("autoReview", true, ["autoReview"]), "allowlist");
+	assert.equal(effectiveRunMode("runEverything", true, ["runEverything"]), "allowlist");
+	assert.equal(effectiveRunMode("autoReview", false, []), "autoReview");
 });

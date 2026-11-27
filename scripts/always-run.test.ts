@@ -1,7 +1,7 @@
 // Tests for the host-side Always Run file writer (patch 0034). Run after scripts/patches.sh and `npm ci --prefix scripts`:
 // node --test scripts/always-run.test.ts
 import assert from "node:assert/strict";
-import { chmod, mkdir, mkdtemp, readdir, readFile, writeFile } from "node:fs/promises";
+import { chmod, lstat, mkdir, mkdtemp, readdir, readFile, readlink, stat, symlink, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { test } from "node:test";
@@ -68,4 +68,40 @@ test("concurrent writes to one file keep every rule", async () => {
 		}),
 		{ numRuns: 25 },
 	);
+});
+
+test("the file keeps its mode (0600 stays 0600)", { skip: process.platform === "win32" }, async () => {
+	const file = path.join(await dir(), "settings.local.json");
+	await writeFile(file, '{"permissions":{"allow":["Keep"]}}');
+	await chmod(file, 0o600);
+	await add(file, "Bash(ls)");
+	assert.equal((await stat(file)).mode & 0o777, 0o600);
+	assert.deepEqual(await allowOf(file), ["Keep", "Bash(ls)"]);
+});
+
+test("a symlinked settings file stays a symlink and the real file is updated next to itself", { skip: process.platform === "win32" }, async () => {
+	const root = await dir();
+	const real = path.join(root, "shared", "real.json");
+	await mkdir(path.dirname(real));
+	await writeFile(real, '{"permissions":{"allow":["Keep"]}}');
+	await chmod(real, 0o640);
+	const link = path.join(root, "settings.local.json");
+	await symlink(real, link);
+	await add(link, "Bash(ls)");
+	assert.ok((await lstat(link)).isSymbolicLink());
+	assert.equal(await readlink(link), real);
+	assert.deepEqual(await allowOf(real), ["Keep", "Bash(ls)"]);
+	assert.equal((await stat(real)).mode & 0o777, 0o640);
+	assert.deepEqual((await readdir(root)).sort(), ["settings.local.json", "shared"], "no temp file next to the link");
+	assert.deepEqual((await readdir(path.dirname(real))).sort(), ["real.json"], "no temp file left next to the real file");
+});
+
+test("a dangling symlink is created at its target, the link is kept", { skip: process.platform === "win32" }, async () => {
+	const root = await dir();
+	const real = path.join(root, "target.json");
+	const link = path.join(root, "settings.local.json");
+	await symlink(real, link);
+	await add(link, "Bash(ls)");
+	assert.ok((await lstat(link)).isSymbolicLink());
+	assert.deepEqual(await allowOf(real), ["Bash(ls)"]);
 });

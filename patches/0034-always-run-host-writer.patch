@@ -67,10 +67,10 @@ index 6ac7ee76..70c6da1b 100644
  	return undefined;
  }
 diff --git a/src/vs/platform/agentHost/common/claudeRunPolicy.ts b/src/vs/platform/agentHost/common/claudeRunPolicy.ts
-index 4111e178..e615ffea 100644
+index b7c1d2e7..a7c43974 100644
 --- a/src/vs/platform/agentHost/common/claudeRunPolicy.ts
 +++ b/src/vs/platform/agentHost/common/claudeRunPolicy.ts
-@@ -142,27 +142,46 @@ export function versionAtLeast(version: string | undefined, min: string): boolea
+@@ -148,27 +148,58 @@ export function versionAtLeast(version: string | undefined, min: string): boolea
  	return true;
  }
  
@@ -84,11 +84,23 @@ index 4111e178..e615ffea 100644
 +
 +const str = (input: Readonly<Record<string, unknown>>, k: string) => typeof input[k] === 'string' && (input[k] as string).length > 0 ? input[k] as string : undefined;
 +
-+/** Why Always Run writes no rule for this call, or `undefined` when it can. Claude Code documents no way to write a literal `*` in a `Bash(...)` rule, so such a command would become a wider rule. */
++/** Why Always Run writes no rule for this call, or `undefined` when it can. Claude Code documents no way to write a literal `*` in a `Bash(...)` rule, so such a command would become a wider rule, and it does not say how `(` or `)` inside one are read (https://code.claude.com/docs/en/permissions). */
 +export function alwaysRunRefusal(tool: string, input: Readonly<Record<string, unknown>>): string | undefined {
-+	return tool === 'Bash' && str(input, 'command')?.includes('*')
-+		? 'Claude Code rules read * as a wildcard and have no way to write a literal one, so a rule for this command would match more than you approved'
++	const command = tool === 'Bash' ? str(input, 'command') : undefined;
++	if (command?.includes('*')) {
++		return 'Claude Code rules read * as a wildcard and have no way to write a literal one, so a rule for this command would match more than you approved';
++	}
++	return command && /[()]/.test(command)
++		? 'Claude Code does not document how ( or ) inside a Bash rule are read, so a rule for this command might not match it or might match more than you approved'
 +		: undefined;
++}
++
++/** `_meta` key on a confirmation that carries {@link alwaysRunRefusal}, so the card shows it on its own line. */
++export const ALWAYS_RUN_REFUSAL_META = 'omnide.alwaysRunRefusal';
++
++export function readAlwaysRunRefusal(meta: Readonly<Record<string, unknown>> | undefined): string | undefined {
++	const reason = meta?.[ALWAYS_RUN_REFUSAL_META];
++	return typeof reason === 'string' && reason.length > 0 ? reason : undefined;
 +}
 +
 +/** Edit, Write and Notebook paths are gitignore patterns: escape `\`, `*`, `?`, `[`, `]` and trailing spaces so the rule matches only this file (https://code.claude.com/docs/en/permissions, "Special characters"). `//` anchors at the filesystem root, `/` at the working directory. */
@@ -228,15 +240,15 @@ index 7ee984fb..4eb4afca 100644
  	}
 diff --git a/src/vs/platform/agentHost/node/claude/claudeAlwaysRun.ts b/src/vs/platform/agentHost/node/claude/claudeAlwaysRun.ts
 new file mode 100644
-index 00000000..8749854f
+index 00000000..3003948f
 --- /dev/null
 +++ b/src/vs/platform/agentHost/node/claude/claudeAlwaysRun.ts
-@@ -0,0 +1,43 @@
+@@ -0,0 +1,64 @@
 +/*---------------------------------------------------------------------------------------------
 + *  Copyright (c) OmnIDE contributors. Licensed under the MIT License.
 + *--------------------------------------------------------------------------------------------*/
 +
-+import { mkdir, readFile, rename, unlink, writeFile } from 'fs/promises';
++import { chmod, mkdir, readFile, readlink, realpath, rename, stat, unlink, writeFile } from 'fs/promises';
 +import { dirname, resolve } from 'path';
 +
 +// No imports from this repo, so `node --test scripts/run-policy.test.ts` can load it directly.
@@ -246,9 +258,10 @@ index 00000000..8749854f
 +
 +/**
 + * Read-modify-write of one file. Writes to the same file run one at a time, so two quick calls keep both changes.
-+ * Only a missing file (ENOENT) reads as empty; any other read error rejects and leaves the file alone. The new text lands by rename from a temp file in the same directory, so a crash never leaves half a file.
++ * Only a missing file (ENOENT) reads as empty; any other read error rejects and leaves the file alone. The new text lands by rename from a temp file next to the real file (a symlink is followed, not replaced) with the original file mode, so a crash never leaves half a file.
 + */
 +export function updateJsonFile(file: string, update: (text: string | undefined) => string): Promise<void> {
++	// shortcut: the queue is keyed by the path given, so a symlink and its target written at once are not ordered; upgrade if both ever get used.
 +	const key = resolve(file);
 +	const run = (queues.get(key) ?? Promise.resolve()).then(() => replaceFile(file, update));
 +	const tail = run.catch(() => undefined);
@@ -257,26 +270,46 @@ index 00000000..8749854f
 +	return run;
 +}
 +
++const missing = (e: unknown) => e instanceof Error && 'code' in e && e.code === 'ENOENT';
++
++/** The file a symlink points at (even a dangling one), so the rename replaces the real file and leaves the link alone. */
++async function realTarget(file: string): Promise<string> {
++	try {
++		return await realpath(file);
++	} catch (e) {
++		if (!missing(e)) {
++			throw e;
++		}
++		const link = await readlink(file).catch(() => undefined);
++		return link === undefined ? file : resolve(dirname(file), link);
++	}
++}
++
 +async function replaceFile(file: string, update: (text: string | undefined) => string): Promise<void> {
-+	const text = await readFile(file, 'utf8').catch(e => {
-+		if (e instanceof Error && 'code' in e && e.code === 'ENOENT') {
++	const target = await realTarget(file);
++	const text = await readFile(target, 'utf8').catch(e => {
++		if (missing(e)) {
 +			return undefined;
 +		}
 +		throw e;
 +	});
 +	const next = update(text);
-+	await mkdir(dirname(file), { recursive: true });
-+	const temp = `${file}.${process.pid}.${tempCounter++}.tmp`;
++	const mode = text === undefined ? undefined : (await stat(target)).mode & 0o7777;
++	await mkdir(dirname(target), { recursive: true });
++	const temp = `${target}.${process.pid}.${tempCounter++}.tmp`;
 +	try {
-+		await writeFile(temp, next);
-+		await rename(temp, file);
++		await writeFile(temp, next, { mode: mode ?? 0o666 });
++		if (mode !== undefined) {
++			await chmod(temp, mode); // the umask would otherwise clear bits writeFile was given
++		}
++		await rename(temp, target);
 +	} catch (e) {
 +		await unlink(temp).catch(() => undefined);
 +		throw e;
 +	}
 +}
 diff --git a/src/vs/platform/agentHost/node/claude/claudeCanUseTool.ts b/src/vs/platform/agentHost/node/claude/claudeCanUseTool.ts
-index 761f2b3d..25d64766 100644
+index 761f2b3d..dc7694ea 100644
 --- a/src/vs/platform/agentHost/node/claude/claudeCanUseTool.ts
 +++ b/src/vs/platform/agentHost/node/claude/claudeCanUseTool.ts
 @@ -4,10 +4,10 @@
@@ -288,7 +321,7 @@ index 761f2b3d..25d64766 100644
  import { AgentPermissionKind, type IAgentChatOwnerRef } from '../../common/agent.js';
  import type { IAgentServerToolHost } from '../../common/agentServerTools.js';
 -import { alwaysRunRule, askRefusal } from '../../common/claudeRunPolicy.js';
-+import { alwaysRunRefusal, alwaysRunRule, askRefusal } from '../../common/claudeRunPolicy.js';
++import { ALWAYS_RUN_REFUSAL_META, alwaysRunRefusal, alwaysRunRule, askRefusal } from '../../common/claudeRunPolicy.js';
  import { runSkipAlwaysOptions } from '../../common/claudeRunPolicyConfig.js';
  import { ClaudePermissionMode, ClaudeSessionConfigKey } from '../../common/claudeSessionConfigKeys.js';
  import { ChatInputRequestPurpose, withChatInputRequestPurpose } from '../../common/meta/agentChatInputRequestMeta.js';
@@ -303,15 +336,15 @@ index 761f2b3d..25d64766 100644
  	const state: ToolCallPendingConfirmationState = {
  		status: ToolCallStatus.PendingConfirmation,
  		toolCallId: options.toolUseID,
-@@ -169,7 +170,7 @@ async function dispatchCanUseTool(
- 		displayName,
+@@ -170,7 +171,7 @@ async function dispatchCanUseTool(
  		invocationMessage: serverDisplay?.confirmationMessage ?? getClaudeInvocationMessage(toolName, displayName, input),
  		toolInput: toolInputString,
--		confirmationTitle: serverDisplay?.confirmationTitle ?? getClaudeConfirmationTitle(toolName),
-+		confirmationTitle: `${serverDisplay?.confirmationTitle ?? getClaudeConfirmationTitle(toolName)}${noAlways ? ` (no Always Run: ${noAlways})` : ''}`,
- 		...(meta ? { _meta: meta } : {}),
+ 		confirmationTitle: serverDisplay?.confirmationTitle ?? getClaudeConfirmationTitle(toolName),
+-		...(meta ? { _meta: meta } : {}),
++		...(meta || noAlways ? { _meta: { ...meta, ...(noAlways ? { [ALWAYS_RUN_REFUSAL_META]: noAlways } : {}) } } : {}),
  		options: runSkipAlwaysOptions(alwaysRun),
  	};
+ 
 diff --git a/src/vs/platform/agentHost/node/claude/claudeMapSessionEvents.ts b/src/vs/platform/agentHost/node/claude/claudeMapSessionEvents.ts
 index c1719782..a19039d2 100644
 --- a/src/vs/platform/agentHost/node/claude/claudeMapSessionEvents.ts
@@ -426,6 +459,35 @@ index 24b22096..a311b020 100644
  			}
  		});
  		picker.onDidHide(() => picker.dispose());
+diff --git a/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/stateToProgressAdapter.ts b/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/stateToProgressAdapter.ts
+index 8d0ee242..1adc410b 100644
+--- a/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/stateToProgressAdapter.ts
++++ b/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/stateToProgressAdapter.ts
+@@ -25,6 +25,7 @@ import { ChatInputRequestPurpose, readChatInputRequestPurpose } from '../../../.
+ import { getShellAuthenticationTitle, readShellAuthentication, type IShellAuthenticationPrompt } from '../../../../../../platform/agentHost/common/meta/agentShellAuthenticationMeta.js';
+ import { isComputerUseActivationAccepted, readComputerUseActivationCard, readComputerUseSetupCard } from '../../../../../../platform/agentHost/common/meta/computerUse.js';
+ import { getToolKind as getProtocolToolKind } from '../../../../../../platform/agentHost/common/state/sessionReducers.js';
++import { readAlwaysRunRefusal } from '../../../../../../platform/agentHost/common/claudeRunPolicy.js';
+ import { copilotCliToolInputContract, readToolCallMeta, readToolCallPresentation, readToolCallResponseMarkdown, type IAgentToolOutputChunk, type IToolCallHookDenialMeta } from '../../../../../../platform/agentHost/common/meta/agentToolCallMeta.js';
+ import { readImageGenerationToolMetadata } from '../../../../../../platform/agentHost/common/meta/agentImageGenerationMeta.js';
+ import { readAttachmentDetail } from '../../../../../../platform/agentHost/common/meta/attachmentMeta.js';
+@@ -3222,6 +3223,7 @@ export function toolCallConfirmationMessages(tc: ToolCallPendingConfirmationStat
+ 	}
+ 	const meta = readToolCallMeta(tc);
+ 	const assistedApprovalNotice = meta['vscode.assistedApprovalNotice'];
++	const alwaysRunRefusal = readAlwaysRunRefusal(tc._meta);
+ 	return {
+ 		title: isViewUnreviewedCommentsTool(tc.toolName)
+ 			? localize('agentFeedback.reviewTitle', "Reveal unreviewed comments?")
+@@ -3230,7 +3232,7 @@ export function toolCallConfirmationMessages(tc: ToolCallPendingConfirmationStat
+ 			? localize('agentFeedback.reviewMessage', "Choose which comments to reveal to the agent. Unchecked comments stay hidden.")
+ 			: stringOrMarkdownToString(presentation.invocationMessage, connectionAuthority),
+ 		approvalReason,
+-		...(assistedApprovalNotice ? { disclaimer: assistedApprovalNotice } : {}),
++		...(assistedApprovalNotice || alwaysRunRefusal ? { disclaimer: assistedApprovalNotice ?? localize('omnide.alwaysRun.refusal', "No Always Run: {0}", alwaysRunRefusal ?? '') } : {}),
+ 		...(tc.options ? { customOptions: tc.options } : {}),
+ 		...(meta['vscode.assistedApprovalFeedbackAccepted'] ? {
+ 			feedback: {
 diff --git a/src/vs/workbench/contrib/chat/browser/widget/chatContentParts/chatSystemNotificationContentPart.ts b/src/vs/workbench/contrib/chat/browser/widget/chatContentParts/chatSystemNotificationContentPart.ts
 index bca2a697..7d4ff3ba 100644
 --- a/src/vs/workbench/contrib/chat/browser/widget/chatContentParts/chatSystemNotificationContentPart.ts

@@ -86,8 +86,8 @@ index fdd2dd7d..0b259772 100644
  import { ILogService } from '../../../log/common/log.js';
  import { IAgentConfigurationService } from '../agentConfigurationService.js';
  import { ISyncedCustomization } from '../../common/agentPluginManager.js';
--import { askHookDecision, claudeCodeVersionOfSdk, EXTERNAL_FILES_MIN_VERSION, permissionRules, versionAtLeast } from '../../common/claudeRunPolicy.js';
-+import { allowSkipPermissions, askHookDecision, claudeCodeVersionOfSdk, clampMode, EXTERNAL_FILES_MIN_VERSION, permissionRules, versionAtLeast } from '../../common/claudeRunPolicy.js';
+-import { askHookDecision, claudeCodeVersionOfSdk, mergeRestrictionFirst, EXTERNAL_FILES_MIN_VERSION, permissionRules, versionAtLeast } from '../../common/claudeRunPolicy.js';
++import { allowSkipPermissions, askHookDecision, claudeCodeVersionOfSdk, clampMode, mergeRestrictionFirst, EXTERNAL_FILES_MIN_VERSION, permissionRules, versionAtLeast } from '../../common/claudeRunPolicy.js';
 +import { readAdminFlags } from './claudeManagedSettings.js';
  import { PINNED_CLAUDE_AGENT_SDK_VERSION, RunPolicyConfigKey } from '../../common/claudeRunPolicyConfig.js';
  import { ClaudePermissionMode, narrowClaudePermissionMode } from '../../common/claudeSessionConfigKeys.js';

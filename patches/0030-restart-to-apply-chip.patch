@@ -1,6 +1,53 @@
 Subject: Restart to apply chip on open chats replaces the Run Mode toast (issue 19)
 Original to OmnIDE.
 
+diff --git a/src/vs/platform/agentHost/common/runModeStale.ts b/src/vs/platform/agentHost/common/runModeStale.ts
+new file mode 100644
+index 00000000..443122c7
+--- /dev/null
++++ b/src/vs/platform/agentHost/common/runModeStale.ts
+@@ -0,0 +1,41 @@
++/*---------------------------------------------------------------------------------------------
++ *  Copyright (c) OmnIDE contributors. Licensed under the MIT License.
++ *--------------------------------------------------------------------------------------------*/
++
++// No imports from this repo, so `node --test scripts/run-policy.test.ts` can load it directly.
++
++/** The Run Mode a chat actually runs under: Run Everything before its warning was accepted, and any mode an administrator disabled, run as Allowlist. */
++export function effectiveRunMode(runMode: string, runEverythingAccepted: boolean, adminDisabled: readonly string[]): string {
++	const mode = runMode === 'runEverything' && !runEverythingAccepted ? 'allowlist' : runMode;
++	return adminDisabled.includes(mode) ? 'allowlist' : mode;
++}
++
++/** Which open chats still run under an older effective Run Mode than the one now in force. A change that is undone leaves no chat stale. */
++export class RunModeTracker<K extends object> {
++	private readonly _started = new WeakMap<K, string>();
++
++	private _current: string;
++
++	constructor(current: string) {
++		this._current = current;
++	}
++
++	/** A chat starts under the mode in force now. */
++	start(chat: K): void {
++		this._started.set(chat, this._current);
++	}
++
++	/** The effective mode changed. A chat nobody recorded started under the previous mode. */
++	change(next: string, openChats: Iterable<K>): void {
++		for (const chat of openChats) {
++			if (!this._started.has(chat)) {
++				this._started.set(chat, this._current);
++			}
++		}
++		this._current = next;
++	}
++
++	isStale(chat: K): boolean {
++		return (this._started.get(chat) ?? this._current) !== this._current;
++	}
++}
 diff --git a/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHost.contribution.ts b/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHost.contribution.ts
 index e62f2a51..5bd74b72 100644
 --- a/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHost.contribution.ts
@@ -15,10 +62,10 @@ index e62f2a51..5bd74b72 100644
  import { AgentHostSignedOutCompatibilityContribution } from './agentHostSignedOutCompatibilityContribution.js';
 diff --git a/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostRestartChip.ts b/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostRestartChip.ts
 new file mode 100644
-index 00000000..ce873595
+index 00000000..0c865bf9
 --- /dev/null
 +++ b/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostRestartChip.ts
-@@ -0,0 +1,74 @@
+@@ -0,0 +1,101 @@
 +/*---------------------------------------------------------------------------------------------
 + *  Copyright (c) OmnIDE contributors. Licensed under the MIT License.
 + *--------------------------------------------------------------------------------------------*/
@@ -29,16 +76,19 @@ index 00000000..ce873595
 +import { MenuEntryActionViewItem } from '../../../../../../platform/actions/browser/menuEntryActionViewItem.js';
 +import { Action2, MenuId, MenuItemAction, registerAction2 } from '../../../../../../platform/actions/common/actions.js';
 +import { RunPolicySettingId } from '../../../../../../platform/agentHost/common/claudeRunPolicyConfig.js';
++import { effectiveRunMode, RunModeTracker } from '../../../../../../platform/agentHost/common/runModeStale.js';
 +import { ICommandService } from '../../../../../../platform/commands/common/commands.js';
 +import { IConfigurationService } from '../../../../../../platform/configuration/common/configuration.js';
++import { Extensions, IConfigurationRegistry } from '../../../../../../platform/configuration/common/configurationRegistry.js';
 +import { ContextKeyExpr, IContextKeyService, RawContextKey } from '../../../../../../platform/contextkey/common/contextkey.js';
 +import { ServicesAccessor } from '../../../../../../platform/instantiation/common/instantiation.js';
++import { Registry } from '../../../../../../platform/registry/common/platform.js';
 +import { IWorkbenchContribution, registerWorkbenchContribution2, WorkbenchPhase } from '../../../../../common/contributions.js';
 +import { ChatContextKeyExprs } from '../../../common/actions/chatContextKeys.js';
 +import { ACTION_ID_NEW_CHAT } from '../../actions/chatActions.js';
-+import { IChatWidgetService } from '../../chat.js';
++import { IChatWidget, IChatWidgetService } from '../../chat.js';
 +
-+/** Set on every chat that was open when Run Mode changed: it still runs under the old mode. */
++/** Set on a chat that still runs under an older effective Run Mode than the one in force now. */
 +const RunModeStale = new RawContextKey<boolean>('omnideRunModeStale', false);
 +
 +const RESTART_ACTION_ID = 'omnide.agents.restartToApply';
@@ -67,7 +117,7 @@ index 00000000..ce873595
 +		super.updateLabel();
 +		if (this.label) {
 +			this.label.textContent = localize('omnide.runMode.restartChip', "Restart to apply");
-+			this.label.style.cssText = 'padding:0 8px;border-radius:10px;border:1px solid #F5B84B;background:rgba(245,184,75,.16);color:#F5B84B;';
++			this.label.style.cssText = 'padding:0 8px;border-radius:10px;border:1px solid var(--vscode-editorWarning-foreground);background:var(--vscode-inputValidation-warningBackground);color:var(--vscode-editorWarning-foreground);';
 +		}
 +	}
 +}
@@ -75,19 +125,43 @@ index 00000000..ce873595
 +export class AgentHostRestartChipContribution extends Disposable implements IWorkbenchContribution {
 +	static readonly ID = 'workbench.contrib.omnideRestartChip';
 +
++	private readonly _modes: RunModeTracker<IChatWidget>;
++
 +	constructor(
-+		@IConfigurationService config: IConfigurationService,
-+		@IChatWidgetService chatWidgets: IChatWidgetService,
++		@IConfigurationService private readonly _config: IConfigurationService,
++		@IChatWidgetService private readonly _chatWidgets: IChatWidgetService,
 +		@IActionViewItemService viewItems: IActionViewItemService,
 +	) {
 +		super();
++		this._modes = new RunModeTracker(this._effective());
 +		this._register(viewItems.register(MenuId.ChatInputSecondary, RESTART_ACTION_ID, (action, options, instantiation) =>
 +			action instanceof MenuItemAction ? instantiation.createInstance(RestartChipViewItem, action, options) : undefined));
-+		this._register(config.onDidChangeConfiguration(e => {
-+			if (e.affectsConfiguration(RunPolicySettingId.RunMode)) {
-+				for (const widget of chatWidgets.getAllWidgets()) {
-+					RunModeStale.bindTo(widget.scopedContextKeyService as IContextKeyService).set(true);
-+				}
++		this._register(_config.onDidChangeConfiguration(e => {
++			if (e.affectsConfiguration(RunPolicySettingId.RunMode) || e.affectsConfiguration(RunPolicySettingId.RunEverythingAccepted)) {
++				this._modes.change(this._effective(), this._chatWidgets.getAllWidgets());
++				this._chatWidgets.getAllWidgets().forEach(w => this._mark(w));
++			}
++		}));
++		this._chatWidgets.getAllWidgets().forEach(w => this._watch(w));
++		this._register(this._chatWidgets.onDidAddWidget(w => this._watch(w)));
++	}
++
++	private _effective(): string {
++		const disabled = Registry.as<IConfigurationRegistry>(Extensions.Configuration).getConfigurationProperties()[RunPolicySettingId.RunMode]?.enumDisabled ?? [];
++		return effectiveRunMode(String(this._config.getValue(RunPolicySettingId.RunMode)), this._config.getValue(RunPolicySettingId.RunEverythingAccepted) === true, disabled);
++	}
++
++	private _mark(widget: IChatWidget): void {
++		RunModeStale.bindTo(widget.scopedContextKeyService as IContextKeyService).set(this._modes.isStale(widget));
++	}
++
++	/** A new session in a widget starts under the mode in force now, so its chip goes away. */
++	private _watch(widget: IChatWidget): void {
++		this._modes.start(widget);
++		this._register(widget.onDidChangeViewModel(() => {
++			if (widget.viewModel?.model.getRequests().length === 0) {
++				this._modes.start(widget);
++				this._mark(widget);
 +			}
 +		}));
 +	}
