@@ -1,0 +1,133 @@
+Subject: Restart to apply chip on open chats replaces the Run Mode toast (issue 19)
+Original to OmnIDE.
+
+diff --git a/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHost.contribution.ts b/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHost.contribution.ts
+index e62f2a51..5bd74b72 100644
+--- a/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHost.contribution.ts
++++ b/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHost.contribution.ts
+@@ -18,6 +18,7 @@ import { IAgentHostByokLmHandler } from '../../../../../../platform/agentHost/co
+ import { InstantiationType, registerSingleton } from '../../../../../../platform/instantiation/common/extensions.js';
+ import './agentHostRecentlyBlocked.js';
+ import { AgentHostAdminDisabledContribution } from './agentHostAdminDisabled.js';
++import './agentHostRestartChip.js';
+ import { AgentHostRunEverythingDialogContribution } from './agentHostRunEverythingDialog.js';
+ import { registerWorkbenchContribution2, WorkbenchPhase } from '../../../../../common/contributions.js';
+ import { AgentHostSignedOutCompatibilityContribution } from './agentHostSignedOutCompatibilityContribution.js';
+diff --git a/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostRestartChip.ts b/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostRestartChip.ts
+new file mode 100644
+index 00000000..ce873595
+--- /dev/null
++++ b/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostRestartChip.ts
+@@ -0,0 +1,74 @@
++/*---------------------------------------------------------------------------------------------
++ *  Copyright (c) OmnIDE contributors. Licensed under the MIT License.
++ *--------------------------------------------------------------------------------------------*/
++
++import { Disposable } from '../../../../../../base/common/lifecycle.js';
++import { localize, localize2 } from '../../../../../../nls.js';
++import { IActionViewItemService } from '../../../../../../platform/actions/browser/actionViewItemService.js';
++import { MenuEntryActionViewItem } from '../../../../../../platform/actions/browser/menuEntryActionViewItem.js';
++import { Action2, MenuId, MenuItemAction, registerAction2 } from '../../../../../../platform/actions/common/actions.js';
++import { RunPolicySettingId } from '../../../../../../platform/agentHost/common/claudeRunPolicyConfig.js';
++import { ICommandService } from '../../../../../../platform/commands/common/commands.js';
++import { IConfigurationService } from '../../../../../../platform/configuration/common/configuration.js';
++import { ContextKeyExpr, IContextKeyService, RawContextKey } from '../../../../../../platform/contextkey/common/contextkey.js';
++import { ServicesAccessor } from '../../../../../../platform/instantiation/common/instantiation.js';
++import { IWorkbenchContribution, registerWorkbenchContribution2, WorkbenchPhase } from '../../../../../common/contributions.js';
++import { ChatContextKeyExprs } from '../../../common/actions/chatContextKeys.js';
++import { ACTION_ID_NEW_CHAT } from '../../actions/chatActions.js';
++import { IChatWidgetService } from '../../chat.js';
++
++/** Set on every chat that was open when Run Mode changed: it still runs under the old mode. */
++const RunModeStale = new RawContextKey<boolean>('omnideRunModeStale', false);
++
++const RESTART_ACTION_ID = 'omnide.agents.restartToApply';
++
++registerAction2(class extends Action2 {
++	constructor() {
++		super({
++			id: RESTART_ACTION_ID,
++			title: localize2('omnide.runMode.restartToApply', "Restart to apply"),
++			f1: false,
++			menu: [{
++				id: MenuId.ChatInputSecondary,
++				group: 'navigation',
++				order: 1.2,
++				when: ContextKeyExpr.and(ChatContextKeyExprs.isAgentHostSession, RunModeStale),
++			}],
++		});
++	}
++	run(accessor: ServicesAccessor): Promise<void> {
++		return accessor.get(ICommandService).executeCommand(ACTION_ID_NEW_CHAT);
++	}
++});
++
++class RestartChipViewItem extends MenuEntryActionViewItem {
++	protected override updateLabel(): void {
++		super.updateLabel();
++		if (this.label) {
++			this.label.textContent = localize('omnide.runMode.restartChip', "Restart to apply");
++			this.label.style.cssText = 'padding:0 8px;border-radius:10px;border:1px solid #F5B84B;background:rgba(245,184,75,.16);color:#F5B84B;';
++		}
++	}
++}
++
++export class AgentHostRestartChipContribution extends Disposable implements IWorkbenchContribution {
++	static readonly ID = 'workbench.contrib.omnideRestartChip';
++
++	constructor(
++		@IConfigurationService config: IConfigurationService,
++		@IChatWidgetService chatWidgets: IChatWidgetService,
++		@IActionViewItemService viewItems: IActionViewItemService,
++	) {
++		super();
++		this._register(viewItems.register(MenuId.ChatInputSecondary, RESTART_ACTION_ID, (action, options, instantiation) =>
++			action instanceof MenuItemAction ? instantiation.createInstance(RestartChipViewItem, action, options) : undefined));
++		this._register(config.onDidChangeConfiguration(e => {
++			if (e.affectsConfiguration(RunPolicySettingId.RunMode)) {
++				for (const widget of chatWidgets.getAllWidgets()) {
++					RunModeStale.bindTo(widget.scopedContextKeyService as IContextKeyService).set(true);
++				}
++			}
++		}));
++	}
++}
++registerWorkbenchContribution2(AgentHostRestartChipContribution.ID, AgentHostRestartChipContribution, WorkbenchPhase.AfterRestored);
+diff --git a/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostRunEverythingDialog.ts b/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostRunEverythingDialog.ts
+index dc3ec6c1..47a3353e 100644
+--- a/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostRunEverythingDialog.ts
++++ b/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostRunEverythingDialog.ts
+@@ -2,15 +2,11 @@
+  *  Copyright (c) OmnIDE contributors. Licensed under the MIT License.
+  *--------------------------------------------------------------------------------------------*/
+ 
+-import { Iterable } from '../../../../../../base/common/iterator.js';
+ import { Disposable } from '../../../../../../base/common/lifecycle.js';
+-import { localize } from '../../../../../../nls.js';
+ import { RunPolicySettingId } from '../../../../../../platform/agentHost/common/claudeRunPolicyConfig.js';
+ import { confirmRunEverything } from '../../../../../../platform/agentHost/common/runEverythingConfirm.js';
+ import { IConfigurationService } from '../../../../../../platform/configuration/common/configuration.js';
+ import { IDialogService } from '../../../../../../platform/dialogs/common/dialogs.js';
+-import { IChatService } from '../../../common/chatService/chatService.js';
+-import { INotificationService } from '../../../../../../platform/notification/common/notification.js';
+ import { IWorkbenchContribution } from '../../../../../common/contributions.js';
+ 
+ /**
+@@ -26,17 +22,12 @@ export class AgentHostRunEverythingDialogContribution extends Disposable impleme
+ 	constructor(
+ 		@IConfigurationService private readonly _config: IConfigurationService,
+ 		@IDialogService private readonly _dialogs: IDialogService,
+-		@INotificationService private readonly _notifications: INotificationService,
+-		@IChatService private readonly _chats: IChatService,
+ 	) {
+ 		super();
+ 		this._previous = this._config.getValue(RunPolicySettingId.RunMode);
+ 		this._register(this._config.onDidChangeConfiguration(e => {
+ 			if (e.affectsConfiguration(RunPolicySettingId.RunMode)) {
+ 				void this._check();
+-				if (Iterable.some(this._chats.chatModels.get(), () => true)) {
+-					this._notifications.info(localize('omnide.runMode.restart', "Run Mode changed. Chats that are already open keep their old mode until you start a new chat or restart them."));
+-				}
+ 			}
+ 		}));
+ 		void this._check();

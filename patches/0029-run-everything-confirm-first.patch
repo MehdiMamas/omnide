@@ -1,0 +1,136 @@
+Subject: Ask before Run Everything is written; Cancel keeps the previous Run Mode (issue 19)
+Original to OmnIDE.
+
+diff --git a/src/vs/platform/agentHost/common/runEverythingConfirm.ts b/src/vs/platform/agentHost/common/runEverythingConfirm.ts
+new file mode 100644
+index 00000000..a9a0c014
+--- /dev/null
++++ b/src/vs/platform/agentHost/common/runEverythingConfirm.ts
+@@ -0,0 +1,27 @@
++/*---------------------------------------------------------------------------------------------
++ *  Copyright (c) OmnIDE contributors. Licensed under the MIT License.
++ *--------------------------------------------------------------------------------------------*/
++
++import Severity from '../../../base/common/severity.js';
++import { localize } from '../../../nls.js';
++import { IConfigurationService } from '../../configuration/common/configuration.js';
++import { IDialogService } from '../../dialogs/common/dialogs.js';
++import { RunPolicySettingId } from './claudeRunPolicyConfig.js';
++
++/** Asks once before Run Mode becomes Run Everything. Returns whether it may be set; the answer is kept in `omnide.agents.runEverythingAccepted`. */
++export async function confirmRunEverything(dialogs: IDialogService, config: IConfigurationService): Promise<boolean> {
++	if (config.getValue(RunPolicySettingId.RunEverythingAccepted) === true) {
++		return true;
++	}
++	const { confirmed } = await dialogs.confirm({
++		type: Severity.Warning,
++		message: localize('omnide.runEverything.title', "Run Everything skips every approval"),
++		detail: localize('omnide.runEverything.detail', "Claude will run commands and edit files without asking. Deny and ask rules still apply, and File-Deletion Protection still asks before rm; Allowlist rules have no effect. Use it only in a sandbox or a project you trust.\n\nOmnIDE asks once. Your answer is kept in OmnIDE settings, not in Claude's."),
++		primaryButton: localize('omnide.runEverything.accept', "I accept the risk"),
++		cancelButton: localize('omnide.runEverything.cancel', "Cancel"),
++	});
++	if (confirmed) {
++		await config.updateValue(RunPolicySettingId.RunEverythingAccepted, true);
++	}
++	return confirmed;
++}
+diff --git a/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostRunEverythingDialog.ts b/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostRunEverythingDialog.ts
+index 0111bf36..dc3ec6c1 100644
+--- a/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostRunEverythingDialog.ts
++++ b/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostRunEverythingDialog.ts
+@@ -4,20 +4,24 @@
+ 
+ import { Iterable } from '../../../../../../base/common/iterator.js';
+ import { Disposable } from '../../../../../../base/common/lifecycle.js';
+-import Severity from '../../../../../../base/common/severity.js';
+ import { localize } from '../../../../../../nls.js';
+ import { RunPolicySettingId } from '../../../../../../platform/agentHost/common/claudeRunPolicyConfig.js';
++import { confirmRunEverything } from '../../../../../../platform/agentHost/common/runEverythingConfirm.js';
+ import { IConfigurationService } from '../../../../../../platform/configuration/common/configuration.js';
+ import { IDialogService } from '../../../../../../platform/dialogs/common/dialogs.js';
+ import { IChatService } from '../../../common/chatService/chatService.js';
+ import { INotificationService } from '../../../../../../platform/notification/common/notification.js';
+ import { IWorkbenchContribution } from '../../../../../common/contributions.js';
+ 
+-/** Asks once before Run Mode is set to Run Everything; Cancel puts Run Mode back to Auto-review. */
++/**
++ * The Settings editor asks before it writes Run Everything. This catches the other ways in (settings.json, a synced profile):
++ * the value is already written, so Cancel puts the previous Run Mode back.
++ */
+ export class AgentHostRunEverythingDialogContribution extends Disposable implements IWorkbenchContribution {
+ 	static readonly ID = 'workbench.contrib.omnideRunEverythingDialog';
+ 
+ 	private _asking = false;
++	private _previous: unknown;
+ 
+ 	constructor(
+ 		@IConfigurationService private readonly _config: IConfigurationService,
+@@ -26,6 +30,7 @@ export class AgentHostRunEverythingDialogContribution extends Disposable impleme
+ 		@IChatService private readonly _chats: IChatService,
+ 	) {
+ 		super();
++		this._previous = this._config.getValue(RunPolicySettingId.RunMode);
+ 		this._register(this._config.onDidChangeConfiguration(e => {
+ 			if (e.affectsConfiguration(RunPolicySettingId.RunMode)) {
+ 				void this._check();
+@@ -38,22 +43,17 @@ export class AgentHostRunEverythingDialogContribution extends Disposable impleme
+ 	}
+ 
+ 	private async _check(): Promise<void> {
+-		if (this._asking || this._config.getValue(RunPolicySettingId.RunMode) !== 'runEverything' || this._config.getValue(RunPolicySettingId.RunEverythingAccepted) === true) {
++		const mode = this._config.getValue(RunPolicySettingId.RunMode);
++		const previous = this._previous;
++		this._previous = mode;
++		if (this._asking || mode !== 'runEverything') {
+ 			return;
+ 		}
+ 		this._asking = true;
+ 		try {
+-			const { confirmed } = await this._dialogs.confirm({
+-				type: Severity.Warning,
+-				message: localize('omnide.runEverything.title', "Run Everything?"),
+-				detail: localize('omnide.runEverything.detail', "Claude will run every command and edit every file without asking, including deleting files and reaching outside this folder. Only turn this on for work you could safely lose."),
+-				primaryButton: localize('omnide.runEverything.accept', "Run Everything"),
+-				cancelButton: localize('omnide.runEverything.cancel', "Cancel"),
+-			});
+-			if (confirmed) {
+-				await this._config.updateValue(RunPolicySettingId.RunEverythingAccepted, true);
+-			} else {
+-				await this._config.updateValue(RunPolicySettingId.RunMode, 'autoReview');
++			if (!await confirmRunEverything(this._dialogs, this._config)) {
++				this._previous = previous;
++				await this._config.updateValue(RunPolicySettingId.RunMode, previous === 'runEverything' ? undefined : previous);
+ 			}
+ 		} finally {
+ 			this._asking = false;
+diff --git a/src/vs/workbench/contrib/preferences/browser/settingsEditor2.ts b/src/vs/workbench/contrib/preferences/browser/settingsEditor2.ts
+index 9698347e..16deecba 100644
+--- a/src/vs/workbench/contrib/preferences/browser/settingsEditor2.ts
++++ b/src/vs/workbench/contrib/preferences/browser/settingsEditor2.ts
+@@ -4,6 +4,9 @@
+  *--------------------------------------------------------------------------------------------*/
+ 
+ import * as DOM from '../../../../base/browser/dom.js';
++import { RunPolicySettingId } from '../../../../platform/agentHost/common/claudeRunPolicyConfig.js';
++import { confirmRunEverything } from '../../../../platform/agentHost/common/runEverythingConfirm.js';
++import { IDialogService } from '../../../../platform/dialogs/common/dialogs.js';
+ import { getFocusedContextView } from '../../../../base/browser/ui/contextview/contextview.js';
+ import { StandardKeyboardEvent } from '../../../../base/browser/keyboardEvent.js';
+ import { ActionBar } from '../../../../base/browser/ui/actionbar/actionbar.js';
+@@ -1323,7 +1326,15 @@ export class SettingsEditor2 extends EditorPane {
+ 		this.settingRenderers.cancelSuggesters();
+ 	}
+ 
+-	private updateChangedSetting(key: string, value: unknown, manualReset: boolean, languageFilter: string | undefined, scope: ConfigurationScope | undefined): Promise<void> {
++	private async updateChangedSetting(key: string, value: unknown, manualReset: boolean, languageFilter: string | undefined, scope: ConfigurationScope | undefined): Promise<void> {
++		if (key === RunPolicySettingId.RunMode && value === 'runEverything') {
++			const dialogs = this.instantiationService.invokeFunction(accessor => accessor.get(IDialogService));
++			if (!await confirmRunEverything(dialogs, this.configurationService)) {
++				this.pendingSettingUpdate = null;
++				this.renderTree(key, true);
++				return;
++			}
++		}
+ 		// ConfigurationService displays the error if this fails.
+ 		// Force a render afterwards because onDidConfigurationUpdate doesn't fire if the update doesn't result in an effective setting value change.
+ 		const settingsTarget = this.settingsTargetsWidget.settingsTarget;

@@ -24,7 +24,8 @@ import {
 	versionAtLeast,
 	withAllowRule,
 } from "../vscode/src/vs/platform/agentHost/common/claudeRunPolicy.ts";
-import { classifyDenial } from "../vscode/src/vs/platform/agentHost/common/claudeBlockedNotice.ts";
+import { classifyDenial, readBlockedMeta, ruleInputOf } from "../vscode/src/vs/platform/agentHost/common/claudeBlockedNotice.ts";
+import { readFileSync } from "node:fs";
 
 const chat = fc.constantFrom(...CHAT_MODES);
 const run = fc.constantFrom(...RUN_MODES);
@@ -312,6 +313,32 @@ test("Run Everything sends no allow rules; Allowlist and Auto-review keep them",
 			if (mode === "acceptEdits" || mode === "auto") {
 				assert.deepEqual(permissionRules({ ...base, mode }).allow, [...new Set(allowlist.map((r) => r.trim()).filter((r) => r.length > 0))]);
 			}
+		}),
+	);
+});
+
+test("the SDK version the External files gate uses is the one OmnIDE pins", () => {
+	const pkg = JSON.parse(readFileSync(new URL("../vscode/package.json", import.meta.url), "utf8"));
+	const dep = (pkg.dependencies ?? {})["@anthropic-ai/claude-agent-sdk"] ?? (pkg.devDependencies ?? {})["@anthropic-ai/claude-agent-sdk"];
+	const source = readFileSync(new URL("../vscode/src/vs/platform/agentHost/common/claudeRunPolicyConfig.ts", import.meta.url), "utf8");
+	assert.equal(source.match(/PINNED_CLAUDE_AGENT_SDK_VERSION = '([^']+)'/)?.[1], dep);
+	const installed = new URL("../vscode/node_modules/@anthropic-ai/claude-agent-sdk/package.json", import.meta.url);
+	try {
+		assert.equal(claudeCodeVersionOfSdk(dep), JSON.parse(readFileSync(installed, "utf8")).claudeCodeVersion);
+	} catch (e) {
+		if ((e as NodeJS.ErrnoException).code !== "ENOENT") throw e;
+	}
+});
+
+test("a blocked call's input keeps only the strings a rule is made from, and survives the meta", () => {
+	fc.assert(
+		fc.property(fc.dictionary(fc.string(), fc.anything()), (input) => {
+			const kept = ruleInputOf(input);
+			for (const [k, v] of Object.entries(kept ?? {})) {
+				assert.ok(["command", "file_path", "notebook_path", "url"].includes(k));
+				assert.equal(v, input[k]);
+			}
+			assert.deepEqual(readBlockedMeta({ "omnide.blocked": { kind: "blocked", tool: "Bash", input: kept } })?.input, kept);
 		}),
 	);
 });
