@@ -7,6 +7,8 @@ import {
 	alwaysRunRule,
 	agentSdkMode,
 	ASK_REFUSED_TOOLS,
+	askHookDecision,
+	ASK_REFUSAL_MESSAGE,
 	askRefusal,
 	CHAT_MODES,
 	chatModeOf,
@@ -194,4 +196,30 @@ test("denials: classifier failure, pause at 3 in a row or 20 total, otherwise pl
 	assert.equal(c("classifier", "too risky", 1, 20), "paused");
 	assert.equal(c("classifier", "too risky", 2, 2), "blocked");
 	assert.equal(c("rule", "denied by rule", 3, 3), "blocked");
+});
+
+const editTool = fc.constantFrom("Edit", "Write", "MultiEdit", "NotebookEdit");
+const askTool = fc.oneof(fc.constant("Bash"), fc.string().map((t) => `mcp__${t}`));
+
+test("Ask hook denies every edit tool whatever the allow rules say", () => {
+	fc.assert(
+		fc.property(fc.array(fc.string()), editTool, (allowlist, tool) => {
+			permissionRules({ mode: "default", allowlist, protectFileDeletion: true, protectExternalFiles: true, externalFilesSupported: true });
+			assert.deepEqual(askHookDecision("default", tool), { permissionDecision: "deny", permissionDecisionReason: ASK_REFUSAL_MESSAGE });
+		}),
+	);
+});
+
+test("Ask hook returns ask for any Bash or MCP tool", () => {
+	fc.assert(fc.property(askTool, (tool) => assert.deepEqual(askHookDecision("default", tool), { permissionDecision: "ask" })));
+});
+
+test("a switch out of Ask restores normal behaviour: the hook says nothing", () => {
+	const modes = fc.constantFrom("default", "acceptEdits", "plan", "auto", "bypassPermissions" as const);
+	fc.assert(
+		fc.property(fc.array(modes, { minLength: 1 }), fc.oneof(editTool, askTool, fc.constant("Read")), (sequence, tool) => {
+			const last = sequence[sequence.length - 1];
+			assert.equal(askHookDecision(last, tool) === undefined, last !== "default" || tool === "Read");
+		}),
+	);
 });
