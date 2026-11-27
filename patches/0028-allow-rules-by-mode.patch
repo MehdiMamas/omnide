@@ -1,0 +1,43 @@
+Subject: Allow rules apply in Allowlist and Auto-review, none are sent in Run Everything (issue 19)
+Original to OmnIDE.
+
+diff --git a/src/vs/platform/agentHost/common/agentHostSchema.ts b/src/vs/platform/agentHost/common/agentHostSchema.ts
+index fd63835f..92a4de52 100644
+--- a/src/vs/platform/agentHost/common/agentHostSchema.ts
++++ b/src/vs/platform/agentHost/common/agentHostSchema.ts
+@@ -913,7 +913,7 @@ export const platformRootSchema = createSchema({
+ 	[RunPolicyConfigKey.Allowlist]: schemaProperty<readonly string[]>({
+ 		type: 'array',
+ 		title: localize('agentHost.config.allowlist.title', "Allowlist"),
+-		description: localize('agentHost.config.allowlist.description', "Permission rules that run without asking in Allowlist mode."),
++		description: localize('agentHost.config.allowlist.description', "Permission rules that run without asking in Allowlist and Auto-review (Auto-review keeps only the narrow ones), not in Run Everything."),
+ 		items: { type: 'string', title: localize('agentHost.config.allowlist.rule', "Permission rule") },
+ 		default: [],
+ 	}),
+diff --git a/src/vs/platform/agentHost/common/agentHostStarter.config.contribution.ts b/src/vs/platform/agentHost/common/agentHostStarter.config.contribution.ts
+index 506e86a7..91b955b6 100644
+--- a/src/vs/platform/agentHost/common/agentHostStarter.config.contribution.ts
++++ b/src/vs/platform/agentHost/common/agentHostStarter.config.contribution.ts
+@@ -178,7 +178,7 @@ configurationRegistry.registerConfiguration({
+ 		[RunPolicySettingId.Allowlist]: {
+ 			type: 'array',
+ 			items: { type: 'string' },
+-			description: nls.localize('omnide.agents.allowlist', "Permission rules that run without asking in Allowlist mode, for example Bash(npm test) or WebFetch(domain:example.com)."),
++			description: nls.localize('omnide.agents.allowlist', "Permission rules that run without asking in Allowlist and Auto-review; Auto-review keeps only the narrow ones. They have no effect in Run Everything. For example Bash(npm test) or WebFetch(domain:example.com)."),
+ 			default: [],
+ 			scope: ConfigurationScope.APPLICATION,
+ 			agentHost: { key: RunPolicyConfigKey.Allowlist },
+diff --git a/src/vs/platform/agentHost/common/claudeRunPolicy.ts b/src/vs/platform/agentHost/common/claudeRunPolicy.ts
+index 06d1c7e8..7a32a1fe 100644
+--- a/src/vs/platform/agentHost/common/claudeRunPolicy.ts
++++ b/src/vs/platform/agentHost/common/claudeRunPolicy.ts
+@@ -113,7 +113,8 @@ export interface IPermissionRules {
+ 
+ export function permissionRules(i: IRulesInput): IPermissionRules {
+ 	// An allow rule would skip the call-time refusal, so Ask drops those for the edit tools.
+-	const allow = [...new Set(i.allowlist.map(r => r.trim()).filter(r => r.length > 0 && !(i.mode === 'default' && ASK_REFUSED_TOOLS.some(t => r === t || r.startsWith(`${t}(`)))))];
++	// Run Everything sends no allow rules: they have no effect there. Auto-review keeps them; Claude Code drops the broad ones itself.
++	const allow = i.mode === 'bypassPermissions' ? [] : [...new Set(i.allowlist.map(r => r.trim()).filter(r => r.length > 0 && !(i.mode === 'default' && ASK_REFUSED_TOOLS.some(t => r === t || r.startsWith(`${t}(`)))))];
+ 	return {
+ 		allow,
+ 		ask: i.protectFileDeletion ? [...FILE_DELETION_ASK_RULES] : [],

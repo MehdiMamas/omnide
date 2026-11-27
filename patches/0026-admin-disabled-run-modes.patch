@@ -1,0 +1,233 @@
+Subject: Admin-disabled Auto-review and bypass: read managed settings, fall back to Allowlist, never start with allowDangerouslySkipPermissions (issue 19)
+Original to OmnIDE.
+
+diff --git a/src/vs/platform/agentHost/common/claudeBlockedNotice.ts b/src/vs/platform/agentHost/common/claudeBlockedNotice.ts
+index 8dc6891e..a028f496 100644
+--- a/src/vs/platform/agentHost/common/claudeBlockedNotice.ts
++++ b/src/vs/platform/agentHost/common/claudeBlockedNotice.ts
+@@ -40,7 +40,7 @@ export function classifyDenial(d: IDenial, consecutive: number, total: number):
+ 	return { kind: 'blocked', text: `Blocked ${d.tool}${by ? ` by ${by}` : ''}: ${d.text}` };
+ }
+ 
+-export const AUTO_UNAVAILABLE_TEXT = 'Auto-review is not available here (your organization disabled it, or the plan or model does not support it). Using Run on edits instead.';
++export const AUTO_UNAVAILABLE_TEXT = "Auto-review isn't available here, so Allowlist is on";
+ 
+ export function readBlockedMeta(meta: Record<string, unknown> | undefined): IBlockedMeta | undefined {
+ 	const v = meta?.[BLOCKED_META_KEY];
+diff --git a/src/vs/platform/agentHost/common/claudeRunPolicy.ts b/src/vs/platform/agentHost/common/claudeRunPolicy.ts
+index 6b133f57..06d1c7e8 100644
+--- a/src/vs/platform/agentHost/common/claudeRunPolicy.ts
++++ b/src/vs/platform/agentHost/common/claudeRunPolicy.ts
+@@ -40,6 +40,36 @@ export function agentSdkMode(s: IRunPolicyState): SdkPermissionMode {
+ 	}
+ }
+ 
++/** Run Everything may start a session with `allowDangerouslySkipPermissions` only after its warning, and never when an admin disabled bypass. */
++export function allowSkipPermissions(s: IRunPolicyState): boolean {
++	return s.runMode === 'runEverything' && s.runEverythingAccepted && !s.bypassDisabled;
++}
++
++export interface IAdminFlags {
++	readonly autoDisabled: boolean;
++	readonly bypassDisabled: boolean;
++}
++
++/** Locks across managed sources: either one setting `disableAutoMode` or `permissions.disableBypassPermissionsMode` to "disable" turns the mode off. */
++export function adminFlagsOf(documents: readonly unknown[]): IAdminFlags {
++	const objects = documents.filter((d): d is Record<string, unknown> => typeof d === 'object' && d !== null && !Array.isArray(d));
++	const permissions = (d: Record<string, unknown>) => typeof d.permissions === 'object' && d.permissions !== null ? d.permissions as Record<string, unknown> : {};
++	return {
++		autoDisabled: objects.some(d => d.disableAutoMode === 'disable'),
++		bypassDisabled: objects.some(d => permissions(d).disableBypassPermissionsMode === 'disable'),
++	};
++}
++
++/** Directory of the file-based managed settings (code.claude.com/docs/en/managed-settings). `override` is for tests. */
++export function managedSettingsDir(platform: 'darwin' | 'win32' | 'linux', override?: string): string {
++	return override ?? (platform === 'darwin' ? '/Library/Application Support/ClaudeCode' : platform === 'win32' ? 'C:\\Program Files\\ClaudeCode' : '/etc/claude-code');
++}
++
++/** A mode an admin disabled becomes `acceptEdits` (Allowlist), so a chat never starts or switches into it. */
++export function clampMode<M extends string>(mode: M, f: IAdminFlags): M | 'acceptEdits' {
++	return (mode === 'auto' && f.autoDisabled) || (mode === 'bypassPermissions' && f.bypassDisabled) ? 'acceptEdits' : mode;
++}
++
+ export function sdkModeFor(chat: ChatMode, s: IRunPolicyState): SdkPermissionMode {
+ 	return chat === 'plan' ? 'plan' : chat === 'ask' ? 'default' : agentSdkMode(s);
+ }
+diff --git a/src/vs/platform/agentHost/node/claude/claudeAgent.ts b/src/vs/platform/agentHost/node/claude/claudeAgent.ts
+index d70f51fe..7ee984fb 100644
+--- a/src/vs/platform/agentHost/node/claude/claudeAgent.ts
++++ b/src/vs/platform/agentHost/node/claude/claudeAgent.ts
+@@ -30,6 +30,7 @@ import { AgentHostAutoApprovePolicyRestrictedConfigKey, createSchema, platformRo
+ import { ClaudePermissionMode, ClaudeSessionConfigKey, narrowClaudePermissionMode } from '../../common/claudeSessionConfigKeys.js';
+ import { agentSdkMode, type IRunPolicyState, sdkModeFor } from '../../common/claudeRunPolicy.js';
+ import { RunPolicyConfigKey } from '../../common/claudeRunPolicyConfig.js';
++import { readAdminFlags } from './claudeManagedSettings.js';
+ import { createClaudeThinkingLevelSchema, isClaudeEffortLevel } from '../../common/claudeModelConfig.js';
+ import { SessionConfigKey } from '../../common/sessionConfigKeys.js';
+ import { AgentChatMigrationDeferred, type AgentChatMigrationResult, AgentProvider, AgentSession, resolveSessionBackedStorage, type IAgentChatOwnerRef, AgentSignal, CLAUDE_AGENT_PROVIDER_ID, IActiveClient, IAgent, IAgentListedChat, IAgentChatContext, IAgentChatDataChange, IAgentChatMetadata, type IAgentChatMetadataOptions, IAgentChats, IAgentChatConfigCompletionsParams, IAgentCreateChatOptions, IAgentCreateChatResult, IAgentDescriptor, IAgentDiscoveredChat, IAgentMaterializeChatEvent, IAgentModelInfo, IAgentResolveChatConfigParams, IAgentSessionProjectInfo, IAgentSpawnChatEvent, IAgentSpawnedChatParent, SubagentChatSignal, resolveAgentChatContext, resolveAgentHostCustomizations, resolveAgentHostInstructions, resolveSubagentChatParent } from '../../common/agent.js';
+@@ -2280,8 +2281,8 @@ export class ClaudeAgent extends Disposable implements IAgent {
+ 		return {
+ 			runMode: root(RunPolicyConfigKey.RunMode) ?? 'autoReview',
+ 			runEverythingAccepted: root(RunPolicyConfigKey.RunEverythingAccepted) === true,
+-			autoAvailable: true,
+-			bypassDisabled: false,
++			autoAvailable: !readAdminFlags().autoDisabled,
++			bypassDisabled: readAdminFlags().bypassDisabled,
+ 		};
+ 	}
+ 
+diff --git a/src/vs/platform/agentHost/node/claude/claudeAgentSession.ts b/src/vs/platform/agentHost/node/claude/claudeAgentSession.ts
+index fdd2dd7d..0b259772 100644
+--- a/src/vs/platform/agentHost/node/claude/claudeAgentSession.ts
++++ b/src/vs/platform/agentHost/node/claude/claudeAgentSession.ts
+@@ -17,7 +17,8 @@ import { IInstantiationService } from '../../../instantiation/common/instantiati
+ import { ILogService } from '../../../log/common/log.js';
+ import { IAgentConfigurationService } from '../agentConfigurationService.js';
+ import { ISyncedCustomization } from '../../common/agentPluginManager.js';
+-import { askHookDecision, claudeCodeVersionOfSdk, EXTERNAL_FILES_MIN_VERSION, permissionRules, versionAtLeast } from '../../common/claudeRunPolicy.js';
++import { allowSkipPermissions, askHookDecision, claudeCodeVersionOfSdk, clampMode, EXTERNAL_FILES_MIN_VERSION, permissionRules, versionAtLeast } from '../../common/claudeRunPolicy.js';
++import { readAdminFlags } from './claudeManagedSettings.js';
+ import { PINNED_CLAUDE_AGENT_SDK_VERSION, RunPolicyConfigKey } from '../../common/claudeRunPolicyConfig.js';
+ import { ClaudePermissionMode, narrowClaudePermissionMode } from '../../common/claudeSessionConfigKeys.js';
+ import { ClaudeRuntimeEffortLevel, toRuntimeEffortLevel, resolveClaudeEffort } from '../../common/claudeModelConfig.js';
+@@ -125,7 +126,7 @@ function resolveCurrentPermissionMode(
+ 	inheritedPermissionMode: ClaudePermissionMode | undefined,
+ 	permissionModeFallback: ClaudePermissionMode,
+ ): ClaudePermissionMode {
+-	return readClaudePermissionMode(configurationService, resource, chat) ?? inheritedPermissionMode ?? permissionModeFallback;
++	return clampMode(readClaudePermissionMode(configurationService, resource, chat) ?? inheritedPermissionMode ?? permissionModeFallback, readAdminFlags());
+ }
+ 
+ function isGitHubMcpServerDefinition(definition: IMcpServerDefinition, gitHubMcpServerConfiguration: IMcpServerConfiguration): boolean {
+@@ -700,6 +701,9 @@ export class ClaudeAgentSession extends Disposable implements IRematerializer {
+ 				this.toolDiff.model,
+ 			));
+ 			pipeline.permissionRulesFor = mode => this._permissionRulesFor(mode);
++			if (permissionMode === 'acceptEdits' && readAdminFlags().autoDisabled && (this._configurationService.getRootValue(platformRootSchema, RunPolicyConfigKey.RunMode) ?? 'autoReview') === 'autoReview') {
++				pipeline.announceAutoUnavailable();
++			}
+ 		} catch (err) {
+ 			dbRef.dispose();
+ 			await warm[Symbol.asyncDispose]();
+@@ -772,8 +776,12 @@ export class ClaudeAgentSession extends Disposable implements IRematerializer {
+ 		const root = this._configurationService;
+ 		return {
+ 			permissionRules: this._permissionRulesFor(mode),
+-			allowDangerouslySkipPermissions: root.getRootValue(platformRootSchema, RunPolicyConfigKey.RunMode) === 'runEverything'
+-				&& root.getRootValue(platformRootSchema, RunPolicyConfigKey.RunEverythingAccepted) === true,
++			allowDangerouslySkipPermissions: allowSkipPermissions({
++				runMode: root.getRootValue(platformRootSchema, RunPolicyConfigKey.RunMode) ?? 'autoReview',
++				runEverythingAccepted: root.getRootValue(platformRootSchema, RunPolicyConfigKey.RunEverythingAccepted) === true,
++				autoAvailable: !readAdminFlags().autoDisabled,
++				bypassDisabled: readAdminFlags().bypassDisabled,
++			}),
+ 		};
+ 	}
+ 
+diff --git a/src/vs/platform/agentHost/node/claude/claudeManagedSettings.ts b/src/vs/platform/agentHost/node/claude/claudeManagedSettings.ts
+new file mode 100644
+index 00000000..34dfa67c
+--- /dev/null
++++ b/src/vs/platform/agentHost/node/claude/claudeManagedSettings.ts
+@@ -0,0 +1,68 @@
++/*---------------------------------------------------------------------------------------------
++ *  Copyright (c) OmnIDE contributors. Licensed under the MIT License.
++ *--------------------------------------------------------------------------------------------*/
++
++import { execFileSync } from 'child_process';
++import { readdirSync, readFileSync } from 'fs';
++import { join } from '../../../../base/common/path.js';
++import { adminFlagsOf, type IAdminFlags, managedSettingsDir } from '../../common/claudeRunPolicy.js';
++
++// Admin-managed Claude Code settings on this machine: the system-directory files, the macOS profile and the Windows HKLM value
++// (code.claude.com/docs/en/managed-settings). Server-managed settings are not readable from here; Claude Code still enforces them.
++
++const platform = process.platform === 'darwin' || process.platform === 'win32' ? process.platform : 'linux';
++
++function parse(text: string): unknown[] {
++	try {
++		return [JSON.parse(text)];
++	} catch {
++		return [];
++	}
++}
++
++function readFile(path: string): unknown[] {
++	try {
++		return parse(readFileSync(path, 'utf8'));
++	} catch {
++		return [];
++	}
++}
++
++function run(file: string, args: string[]): string {
++	try {
++		return execFileSync(file, args, { encoding: 'utf8', timeout: 3000, stdio: ['ignore', 'pipe', 'ignore'] });
++	} catch {
++		return '';
++	}
++}
++
++function readDocuments(): unknown[] {
++	const override = process.env.OMNIDE_MANAGED_SETTINGS_DIR;
++	const dir = managedSettingsDir(platform, override);
++	let drops: string[] = [];
++	try {
++		drops = readdirSync(join(dir, 'managed-settings.d')).filter(f => f.endsWith('.json')).sort();
++	} catch { /* no drop-in directory */ }
++	const docs = [...readFile(join(dir, 'managed-settings.json')), ...drops.flatMap(f => readFile(join(dir, 'managed-settings.d', f)))];
++	if (override) {
++		return docs;
++	}
++	if (platform === 'darwin') {
++		docs.push(...parse(run('plutil', ['-convert', 'json', '-o', '-', '/Library/Managed Preferences/com.anthropic.claudecode.plist'])));
++	} else if (platform === 'win32') {
++		const value = /^\s*Settings\s+REG_(?:EXPAND_)?SZ\s+(.*)$/m.exec(run('reg', ['query', 'HKLM\\SOFTWARE\\Policies\\ClaudeCode', '/v', 'Settings']));
++		docs.push(...(value ? parse(value[1].trim()) : []));
++	}
++	return docs;
++}
++
++let cached: { readonly at: number; readonly flags: IAdminFlags } | undefined;
++
++/** Read at most every 5 seconds: callers run on every chat start and mode change, and the plist and registry reads spawn a process. */
++export function readAdminFlags(): IAdminFlags {
++	const now = Date.now();
++	if (!cached || now - cached.at > 5000) {
++		cached = { at: now, flags: adminFlagsOf(readDocuments()) };
++	}
++	return cached.flags;
++}
+diff --git a/src/vs/platform/agentHost/node/claude/claudeSdkPipeline.ts b/src/vs/platform/agentHost/node/claude/claudeSdkPipeline.ts
+index 241ed9c6..c9c95f92 100644
+--- a/src/vs/platform/agentHost/node/claude/claudeSdkPipeline.ts
++++ b/src/vs/platform/agentHost/node/claude/claudeSdkPipeline.ts
+@@ -553,18 +553,23 @@ export class ClaudeSdkPipeline extends Disposable {
+ 
+ 	private _autoUnavailableNotice = false;
+ 
++	/** Shows the "Auto-review isn't available" line once, before the first reply. */
++	announceAutoUnavailable(): void {
++		this._autoUnavailableNotice = true;
++	}
++
+ 	/** Auto can be refused mid-session (plan, model or admin limits); fall back to acceptEdits so the chat keeps working. */
+ 	private async _setModeOrFallBack(mode: PermissionMode): Promise<void> {
+ 		let applied = mode;
+ 		try {
+ 			await this._query?.setPermissionMode(mode);
+ 		} catch (err) {
+-			if (mode !== 'auto') {
++			if (mode !== 'auto' && mode !== 'bypassPermissions') {
+ 				throw err;
+ 			}
+-			this._logService.warn(`[ClaudeSdkPipeline:${this.sessionId}] auto mode rejected, using acceptEdits: ${err}`);
++			this._logService.warn(`[ClaudeSdkPipeline:${this.sessionId}] ${mode} mode rejected, using acceptEdits: ${err}`);
+ 			applied = 'acceptEdits';
+-			this._autoUnavailableNotice = true;
++			this._autoUnavailableNotice = this._autoUnavailableNotice || mode === 'auto';
+ 			this._currentPermissionMode = applied;
+ 			await this._query?.setPermissionMode(applied);
+ 		}

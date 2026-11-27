@@ -1,0 +1,55 @@
+Subject: Settings editor: enum values can be greyed out with enumDisabled (issue 19)
+Original to OmnIDE.
+
+diff --git a/src/vs/platform/configuration/common/configurationRegistry.ts b/src/vs/platform/configuration/common/configurationRegistry.ts
+index 3dd2e4d8..65531405 100644
+--- a/src/vs/platform/configuration/common/configurationRegistry.ts
++++ b/src/vs/platform/configuration/common/configurationRegistry.ts
+@@ -270,6 +270,11 @@ export interface IConfigurationPropertySchema extends IJSONSchema {
+ 	 */
+ 	enumItemLabels?: string[];
+ 
++	/**
++	 * Enumeration values the Settings editor shows greyed out and cannot be picked.
++	 */
++	enumDisabled?: string[];
++
+ 	/**
+ 	 * Optional keywords used for search purposes.
+ 	 */
+diff --git a/src/vs/workbench/contrib/preferences/browser/settingsTree.ts b/src/vs/workbench/contrib/preferences/browser/settingsTree.ts
+index 3c8cd52a..ce579ecc 100644
+--- a/src/vs/workbench/contrib/preferences/browser/settingsTree.ts
++++ b/src/vs/workbench/contrib/preferences/browser/settingsTree.ts
+@@ -1960,6 +1960,7 @@ class SettingEnumRenderer extends AbstractSettingRenderer implements ITreeRender
+ 					descriptionMarkdownActionHandler: (content) => {
+ 						this._openerService.open(content).catch(onUnexpectedError);
+ 					},
++					isDisabled: dataElement.setting.enumDisabled?.includes(data),
+ 					decoratorRight: (((data === stringifiedDefaultValue) || (createdDefault && index === 0)) ? localize('settings.Default', "default") : '')
+ 				} satisfies ISelectOptionItem;
+ 			});
+diff --git a/src/vs/workbench/services/preferences/common/preferences.ts b/src/vs/workbench/services/preferences/common/preferences.ts
+index 94100cf7..3c7cd7ae 100644
+--- a/src/vs/workbench/services/preferences/common/preferences.ts
++++ b/src/vs/workbench/services/preferences/common/preferences.ts
+@@ -92,6 +92,7 @@ export interface ISetting {
+ 	extensionInfo?: IExtensionInfo;
+ 	validator?: (value: any) => string | null;
+ 	enumItemLabels?: string[];
++	enumDisabled?: string[];
+ 	editPresentation?: EditPresentationTypes;
+ 	nonLanguageSpecificDefaultValueSource?: ConfigurationDefaultValueSource;
+ 	isLanguageTagSetting?: boolean;
+diff --git a/src/vs/workbench/services/preferences/common/preferencesModels.ts b/src/vs/workbench/services/preferences/common/preferencesModels.ts
+index d7c81de2..c4e12c15 100644
+--- a/src/vs/workbench/services/preferences/common/preferencesModels.ts
++++ b/src/vs/workbench/services/preferences/common/preferencesModels.ts
+@@ -733,6 +733,7 @@ export class DefaultSettings extends Disposable {
+ 			enumDescriptions: enumDescriptions,
+ 			enumDescriptionsAreMarkdown: enumDescriptionsAreMarkdown,
+ 			enumItemLabels: prop.enumItemLabels,
++			enumDisabled: prop.enumDisabled,
+ 			uniqueItems: prop.uniqueItems,
+ 			tags: prop.tags,
+ 			disallowSyncIgnore: prop.disallowSyncIgnore,

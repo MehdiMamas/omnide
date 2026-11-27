@@ -4,8 +4,12 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import fc from "fast-check";
 import {
+	adminFlagsOf,
 	alwaysRunRule,
 	agentSdkMode,
+	allowSkipPermissions,
+	clampMode,
+	managedSettingsDir,
 	ASK_REFUSED_TOOLS,
 	askHookDecision,
 	ASK_REFUSAL_MESSAGE,
@@ -128,6 +132,10 @@ test("allow rules are the trimmed, de-duplicated, non-empty allowlist", () => {
 	fc.assert(
 		fc.property(rulesInput, (i) => {
 			const allow = permissionRules(i).allow;
+			if (i.mode === "bypassPermissions") {
+				assert.deepEqual(allow, []);
+				return;
+			}
 			assert.equal(new Set(allow).size, allow.length);
 			assert.ok(allow.every((r) => r.length > 0 && r === r.trim()));
 			for (const r of i.allowlist) {
@@ -220,6 +228,90 @@ test("a switch out of Ask restores normal behaviour: the hook says nothing", () 
 		fc.property(fc.array(modes, { minLength: 1 }), fc.oneof(editTool, askTool, fc.constant("Read")), (sequence, tool) => {
 			const last = sequence[sequence.length - 1];
 			assert.equal(askHookDecision(last, tool) === undefined, last !== "default" || tool === "Read");
+		}),
+	);
+});
+
+const flags = fc.record({ autoDisabled: fc.boolean(), bypassDisabled: fc.boolean() });
+const sdkMode = fc.constantFrom("default", "acceptEdits", "plan", "auto", "bypassPermissions" as const);
+const policy = (f: { autoDisabled: boolean; bypassDisabled: boolean }) =>
+	fc.record({ runMode: run, runEverythingAccepted: fc.boolean() }).map((r) => ({ ...r, autoAvailable: !f.autoDisabled, bypassDisabled: f.bypassDisabled }));
+
+test("with bypass disabled, no admin flags, Run Mode, chat mode or stored mode ever starts or switches into bypass or allowDangerouslySkipPermissions", () => {
+	fc.assert(
+		fc.property(
+			flags.filter((f) => f.bypassDisabled),
+			chat,
+			sdkMode,
+			fc.context(),
+			(f, c, stored) => {
+				fc.assert(
+					fc.property(policy(f), (s) => {
+						assert.equal(allowSkipPermissions(s), false);
+						assert.notEqual(sdkModeFor(c, s), "bypassPermissions");
+						assert.notEqual(clampMode(stored, f), "bypassPermissions");
+					}),
+				);
+			},
+		),
+	);
+});
+
+test("with auto disabled, Agent with Auto-review is acceptEdits and no mode is auto", () => {
+	fc.assert(
+		fc.property(
+			flags.filter((f) => f.autoDisabled),
+			chat,
+			sdkMode,
+			fc.boolean(),
+			fc.boolean(),
+			(f, c, stored, accepted, bypassDisabled) => {
+				const s = { runMode: "autoReview" as const, runEverythingAccepted: accepted, autoAvailable: false, bypassDisabled };
+				assert.equal(sdkModeFor("agent", s), "acceptEdits");
+				assert.notEqual(sdkModeFor(c, s), "auto");
+				assert.notEqual(clampMode(stored, f), "auto");
+			},
+		),
+	);
+});
+
+test("clampMode changes only a disabled mode and leaves every other mode alone", () => {
+	fc.assert(
+		fc.property(flags, sdkMode, (f, m) => {
+			const out = clampMode(m, f);
+			const disabled = (m === "auto" && f.autoDisabled) || (m === "bypassPermissions" && f.bypassDisabled);
+			assert.equal(out, disabled ? "acceptEdits" : m);
+		}),
+	);
+});
+
+test("adminFlagsOf: any managed document with the lock turns the mode off; junk and other values are ignored", () => {
+	assert.deepEqual(adminFlagsOf([]), { autoDisabled: false, bypassDisabled: false });
+	assert.deepEqual(adminFlagsOf([{ disableAutoMode: "disable" }, { permissions: { disableBypassPermissionsMode: "disable" } }]), { autoDisabled: true, bypassDisabled: true });
+	fc.assert(
+		fc.property(fc.array(fc.anything()), (docs) => {
+			const f = adminFlagsOf([...docs, { disableAutoMode: "enable", permissions: { disableBypassPermissionsMode: true } }]);
+			const base = adminFlagsOf(docs);
+			assert.deepEqual(f, base);
+		}),
+	);
+});
+
+test("managedSettingsDir: documented system paths, override wins", () => {
+	assert.equal(managedSettingsDir("darwin"), "/Library/Application Support/ClaudeCode");
+	assert.equal(managedSettingsDir("linux"), "/etc/claude-code");
+	assert.equal(managedSettingsDir("win32"), "C:\\Program Files\\ClaudeCode");
+	assert.equal(managedSettingsDir("linux", "/tmp/x"), "/tmp/x");
+});
+
+test("Run Everything sends no allow rules; Allowlist and Auto-review keep them", () => {
+	fc.assert(
+		fc.property(fc.array(fc.string({ minLength: 1 })), fc.constantFrom("default", "acceptEdits", "plan", "auto"), (allowlist, mode) => {
+			const base = { allowlist, protectFileDeletion: true, protectExternalFiles: false, externalFilesSupported: false };
+			assert.deepEqual(permissionRules({ ...base, mode: "bypassPermissions" }).allow, []);
+			if (mode === "acceptEdits" || mode === "auto") {
+				assert.deepEqual(permissionRules({ ...base, mode }).allow, [...new Set(allowlist.map((r) => r.trim()).filter((r) => r.length > 0))]);
+			}
 		}),
 	);
 });
