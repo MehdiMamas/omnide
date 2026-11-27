@@ -86,7 +86,7 @@ index 6024d343..cfb48357 100644
 +		this._appliedPermissionMode = applied;
 +	}
 +
- 	/** Rules for a mode (Ask adds deny rules). `applyFlagSettings` replaces `permissions`, so the whole object is sent. */
+ 	/** Rules for a mode. `applyFlagSettings` replaces `permissions`, so the whole object is sent. */
  	permissionRulesFor: ((mode: PermissionMode) => IPermissionRules) | undefined;
  
 @@ -617,9 +633,7 @@ export class ClaudeSdkPipeline extends Disposable {

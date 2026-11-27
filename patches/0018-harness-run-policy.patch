@@ -139,7 +139,7 @@ index 829fa131..6024d343 100644
  		}
  	}
  
-+	/** Rules for a mode (Ask adds deny rules). `applyFlagSettings` replaces `permissions`, so the whole object is sent. */
++	/** Rules for a mode. `applyFlagSettings` replaces `permissions`, so the whole object is sent. */
 +	permissionRulesFor: ((mode: PermissionMode) => IPermissionRules) | undefined;
 +
 +	private async _applyPermissionRules(mode: PermissionMode): Promise<void> {

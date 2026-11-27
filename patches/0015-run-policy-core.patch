@@ -6,7 +6,7 @@ new file mode 100644
 index 00000000..988d1564
 --- /dev/null
 +++ b/src/vs/platform/agentHost/common/claudeRunPolicy.ts
-@@ -0,0 +1,145 @@
+@@ -0,0 +1,150 @@
 +/*---------------------------------------------------------------------------------------------
 + *  Copyright (c) OmnIDE contributors. Licensed under the MIT License.
 + *--------------------------------------------------------------------------------------------*/
@@ -58,7 +58,13 @@ index 00000000..988d1564
 +	return mode === 'plan' ? 'plan' : mode === 'default' ? 'ask' : 'agent';
 +}
 +
-+export const ASK_DENY_RULES: readonly string[] = ['Edit', 'Write', 'NotebookEdit'];
++/** Tools Ask refuses at call time. Never deny rules: Claude Code drops a denied tool at start and never brings it back. */
++export const ASK_REFUSED_TOOLS: readonly string[] = ['Edit', 'Write', 'NotebookEdit'];
++export const ASK_REFUSAL_MESSAGE = 'Edit refused. Ask mode has no edit access. Switch to Agent to edit.';
++
++export function askRefusal(mode: SdkPermissionMode, toolName: string): string | undefined {
++	return mode === 'default' && ASK_REFUSED_TOOLS.includes(toolName) ? ASK_REFUSAL_MESSAGE : undefined;
++}
 +export const FILE_DELETION_ASK_RULES: readonly string[] = ['Bash(rm *)', 'Bash(rmdir *)', 'Bash(git rm *)'];
 +
 +export interface IRulesInput {
@@ -71,16 +77,15 @@ index 00000000..988d1564
 +
 +export interface IPermissionRules {
 +	readonly allow: string[];
-+	readonly deny: string[];
 +	readonly ask: string[];
 +	readonly blockWritesOutsideWorkingDirectories?: true;
 +}
 +
 +export function permissionRules(i: IRulesInput): IPermissionRules {
-+	const allow = [...new Set(i.allowlist.map(r => r.trim()).filter(r => r.length > 0))];
++	// An allow rule would skip the call-time refusal, so Ask drops those for the edit tools.
++	const allow = [...new Set(i.allowlist.map(r => r.trim()).filter(r => r.length > 0 && !(i.mode === 'default' && ASK_REFUSED_TOOLS.some(t => r === t || r.startsWith(`${t}(`)))))];
 +	return {
 +		allow,
-+		deny: i.mode === 'default' ? [...ASK_DENY_RULES] : [],
 +		ask: i.protectFileDeletion ? [...FILE_DELETION_ASK_RULES] : [],
 +		...(i.protectExternalFiles && i.externalFilesSupported ? { blockWritesOutsideWorkingDirectories: true as const } : {}),
 +	};

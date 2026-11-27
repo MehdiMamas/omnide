@@ -6,7 +6,8 @@ import fc from "fast-check";
 import {
 	alwaysRunRule,
 	agentSdkMode,
-	ASK_DENY_RULES,
+	ASK_REFUSED_TOOLS,
+	askRefusal,
 	CHAT_MODES,
 	chatModeOf,
 	claudeCodeVersionOfSdk,
@@ -78,11 +79,35 @@ const rulesInput = fc.record({
 	externalFilesSupported: fc.boolean(),
 });
 
-test("Edit, Write and NotebookEdit are denied exactly in Ask (default) and never allow-listed away", () => {
+test("Ask refuses Edit, Write and NotebookEdit at call time, in no other mode, and never through deny rules", () => {
+	const tools = fc.constantFrom("Edit", "Write", "NotebookEdit", "Bash", "Read");
 	fc.assert(
-		fc.property(rulesInput, (i) => {
+		fc.property(rulesInput, tools, (i, tool) => {
 			const r = permissionRules(i);
-			assert.deepEqual(r.deny, i.mode === "default" ? [...ASK_DENY_RULES] : []);
+			assert.equal("deny" in r, false);
+			assert.equal(askRefusal(i.mode, tool) !== undefined, i.mode === "default" && ASK_REFUSED_TOOLS.includes(tool));
+			if (i.mode === "default") {
+				assert.equal(r.allow.some((a) => ASK_REFUSED_TOOLS.some((t) => a === t || a.startsWith(`${t}(`))), false);
+			}
+		}),
+	);
+});
+
+test("any sequence of mode switches ends with the last mode's rules and refusal, nothing of Ask left behind", () => {
+	const modes = fc.constantFrom("default", "acceptEdits", "plan", "auto", "bypassPermissions" as const);
+	fc.assert(
+		fc.property(rulesInput, fc.array(modes, { minLength: 1 }), (base, sequence) => {
+			// The live session holds one rules object, replaced whole on a change; the refusal reads the mode of the moment.
+			let held = permissionRules({ ...base, mode: sequence[0] });
+			let applied = sequence[0];
+			for (const mode of sequence) {
+				if (mode !== applied) {
+					held = permissionRules({ ...base, mode });
+					applied = mode;
+				}
+				assert.deepEqual(held, permissionRules({ ...base, mode }));
+				assert.equal(askRefusal(mode, "Edit") !== undefined, mode === "default");
+			}
 		}),
 	);
 });
