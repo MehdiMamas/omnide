@@ -127,7 +127,7 @@ index 9627f045..3b180839 100644
 +		});
 +	}
 +	override run(accessor: ServicesAccessor): void {
-+		accessor.get(IChatWidgetService).lastFocusedWidget?.input.cycleClaudeChatMode(false);
++		accessor.get(IChatWidgetService).lastFocusedWidget?.input.cycleClaudeChatMode();
 +	}
 +}
 +
@@ -159,13 +159,13 @@ index d25bcfbb..ab970d33 100644
  	}
  
 +	/** Moves the chat to its next mode: Agent, Plan, Ask. Each chat keeps its own. */
-+	async cycleChatMode(backwards: boolean): Promise<void> {
++	async cycleChatMode(): Promise<void> {
 +		const context = this._readContext(ClaudeSessionConfigKey.PermissionMode);
 +		const current = narrowClaudePermissionMode(context?.value);
 +		if (!context || !current || !Array.isArray(context.schema.enum)) {
 +			return;
 +		}
-+		const next = nextChatMode(chatModeOf(current), backwards);
++		const next = nextChatMode(chatModeOf(current));
 +		const target = context.schema.enum.find(value => {
 +			const mode = narrowClaudePermissionMode(value);
 +			return mode !== undefined && chatModeOf(mode) === next;
@@ -195,12 +195,12 @@ index 79b1b0e0..d518279d 100644
  	}
  
 +	/** Shift+Tab: moves a Claude chat to its next mode (Agent, Plan, Ask). Returns false when there is no such picker. */
-+	public cycleClaudeChatMode(backwards: boolean): boolean {
++	public cycleClaudeChatMode(): boolean {
 +		const picker = this.agentHostPickers.get(ClaudeSessionConfigKey.PermissionMode);
 +		if (!picker?.triggerElement?.isConnected) {
 +			return false;
 +		}
-+		void picker.cycleChatMode(backwards).catch(onUnexpectedError);
++		void picker.cycleChatMode().catch(onUnexpectedError);
 +		return true;
 +	}
 +

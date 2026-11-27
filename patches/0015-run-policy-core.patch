@@ -25,9 +25,9 @@ index 00000000..988d1564
 +export const EXTERNAL_FILES_MIN_VERSION = '2.1.314';
 +
 +/** Shift+Tab: Agent, Plan, Ask, then Agent again. Run Everything and Auto are not stops. */
-+export function nextChatMode(mode: ChatMode, backwards = false): ChatMode {
++export function nextChatMode(mode: ChatMode): ChatMode {
 +	const i = CHAT_MODES.indexOf(mode);
-+	return CHAT_MODES[(i + (backwards ? CHAT_MODES.length - 1 : 1)) % CHAT_MODES.length];
++	return CHAT_MODES[(i + 1) % CHAT_MODES.length];
 +}
 +
 +export interface IRunPolicyState {

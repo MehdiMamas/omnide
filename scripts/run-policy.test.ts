@@ -5,6 +5,7 @@ import { test } from "node:test";
 import fc from "fast-check";
 import {
 	adminFlagsOf,
+	alwaysRunRefusal,
 	alwaysRunRule,
 	agentSdkMode,
 	allowSkipPermissions,
@@ -26,16 +27,16 @@ import {
 } from "../vscode/src/vs/platform/agentHost/common/claudeRunPolicy.ts";
 import { classifyDenial, readBlockedMeta, ruleInputOf } from "../vscode/src/vs/platform/agentHost/common/claudeBlockedNotice.ts";
 import { readFileSync } from "node:fs";
+import path from "node:path";
 
 const chat = fc.constantFrom(...CHAT_MODES);
 const run = fc.constantFrom(...RUN_MODES);
 const state = fc.record({ runMode: run, runEverythingAccepted: fc.boolean(), autoAvailable: fc.boolean(), bypassDisabled: fc.boolean() });
 
-test("Shift+Tab visits Agent, Plan, Ask and returns after three presses; back undoes forward", () => {
+test("Shift+Tab visits Agent, Plan, Ask and returns after three presses", () => {
 	fc.assert(
 		fc.property(chat, (m) => {
 			assert.equal(nextChatMode(nextChatMode(nextChatMode(m))), m);
-			assert.equal(nextChatMode(nextChatMode(m), true), m);
 			assert.notEqual(nextChatMode(m), m);
 		}),
 	);
@@ -148,19 +149,55 @@ test("allow rules are the trimmed, de-duplicated, non-empty allowlist", () => {
 	);
 });
 
+const posix = path.posix;
+const win = path.win32;
+
 test("Always Run writes a narrow rule: never a bare Bash, and only the approved command", () => {
 	fc.assert(
 		fc.property(fc.string({ minLength: 1 }), (command) => {
-			const rule = alwaysRunRule("Bash", { command }, "/w");
-			assert.ok(rule?.startsWith("Bash(") && rule.endsWith(")") && rule !== "Bash" && rule !== "Bash(*)");
-			// every metacharacter of the command is escaped, so the rule cannot widen
-			assert.ok(!/(^|[^\\])\*/.test(rule.slice(5, -1).replace(/\\\\/g, "")));
+			const rule = alwaysRunRule("Bash", { command }, "/w", posix);
+			if (command.includes("*")) {
+				// the grammar has no literal *, so no rule is written and the card says why
+				assert.equal(rule, undefined);
+				assert.ok(alwaysRunRefusal("Bash", { command }));
+			} else {
+				assert.equal(rule, `Bash(${command})`);
+				assert.equal(alwaysRunRefusal("Bash", { command }), undefined);
+			}
 		}),
 	);
-	assert.equal(alwaysRunRule("Bash", {}, "/w"), undefined);
-	assert.equal(alwaysRunRule("Edit", { file_path: "/w/src/a.ts" }, "/w"), "Edit(/src/a.ts)");
-	assert.equal(alwaysRunRule("WebFetch", { url: "https://example.com/x?y" }, "/w"), "WebFetch(domain:example.com)");
-	assert.equal(alwaysRunRule("Task", {}, "/w"), undefined);
+	assert.equal(alwaysRunRule("Bash", {}, "/w", posix), undefined);
+	assert.equal(alwaysRunRule("Edit", { file_path: "/w/src/a.ts" }, "/w", posix), "Edit(/src/a.ts)");
+	assert.equal(alwaysRunRule("Edit", { file_path: "/w/a*.ts" }, "/w", posix), "Edit(/a\\*.ts)");
+	assert.equal(alwaysRunRule("Edit", { file_path: "/tmp/x.txt" }, "/w", posix), "Edit(//tmp/x.txt)");
+	assert.equal(alwaysRunRule("WebFetch", { url: "https://example.com/x?y" }, "/w", posix), "WebFetch(domain:example.com)");
+	assert.equal(alwaysRunRule("Task", {}, "/w", posix), undefined);
+});
+
+// A gitignore-style reading of the rule path, enough to see whether it matches more than the one file: an unescaped * ? [ ] is a wildcard.
+const unescaped = (rule: string) => rule.replace(/\\./g, "");
+
+test("a glob path never widens the Edit/Write rule", () => {
+	fc.assert(
+		fc.property(fc.constantFrom("Edit", "Write", "NotebookEdit"), fc.string({ minLength: 1 }).filter((n) => !n.includes("/") && n !== "." && n !== ".."), (tool, name) => {
+			const file = `/w/dir/${name}`;
+			const rule = alwaysRunRule(tool, { file_path: file }, "/w", posix);
+			assert.ok(rule);
+			const body = rule.slice(tool.length + 1, -1);
+			assert.ok(!/[*?[\]]/.test(unescaped(body)), body);
+			// unescaping gives the file back (trailing spaces are escaped one by one)
+			assert.equal(body.replace(/\\(.)/g, "$1"), `/dir/${name}`);
+		}),
+	);
+	assert.equal(alwaysRunRule("Write", { file_path: "/w/[a]?.ts" }, "/w", posix), "Write(/\\[a\\]\\?.ts)");
+});
+
+test("Windows-style cwd: relative inside, drive-letter absolute outside, backslashes are separators", () => {
+	assert.equal(alwaysRunRule("Edit", { file_path: "C:\\w\\src\\a.ts" }, "C:\\w", win), "Edit(/src/a.ts)");
+	assert.equal(alwaysRunRule("Edit", { file_path: "C:\\w\\src\\a*.ts" }, "C:\\w", win), "Edit(/src/a\\*.ts)");
+	assert.equal(alwaysRunRule("Edit", { file_path: "C:\\w\\a.ts" }, "C:\\w\\", win), "Edit(/a.ts)");
+	assert.equal(alwaysRunRule("Write", { file_path: "D:\\x\\y.txt" }, "C:\\w", win), "Write(//d/x/y.txt)");
+	assert.equal(alwaysRunRule("Edit", { file_path: "C:\\wide\\a.ts" }, "C:\\w", win), "Edit(//c/wide/a.ts)");
 });
 
 test("withAllowRule adds once, keeps every other key, and refuses non-objects", () => {

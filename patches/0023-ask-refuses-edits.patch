@@ -1,3 +1,6 @@
+Subject: Ask refuses edits at call time in canUseTool (issue 19)
+Original to OmnIDE.
+
 diff --git a/src/vs/platform/agentHost/node/claude/claudeCanUseTool.ts b/src/vs/platform/agentHost/node/claude/claudeCanUseTool.ts
 index cad6565e..761f2b3d 100644
 --- a/src/vs/platform/agentHost/node/claude/claudeCanUseTool.ts

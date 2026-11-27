@@ -66,6 +66,69 @@ index 6ac7ee76..70c6da1b 100644
  	}
  	return undefined;
  }
+diff --git a/src/vs/platform/agentHost/common/claudeRunPolicy.ts b/src/vs/platform/agentHost/common/claudeRunPolicy.ts
+index 4111e178..e615ffea 100644
+--- a/src/vs/platform/agentHost/common/claudeRunPolicy.ts
++++ b/src/vs/platform/agentHost/common/claudeRunPolicy.ts
+@@ -142,27 +142,46 @@ export function versionAtLeast(version: string | undefined, min: string): boolea
+ 	return true;
+ }
+ 
+-/** A narrow allow rule for what the user just approved with Always Run. Never a bare `Bash`. */
+-export function alwaysRunRule(tool: string, input: Readonly<Record<string, unknown>>, cwd: string): string | undefined {
+-	const str = (k: string) => typeof input[k] === 'string' && (input[k] as string).length > 0 ? input[k] as string : undefined;
++export interface IPathApi {
++	readonly sep: string;
++	relative(from: string, to: string): string;
++}
++
++const str = (input: Readonly<Record<string, unknown>>, k: string) => typeof input[k] === 'string' && (input[k] as string).length > 0 ? input[k] as string : undefined;
++
++/** Why Always Run writes no rule for this call, or `undefined` when it can. Claude Code documents no way to write a literal `*` in a `Bash(...)` rule, so such a command would become a wider rule. */
++export function alwaysRunRefusal(tool: string, input: Readonly<Record<string, unknown>>): string | undefined {
++	return tool === 'Bash' && str(input, 'command')?.includes('*')
++		? 'Claude Code rules read * as a wildcard and have no way to write a literal one, so a rule for this command would match more than you approved'
++		: undefined;
++}
++
++/** Edit, Write and Notebook paths are gitignore patterns: escape `\`, `*`, `?`, `[`, `]` and trailing spaces so the rule matches only this file (https://code.claude.com/docs/en/permissions, "Special characters"). `//` anchors at the filesystem root, `/` at the working directory. */
++function editRulePath(file: string, cwd: string, api: IPathApi): string {
++	const win = api.sep === '\\';
++	const posix = (p: string) => win ? p.replace(/\\/g, '/') : p;
++	const rel = api.relative(cwd, file);
++	const inside = rel !== '' && !rel.startsWith('..') && !(win && /^([A-Za-z]:|\\\\)/.test(rel));
++	const anchored = inside ? `/${posix(rel)}` : `/${posix(file).replace(/^([A-Za-z]):/, (_, d: string) => `/${d.toLowerCase()}`)}`;
++	return anchored.replace(/[\\*?[\]]/g, c => `\\${c}`).replace(/ +$/, s => '\\ '.repeat(s.length));
++}
++
++/** A narrow allow rule for what the user just approved with Always Run. Never a bare `Bash`; `undefined` when no narrow rule can be written (see {@link alwaysRunRefusal}). */
++export function alwaysRunRule(tool: string, input: Readonly<Record<string, unknown>>, cwd: string, api: IPathApi): string | undefined {
+ 	switch (tool) {
+ 		case 'Bash': {
+-			const command = str('command');
+-			return command ? `Bash(${command.replace(/[\\()*]/g, c => `\\${c}`)})` : undefined;
++			const command = str(input, 'command');
++			return command && !alwaysRunRefusal(tool, input) ? `Bash(${command})` : undefined;
+ 		}
+ 		case 'Edit':
+ 		case 'MultiEdit':
+ 		case 'Write':
+ 		case 'NotebookEdit': {
+-			const path = str('file_path') ?? str('notebook_path');
+-			if (!path) {
+-				return undefined;
+-			}
+-			const root = cwd.endsWith('/') ? cwd : `${cwd}/`;
+-			return `${tool === 'MultiEdit' ? 'Edit' : tool}(${path.startsWith(root) ? `/${path.slice(root.length)}` : `/${path}`})`;
++			const file = str(input, 'file_path') ?? str(input, 'notebook_path');
++			return file ? `${tool === 'MultiEdit' ? 'Edit' : tool}(${editRulePath(file, cwd, api)})` : undefined;
+ 		}
+ 		case 'WebFetch': {
+-			const url = str('url');
++			const url = str(input, 'url');
+ 			try {
+ 				return url ? `WebFetch(domain:${new URL(url).hostname})` : undefined;
+ 			} catch {
 diff --git a/src/vs/platform/agentHost/electron-browser/localAgentHostService.ts b/src/vs/platform/agentHost/electron-browser/localAgentHostService.ts
 index 65b22612..46e00a06 100644
 --- a/src/vs/platform/agentHost/electron-browser/localAgentHostService.ts
@@ -120,15 +183,15 @@ index d4831381..7fbe0912 100644
  		const agent = this._providerService.getProvider(provider);
  		if (!agent?.manageHostSandboxCertificate) {
 diff --git a/src/vs/platform/agentHost/node/claude/claudeAgent.ts b/src/vs/platform/agentHost/node/claude/claudeAgent.ts
-index 7ee984fb..f5d94085 100644
+index 7ee984fb..4eb4afca 100644
 --- a/src/vs/platform/agentHost/node/claude/claudeAgent.ts
 +++ b/src/vs/platform/agentHost/node/claude/claudeAgent.ts
 @@ -7,6 +7,8 @@ import type { CCAModel } from '@vscode/copilot-api';
  import type { ModelInfo, OnElicitation, Options, SDKSessionInfo, SDKUserMessage } from '@anthropic-ai/claude-agent-sdk';
  import type { CallToolResult } from '@modelcontextprotocol/sdk/types.js';
  import * as fs from 'fs/promises';
-+import { join } from '../../../../base/common/path.js';
-+import { writeAlwaysRunRule as writeAlwaysRunRuleFile } from './claudeAlwaysRun.js';
++import { join, relative, sep } from '../../../../base/common/path.js';
++import { updateJsonFile } from './claudeAlwaysRun.js';
  import { Limiter, retry, SequencerByKey } from '../../../../base/common/async.js';
  import { CancellationToken } from '../../../../base/common/cancellation.js';
  import { CancellationError } from '../../../../base/common/errors.js';
@@ -137,22 +200,26 @@ index 7ee984fb..f5d94085 100644
  import { AgentHostAutoApprovePolicyRestrictedConfigKey, createSchema, platformRootSchema, platformSessionSchema, schemaProperty } from '../../common/agentHostSchema.js';
  import { ClaudePermissionMode, ClaudeSessionConfigKey, narrowClaudePermissionMode } from '../../common/claudeSessionConfigKeys.js';
 -import { agentSdkMode, type IRunPolicyState, sdkModeFor } from '../../common/claudeRunPolicy.js';
-+import { alwaysRunRule, agentSdkMode, type IRunPolicyState, sdkModeFor } from '../../common/claudeRunPolicy.js';
++import { alwaysRunRefusal, alwaysRunRule, agentSdkMode, withAllowRule, type IRunPolicyState, sdkModeFor } from '../../common/claudeRunPolicy.js';
  import { RunPolicyConfigKey } from '../../common/claudeRunPolicyConfig.js';
  import { readAdminFlags } from './claudeManagedSettings.js';
  import { createClaudeThinkingLevelSchema, isClaudeEffortLevel } from '../../common/claudeModelConfig.js';
-@@ -748,6 +750,17 @@ export class ClaudeAgent extends Disposable implements IAgent {
+@@ -748,6 +750,21 @@ export class ClaudeAgent extends Disposable implements IAgent {
  		};
  	}
  
 +	/** Always Run for a blocked call: the narrow rule goes into the chat's own working directory, never the user's settings. */
 +	async writeAlwaysRunRule(chat: URI, tool: string, input: Readonly<Record<string, string>>): Promise<string> {
 +		const cwd = this._findChatByUri(chat)?.workingDirectory?.fsPath;
-+		const rule = cwd ? alwaysRunRule(tool, input, cwd) : undefined;
++		const rule = cwd ? alwaysRunRule(tool, input, cwd, { relative, sep }) : undefined;
 +		if (!cwd || !rule) {
-+			throw new Error(`Always Run can't write a rule for ${tool}`);
++			throw new Error(alwaysRunRefusal(tool, input) ?? `Always Run can't write a rule for ${tool}`);
 +		}
-+		await writeAlwaysRunRuleFile(join(cwd, '.claude', 'settings.local.json'), rule);
++		const file = join(cwd, '.claude', 'settings.local.json');
++		await updateJsonFile(file, text => withAllowRule(text, rule)).catch(err => {
++			this._logService.warn(`[Claude] Could not write Always Run rule to ${file}: ${err}`);
++			throw err;
++		});
 +		return rule;
 +	}
 +
@@ -161,31 +228,90 @@ index 7ee984fb..f5d94085 100644
  	}
 diff --git a/src/vs/platform/agentHost/node/claude/claudeAlwaysRun.ts b/src/vs/platform/agentHost/node/claude/claudeAlwaysRun.ts
 new file mode 100644
-index 00000000..11df8dae
+index 00000000..8749854f
 --- /dev/null
 +++ b/src/vs/platform/agentHost/node/claude/claudeAlwaysRun.ts
-@@ -0,0 +1,21 @@
+@@ -0,0 +1,43 @@
 +/*---------------------------------------------------------------------------------------------
 + *  Copyright (c) OmnIDE contributors. Licensed under the MIT License.
 + *--------------------------------------------------------------------------------------------*/
 +
-+import { mkdir, readFile, rename, writeFile } from 'fs/promises';
-+import { dirname } from '../../../../base/common/path.js';
-+import { withAllowRule } from '../../common/claudeRunPolicy.js';
++import { mkdir, readFile, rename, unlink, writeFile } from 'fs/promises';
++import { dirname, resolve } from 'path';
 +
-+/** Adds an allow rule to a `.claude/settings.local.json`. A missing file is created; any other read error stops the write. The new text lands by rename, so a crash never leaves half a file. */
-+export async function writeAlwaysRunRule(file: string, rule: string): Promise<void> {
++// No imports from this repo, so `node --test scripts/run-policy.test.ts` can load it directly.
++
++const queues = new Map<string, Promise<void>>();
++let tempCounter = 0;
++
++/**
++ * Read-modify-write of one file. Writes to the same file run one at a time, so two quick calls keep both changes.
++ * Only a missing file (ENOENT) reads as empty; any other read error rejects and leaves the file alone. The new text lands by rename from a temp file in the same directory, so a crash never leaves half a file.
++ */
++export function updateJsonFile(file: string, update: (text: string | undefined) => string): Promise<void> {
++	const key = resolve(file);
++	const run = (queues.get(key) ?? Promise.resolve()).then(() => replaceFile(file, update));
++	const tail = run.catch(() => undefined);
++	queues.set(key, tail);
++	void tail.then(() => queues.get(key) === tail && queues.delete(key));
++	return run;
++}
++
++async function replaceFile(file: string, update: (text: string | undefined) => string): Promise<void> {
 +	const text = await readFile(file, 'utf8').catch(e => {
 +		if (e instanceof Error && 'code' in e && e.code === 'ENOENT') {
 +			return undefined;
 +		}
 +		throw e;
 +	});
++	const next = update(text);
 +	await mkdir(dirname(file), { recursive: true });
-+	const temp = `${file}.${process.pid}.tmp`;
-+	await writeFile(temp, withAllowRule(text, rule));
-+	await rename(temp, file);
++	const temp = `${file}.${process.pid}.${tempCounter++}.tmp`;
++	try {
++		await writeFile(temp, next);
++		await rename(temp, file);
++	} catch (e) {
++		await unlink(temp).catch(() => undefined);
++		throw e;
++	}
 +}
+diff --git a/src/vs/platform/agentHost/node/claude/claudeCanUseTool.ts b/src/vs/platform/agentHost/node/claude/claudeCanUseTool.ts
+index 761f2b3d..25d64766 100644
+--- a/src/vs/platform/agentHost/node/claude/claudeCanUseTool.ts
++++ b/src/vs/platform/agentHost/node/claude/claudeCanUseTool.ts
+@@ -4,10 +4,10 @@
+  *--------------------------------------------------------------------------------------------*/
+ 
+ import type { PermissionResult, PermissionUpdate } from '@anthropic-ai/claude-agent-sdk';
+-import { join } from '../../../../base/common/path.js';
++import { join, relative, sep } from '../../../../base/common/path.js';
+ import { AgentPermissionKind, type IAgentChatOwnerRef } from '../../common/agent.js';
+ import type { IAgentServerToolHost } from '../../common/agentServerTools.js';
+-import { alwaysRunRule, askRefusal } from '../../common/claudeRunPolicy.js';
++import { alwaysRunRefusal, alwaysRunRule, askRefusal } from '../../common/claudeRunPolicy.js';
+ import { runSkipAlwaysOptions } from '../../common/claudeRunPolicyConfig.js';
+ import { ClaudePermissionMode, ClaudeSessionConfigKey } from '../../common/claudeSessionConfigKeys.js';
+ import { ChatInputRequestPurpose, withChatInputRequestPurpose } from '../../common/meta/agentChatInputRequestMeta.js';
+@@ -160,8 +160,9 @@ async function dispatchCanUseTool(
+ 	const toolInputString = serverDisplay?.hideConfirmationInput ? undefined : getClaudeToolInputString(toolName, input);
+ 	const meta = buildClaudeToolMeta(toolName);
+ 	const cwd = session.workingDirectory?.fsPath;
+-	const rule = cwd ? alwaysRunRule(toolName, input, cwd) : undefined;
++	const rule = cwd ? alwaysRunRule(toolName, input, cwd, { relative, sep }) : undefined;
+ 	const alwaysRun = cwd && rule ? { file: join(cwd, '.claude', 'settings.local.json'), rule } : undefined;
++	const noAlways = alwaysRunRefusal(toolName, input);
+ 	const state: ToolCallPendingConfirmationState = {
+ 		status: ToolCallStatus.PendingConfirmation,
+ 		toolCallId: options.toolUseID,
+@@ -169,7 +170,7 @@ async function dispatchCanUseTool(
+ 		displayName,
+ 		invocationMessage: serverDisplay?.confirmationMessage ?? getClaudeInvocationMessage(toolName, displayName, input),
+ 		toolInput: toolInputString,
+-		confirmationTitle: serverDisplay?.confirmationTitle ?? getClaudeConfirmationTitle(toolName),
++		confirmationTitle: `${serverDisplay?.confirmationTitle ?? getClaudeConfirmationTitle(toolName)}${noAlways ? ` (no Always Run: ${noAlways})` : ''}`,
+ 		...(meta ? { _meta: meta } : {}),
+ 		options: runSkipAlwaysOptions(alwaysRun),
+ 	};
 diff --git a/src/vs/platform/agentHost/node/claude/claudeMapSessionEvents.ts b/src/vs/platform/agentHost/node/claude/claudeMapSessionEvents.ts
 index c1719782..a19039d2 100644
 --- a/src/vs/platform/agentHost/node/claude/claudeMapSessionEvents.ts
@@ -200,7 +326,7 @@ index c1719782..a19039d2 100644
  		},
  	};
 diff --git a/src/vs/platform/agentHost/node/sessionPermissions.ts b/src/vs/platform/agentHost/node/sessionPermissions.ts
-index 944f894a..5e8e8045 100644
+index 944f894a..649e3f2c 100644
 --- a/src/vs/platform/agentHost/node/sessionPermissions.ts
 +++ b/src/vs/platform/agentHost/node/sessionPermissions.ts
 @@ -4,7 +4,6 @@
@@ -211,16 +337,15 @@ index 944f894a..5e8e8045 100644
  import { homedir } from 'os';
  import { promisify } from 'util';
  import { firstParallel } from '../../../base/common/async.js';
-@@ -31,7 +30,7 @@ import { SessionConfigKey } from '../common/sessionConfigKeys.js';
+@@ -31,6 +30,7 @@ import { SessionConfigKey } from '../common/sessionConfigKeys.js';
  import type { SessionConfigSchema } from '../common/state/protocol/commands.js';
  import { getAvailableSessionApprovalValues, getEffectiveSessionApprovalValue, getSessionApprovalProperty, readSessionApprovalLevel } from '../common/sessionConfigProperties.js';
  import { isExactAbsolutePathRule, matchesPermissionRule, matchesShellCommandLine, matchesShellSubCommand, parsePermissionGrantOptionId, pathRule, permissionGrantOptionId, PermissionGrantScope, shellExactRule, shellPrefixRule, webFetchRule, type IPermissionRequest, type IPermissionRuleContext } from '../common/permissionRules.js';
--import { withAllowRule } from '../common/claudeRunPolicy.js';
-+import { writeAlwaysRunRule } from './claude/claudeAlwaysRun.js';
++import { updateJsonFile } from './claude/claudeAlwaysRun.js';
+ import { withAllowRule } from '../common/claudeRunPolicy.js';
  import { parseAlwaysRunOptionId } from '../common/claudeRunPolicyConfig.js';
  import { readToolCallMeta } from '../common/meta/agentToolCallMeta.js';
- import { ConfirmationOptionKind, type ConfirmationOption } from '../common/state/protocol/state.js';
-@@ -667,11 +666,7 @@ export class SessionPermissionManager extends Disposable {
+@@ -667,11 +667,7 @@ export class SessionPermissionManager extends Disposable {
  
  	/** Always Run: adds the narrow rule to the workspace `.claude/settings.local.json`, never to the user's own settings. */
  	private _writeAlwaysRunRule(file: string, rule: string): void {
@@ -229,7 +354,7 @@ index 944f894a..5e8e8045 100644
 -				await mkdir(path.dirname(file), { recursive: true });
 -				await writeFile(file, withAllowRule(text, rule));
 -			})
-+		writeAlwaysRunRule(file, rule)
++		updateJsonFile(file, text => withAllowRule(text, rule))
  			.catch(err => this._logService.warn(`[SessionPermissions] Could not write Always Run rule to ${file}: ${err}`));
  	}
  
