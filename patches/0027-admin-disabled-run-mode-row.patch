@@ -1,0 +1,95 @@
+Subject: Grey the Run Mode rows an administrator disabled, with the reason (issue 19)
+Original to OmnIDE.
+
+diff --git a/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHost.contribution.ts b/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHost.contribution.ts
+index 4b677156..e62f2a51 100644
+--- a/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHost.contribution.ts
++++ b/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHost.contribution.ts
+@@ -17,6 +17,7 @@
+ import { IAgentHostByokLmHandler } from '../../../../../../platform/agentHost/common/agentHostByokLm.js';
+ import { InstantiationType, registerSingleton } from '../../../../../../platform/instantiation/common/extensions.js';
+ import './agentHostRecentlyBlocked.js';
++import { AgentHostAdminDisabledContribution } from './agentHostAdminDisabled.js';
+ import { AgentHostRunEverythingDialogContribution } from './agentHostRunEverythingDialog.js';
+ import { registerWorkbenchContribution2, WorkbenchPhase } from '../../../../../common/contributions.js';
+ import { AgentHostSignedOutCompatibilityContribution } from './agentHostSignedOutCompatibilityContribution.js';
+@@ -36,6 +37,7 @@ import './agentHostManagedPluginRetry.js';
+ import './agentHostSettings.contribution.js';
+ import './agentSessionSettings.contribution.js';
+ 
++registerWorkbenchContribution2(AgentHostAdminDisabledContribution.ID, AgentHostAdminDisabledContribution, WorkbenchPhase.AfterRestored);
+ registerWorkbenchContribution2(AgentHostRunEverythingDialogContribution.ID, AgentHostRunEverythingDialogContribution, WorkbenchPhase.AfterRestored);
+ registerWorkbenchContribution2(AgentHostContribution.ID, AgentHostContribution, WorkbenchPhase.AfterRestored);
+ registerWorkbenchContribution2(AgentHostExistingSessionHarnessPickerEnablement.ID, AgentHostExistingSessionHarnessPickerEnablement, WorkbenchPhase.BlockRestore);
+diff --git a/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostAdminDisabled.ts b/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostAdminDisabled.ts
+new file mode 100644
+index 00000000..10d34389
+--- /dev/null
++++ b/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostAdminDisabled.ts
+@@ -0,0 +1,66 @@
++/*---------------------------------------------------------------------------------------------
++ *  Copyright (c) OmnIDE contributors. Licensed under the MIT License.
++ *--------------------------------------------------------------------------------------------*/
++
++import { Disposable } from '../../../../../../base/common/lifecycle.js';
++import { join } from '../../../../../../base/common/path.js';
++import { isMacintosh, isWindows } from '../../../../../../base/common/platform.js';
++import { env } from '../../../../../../base/common/process.js';
++import { URI } from '../../../../../../base/common/uri.js';
++import { localize } from '../../../../../../nls.js';
++import { adminFlagsOf, managedSettingsDir } from '../../../../../../platform/agentHost/common/claudeRunPolicy.js';
++import { RUN_MODE_VALUES, RunPolicySettingId } from '../../../../../../platform/agentHost/common/claudeRunPolicyConfig.js';
++import { Extensions, IConfigurationNode, IConfigurationRegistry } from '../../../../../../platform/configuration/common/configurationRegistry.js';
++import { IFileService } from '../../../../../../platform/files/common/files.js';
++import { Registry } from '../../../../../../platform/registry/common/platform.js';
++import { IWorkbenchContribution } from '../../../../../common/contributions.js';
++
++/** Greys the Run Mode rows an administrator disabled in Claude Code's managed settings files. MDM and registry policy are read by the agent host only. */
++export class AgentHostAdminDisabledContribution extends Disposable implements IWorkbenchContribution {
++	static readonly ID = 'workbench.contrib.omnideAdminDisabled';
++
++	constructor(@IFileService private readonly _files: IFileService) {
++		super();
++		void this._apply();
++	}
++
++	private async _readDocuments(): Promise<unknown[]> {
++		const dir = managedSettingsDir(isMacintosh ? 'darwin' : isWindows ? 'win32' : 'linux', env['OMNIDE_MANAGED_SETTINGS_DIR']);
++		const read = async (path: string): Promise<unknown[]> => {
++			try {
++				return [JSON.parse((await this._files.readFile(URI.file(path))).value.toString())];
++			} catch {
++				return [];
++			}
++		};
++		let drops: string[] = [];
++		try {
++			drops = ((await this._files.resolve(URI.file(join(dir, 'managed-settings.d')))).children ?? []).map(c => c.name).filter(n => n.endsWith('.json')).sort();
++		} catch { /* no drop-in directory */ }
++		return [...await read(join(dir, 'managed-settings.json')), ...(await Promise.all(drops.map(n => read(join(dir, 'managed-settings.d', n))))).flat()];
++	}
++
++	private async _apply(): Promise<void> {
++		const flags = adminFlagsOf(await this._readDocuments());
++		if (!flags.autoDisabled && !flags.bypassDisabled) {
++			return;
++		}
++		const registry = Registry.as<IConfigurationRegistry>(Extensions.Configuration);
++		const current = registry.getConfigurationProperties()[RunPolicySettingId.RunMode];
++		const disabledText = localize('omnide.agents.runMode.adminDisabled', "Disabled by your administrator");
++		const labels = [localize('omnide.agents.runMode.label.autoReview', "Auto-review"), localize('omnide.agents.runMode.label.allowlist', "Allowlist"), localize('omnide.agents.runMode.label.runEverything', "Run Everything")];
++		const disabled = RUN_MODE_VALUES.filter(v => (v === 'autoReview' && flags.autoDisabled) || (v === 'runEverything' && flags.bypassDisabled));
++		const node = (properties: IConfigurationNode['properties']): IConfigurationNode => ({ id: 'omnideAgents', order: 100, title: localize('omnide.agents.title', "Agents"), type: 'object', properties });
++		registry.updateConfigurations({
++			remove: [node({ [RunPolicySettingId.RunMode]: current })],
++			add: [node({
++				[RunPolicySettingId.RunMode]: {
++					...current,
++					enumItemLabels: RUN_MODE_VALUES.map((v, i) => disabled.includes(v) ? `${labels[i]} (${disabledText})` : labels[i]),
++					enumDisabled: [...disabled],
++					description: flags.autoDisabled ? `${current.description ?? ''} ${localize('omnide.agents.runMode.autoUnavailable', "Auto-review isn't available here, so Allowlist is on")}.`.trim() : current.description,
++				},
++			})],
++		});
++	}
++}

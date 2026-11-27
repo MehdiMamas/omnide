@@ -1,0 +1,128 @@
+Subject: Blocked-call notices, auto fallback, run-mode restart notice (issue 19)
+Original to OmnIDE.
+
+diff --git a/src/vs/platform/agentHost/common/agentHostStarter.config.contribution.ts b/src/vs/platform/agentHost/common/agentHostStarter.config.contribution.ts
+index c473c4b8..506e86a7 100644
+--- a/src/vs/platform/agentHost/common/agentHostStarter.config.contribution.ts
++++ b/src/vs/platform/agentHost/common/agentHostStarter.config.contribution.ts
+@@ -192,7 +192,7 @@ configurationRegistry.registerConfiguration({
+ 		},
+ 		[RunPolicySettingId.ProtectExternalFiles]: {
+ 			type: 'boolean',
+-			description: nls.localize('omnide.agents.protections.externalFiles', "External files protection: refuse writes outside the working folders. Needs Claude Code 2.1.314 or later."),
++			description: nls.localize('omnide.agents.protections.externalFiles', "External files protection: refuse writes outside the working folders. Needs Claude Code 2.1.314 or later; this build bundles 2.1.304, so it does not apply yet."),
+ 			default: true,
+ 			scope: ConfigurationScope.APPLICATION,
+ 			agentHost: { key: RunPolicyConfigKey.ProtectExternalFiles },
+diff --git a/src/vs/platform/agentHost/node/claude/claudeMapSessionEvents.ts b/src/vs/platform/agentHost/node/claude/claudeMapSessionEvents.ts
+index 671c0b34..7c7f76e4 100644
+--- a/src/vs/platform/agentHost/node/claude/claudeMapSessionEvents.ts
++++ b/src/vs/platform/agentHost/node/claude/claudeMapSessionEvents.ts
+@@ -292,12 +292,34 @@ export function mapSDKMessageToAgentSignals(
+ 		default:
+ 			// Phase 12 step 7 — system subtypes for subagent task discrimination.
+ 			if (message.type === 'system') {
++				if (message.subtype === 'permission_denied') {
++					return [blockedNotice(message, chat, turnId)];
++				}
+ 				return mapSubagentSystemMessage(message, chat, registry);
+ 			}
+ 			return [];
+ 	}
+ }
+ 
++/** A call the SDK refused without asking (auto-review, a deny rule, Ask mode), shown in the chat so the person can see what was blocked and why. */
++function blockedNotice(message: Extract<SDKMessage, { type: 'system'; subtype: 'permission_denied' }>, chat: URI, turnId: string): AgentSignal {
++	const by = message.decision_reason_type === 'classifier' ? 'Auto-review' : message.decision_reason_type === 'rule' ? 'a rule' : message.decision_reason_type === 'mode' ? 'the chat mode' : undefined;
++	const why = message.decision_reason ?? message.message;
++	return {
++		kind: 'action',
++		resource: chat,
++		action: {
++			type: ActionType.ChatResponsePart,
++			turnId,
++			part: {
++				kind: ResponsePartKind.SystemNotification,
++				content: `Blocked ${message.tool_name}${by ? ` by ${by}` : ''}: ${why}`,
++				_meta: { 'omnide.blocked': { tool: message.tool_name, reason: message.decision_reason_type } },
++			},
++		},
++	};
++}
++
+ /**
+  * Handle the canonical {@link SDKAssistantMessage} (`type: 'assistant'`).
+  *
+diff --git a/src/vs/platform/agentHost/node/claude/claudeSdkPipeline.ts b/src/vs/platform/agentHost/node/claude/claudeSdkPipeline.ts
+index 6024d343..cfb48357 100644
+--- a/src/vs/platform/agentHost/node/claude/claudeSdkPipeline.ts
++++ b/src/vs/platform/agentHost/node/claude/claudeSdkPipeline.ts
+@@ -545,12 +545,28 @@ export class ClaudeSdkPipeline extends Disposable {
+ 	async setPermissionMode(mode: PermissionMode): Promise<void> {
+ 		this._currentPermissionMode = mode;
+ 		if (this._query && !this._needsRebind && mode !== this._appliedPermissionMode) {
+-			await this._query.setPermissionMode(mode);
+-			await this._applyPermissionRules(mode);
+-			this._appliedPermissionMode = mode;
++			await this._setModeOrFallBack(mode);
+ 		}
+ 	}
+ 
++	/** Auto can be refused mid-session (plan, model or admin limits); fall back to acceptEdits so the chat keeps working. */
++	private async _setModeOrFallBack(mode: PermissionMode): Promise<void> {
++		let applied = mode;
++		try {
++			await this._query?.setPermissionMode(mode);
++		} catch (err) {
++			if (mode !== 'auto') {
++				throw err;
++			}
++			this._logService.warn(`[ClaudeSdkPipeline:${this.sessionId}] auto mode rejected, using acceptEdits: ${err}`);
++			applied = 'acceptEdits';
++			this._currentPermissionMode = applied;
++			await this._query?.setPermissionMode(applied);
++		}
++		await this._applyPermissionRules(applied);
++		this._appliedPermissionMode = applied;
++	}
++
+ 	/** Rules for a mode. `applyFlagSettings` replaces `permissions`, so the whole object is sent. */
+ 	permissionRulesFor: ((mode: PermissionMode) => IPermissionRules) | undefined;
+ 
+@@ -617,9 +633,7 @@ export class ClaudeSdkPipeline extends Disposable {
+ 				this._appliedEffort = this._currentEffort;
+ 			}
+ 			if (this._currentPermissionMode !== undefined && this._currentPermissionMode !== this._appliedPermissionMode) {
+-				await this._query?.setPermissionMode(this._currentPermissionMode);
+-				await this._applyPermissionRules(this._currentPermissionMode);
+-				this._appliedPermissionMode = this._currentPermissionMode;
++				await this._setModeOrFallBack(this._currentPermissionMode);
+ 			}
+ 		} catch (err) {
+ 			this._logService.warn(`[ClaudeSdkPipeline:${this.sessionId}] _replayCurrentConfig failed: ${err}`);
+diff --git a/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostRunEverythingDialog.ts b/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostRunEverythingDialog.ts
+index a3d444bb..86258ec9 100644
+--- a/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostRunEverythingDialog.ts
++++ b/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostRunEverythingDialog.ts
+@@ -8,6 +8,7 @@ import { localize } from '../../../../../../nls.js';
+ import { RunPolicySettingId } from '../../../../../../platform/agentHost/common/claudeRunPolicyConfig.js';
+ import { IConfigurationService } from '../../../../../../platform/configuration/common/configuration.js';
+ import { IDialogService } from '../../../../../../platform/dialogs/common/dialogs.js';
++import { INotificationService } from '../../../../../../platform/notification/common/notification.js';
+ import { IWorkbenchContribution } from '../../../../../common/contributions.js';
+ 
+ /** Asks once before Run Mode is set to Run Everything; Cancel puts Run Mode back to Auto-review. */
+@@ -19,11 +20,13 @@ export class AgentHostRunEverythingDialogContribution extends Disposable impleme
+ 	constructor(
+ 		@IConfigurationService private readonly _config: IConfigurationService,
+ 		@IDialogService private readonly _dialogs: IDialogService,
++		@INotificationService private readonly _notifications: INotificationService,
+ 	) {
+ 		super();
+ 		this._register(this._config.onDidChangeConfiguration(e => {
+ 			if (e.affectsConfiguration(RunPolicySettingId.RunMode)) {
+ 				void this._check();
++				this._notifications.info(localize('omnide.runMode.restart', "Run Mode changed. Chats that are already open keep their old mode until you start a new chat or restart them."));
+ 			}
+ 		}));
+ 		void this._check();

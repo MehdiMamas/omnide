@@ -1,0 +1,36 @@
+Subject: Ask refuses edits at call time in canUseTool (issue 19)
+Original to OmnIDE.
+
+diff --git a/src/vs/platform/agentHost/node/claude/claudeCanUseTool.ts b/src/vs/platform/agentHost/node/claude/claudeCanUseTool.ts
+index cad6565e..761f2b3d 100644
+--- a/src/vs/platform/agentHost/node/claude/claudeCanUseTool.ts
++++ b/src/vs/platform/agentHost/node/claude/claudeCanUseTool.ts
+@@ -7,7 +7,7 @@ import type { PermissionResult, PermissionUpdate } from '@anthropic-ai/claude-ag
+ import { join } from '../../../../base/common/path.js';
+ import { AgentPermissionKind, type IAgentChatOwnerRef } from '../../common/agent.js';
+ import type { IAgentServerToolHost } from '../../common/agentServerTools.js';
+-import { alwaysRunRule } from '../../common/claudeRunPolicy.js';
++import { alwaysRunRule, askRefusal } from '../../common/claudeRunPolicy.js';
+ import { runSkipAlwaysOptions } from '../../common/claudeRunPolicyConfig.js';
+ import { ClaudePermissionMode, ClaudeSessionConfigKey } from '../../common/claudeSessionConfigKeys.js';
+ import { ChatInputRequestPurpose, withChatInputRequestPurpose } from '../../common/meta/agentChatInputRequestMeta.js';
+@@ -18,7 +18,7 @@ import { ClaudeAgentSession } from './claudeAgentSession.js';
+ import { extractServerToolName } from './claudeServerToolMcpServer.js';
+ import { buildAskUserSessionInputQuestions, buildExitPlanModeConfirmationState, flattenAskUserAnswers, parseAskUserQuestionInput } from './claudeInteractiveTools.js';
+ import { CLAUDE_PLAN_DECLINED_MESSAGE, CLAUDE_QUESTION_CANCELLED_MESSAGE, CLAUDE_USER_DECLINED_MESSAGE } from './claudeToolDenial.js';
+-import { claudeConfigTarget } from './claudeSessionPermissionMode.js';
++import { claudeConfigTarget, readClaudePermissionMode } from './claudeSessionPermissionMode.js';
+ import { getClaudeConfirmationTitle, getClaudeInvocationMessage, getClaudePermissionKind, getClaudeToolDisplayName, getClaudeToolInputString, getClaudeToolPath, INTERACTIVE_CLAUDE_TOOLS, buildClaudeToolMeta } from './claudeToolDisplay.js';
+ 
+ /**
+@@ -124,6 +124,10 @@ async function dispatchCanUseTool(
+ 	input: Record<string, unknown>,
+ 	options: IClaudeCanUseToolOptions,
+ ): Promise<PermissionResult> {
++	const refusal = askRefusal(readClaudePermissionMode(deps.configurationService, deps.owner.get(), session.chatChannelUri) ?? session.permissionModeFallback, toolName);
++	if (refusal) {
++		return { behavior: 'deny', message: refusal };
++	}
+ 	// Interactive tools (`AskUserQuestion`, `ExitPlanMode`) are
+ 	// exempt from SDK `permissionMode` auto-approval, so they reach
+ 	// `canUseTool` even under `bypassPermissions`. Routing then

@@ -1,0 +1,296 @@
+Subject: Recently blocked list, separate classifier-error, paused and auto-unavailable notices, restart notice only with open chats (issue 19)
+Original to OmnIDE.
+
+diff --git a/src/vs/platform/agentHost/common/claudeBlockedNotice.ts b/src/vs/platform/agentHost/common/claudeBlockedNotice.ts
+new file mode 100644
+index 00000000..8dc6891e
+--- /dev/null
++++ b/src/vs/platform/agentHost/common/claudeBlockedNotice.ts
+@@ -0,0 +1,51 @@
++/*---------------------------------------------------------------------------------------------
++ *  Copyright (c) OmnIDE contributors. Licensed under the MIT License.
++ *--------------------------------------------------------------------------------------------*/
++
++// Wording and classification of calls Claude Code refused without asking. No imports, so tests and both sides of the agent host protocol can share it.
++
++export const BLOCKED_META_KEY = 'omnide.blocked';
++
++export type BlockedKind = 'blocked' | 'classifierError' | 'paused' | 'autoUnavailable';
++
++export interface IBlockedMeta {
++	readonly kind: BlockedKind;
++	readonly tool?: string;
++	readonly reason?: string;
++}
++
++/** Claude Code pauses auto mode after 3 blocks in a row or 20 in total (code.claude.com/docs/en/permission-modes). */
++export const AUTO_PAUSE_CONSECUTIVE = 3;
++export const AUTO_PAUSE_TOTAL = 20;
++
++export interface IDenial {
++	readonly tool: string;
++	readonly reasonType?: string;
++	readonly text: string;
++}
++
++/**
++ * Classifies one denial. The SDK has no structured event for classifier failures, so they are told apart by the documented message
++ * ("cannot determine the safety", "no safety verdict"); paused is counted here with the documented thresholds.
++ */
++export function classifyDenial(d: IDenial, consecutive: number, total: number): { readonly kind: BlockedKind; readonly text: string } {
++	const fromClassifier = d.reasonType === 'classifier';
++	if (fromClassifier && /cannot determine the safety|no safety verdict/i.test(d.text)) {
++		return { kind: 'classifierError', text: `Auto-review could not check ${d.tool}, so it was blocked. Try again, or switch Run Mode.` };
++	}
++	if (fromClassifier && (consecutive === AUTO_PAUSE_CONSECUTIVE || total === AUTO_PAUSE_TOTAL)) {
++		return { kind: 'paused', text: `Auto-review paused after repeated blocks (last: ${d.tool}). Claude will ask you before each call until you approve one.` };
++	}
++	const by = fromClassifier ? 'Auto-review' : d.reasonType === 'rule' ? 'a rule' : d.reasonType === 'mode' ? 'the chat mode' : undefined;
++	return { kind: 'blocked', text: `Blocked ${d.tool}${by ? ` by ${by}` : ''}: ${d.text}` };
++}
++
++export const AUTO_UNAVAILABLE_TEXT = 'Auto-review is not available here (your organization disabled it, or the plan or model does not support it). Using Run on edits instead.';
++
++export function readBlockedMeta(meta: Record<string, unknown> | undefined): IBlockedMeta | undefined {
++	const v = meta?.[BLOCKED_META_KEY];
++	if (typeof v === 'object' && v !== null && 'kind' in v && typeof v.kind === 'string') {
++		return { kind: v.kind as BlockedKind, tool: 'tool' in v && typeof v.tool === 'string' ? v.tool : undefined, reason: 'reason' in v && typeof v.reason === 'string' ? v.reason : undefined };
++	}
++	return undefined;
++}
+diff --git a/src/vs/platform/agentHost/node/claude/claudeMapSessionEvents.ts b/src/vs/platform/agentHost/node/claude/claudeMapSessionEvents.ts
+index 7c7f76e4..5e01b342 100644
+--- a/src/vs/platform/agentHost/node/claude/claudeMapSessionEvents.ts
++++ b/src/vs/platform/agentHost/node/claude/claudeMapSessionEvents.ts
+@@ -3,6 +3,7 @@
+  *  Licensed under the MIT License. See License.txt in the project root for license information.
+  *--------------------------------------------------------------------------------------------*/
+ 
++import { BLOCKED_META_KEY, classifyDenial } from '../../common/claudeBlockedNotice.js';
+ import type { SDKMessage } from '@anthropic-ai/claude-agent-sdk';
+ import type { URI } from '../../../../base/common/uri.js';
+ import { LogLevel, type ILogService } from '../../../log/common/log.js';
+@@ -274,6 +275,7 @@ export function mapSDKMessageToAgentSignals(
+ 				registry,
+ 			);
+ 		case 'result':
++			denialCounts.delete(state);
+ 			return mapResult(message, chat, turnId, turnDuration, state, logService, registry);
+ 		case 'assistant':
+ 			return tagWithParent(
+@@ -293,7 +295,7 @@ export function mapSDKMessageToAgentSignals(
+ 			// Phase 12 step 7 — system subtypes for subagent task discrimination.
+ 			if (message.type === 'system') {
+ 				if (message.subtype === 'permission_denied') {
+-					return [blockedNotice(message, chat, turnId)];
++					return [blockedNotice(message, chat, turnId, state)];
+ 				}
+ 				return mapSubagentSystemMessage(message, chat, registry);
+ 			}
+@@ -301,10 +303,16 @@ export function mapSDKMessageToAgentSignals(
+ 	}
+ }
+ 
+-/** A call the SDK refused without asking (auto-review, a deny rule, Ask mode), shown in the chat so the person can see what was blocked and why. */
+-function blockedNotice(message: Extract<SDKMessage, { type: 'system'; subtype: 'permission_denied' }>, chat: URI, turnId: string): AgentSignal {
+-	const by = message.decision_reason_type === 'classifier' ? 'Auto-review' : message.decision_reason_type === 'rule' ? 'a rule' : message.decision_reason_type === 'mode' ? 'the chat mode' : undefined;
+-	const why = message.decision_reason ?? message.message;
++const denialCounts = new WeakMap<ClaudeMapperState, { consecutive: number; total: number }>();
++
++/** A call the SDK refused without asking (auto-review, a deny rule, Ask mode), shown in the chat and listed under Recently blocked. */
++function blockedNotice(message: Extract<SDKMessage, { type: 'system'; subtype: 'permission_denied' }>, chat: URI, turnId: string, state: ClaudeMapperState): AgentSignal {
++	const counts = denialCounts.get(state) ?? { consecutive: 0, total: 0 };
++	denialCounts.set(state, counts);
++	const fromClassifier = message.decision_reason_type === 'classifier';
++	counts.consecutive = fromClassifier ? counts.consecutive + 1 : 0;
++	counts.total += fromClassifier ? 1 : 0;
++	const { kind, text } = classifyDenial({ tool: message.tool_name, reasonType: message.decision_reason_type, text: message.decision_reason ?? message.message }, counts.consecutive, counts.total);
+ 	return {
+ 		kind: 'action',
+ 		resource: chat,
+@@ -313,8 +321,8 @@ function blockedNotice(message: Extract<SDKMessage, { type: 'system'; subtype: '
+ 			turnId,
+ 			part: {
+ 				kind: ResponsePartKind.SystemNotification,
+-				content: `Blocked ${message.tool_name}${by ? ` by ${by}` : ''}: ${why}`,
+-				_meta: { 'omnide.blocked': { tool: message.tool_name, reason: message.decision_reason_type } },
++				content: text,
++				_meta: { [BLOCKED_META_KEY]: { kind, tool: message.tool_name, reason: message.decision_reason_type } },
+ 			},
+ 		},
+ 	};
+diff --git a/src/vs/platform/agentHost/node/claude/claudeSdkPipeline.ts b/src/vs/platform/agentHost/node/claude/claudeSdkPipeline.ts
+index cfb48357..ffe40792 100644
+--- a/src/vs/platform/agentHost/node/claude/claudeSdkPipeline.ts
++++ b/src/vs/platform/agentHost/node/claude/claudeSdkPipeline.ts
+@@ -16,6 +16,8 @@ import { ClaudeRuntimeEffortLevel } from '../../common/claudeModelConfig.js';
+ import { AgentSignal, type IAgentChatOwnerRef } from '../../common/agent.js';
+ import type { IAgentHostClientTelemetryContext } from '../../common/agentHostTelemetry.js';
+ import { ISessionDatabase } from '../../common/sessionDataService.js';
++import { AUTO_UNAVAILABLE_TEXT, BLOCKED_META_KEY } from '../../common/claudeBlockedNotice.js';
++import { ResponsePartKind } from '../../common/state/protocol/state.js';
+ import { ActionType } from '../../common/state/sessionActions.js';
+ import { DeferredPromise } from '../../../../base/common/async.js';
+ import { ClaudePromptQueue, IPendingSdkMessage } from './claudePromptQueue.js';
+@@ -549,6 +551,8 @@ export class ClaudeSdkPipeline extends Disposable {
+ 		}
+ 	}
+ 
++	private _autoUnavailableNotice = false;
++
+ 	/** Auto can be refused mid-session (plan, model or admin limits); fall back to acceptEdits so the chat keeps working. */
+ 	private async _setModeOrFallBack(mode: PermissionMode): Promise<void> {
+ 		let applied = mode;
+@@ -560,6 +564,7 @@ export class ClaudeSdkPipeline extends Disposable {
+ 			}
+ 			this._logService.warn(`[ClaudeSdkPipeline:${this.sessionId}] auto mode rejected, using acceptEdits: ${err}`);
+ 			applied = 'acceptEdits';
++			this._autoUnavailableNotice = true;
+ 			this._currentPermissionMode = applied;
+ 			await this._query?.setPermissionMode(applied);
+ 		}
+@@ -742,6 +747,14 @@ export class ClaudeSdkPipeline extends Disposable {
+ 				const parent = this._queue.peekParent();
+ 				const turnId = parent?.turnId;
+ 				const clientContext = parent?.clientContext;
++				if (this._autoUnavailableNotice && turnId) {
++					this._autoUnavailableNotice = false;
++					this._onDidProduceSignal.fire({
++						kind: 'action',
++						resource: this.chatChannelUri,
++						action: { type: ActionType.ChatResponsePart, turnId, part: { kind: ResponsePartKind.SystemNotification, content: AUTO_UNAVAILABLE_TEXT, _meta: { [BLOCKED_META_KEY]: { kind: 'autoUnavailable' } } } },
++					});
++				}
+ 				const turnDuration = parent?.stopWatch.elapsed();
+ 				try {
+ 					await this._router.handle(message, turnId, {
+diff --git a/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHost.contribution.ts b/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHost.contribution.ts
+index b2d81638..4b677156 100644
+--- a/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHost.contribution.ts
++++ b/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHost.contribution.ts
+@@ -16,6 +16,7 @@
+ 
+ import { IAgentHostByokLmHandler } from '../../../../../../platform/agentHost/common/agentHostByokLm.js';
+ import { InstantiationType, registerSingleton } from '../../../../../../platform/instantiation/common/extensions.js';
++import './agentHostRecentlyBlocked.js';
+ import { AgentHostRunEverythingDialogContribution } from './agentHostRunEverythingDialog.js';
+ import { registerWorkbenchContribution2, WorkbenchPhase } from '../../../../../common/contributions.js';
+ import { AgentHostSignedOutCompatibilityContribution } from './agentHostSignedOutCompatibilityContribution.js';
+diff --git a/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostRecentlyBlocked.ts b/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostRecentlyBlocked.ts
+new file mode 100644
+index 00000000..9e977188
+--- /dev/null
++++ b/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostRecentlyBlocked.ts
+@@ -0,0 +1,40 @@
++/*---------------------------------------------------------------------------------------------
++ *  Copyright (c) OmnIDE contributors. Licensed under the MIT License.
++ *--------------------------------------------------------------------------------------------*/
++
++import { localize, localize2 } from '../../../../../../nls.js';
++import { Action2, registerAction2 } from '../../../../../../platform/actions/common/actions.js';
++import { ServicesAccessor } from '../../../../../../platform/instantiation/common/instantiation.js';
++import { IQuickInputService } from '../../../../../../platform/quickinput/common/quickInput.js';
++import { INotificationService } from '../../../../../../platform/notification/common/notification.js';
++import { IChatWidgetService } from '../../chat.js';
++import { ChatContextKeys } from '../../../common/actions/chatContextKeys.js';
++
++/** Lists what Claude Code refused without asking in the chat that is open, newest first. */
++registerAction2(class ShowRecentlyBlockedAction extends Action2 {
++	constructor() {
++		super({
++			id: 'workbench.action.chat.showRecentlyBlocked',
++			title: localize2('omnide.recentlyBlocked', "Recently Blocked"),
++			f1: true,
++			precondition: ChatContextKeys.enabled,
++		});
++	}
++
++	override async run(accessor: ServicesAccessor): Promise<void> {
++		const model = accessor.get(IChatWidgetService).lastFocusedWidget?.viewModel?.model;
++		const items: { label: string; description: string }[] = [];
++		for (const request of model?.getRequests() ?? []) {
++			for (const part of request.response?.response.value ?? []) {
++				if (part.kind === 'systemNotification' && part.blocked) {
++					items.unshift({ label: part.blocked.tool ?? localize('omnide.blocked.notice', "Notice"), description: part.content.value });
++				}
++			}
++		}
++		if (!items.length) {
++			accessor.get(INotificationService).info(localize('omnide.blocked.none', "Nothing was blocked in this chat."));
++			return;
++		}
++		await accessor.get(IQuickInputService).pick(items, { placeHolder: localize('omnide.blocked.title', "Recently blocked in this chat") });
++	}
++});
+diff --git a/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostRunEverythingDialog.ts b/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostRunEverythingDialog.ts
+index 86258ec9..0111bf36 100644
+--- a/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostRunEverythingDialog.ts
++++ b/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostRunEverythingDialog.ts
+@@ -2,12 +2,14 @@
+  *  Copyright (c) OmnIDE contributors. Licensed under the MIT License.
+  *--------------------------------------------------------------------------------------------*/
+ 
++import { Iterable } from '../../../../../../base/common/iterator.js';
+ import { Disposable } from '../../../../../../base/common/lifecycle.js';
+ import Severity from '../../../../../../base/common/severity.js';
+ import { localize } from '../../../../../../nls.js';
+ import { RunPolicySettingId } from '../../../../../../platform/agentHost/common/claudeRunPolicyConfig.js';
+ import { IConfigurationService } from '../../../../../../platform/configuration/common/configuration.js';
+ import { IDialogService } from '../../../../../../platform/dialogs/common/dialogs.js';
++import { IChatService } from '../../../common/chatService/chatService.js';
+ import { INotificationService } from '../../../../../../platform/notification/common/notification.js';
+ import { IWorkbenchContribution } from '../../../../../common/contributions.js';
+ 
+@@ -21,12 +23,15 @@ export class AgentHostRunEverythingDialogContribution extends Disposable impleme
+ 		@IConfigurationService private readonly _config: IConfigurationService,
+ 		@IDialogService private readonly _dialogs: IDialogService,
+ 		@INotificationService private readonly _notifications: INotificationService,
++		@IChatService private readonly _chats: IChatService,
+ 	) {
+ 		super();
+ 		this._register(this._config.onDidChangeConfiguration(e => {
+ 			if (e.affectsConfiguration(RunPolicySettingId.RunMode)) {
+ 				void this._check();
+-				this._notifications.info(localize('omnide.runMode.restart', "Run Mode changed. Chats that are already open keep their old mode until you start a new chat or restart them."));
++				if (Iterable.some(this._chats.chatModels.get(), () => true)) {
++					this._notifications.info(localize('omnide.runMode.restart', "Run Mode changed. Chats that are already open keep their old mode until you start a new chat or restart them."));
++				}
+ 			}
+ 		}));
+ 		void this._check();
+diff --git a/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/stateToProgressAdapter.ts b/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/stateToProgressAdapter.ts
+index 41a4d67e..8d0ee242 100644
+--- a/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/stateToProgressAdapter.ts
++++ b/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/stateToProgressAdapter.ts
+@@ -40,6 +40,7 @@ import { SessionServerToolName } from '../../../../../../platform/agentHost/comm
+ import { getAgentFeedbackAttachmentMetadata, isAgentFeedbackAnnotationsAttachment, isAgentFeedbackAttachment } from '../../../../../../platform/agentHost/common/meta/agentFeedbackAttachments.js';
+ import { getBrowserViewAttachmentMetadata, isBrowserViewAttachment } from '../../../../../../platform/agentHost/common/meta/browserViewAttachments.js';
+ import { readAgentMessageDelegationMeta } from '../../../../../../platform/agentHost/common/meta/agentMessageDelegationMeta.js';
++import { readBlockedMeta } from '../../../../../../platform/agentHost/common/claudeBlockedNotice.js';
+ import { isAgentMergeMessage } from '../../../../../../platform/agentHost/common/meta/agentMergeMessageMeta.js';
+ import { readArtifactIntegrationNotice, readArtifactIntegrationRequest } from '../../../../../../platform/agentHost/common/meta/agentHostArtifactIntegrationMeta.js';
+ import { AgentHookOutcome, AgentSystemNotificationKind, AgentSystemNotificationSeverity, AgentSystemNotificationWorkspaceKind, readAgentSystemNotificationMeta, type IAgentSystemNotificationHookMeta } from '../../../../../../platform/agentHost/common/meta/agentSystemNotificationMeta.js';
+@@ -734,6 +735,10 @@ export function systemNotificationToChatPart(content: StringOrMarkdown | undefin
+ 	const markdown = typeof value === 'string'
+ 		? new MarkdownString(stripSystemNotificationWrapper(value))
+ 		: { ...value, value: stripSystemNotificationWrapper(value.value) };
++	const blocked = readBlockedMeta(_meta);
++	if (blocked) {
++		return { kind: 'systemNotification', content: markdown, alwaysVisible: true, icon: blocked.kind === 'blocked' ? Codicon.circleSlash : Codicon.warning, blocked };
++	}
+ 	const artifactNotice = readArtifactIntegrationNotice({ _meta });
+ 	if (artifactNotice) {
+ 		const icon = artifactNotice.iconId ? ThemeIcon.fromString(`$(${artifactNotice.iconId})`) : undefined;
+diff --git a/src/vs/workbench/contrib/chat/common/chatService/chatService.ts b/src/vs/workbench/contrib/chat/common/chatService/chatService.ts
+index f85b16d0..3ba412ca 100644
+--- a/src/vs/workbench/contrib/chat/common/chatService/chatService.ts
++++ b/src/vs/workbench/contrib/chat/common/chatService/chatService.ts
+@@ -368,6 +368,8 @@ export interface IChatSystemNotificationPart {
+ 	workspaceName?: string;
+ 	/** Complete accessible description for non-visual presentation and announcements. */
+ 	accessibilityLabel?: string;
++	/** OmnIDE: set when Claude Code refused a call without asking; feeds the Recently blocked list. */
++	blocked?: { readonly kind: string; readonly tool?: string };
+ }
+ 
+ export interface IChatTask extends IChatTaskDto {

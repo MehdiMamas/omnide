@@ -1,0 +1,65 @@
+Subject: Auto-review paused and could-not-check cards with Always Run and Skip (issue 19)
+Original to OmnIDE.
+
+diff --git a/src/vs/workbench/contrib/chat/browser/widget/chatContentParts/chatSystemNotificationContentPart.ts b/src/vs/workbench/contrib/chat/browser/widget/chatContentParts/chatSystemNotificationContentPart.ts
+index 095ad04f..bca2a697 100644
+--- a/src/vs/workbench/contrib/chat/browser/widget/chatContentParts/chatSystemNotificationContentPart.ts
++++ b/src/vs/workbench/contrib/chat/browser/widget/chatContentParts/chatSystemNotificationContentPart.ts
+@@ -11,6 +11,9 @@ import { IMarkdownString } from '../../../../../../base/common/htmlContent.js';
+ import { Disposable } from '../../../../../../base/common/lifecycle.js';
+ import { ThemeIcon } from '../../../../../../base/common/themables.js';
+ import { localize } from '../../../../../../nls.js';
++import { ALWAYS_RUN_BLOCKED_COMMAND } from '../../agentSessions/agentHost/agentHostAlwaysRunBlocked.js';
++import { ICommandService } from '../../../../../../platform/commands/common/commands.js';
++import { defaultButtonStyles } from '../../../../../../platform/theme/browser/defaultStyles.js';
+ import { IHoverService } from '../../../../../../platform/hover/browser/hover.js';
+ import { IInstantiationService } from '../../../../../../platform/instantiation/common/instantiation.js';
+ import { IMarkdownRenderer } from '../../../../../../platform/markdown/browser/markdownRenderer.js';
+@@ -50,11 +53,14 @@ export class ChatSystemNotificationContentPart extends Disposable implements ICh
+ 		private readonly parentSessionResource: string | undefined = undefined,
+ 		@IInstantiationService instantiationService: IInstantiationService,
+ 		@IHoverService private readonly hoverService: IHoverService,
++		@ICommandService commandService: ICommandService,
+ 	) {
+ 		super();
+ 
+ 		let notificationNode: HTMLElement;
+-		if (notification.presentation === 'workspaceTransition') {
++		if (notification.blocked?.kind === 'paused' || notification.blocked?.kind === 'classifierError') {
++			notificationNode = this._renderBlockedCard(notification, commandService);
++		} else if (notification.presentation === 'workspaceTransition') {
+ 			notificationNode = this._renderWorkspaceTransition(notification);
+ 		} else if (notification.presentation === 'workflow') {
+ 			notificationNode = this._renderWorkflow(notification, renderer);
+@@ -80,6 +86,31 @@ export class ChatSystemNotificationContentPart extends Disposable implements ICh
+ 		}
+ 	}
+ 
++	/** Auto-review stopped or failed on this call. Claude Code can't re-run a refused call, so the card offers Always Run (from now on) and Skip (dismiss). */
++	private _renderBlockedCard(notification: IChatSystemNotificationPart, commandService: ICommandService): HTMLElement {
++		const blocked = notification.blocked!;
++		const card = dom.$('.chat-system-notification-blocked-card');
++		const title = blocked.kind === 'paused'
++			? localize('omnide.blocked.paused', "Auto-review paused")
++			: localize('omnide.blocked.classifierError', "Auto-review could not check this action");
++		dom.append(card, dom.$('div', { style: 'font-weight:600' }, title));
++		const call = blocked.input?.command ?? blocked.input?.file_path ?? blocked.input?.notebook_path ?? blocked.input?.url;
++		if (call) {
++			dom.append(card, dom.$('code', { style: 'display:block;margin:4px 0;white-space:pre-wrap' }, `${blocked.tool ?? ''} ${call}`.trim()));
++		}
++		dom.append(card, dom.$('div', undefined, notification.content.value));
++		const buttons = dom.append(card, dom.$('div', { style: 'display:flex;gap:8px;margin-top:6px' }));
++		if (blocked.tool && blocked.input) {
++			const always = this._register(new Button(buttons, defaultButtonStyles));
++			always.label = localize('omnide.blocked.alwaysRun', "Always Run");
++			this._register(always.onDidClick(() => commandService.executeCommand(ALWAYS_RUN_BLOCKED_COMMAND, blocked.tool, blocked.input)));
++		}
++		const skip = this._register(new Button(buttons, { ...defaultButtonStyles, secondary: true }));
++		skip.label = localize('omnide.blocked.skip', "Skip");
++		this._register(skip.onDidClick(() => { card.style.display = 'none'; }));
++		return card;
++	}
++
+ 	private _renderWorkflow(notification: IChatSystemNotificationPart, renderer: IMarkdownRenderer): HTMLElement {
+ 		const firstLineBreak = notification.content.value.indexOf('\n');
+ 		const title = firstLineBreak === -1 ? notification.content.value : notification.content.value.slice(0, firstLineBreak);

@@ -1,0 +1,80 @@
+Subject: Ask mode: a PreToolUse hook refuses edits and keeps the card for Bash and MCP, ahead of allow rules (issue 19)
+Original to OmnIDE.
+
+diff --git a/src/vs/platform/agentHost/common/claudeRunPolicy.ts b/src/vs/platform/agentHost/common/claudeRunPolicy.ts
+index 1d2cc314..04f95f16 100644
+--- a/src/vs/platform/agentHost/common/claudeRunPolicy.ts
++++ b/src/vs/platform/agentHost/common/claudeRunPolicy.ts
+@@ -50,12 +50,27 @@ export function chatModeOf(mode: SdkPermissionMode): ChatMode {
+ }
+ 
+ /** Tools Ask refuses at call time. Never deny rules: Claude Code drops a denied tool at start and never brings it back. */
+-export const ASK_REFUSED_TOOLS: readonly string[] = ['Edit', 'Write', 'NotebookEdit'];
++export const ASK_REFUSED_TOOLS: readonly string[] = ['Edit', 'Write', 'MultiEdit', 'NotebookEdit'];
+ export const ASK_REFUSAL_MESSAGE = 'Edit refused. Ask mode has no edit access. Switch to Agent to edit.';
+ 
+ export function askRefusal(mode: SdkPermissionMode, toolName: string): string | undefined {
+ 	return mode === 'default' && ASK_REFUSED_TOOLS.includes(toolName) ? ASK_REFUSAL_MESSAGE : undefined;
+ }
++
++/** What the `PreToolUse` hook answers in Ask. Hooks run before allow rules, so a rule cannot skip the refusal or the card. */
++export function askHookDecision(mode: SdkPermissionMode, toolName: string): { readonly permissionDecision: 'deny' | 'ask'; readonly permissionDecisionReason?: string } | undefined {
++	const refusal = askRefusal(mode, toolName);
++	if (refusal) {
++		return { permissionDecision: 'deny', permissionDecisionReason: refusal };
++	}
++	return mode === 'default' && (toolName === 'Bash' || toolName.startsWith('mcp__')) ? { permissionDecision: 'ask' } : undefined;
++}
++
++/** A deny from the Agent Merge restriction always wins; Ask's `ask` is only asked when the restriction has nothing to say. */
++export function mergeRestrictionFirst<T>(restriction: () => T | undefined, askHook: () => T | undefined): T | undefined {
++	return restriction() ?? askHook();
++}
++
+ export const FILE_DELETION_ASK_RULES: readonly string[] = ['Bash(rm *)', 'Bash(rmdir *)', 'Bash(git rm *)'];
+ 
+ export interface IRulesInput {
+diff --git a/src/vs/platform/agentHost/node/claude/claudeAgentSession.ts b/src/vs/platform/agentHost/node/claude/claudeAgentSession.ts
+index dc027ab6..d44126a5 100644
+--- a/src/vs/platform/agentHost/node/claude/claudeAgentSession.ts
++++ b/src/vs/platform/agentHost/node/claude/claudeAgentSession.ts
+@@ -17,7 +17,7 @@ import { IInstantiationService } from '../../../instantiation/common/instantiati
+ import { ILogService } from '../../../log/common/log.js';
+ import { IAgentConfigurationService } from '../agentConfigurationService.js';
+ import { ISyncedCustomization } from '../../common/agentPluginManager.js';
+-import { claudeCodeVersionOfSdk, EXTERNAL_FILES_MIN_VERSION, permissionRules, versionAtLeast } from '../../common/claudeRunPolicy.js';
++import { askHookDecision, claudeCodeVersionOfSdk, mergeRestrictionFirst, EXTERNAL_FILES_MIN_VERSION, permissionRules, versionAtLeast } from '../../common/claudeRunPolicy.js';
+ import { PINNED_CLAUDE_AGENT_SDK_VERSION, RunPolicyConfigKey } from '../../common/claudeRunPolicyConfig.js';
+ import { ClaudePermissionMode, narrowClaudePermissionMode } from '../../common/claudeSessionConfigKeys.js';
+ import { ClaudeRuntimeEffortLevel, toRuntimeEffortLevel, resolveClaudeEffort } from '../../common/claudeModelConfig.js';
+@@ -669,7 +669,7 @@ export class ClaudeAgentSession extends Disposable implements IRematerializer {
+ 				telemetry,
+ 				traceContext,
+ 				getUserPromptAdditionalContext: () => this._hostInstructions?.join('\n\n'),
+-				onPreToolUse: (toolName, input) => this._restrictAgentMergeGitHubTool(toolName, input, agentMergeRestrictedMcpServerNames),
++				onPreToolUse: (toolName, input) => mergeRestrictionFirst(() => this._restrictAgentMergeGitHubTool(toolName, input, agentMergeRestrictedMcpServerNames), () => this._askModeHook(toolName)),
+ 			},
+ 			ctx.transport,
+ 			data => this._logService.error(`[Claude SDK stderr] ${data}`),
+@@ -821,7 +821,7 @@ export class ClaudeAgentSession extends Disposable implements IRematerializer {
+ 					telemetry,
+ 					traceContext,
+ 					getUserPromptAdditionalContext: () => this._hostInstructions?.join('\n\n'),
+-					onPreToolUse: (toolName, input) => this._restrictAgentMergeGitHubTool(toolName, input, rebuildAgentMergeRestrictedMcpServerNames),
++					onPreToolUse: (toolName, input) => mergeRestrictionFirst(() => this._restrictAgentMergeGitHubTool(toolName, input, rebuildAgentMergeRestrictedMcpServerNames), () => this._askModeHook(toolName)),
+ 				},
+ 				rebuildTransport,
+ 				data => this._logService.error(`[Claude SDK stderr] ${data}`),
+@@ -1112,6 +1112,12 @@ export class ClaudeAgentSession extends Disposable implements IRematerializer {
+ 		}
+ 	}
+ 
++	/** Read live, so a Shift+Tab switch takes effect on the next tool call. */
++	private _askModeHook(toolName: string): SyncHookJSONOutput | undefined {
++		const decision = askHookDecision(readClaudePermissionMode(this._configurationService, this._owner.get(), this._chatChannelUri) ?? this._permissionModeFallback, toolName);
++		return decision && { hookSpecificOutput: { hookEventName: 'PreToolUse', ...decision } };
++	}
++
+ 	private _restrictAgentMergeGitHubTool(toolName: string, input: unknown, restrictedMcpServerNames: ReadonlySet<string>): SyncHookJSONOutput | undefined {
+ 		const mcpServerName = toolName.startsWith('mcp__') ? toolName.split('__')[1] : undefined;
+ 		const restrictedMcpTool = !!mcpServerName && (restrictedMcpServerNames.has(mcpServerName) || isAgentMergeRestrictedMcpServer(mcpServerName));

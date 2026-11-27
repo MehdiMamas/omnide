@@ -1,0 +1,184 @@
+Subject: Always Run on each Recently blocked entry (issue 19)
+Original to OmnIDE.
+
+diff --git a/src/vs/platform/agentHost/common/claudeBlockedNotice.ts b/src/vs/platform/agentHost/common/claudeBlockedNotice.ts
+index a028f496..6ac7ee76 100644
+--- a/src/vs/platform/agentHost/common/claudeBlockedNotice.ts
++++ b/src/vs/platform/agentHost/common/claudeBlockedNotice.ts
+@@ -12,6 +12,8 @@ export interface IBlockedMeta {
+ 	readonly kind: BlockedKind;
+ 	readonly tool?: string;
+ 	readonly reason?: string;
++	/** The refused call's command, path or url, so Always Run can write a narrow rule. The SDK's denial message carries no input. */
++	readonly input?: Readonly<Record<string, string>>;
+ }
+ 
+ /** Claude Code pauses auto mode after 3 blocks in a row or 20 in total (code.claude.com/docs/en/permission-modes). */
+@@ -42,10 +44,23 @@ export function classifyDenial(d: IDenial, consecutive: number, total: number):
+ 
+ export const AUTO_UNAVAILABLE_TEXT = "Auto-review isn't available here, so Allowlist is on";
+ 
++const RULE_INPUT_KEYS = ['command', 'file_path', 'notebook_path', 'url'];
++
++export function ruleInputOf(parsed: Readonly<Record<string, unknown>> | undefined): Record<string, string> | undefined {
++	const out: Record<string, string> = {};
++	for (const k of RULE_INPUT_KEYS) {
++		const v = parsed?.[k];
++		if (typeof v === 'string') {
++			out[k] = v;
++		}
++	}
++	return Object.keys(out).length ? out : undefined;
++}
++
+ export function readBlockedMeta(meta: Record<string, unknown> | undefined): IBlockedMeta | undefined {
+ 	const v = meta?.[BLOCKED_META_KEY];
+ 	if (typeof v === 'object' && v !== null && 'kind' in v && typeof v.kind === 'string') {
+-		return { kind: v.kind as BlockedKind, tool: 'tool' in v && typeof v.tool === 'string' ? v.tool : undefined, reason: 'reason' in v && typeof v.reason === 'string' ? v.reason : undefined };
++		return { kind: v.kind as BlockedKind, tool: 'tool' in v && typeof v.tool === 'string' ? v.tool : undefined, reason: 'reason' in v && typeof v.reason === 'string' ? v.reason : undefined, input: 'input' in v ? ruleInputOf(v.input as Record<string, unknown>) : undefined };
+ 	}
+ 	return undefined;
+ }
+diff --git a/src/vs/platform/agentHost/node/claude/claudeMapSessionEvents.ts b/src/vs/platform/agentHost/node/claude/claudeMapSessionEvents.ts
+index 5e01b342..c1719782 100644
+--- a/src/vs/platform/agentHost/node/claude/claudeMapSessionEvents.ts
++++ b/src/vs/platform/agentHost/node/claude/claudeMapSessionEvents.ts
+@@ -3,7 +3,7 @@
+  *  Licensed under the MIT License. See License.txt in the project root for license information.
+  *--------------------------------------------------------------------------------------------*/
+ 
+-import { BLOCKED_META_KEY, classifyDenial } from '../../common/claudeBlockedNotice.js';
++import { BLOCKED_META_KEY, classifyDenial, ruleInputOf } from '../../common/claudeBlockedNotice.js';
+ import type { SDKMessage } from '@anthropic-ai/claude-agent-sdk';
+ import type { URI } from '../../../../base/common/uri.js';
+ import { LogLevel, type ILogService } from '../../../log/common/log.js';
+@@ -322,7 +322,7 @@ function blockedNotice(message: Extract<SDKMessage, { type: 'system'; subtype: '
+ 			part: {
+ 				kind: ResponsePartKind.SystemNotification,
+ 				content: text,
+-				_meta: { [BLOCKED_META_KEY]: { kind, tool: message.tool_name, reason: message.decision_reason_type } },
++				_meta: { [BLOCKED_META_KEY]: { kind, tool: message.tool_name, reason: message.decision_reason_type, input: ruleInputOf(state.toolCalls.lookup(message.tool_use_id)?.info?.parsedInput) } },
+ 			},
+ 		},
+ 	};
+diff --git a/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHost.contribution.ts b/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHost.contribution.ts
+index 5bd74b72..12fe453c 100644
+--- a/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHost.contribution.ts
++++ b/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHost.contribution.ts
+@@ -19,6 +19,7 @@ import { InstantiationType, registerSingleton } from '../../../../../../platform
+ import './agentHostRecentlyBlocked.js';
+ import { AgentHostAdminDisabledContribution } from './agentHostAdminDisabled.js';
+ import './agentHostRestartChip.js';
++import './agentHostAlwaysRunBlocked.js';
+ import { AgentHostRunEverythingDialogContribution } from './agentHostRunEverythingDialog.js';
+ import { registerWorkbenchContribution2, WorkbenchPhase } from '../../../../../common/contributions.js';
+ import { AgentHostSignedOutCompatibilityContribution } from './agentHostSignedOutCompatibilityContribution.js';
+diff --git a/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostAlwaysRunBlocked.ts b/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostAlwaysRunBlocked.ts
+new file mode 100644
+index 00000000..26d9f047
+--- /dev/null
++++ b/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostAlwaysRunBlocked.ts
+@@ -0,0 +1,34 @@
++/*---------------------------------------------------------------------------------------------
++ *  Copyright (c) OmnIDE contributors. Licensed under the MIT License.
++ *--------------------------------------------------------------------------------------------*/
++
++import { VSBuffer } from '../../../../../../base/common/buffer.js';
++import { localize } from '../../../../../../nls.js';
++import { alwaysRunRule, withAllowRule } from '../../../../../../platform/agentHost/common/claudeRunPolicy.js';
++import { CommandsRegistry } from '../../../../../../platform/commands/common/commands.js';
++import { IFileService } from '../../../../../../platform/files/common/files.js';
++import { ServicesAccessor } from '../../../../../../platform/instantiation/common/instantiation.js';
++import { INotificationService } from '../../../../../../platform/notification/common/notification.js';
++import { IWorkspaceContextService } from '../../../../../../platform/workspace/common/workspace.js';
++
++export const ALWAYS_RUN_BLOCKED_COMMAND = 'omnide.agents.alwaysRunBlocked';
++
++/** Writes the narrow allow rule for a refused call into <folder>/.claude/settings.local.json, the file Claude Code's own Always Run writes. */
++CommandsRegistry.registerCommand(ALWAYS_RUN_BLOCKED_COMMAND, async (accessor: ServicesAccessor, tool: string, input: Readonly<Record<string, string>>) => {
++	const notifications = accessor.get(INotificationService);
++	const folder = accessor.get(IWorkspaceContextService).getWorkspace().folders[0]?.uri;
++	const rule = folder && alwaysRunRule(tool, input, folder.path);
++	if (!folder || !rule) {
++		notifications.warn(localize('omnide.alwaysRun.none', "Always Run can't write a rule for this call."));
++		return;
++	}
++	const files = accessor.get(IFileService);
++	const file = folder.with({ path: `${folder.path}/.claude/settings.local.json` });
++	const existing = await files.readFile(file).then(f => f.value.toString(), () => undefined);
++	try {
++		await files.writeFile(file, VSBuffer.fromString(withAllowRule(existing, rule)));
++		notifications.info(localize('omnide.alwaysRun.done', "Always Run saved {0}", rule));
++	} catch (e) {
++		notifications.warn(localize('omnide.alwaysRun.failed', "Always Run could not save the rule: {0}", e instanceof Error ? e.message : String(e)));
++	}
++});
+diff --git a/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostRecentlyBlocked.ts b/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostRecentlyBlocked.ts
+index 9e977188..24b22096 100644
+--- a/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostRecentlyBlocked.ts
++++ b/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostRecentlyBlocked.ts
+@@ -2,7 +2,12 @@
+  *  Copyright (c) OmnIDE contributors. Licensed under the MIT License.
+  *--------------------------------------------------------------------------------------------*/
+ 
++import { ThemeIcon } from '../../../../../../base/common/themables.js';
++import { Codicon } from '../../../../../../base/common/codicons.js';
++import { ICommandService } from '../../../../../../platform/commands/common/commands.js';
++import { IQuickPickItem } from '../../../../../../platform/quickinput/common/quickInput.js';
+ import { localize, localize2 } from '../../../../../../nls.js';
++import { ALWAYS_RUN_BLOCKED_COMMAND } from './agentHostAlwaysRunBlocked.js';
+ import { Action2, registerAction2 } from '../../../../../../platform/actions/common/actions.js';
+ import { ServicesAccessor } from '../../../../../../platform/instantiation/common/instantiation.js';
+ import { IQuickInputService } from '../../../../../../platform/quickinput/common/quickInput.js';
+@@ -23,11 +28,16 @@ registerAction2(class ShowRecentlyBlockedAction extends Action2 {
+ 
+ 	override async run(accessor: ServicesAccessor): Promise<void> {
+ 		const model = accessor.get(IChatWidgetService).lastFocusedWidget?.viewModel?.model;
+-		const items: { label: string; description: string }[] = [];
++		const items: (IQuickPickItem & { blocked: { tool?: string; input?: Readonly<Record<string, string>> } })[] = [];
+ 		for (const request of model?.getRequests() ?? []) {
+ 			for (const part of request.response?.response.value ?? []) {
+ 				if (part.kind === 'systemNotification' && part.blocked) {
+-					items.unshift({ label: part.blocked.tool ?? localize('omnide.blocked.notice', "Notice"), description: part.content.value });
++					items.unshift({
++						label: part.blocked.tool ?? localize('omnide.blocked.notice', "Notice"),
++						description: part.content.value,
++						blocked: part.blocked,
++						buttons: part.blocked.tool && part.blocked.input ? [{ iconClass: ThemeIcon.asClassName(Codicon.check), tooltip: localize('omnide.blocked.alwaysRun', "Always Run") }] : undefined,
++					});
+ 				}
+ 			}
+ 		}
+@@ -35,6 +45,18 @@ registerAction2(class ShowRecentlyBlockedAction extends Action2 {
+ 			accessor.get(INotificationService).info(localize('omnide.blocked.none', "Nothing was blocked in this chat."));
+ 			return;
+ 		}
+-		await accessor.get(IQuickInputService).pick(items, { placeHolder: localize('omnide.blocked.title', "Recently blocked in this chat") });
++		const commands = accessor.get(ICommandService);
++		const picker = accessor.get(IQuickInputService).createQuickPick<typeof items[number]>({ useSeparators: false });
++		picker.items = items;
++		picker.title = localize('omnide.blocked.title', "Recently blocked in this chat");
++		picker.placeholder = localize('omnide.blocked.noRunOnce', "Run once isn't offered: Claude Code can't re-run a blocked call. Always Run allows it from now on.");
++		picker.onDidTriggerItemButton(e => {
++			const { tool, input } = e.item.blocked;
++			if (tool && input) {
++				void commands.executeCommand(ALWAYS_RUN_BLOCKED_COMMAND, tool, input);
++			}
++		});
++		picker.onDidHide(() => picker.dispose());
++		picker.show();
+ 	}
+ });
+diff --git a/src/vs/workbench/contrib/chat/common/chatService/chatService.ts b/src/vs/workbench/contrib/chat/common/chatService/chatService.ts
+index 3ba412ca..882d82d7 100644
+--- a/src/vs/workbench/contrib/chat/common/chatService/chatService.ts
++++ b/src/vs/workbench/contrib/chat/common/chatService/chatService.ts
+@@ -369,7 +369,7 @@ export interface IChatSystemNotificationPart {
+ 	/** Complete accessible description for non-visual presentation and announcements. */
+ 	accessibilityLabel?: string;
+ 	/** OmnIDE: set when Claude Code refused a call without asking; feeds the Recently blocked list. */
+-	blocked?: { readonly kind: string; readonly tool?: string };
++	blocked?: { readonly kind: string; readonly tool?: string; readonly input?: Readonly<Record<string, string>> };
+ }
+ 
+ export interface IChatTask extends IChatTaskDto {

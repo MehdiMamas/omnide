@@ -1,0 +1,159 @@
+Subject: Run policy: pure chat mode and Run Mode mapping to Claude Code permission mode and rules (issue 19)
+Original to OmnIDE.
+
+diff --git a/src/vs/platform/agentHost/common/claudeRunPolicy.ts b/src/vs/platform/agentHost/common/claudeRunPolicy.ts
+new file mode 100644
+index 00000000..988d1564
+--- /dev/null
++++ b/src/vs/platform/agentHost/common/claudeRunPolicy.ts
+@@ -0,0 +1,150 @@
++/*---------------------------------------------------------------------------------------------
++ *  Copyright (c) OmnIDE contributors. Licensed under the MIT License.
++ *--------------------------------------------------------------------------------------------*/
++
++// Pure mapping from OmnIDE's chat mode and Run Mode to Claude Code's permission mode and rules.
++// No imports, so `node --test scripts/run-policy.test.ts` can load it directly.
++
++export type ChatMode = 'agent' | 'plan' | 'ask';
++export type RunMode = 'autoReview' | 'allowlist' | 'runEverything';
++export type SdkPermissionMode = 'default' | 'acceptEdits' | 'plan' | 'auto' | 'bypassPermissions';
++
++export const CHAT_MODES: readonly ChatMode[] = ['agent', 'plan', 'ask'];
++export const RUN_MODES: readonly RunMode[] = ['autoReview', 'allowlist', 'runEverything'];
++
++/** Claude Code release that added `blockWritesOutsideWorkingDirectories`. */
++export const EXTERNAL_FILES_MIN_VERSION = '2.1.314';
++
++/** Shift+Tab: Agent, Plan, Ask, then Agent again. Run Everything and Auto are not stops. */
++export function nextChatMode(mode: ChatMode): ChatMode {
++	const i = CHAT_MODES.indexOf(mode);
++	return CHAT_MODES[(i + 1) % CHAT_MODES.length];
++}
++
++export interface IRunPolicyState {
++	readonly runMode: RunMode;
++	/** The one-time Run Everything warning was accepted. */
++	readonly runEverythingAccepted: boolean;
++	/** Claude Code offers `auto` (version, plan and admin settings allow it). */
++	readonly autoAvailable: boolean;
++	/** An admin disabled bypassPermissions (`permissions.disableBypassPermissionsMode`). */
++	readonly bypassDisabled: boolean;
++}
++
++/** Claude Code's mode for the Agent chat mode. Anything not usable falls back to Allowlist (`acceptEdits`). */
++export function agentSdkMode(s: IRunPolicyState): SdkPermissionMode {
++	switch (s.runMode) {
++		case 'autoReview': return s.autoAvailable ? 'auto' : 'acceptEdits';
++		case 'runEverything': return s.runEverythingAccepted && !s.bypassDisabled ? 'bypassPermissions' : 'acceptEdits';
++		default: return 'acceptEdits';
++	}
++}
++
++export function sdkModeFor(chat: ChatMode, s: IRunPolicyState): SdkPermissionMode {
++	return chat === 'plan' ? 'plan' : chat === 'ask' ? 'default' : agentSdkMode(s);
++}
++
++/** The chat mode a stored Claude Code mode shows as. `default` only exists as Ask. */
++export function chatModeOf(mode: SdkPermissionMode): ChatMode {
++	return mode === 'plan' ? 'plan' : mode === 'default' ? 'ask' : 'agent';
++}
++
++/** Tools Ask refuses at call time. Never deny rules: Claude Code drops a denied tool at start and never brings it back. */
++export const ASK_REFUSED_TOOLS: readonly string[] = ['Edit', 'Write', 'NotebookEdit'];
++export const ASK_REFUSAL_MESSAGE = 'Edit refused. Ask mode has no edit access. Switch to Agent to edit.';
++
++export function askRefusal(mode: SdkPermissionMode, toolName: string): string | undefined {
++	return mode === 'default' && ASK_REFUSED_TOOLS.includes(toolName) ? ASK_REFUSAL_MESSAGE : undefined;
++}
++export const FILE_DELETION_ASK_RULES: readonly string[] = ['Bash(rm *)', 'Bash(rmdir *)', 'Bash(git rm *)'];
++
++export interface IRulesInput {
++	readonly mode: SdkPermissionMode;
++	readonly allowlist: readonly string[];
++	readonly protectFileDeletion: boolean;
++	readonly protectExternalFiles: boolean;
++	readonly externalFilesSupported: boolean;
++}
++
++export interface IPermissionRules {
++	readonly allow: string[];
++	readonly ask: string[];
++	readonly blockWritesOutsideWorkingDirectories?: true;
++}
++
++export function permissionRules(i: IRulesInput): IPermissionRules {
++	// An allow rule would skip the call-time refusal, so Ask drops those for the edit tools.
++	const allow = [...new Set(i.allowlist.map(r => r.trim()).filter(r => r.length > 0 && !(i.mode === 'default' && ASK_REFUSED_TOOLS.some(t => r === t || r.startsWith(`${t}(`)))))];
++	return {
++		allow,
++		ask: i.protectFileDeletion ? [...FILE_DELETION_ASK_RULES] : [],
++		...(i.protectExternalFiles && i.externalFilesSupported ? { blockWritesOutsideWorkingDirectories: true as const } : {}),
++	};
++}
++
++/** SDK 0.3.N bundles Claude Code 2.1.N. */
++export function claudeCodeVersionOfSdk(sdkVersion: string): string | undefined {
++	const m = /^0\.3\.(\d+)$/.exec(sdkVersion);
++	return m ? `2.1.${m[1]}` : undefined;
++}
++
++export function versionAtLeast(version: string | undefined, min: string): boolean {
++	if (!version) {
++		return false;
++	}
++	const a = version.split('.').map(Number);
++	const b = min.split('.').map(Number);
++	for (let i = 0; i < 3; i++) {
++		if ((a[i] ?? 0) !== (b[i] ?? 0)) {
++			return (a[i] ?? 0) > (b[i] ?? 0);
++		}
++	}
++	return true;
++}
++
++/** A narrow allow rule for what the user just approved with Always Run. Never a bare `Bash`. */
++export function alwaysRunRule(tool: string, input: Readonly<Record<string, unknown>>, cwd: string): string | undefined {
++	const str = (k: string) => typeof input[k] === 'string' && (input[k] as string).length > 0 ? input[k] as string : undefined;
++	switch (tool) {
++		case 'Bash': {
++			const command = str('command');
++			return command ? `Bash(${command.replace(/[\\()*]/g, c => `\\${c}`)})` : undefined;
++		}
++		case 'Edit':
++		case 'MultiEdit':
++		case 'Write':
++		case 'NotebookEdit': {
++			const path = str('file_path') ?? str('notebook_path');
++			if (!path) {
++				return undefined;
++			}
++			const root = cwd.endsWith('/') ? cwd : `${cwd}/`;
++			return `${tool === 'MultiEdit' ? 'Edit' : tool}(${path.startsWith(root) ? `/${path.slice(root.length)}` : `/${path}`})`;
++		}
++		case 'WebFetch': {
++			const url = str('url');
++			try {
++				return url ? `WebFetch(domain:${new URL(url).hostname})` : undefined;
++			} catch {
++				return undefined;
++			}
++		}
++		default:
++			return /^mcp__[A-Za-z0-9_-]+__[A-Za-z0-9_-]+$/.test(tool) ? tool : undefined;
++	}
++}
++
++/** Adds an allow rule to the text of a `.claude/settings.local.json`, keeping everything else in it. Throws on text that is not a JSON object. */
++export function withAllowRule(fileText: string | undefined, rule: string): string {
++	const parsed: unknown = fileText && fileText.trim() ? JSON.parse(fileText) : {};
++	if (typeof parsed !== 'object' || parsed === null || Array.isArray(parsed)) {
++		throw new Error('settings.local.json is not a JSON object');
++	}
++	const root = parsed as Record<string, unknown>;
++	const perms = typeof root.permissions === 'object' && root.permissions !== null && !Array.isArray(root.permissions) ? root.permissions as Record<string, unknown> : {};
++	const allow = Array.isArray(perms.allow) ? perms.allow.filter((x): x is string => typeof x === 'string') : [];
++	if (!allow.includes(rule)) {
++		allow.push(rule);
++	}
++	return `${JSON.stringify({ ...root, permissions: { ...perms, allow } }, undefined, 2)}\n`;
++}

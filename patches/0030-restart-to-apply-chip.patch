@@ -1,0 +1,207 @@
+Subject: Restart to apply chip on open chats replaces the Run Mode toast (issue 19)
+Original to OmnIDE.
+
+diff --git a/src/vs/platform/agentHost/common/runModeStale.ts b/src/vs/platform/agentHost/common/runModeStale.ts
+new file mode 100644
+index 00000000..443122c7
+--- /dev/null
++++ b/src/vs/platform/agentHost/common/runModeStale.ts
+@@ -0,0 +1,41 @@
++/*---------------------------------------------------------------------------------------------
++ *  Copyright (c) OmnIDE contributors. Licensed under the MIT License.
++ *--------------------------------------------------------------------------------------------*/
++
++// No imports from this repo, so `node --test scripts/run-policy.test.ts` can load it directly.
++
++/** The Run Mode a chat actually runs under: Run Everything before its warning was accepted, and any mode an administrator disabled, run as Allowlist. */
++export function effectiveRunMode(runMode: string, runEverythingAccepted: boolean, adminDisabled: readonly string[]): string {
++	const mode = runMode === 'runEverything' && !runEverythingAccepted ? 'allowlist' : runMode;
++	return adminDisabled.includes(mode) ? 'allowlist' : mode;
++}
++
++/** Which open chats still run under an older effective Run Mode than the one now in force. A change that is undone leaves no chat stale. */
++export class RunModeTracker<K extends object> {
++	private readonly _started = new WeakMap<K, string>();
++
++	private _current: string;
++
++	constructor(current: string) {
++		this._current = current;
++	}
++
++	/** A chat starts under the mode in force now. */
++	start(chat: K): void {
++		this._started.set(chat, this._current);
++	}
++
++	/** The effective mode changed. A chat nobody recorded started under the previous mode. */
++	change(next: string, openChats: Iterable<K>): void {
++		for (const chat of openChats) {
++			if (!this._started.has(chat)) {
++				this._started.set(chat, this._current);
++			}
++		}
++		this._current = next;
++	}
++
++	isStale(chat: K): boolean {
++		return (this._started.get(chat) ?? this._current) !== this._current;
++	}
++}
+diff --git a/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHost.contribution.ts b/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHost.contribution.ts
+index e62f2a51..5bd74b72 100644
+--- a/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHost.contribution.ts
++++ b/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHost.contribution.ts
+@@ -18,6 +18,7 @@ import { IAgentHostByokLmHandler } from '../../../../../../platform/agentHost/co
+ import { InstantiationType, registerSingleton } from '../../../../../../platform/instantiation/common/extensions.js';
+ import './agentHostRecentlyBlocked.js';
+ import { AgentHostAdminDisabledContribution } from './agentHostAdminDisabled.js';
++import './agentHostRestartChip.js';
+ import { AgentHostRunEverythingDialogContribution } from './agentHostRunEverythingDialog.js';
+ import { registerWorkbenchContribution2, WorkbenchPhase } from '../../../../../common/contributions.js';
+ import { AgentHostSignedOutCompatibilityContribution } from './agentHostSignedOutCompatibilityContribution.js';
+diff --git a/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostRestartChip.ts b/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostRestartChip.ts
+new file mode 100644
+index 00000000..0c865bf9
+--- /dev/null
++++ b/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostRestartChip.ts
+@@ -0,0 +1,101 @@
++/*---------------------------------------------------------------------------------------------
++ *  Copyright (c) OmnIDE contributors. Licensed under the MIT License.
++ *--------------------------------------------------------------------------------------------*/
++
++import { Disposable } from '../../../../../../base/common/lifecycle.js';
++import { localize, localize2 } from '../../../../../../nls.js';
++import { IActionViewItemService } from '../../../../../../platform/actions/browser/actionViewItemService.js';
++import { MenuEntryActionViewItem } from '../../../../../../platform/actions/browser/menuEntryActionViewItem.js';
++import { Action2, MenuId, MenuItemAction, registerAction2 } from '../../../../../../platform/actions/common/actions.js';
++import { RunPolicySettingId } from '../../../../../../platform/agentHost/common/claudeRunPolicyConfig.js';
++import { effectiveRunMode, RunModeTracker } from '../../../../../../platform/agentHost/common/runModeStale.js';
++import { ICommandService } from '../../../../../../platform/commands/common/commands.js';
++import { IConfigurationService } from '../../../../../../platform/configuration/common/configuration.js';
++import { Extensions, IConfigurationRegistry } from '../../../../../../platform/configuration/common/configurationRegistry.js';
++import { ContextKeyExpr, IContextKeyService, RawContextKey } from '../../../../../../platform/contextkey/common/contextkey.js';
++import { ServicesAccessor } from '../../../../../../platform/instantiation/common/instantiation.js';
++import { Registry } from '../../../../../../platform/registry/common/platform.js';
++import { IWorkbenchContribution, registerWorkbenchContribution2, WorkbenchPhase } from '../../../../../common/contributions.js';
++import { ChatContextKeyExprs } from '../../../common/actions/chatContextKeys.js';
++import { ACTION_ID_NEW_CHAT } from '../../actions/chatActions.js';
++import { IChatWidget, IChatWidgetService } from '../../chat.js';
++
++/** Set on a chat that still runs under an older effective Run Mode than the one in force now. */
++const RunModeStale = new RawContextKey<boolean>('omnideRunModeStale', false);
++
++const RESTART_ACTION_ID = 'omnide.agents.restartToApply';
++
++registerAction2(class extends Action2 {
++	constructor() {
++		super({
++			id: RESTART_ACTION_ID,
++			title: localize2('omnide.runMode.restartToApply', "Restart to apply"),
++			f1: false,
++			menu: [{
++				id: MenuId.ChatInputSecondary,
++				group: 'navigation',
++				order: 1.2,
++				when: ContextKeyExpr.and(ChatContextKeyExprs.isAgentHostSession, RunModeStale),
++			}],
++		});
++	}
++	run(accessor: ServicesAccessor): Promise<void> {
++		return accessor.get(ICommandService).executeCommand(ACTION_ID_NEW_CHAT);
++	}
++});
++
++class RestartChipViewItem extends MenuEntryActionViewItem {
++	protected override updateLabel(): void {
++		super.updateLabel();
++		if (this.label) {
++			this.label.textContent = localize('omnide.runMode.restartChip', "Restart to apply");
++			this.label.style.cssText = 'padding:0 8px;border-radius:10px;border:1px solid var(--vscode-editorWarning-foreground);background:var(--vscode-inputValidation-warningBackground);color:var(--vscode-editorWarning-foreground);';
++		}
++	}
++}
++
++export class AgentHostRestartChipContribution extends Disposable implements IWorkbenchContribution {
++	static readonly ID = 'workbench.contrib.omnideRestartChip';
++
++	private readonly _modes: RunModeTracker<IChatWidget>;
++
++	constructor(
++		@IConfigurationService private readonly _config: IConfigurationService,
++		@IChatWidgetService private readonly _chatWidgets: IChatWidgetService,
++		@IActionViewItemService viewItems: IActionViewItemService,
++	) {
++		super();
++		this._modes = new RunModeTracker(this._effective());
++		this._register(viewItems.register(MenuId.ChatInputSecondary, RESTART_ACTION_ID, (action, options, instantiation) =>
++			action instanceof MenuItemAction ? instantiation.createInstance(RestartChipViewItem, action, options) : undefined));
++		this._register(_config.onDidChangeConfiguration(e => {
++			if (e.affectsConfiguration(RunPolicySettingId.RunMode) || e.affectsConfiguration(RunPolicySettingId.RunEverythingAccepted)) {
++				this._modes.change(this._effective(), this._chatWidgets.getAllWidgets());
++				this._chatWidgets.getAllWidgets().forEach(w => this._mark(w));
++			}
++		}));
++		this._chatWidgets.getAllWidgets().forEach(w => this._watch(w));
++		this._register(this._chatWidgets.onDidAddWidget(w => this._watch(w)));
++	}
++
++	private _effective(): string {
++		const disabled = Registry.as<IConfigurationRegistry>(Extensions.Configuration).getConfigurationProperties()[RunPolicySettingId.RunMode]?.enumDisabled ?? [];
++		return effectiveRunMode(String(this._config.getValue(RunPolicySettingId.RunMode)), this._config.getValue(RunPolicySettingId.RunEverythingAccepted) === true, disabled);
++	}
++
++	private _mark(widget: IChatWidget): void {
++		RunModeStale.bindTo(widget.scopedContextKeyService as IContextKeyService).set(this._modes.isStale(widget));
++	}
++
++	/** A new session in a widget starts under the mode in force now, so its chip goes away. */
++	private _watch(widget: IChatWidget): void {
++		this._modes.start(widget);
++		this._register(widget.onDidChangeViewModel(() => {
++			if (widget.viewModel?.model.getRequests().length === 0) {
++				this._modes.start(widget);
++				this._mark(widget);
++			}
++		}));
++	}
++}
++registerWorkbenchContribution2(AgentHostRestartChipContribution.ID, AgentHostRestartChipContribution, WorkbenchPhase.AfterRestored);
+diff --git a/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostRunEverythingDialog.ts b/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostRunEverythingDialog.ts
+index dc3ec6c1..47a3353e 100644
+--- a/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostRunEverythingDialog.ts
++++ b/src/vs/workbench/contrib/chat/browser/agentSessions/agentHost/agentHostRunEverythingDialog.ts
+@@ -2,15 +2,11 @@
+  *  Copyright (c) OmnIDE contributors. Licensed under the MIT License.
+  *--------------------------------------------------------------------------------------------*/
+ 
+-import { Iterable } from '../../../../../../base/common/iterator.js';
+ import { Disposable } from '../../../../../../base/common/lifecycle.js';
+-import { localize } from '../../../../../../nls.js';
+ import { RunPolicySettingId } from '../../../../../../platform/agentHost/common/claudeRunPolicyConfig.js';
+ import { confirmRunEverything } from '../../../../../../platform/agentHost/common/runEverythingConfirm.js';
+ import { IConfigurationService } from '../../../../../../platform/configuration/common/configuration.js';
+ import { IDialogService } from '../../../../../../platform/dialogs/common/dialogs.js';
+-import { IChatService } from '../../../common/chatService/chatService.js';
+-import { INotificationService } from '../../../../../../platform/notification/common/notification.js';
+ import { IWorkbenchContribution } from '../../../../../common/contributions.js';
+ 
+ /**
+@@ -26,17 +22,12 @@ export class AgentHostRunEverythingDialogContribution extends Disposable impleme
+ 	constructor(
+ 		@IConfigurationService private readonly _config: IConfigurationService,
+ 		@IDialogService private readonly _dialogs: IDialogService,
+-		@INotificationService private readonly _notifications: INotificationService,
+-		@IChatService private readonly _chats: IChatService,
+ 	) {
+ 		super();
+ 		this._previous = this._config.getValue(RunPolicySettingId.RunMode);
+ 		this._register(this._config.onDidChangeConfiguration(e => {
+ 			if (e.affectsConfiguration(RunPolicySettingId.RunMode)) {
+ 				void this._check();
+-				if (Iterable.some(this._chats.chatModels.get(), () => true)) {
+-					this._notifications.info(localize('omnide.runMode.restart', "Run Mode changed. Chats that are already open keep their old mode until you start a new chat or restart them."));
+-				}
+ 			}
+ 		}));
+ 		void this._check();

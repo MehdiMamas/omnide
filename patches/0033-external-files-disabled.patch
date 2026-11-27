@@ -1,0 +1,97 @@
+Subject: External files protection is disabled while the pinned Claude Code is older than 2.1.314 (issue 19)
+Original to OmnIDE.
+
+diff --git a/src/vs/platform/agentHost/common/agentHostStarter.config.contribution.ts b/src/vs/platform/agentHost/common/agentHostStarter.config.contribution.ts
+index 91b955b6..b5e7bef9 100644
+--- a/src/vs/platform/agentHost/common/agentHostStarter.config.contribution.ts
++++ b/src/vs/platform/agentHost/common/agentHostStarter.config.contribution.ts
+@@ -8,6 +8,7 @@ import { IPolicyData } from '../../../base/common/defaultAccount.js';
+ import { PolicyCategory } from '../../../base/common/policy.js';
+ import { AgentHostConfigurationSyncScope, ConfigurationScope, Extensions as ConfigurationExtensions, IConfigurationPropertySchema, IConfigurationRegistry } from '../../configuration/common/configurationRegistry.js';
+ import { COPILOT_OTEL_CAPTURE_CONTENT_KEY, COPILOT_OTEL_CAPTURE_IDENTITY_KEY, COPILOT_OTEL_ENABLED_KEY, COPILOT_OTEL_ENDPOINT_KEY, COPILOT_OTEL_FILE_PATH_KEY, COPILOT_OTEL_HEADERS_KEY, COPILOT_OTEL_LOCK_CAPTURE_CONTENT_KEY, COPILOT_OTEL_PROTOCOL_KEY, COPILOT_OTEL_RESOURCE_ATTRIBUTES_KEY, COPILOT_OTEL_SERVICE_NAME_KEY, COPILOT_ALLOWED_HARNESSES_KEY, COPILOT_TEMPORARY_ALLOW_LOCAL_HARNESS_KEY, managedSettingValue, thirdPartyAgentEnabledValue } from '../../policy/common/copilotManagedSettings.js';
++import { claudeCodeVersionOfSdk, EXTERNAL_FILES_MIN_VERSION, versionAtLeast } from './claudeRunPolicy.js';
+ import product from '../../product/common/product.js';
+ import { Registry } from '../../registry/common/platform.js';
+ import {
+@@ -73,7 +74,7 @@ import { chatMoveConfigurationProperties } from './chatMoveConfiguration.js';
+ import { titleGenerationConfigurationProperties } from './titleGenerationConfiguration.js';
+ import { isAhpJsonlLoggingEnabled } from './ahpJsonlLogger.js';
+ import { ModelRouterEnabledConfigKey, ModelRouterEnabledSettingId } from './modelRouterConfig.js';
+-import { DEFAULT_CHAT_MODE_VALUES, RUN_MODE_VALUES, RunPolicyConfigKey, RunPolicySettingId } from './claudeRunPolicyConfig.js';
++import { DEFAULT_CHAT_MODE_VALUES, PINNED_CLAUDE_AGENT_SDK_VERSION, RUN_MODE_VALUES, RunPolicyConfigKey, RunPolicySettingId } from './claudeRunPolicyConfig.js';
+ 
+ // Settings consumed by the agent host starter (`electronAgentHostStarter.ts`
+ // and `nodeAgentHostStarter.ts`) to populate the spawned agent host process's
+@@ -92,6 +93,7 @@ import { DEFAULT_CHAT_MODE_VALUES, RUN_MODE_VALUES, RunPolicyConfigKey, RunPolic
+ //     (renderer registration for the settings UI).
+ 
+ const configurationRegistry = Registry.as<IConfigurationRegistry>(ConfigurationExtensions.Configuration);
++const externalFilesSupported = versionAtLeast(claudeCodeVersionOfSdk(PINNED_CLAUDE_AGENT_SDK_VERSION), EXTERNAL_FILES_MIN_VERSION);
+ 
+ // Experiment values resolve in the renderer, so they must sync to the agent host through root config.
+ type AgentHostStarterConfigurationPropertySchema = IConfigurationPropertySchema & (
+@@ -192,8 +194,9 @@ configurationRegistry.registerConfiguration({
+ 		},
+ 		[RunPolicySettingId.ProtectExternalFiles]: {
+ 			type: 'boolean',
+-			description: nls.localize('omnide.agents.protections.externalFiles', "External files protection: refuse writes outside the working folders. Needs Claude Code 2.1.314 or later; this build bundles 2.1.304, so it does not apply yet."),
+-			default: true,
++			description: nls.localize('omnide.agents.protections.externalFiles', "External files protection: refuse writes outside the working folders. Needs Claude Code {0}+; this build bundles {1}.", EXTERNAL_FILES_MIN_VERSION, claudeCodeVersionOfSdk(PINNED_CLAUDE_AGENT_SDK_VERSION)),
++			default: externalFilesSupported,
++			disabled: !externalFilesSupported,
+ 			scope: ConfigurationScope.APPLICATION,
+ 			agentHost: { key: RunPolicyConfigKey.ProtectExternalFiles },
+ 		},
+diff --git a/src/vs/platform/configuration/common/configurationRegistry.ts b/src/vs/platform/configuration/common/configurationRegistry.ts
+index 65531405..78ad40c4 100644
+--- a/src/vs/platform/configuration/common/configurationRegistry.ts
++++ b/src/vs/platform/configuration/common/configurationRegistry.ts
+@@ -275,6 +275,11 @@ export interface IConfigurationPropertySchema extends IJSONSchema {
+ 	 */
+ 	enumDisabled?: string[];
+ 
++	/**
++	 * A boolean the Settings editor shows greyed out and cannot be toggled; its description says why.
++	 */
++	disabled?: boolean;
++
+ 	/**
+ 	 * Optional keywords used for search purposes.
+ 	 */
+diff --git a/src/vs/workbench/contrib/preferences/browser/settingsTree.ts b/src/vs/workbench/contrib/preferences/browser/settingsTree.ts
+index ce579ecc..1fc99a63 100644
+--- a/src/vs/workbench/contrib/preferences/browser/settingsTree.ts
++++ b/src/vs/workbench/contrib/preferences/browser/settingsTree.ts
+@@ -2121,7 +2121,7 @@ class SettingBoolRenderer extends AbstractSettingRenderer implements ITreeRender
+ 	protected renderValue(dataElement: SettingsTreeSettingElement, template: ISettingBoolItemTemplate, onChange: (value: boolean) => void): void {
+ 		template.onChange = undefined;
+ 		template.checkbox.checked = dataElement.value;
+-		if (dataElement.hasPolicyValue || dataElement.isAgentsWindowReadOnly) {
++		if (dataElement.hasPolicyValue || dataElement.isAgentsWindowReadOnly || dataElement.setting.disabled) {
+ 			template.checkbox.disable();
+ 			template.descriptionElement.classList.add('disabled');
+ 		} else {
+diff --git a/src/vs/workbench/services/preferences/common/preferences.ts b/src/vs/workbench/services/preferences/common/preferences.ts
+index 3c7cd7ae..2cf52ee0 100644
+--- a/src/vs/workbench/services/preferences/common/preferences.ts
++++ b/src/vs/workbench/services/preferences/common/preferences.ts
+@@ -93,6 +93,7 @@ export interface ISetting {
+ 	validator?: (value: any) => string | null;
+ 	enumItemLabels?: string[];
+ 	enumDisabled?: string[];
++	disabled?: boolean;
+ 	editPresentation?: EditPresentationTypes;
+ 	nonLanguageSpecificDefaultValueSource?: ConfigurationDefaultValueSource;
+ 	isLanguageTagSetting?: boolean;
+diff --git a/src/vs/workbench/services/preferences/common/preferencesModels.ts b/src/vs/workbench/services/preferences/common/preferencesModels.ts
+index c4e12c15..a29d9993 100644
+--- a/src/vs/workbench/services/preferences/common/preferencesModels.ts
++++ b/src/vs/workbench/services/preferences/common/preferencesModels.ts
+@@ -734,6 +734,7 @@ export class DefaultSettings extends Disposable {
+ 			enumDescriptionsAreMarkdown: enumDescriptionsAreMarkdown,
+ 			enumItemLabels: prop.enumItemLabels,
+ 			enumDisabled: prop.enumDisabled,
++			disabled: prop.disabled,
+ 			uniqueItems: prop.uniqueItems,
+ 			tags: prop.tags,
+ 			disallowSyncIgnore: prop.disallowSyncIgnore,
