@@ -342,6 +342,9 @@ ${msg(120, 740, 440, '1. permission request: Bash(npm test)')}${msg(170, 440, 14
 {
   const dec = (id, t, ctx, chosen, rejected) => `<article data-decision="${id}" data-status="accepted" style="background:#1A1823;border:1px solid rgba(244, 242, 251, 0.08);border-radius:8px;padding:14px 18px;margin:0 0 12px"><h2 style="margin:0 0 4px;font-size:17px">${t}</h2><p style="margin:0 0 8px;color:${DIM}">${ctx}</p><ul style="margin:0;padding-left:20px"><li data-option data-chosen><b>Chosen:</b> ${chosen}</li>${rejected.map(([a, why]) => `<li data-option data-why-not="${why}"><b>Rejected:</b> ${a}: ${why}</li>`).join('')}</ul></article>`;
   const body = [
+    dec('v7-ask-no-edits', 'Ask stays "no edits"; read-only prompting tools keep their normal rules', 'Ask refuses Edit, Write, MultiEdit and NotebookEdit and keeps the card for Bash and MCP tools.', 'Read-only tools that prompt, such as WebFetch, are not touched by Ask: they follow the usual rules and allow rules for the current Run Mode.', [
+      ['Make Ask prompt for every tool, WebFetch included', 'Ask means no edits, not no tools, and a prompt on every read would make questions slow'],
+    ]),
     dec('v7-auto-skips', 'Auto-review skips; the card appears only on a pause or an ask rule', 'In auto mode Claude Code does not ask for each action: the classifier lets safe ones run and blocks the rest.', 'A blocked action is skipped with a notice and listed under Recently blocked, each with Always Run. The card shows only when auto pauses (3 blocks in a row or 20 in total) or an ask rule matches. The example rule is narrow, Bash(npm test); auto drops broad rules such as Bash(*).', [
       ['Show the Run, Skip, Always Run card on every block', 'auto never asks per action, so the card would promise a prompt Claude Code does not send'],
       ['Let Always Run save a broad rule such as Bash(*)', 'auto drops broad allow rules, so the click would do nothing'],
