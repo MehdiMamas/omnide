@@ -1,5 +1,7 @@
 # Omnide
 
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/MehdiMamas/omnide/badge)](https://scorecard.dev/viewer/?uri=github.com/MehdiMamas/omnide)
+
 **One editor. Any AI you already pay for. Or none at all. Free forever.**
 
 Omnide is an open-source code editor built on [Code - OSS](https://github.com/microsoft/vscode) (the MIT-licensed core of VS Code). It aims for the polished, AI-first feel of today's best AI editors, without locking you into one model, one company or one more subscription.
